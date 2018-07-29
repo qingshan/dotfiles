@@ -1,0 +1,136 @@
+set surround
+set hlsearch 
+set incsearch
+set ignorecase
+set smartcase
+set autoindent
+set smartindent
+set showmode
+
+" Always show statusline
+set laststatus=2
+
+" Quick escape route
+inoremap jk <Esc>
+
+" easy system clipboard copy/paste
+inoremap <C-v> <esc>"+pa
+vnoremap <C-c> "+y
+vnoremap <C-x> "+x
+
+" Remap U to <C-r> for easier redo. http://vimbits.com/bits/356
+nnoremap U <C-r>
+
+vnoremap > >gv
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file.
+let mapleader = ","
+
+" Fast saving
+noremap <leader>w :w!<cr>
+
+" Fast quit 
+"noremap <leader>q :quit<CR>  " Quit current window
+"noremap <leader>Q :qa!<CR>   " Quit all windows
+nnoremap <leader>q :action CloseContent<CR>
+nnoremap <leader>Q :action ReopenClosedTab<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" ideavimrc specific:
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"nnoremap <leader><leader> :action VimFilePrevious<CR>
+"nnoremap <leader>p :action SearchEverywhere<CR>
+"nnoremap <leader>P :action Switcher<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Navigation controls:
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>ga :action GotoAction<CR>
+nnoremap <leader>gS :action GotoSymbol<CR>
+nnoremap <leader>gs :action FileStructurePopup<CR>
+nnoremap <leader>gc :action GotoClass<CR>
+nnoremap <leader>gf :action GotoFile<CR>
+nnoremap <leader>ge :action GotoNextError<CR>
+nnoremap <leader>gE :action GotoPreviousError<CR>
+nnoremap <leader>gn :action NextOccurence<CR>
+nnoremap <leader>gN :action PreviousOccurence<CR>
+nnoremap <leader>gm :action MethodDown<CR>
+nnoremap <leader>gM :action MethodUp<CR>
+nnoremap <leader>gP :action GotoSuperMethod<CR>
+nnoremap <leader>gz :action TypeHierarchy<CR>
+nnoremap <leader>gv :action VcsShowNextChangeMarker<CR>
+nnoremap <leader>gV :action VcsShowPrevChangeMarker<CR>
+nnoremap <leader>gw :action GotoImplementation<CR>
+nnoremap <leader>gr :action GotoRelated<CR>
+nnoremap <leader>gb :action GotoDeclaration<CR>
+nnoremap <leader>gB :action GotoTypeDeclaration<CR>
+nnoremap <leader>gt :action GotoTest<CR>
+nnoremap <leader>gp :action RecentFiles<CR>
+"nnoremap <leader>go :action Back<CR>
+"nnoremap <leader>gi :action Forward<CR>
+nnoremap <leader>go <C-o>
+nnoremap <leader>gi <C-i>
+noremap <leader>gx :action CloseActiveTab<CR>
+noremap <leader>gu <C-u>
+noremap <leader>gd <C-d>
+
+noremap <leader>fu :action FindUsages<CR>
+noremap <leader>fU :action FindUsagesInFile<CR>
+" Consistent mapping for split navigation.
+nnoremap <leader>gl <C-W>l
+nnoremap <leader>gh <C-W>h
+nnoremap <leader>gj <C-W>j
+nnoremap <leader>gk <C-W>k
+
+nnoremap <C-h> gT
+nnoremap <C-l> gt
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tool Windows:
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+noremap <leader>ts :action ActivateStructureToolWindow<CR>
+noremap <leader>te :action ActivateProjectToolWindow<CR>
+noremap <leader>tn :action ActivateNavBar<CR>
+noremap <leader>tc :action ActivateCMakeToolWindow<CR>
+noremap <leader>tb :action ActivateTerminalToolWindow<CR>
+noremap <leader>tm :action ActivateMessagesToolWindow<CR>
+noremap <leader>tr :action ActivateRunToolWindow<CR>
+noremap <leader>td :action ActivateDebugToolWindow<CR>
+noremap <leader>tt :action HideAllWindows<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Misc:
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+noremap <leader>d :action QuickJavaDoc<CR>
+nnoremap <leader>D :action QuickImplementations<CR>
+noremap <leader>el :action EditorToggleShowLineNumbers<CR>
+noremap <leader>ew :action EditorSelectWord<CR>
+noremap <leader>fs :action ToggleFullScreen<CR>
+noremap <leader>mv :action RenameElement<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run Commands:
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+noremap <leader>rr :action Run<CR>
+noremap <leader>rd :action Debug<CR>
+noremap <leader>rc :action Clean<CR>
+noremap <leader>rm :action Build<CR>
+noremap <leader>rb :action ToggleLineBreakpoint<CR>
+noremap <leader>re :action editRunConfigurations<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Editing
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>cc :action CommentByLineComment<CR> :action VimMotionUp<CR>
+vnoremap <leader>cc :action CommentGroup<CR>
+nnoremap <leader>cr :action ReformatCode<CR>
+nnoremap <leader>cg :action Generate<CR>
+nnoremap <leader>cm :action ImplementMethods<CR>
+nnoremap <leader>co :action OptimizeImports<CR>
+nnoremap <leader>ce :action RecentFiles<CR>
+nnoremap <leader>ci :action ImplementMethods<CR>
