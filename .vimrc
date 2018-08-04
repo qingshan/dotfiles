@@ -19,7 +19,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'plasticboy/vim-markdown'
 Plug 'cespare/vim-toml'
 Plug 'w0rp/ale'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'myusuf3/numbers.vim'
 call plug#end()
 
 """"""""""""""""""""""
@@ -163,6 +163,7 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
+let g:ale_sign_column_always = 1
 
 " vim-go
 let g:go_fmt_command = "goimports"
