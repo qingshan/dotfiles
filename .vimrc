@@ -164,8 +164,31 @@ let g:ale_set_quickfix = 1
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 let g:ale_sign_column_always = 1
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+  \ 'go': ['gometalinter'],
+  \ }
+let g:ale_fixers = {
+  \ 'go': ['gofmt', 'goimports', 'trim_whitespace', 'remove_trailing_lines']
+  \ }
+let g:ale_go_gofmt_options = '-s'
+
+" ALE gometalinter settings
+let g:ale_go_gometalinter_executable = 'gometalinter'
+let g:ale_go_gometalinter_options = '--vendor'
+  \ . ' --disable-all'
+  \ . ' --enable=vet'
+  \ . ' --enable=ineffassign'
+  \ . ' --enable=goconst'
+  \ . ' --tests'
 
 " vim-go
+" No gofmt on save. We use ALE.
+let g:go_fmt_autosave = 0
+let g:go_fmt_experimental = 0
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
