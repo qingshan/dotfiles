@@ -285,7 +285,9 @@ function! g:UltiSnips_Complete()
     else
       call UltiSnips#JumpForwards()
       if g:ulti_jump_forwards_res == 0
-        if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+        if delimitMate#ShouldJump()
+          return delimitMate#JumpMany()
+        elseif strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
           return "\<Tab>"
         elseif exists('&omnifunc') && &omnifunc != ''
           return "\<C-X>\<C-O>"
