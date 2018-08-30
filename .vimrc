@@ -172,7 +172,7 @@ let g:ale_linters = {
   \ 'go': ['gometalinter'],
   \ }
 let g:ale_fixers = {
-  \ 'go': ['gofmt', 'goimports', 'trim_whitespace', 'remove_trailing_lines']
+  \ 'go': ['gofmt', 'goimports', 'trim_whitespace', 'remove_trailing_lines'],
   \ }
 let g:ale_go_gofmt_options = '-s'
 
@@ -261,7 +261,13 @@ let g:delimitMate_smart_quotes = 1
 let g:delimitMate_expand_inside_quotes = 0
 let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
 
-imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
+autocmd VimEnter * imap <expr> <CR>
+  \ pumvisible() ?
+  \   (exists('v:completed_item') && !empty(v:completed_item) &&
+  \     v:completed_item.word != '' && v:completed_item.kind == 'f') ?
+  \       "\<C-n>\<C-y>\<CR>" :
+  \       "\<C-y>" :
+  \   "\<Plug>delimitMateCR\<Plug>DiscretionaryEnd"
 
 " markdown
 let g:vim_markdown_folding_disabled = 1
