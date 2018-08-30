@@ -282,6 +282,7 @@ let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsListSnippets="<c-l>"
 let g:UltiSnipsSnippetsDir='~/.vim/UltiSnips'
 function! g:UltiSnips_Complete()
   call UltiSnips#ExpandSnippet()
