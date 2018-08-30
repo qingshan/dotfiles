@@ -1,12 +1,13 @@
 install: brew shell dotfiles powerline vim
 
 brew:
-	@brew bundle
+	@sh scripts/brew.sh
 
 shell:
 	@sh scripts/shell.sh
 
 dotfiles:
+	@ln -vsf .dotfiles/.profile ${HOME}/.profile
 	@ln -vsf .dotfiles/.zshrc ${HOME}/.zshrc
 	@ln -vsf .dotfiles/.vimrc ${HOME}/.vimrc
 	@ln -vsf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
@@ -16,9 +17,6 @@ powerline:
 
 vim:
 	@sh scripts/vim.sh
-
-neovim:
-	@sh scripts/neovim.sh
 
 macos:
 	@sh scripts/macos.sh
