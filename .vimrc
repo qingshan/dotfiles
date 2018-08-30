@@ -1,25 +1,35 @@
 call plug#begin('~/.vim/plugged')
+" Editing
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
 Plug 'wellle/targets.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'terryma/vim-expand-region'
-Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'SirVer/ultisnips'
-Plug 'fatih/molokai'
+" Appearance
 Plug 'vim-airline/vim-airline'
+Plug 'fatih/molokai'
+Plug 'myusuf3/numbers.vim'
+" Navigation
+Plug 'scrooloose/nerdtree'
+" Search
+Plug 'ctrlpvim/ctrlp.vim'
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+" Lint
+Plug 'w0rp/ale'
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+" Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Misc
 Plug 'plasticboy/vim-markdown'
 Plug 'cespare/vim-toml'
-Plug 'w0rp/ale'
-Plug 'myusuf3/numbers.vim'
 call plug#end()
 
 """"""""""""""""""""""
