@@ -9,6 +9,7 @@ Plug 'wellle/targets.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'terryma/vim-expand-region'
+Plug 'tpope/vim-endwise'
 " Appearance
 Plug 'vim-airline/vim-airline'
 Plug 'fatih/molokai'
@@ -27,6 +28,9 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Elixir
+Plug 'elixir-editors/vim-elixir'
+Plug 'slashmili/alchemist.vim'
 " Misc
 Plug 'plasticboy/vim-markdown'
 Plug 'cespare/vim-toml'
@@ -180,9 +184,11 @@ let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
   \ 'go': ['gometalinter'],
+  \ 'elixir': ['mix'],
   \ }
 let g:ale_fixers = {
   \ 'go': ['gofmt', 'goimports', 'trim_whitespace', 'remove_trailing_lines'],
+  \ 'elixir': ['mix_format', 'trim_whitespace', 'remove_trailing_lines'],
   \ }
 let g:ale_go_gofmt_options = '-s'
 
