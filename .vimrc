@@ -34,6 +34,9 @@ Plug 'slashmili/alchemist.vim'
 " Misc
 Plug 'plasticboy/vim-markdown'
 Plug 'cespare/vim-toml'
+" Tmux
+Plug 'benmills/vimux'
+Plug 'spiegela/vimix'
 call plug#end()
 
 """"""""""""""""""""""
@@ -111,9 +114,6 @@ nnoremap <leader>a :cclose<CR>
 
 " Act like D and C
 nnoremap Y y$
-
-" Enter automatically into the files directory
-autocmd BufEnter * silent! lcd %:p:h
 
 " Remap U to <C-r> for easier redo.
 nnoremap U <C-r>
@@ -269,6 +269,60 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
+
+augroup elixir
+  autocmd!
+  autocmd Filetype elixir compiler exunit
+  autocmd FileType elixir nmap <leader>b :call VimixCompile()<CR>
+  autocmd FileType elixir nmap <leader>r :call VimixTestAll()<CR>
+  autocmd FileType elixir nmap <leader>t :call VimixTestCurrentFile()<CR>
+  autocmd FileType elixir nmap <leader>d :call alchemist#exdoc()<CR>
+  autocmd FileType elixir nmap <leader>v :call alchemist#exdef()<CR>
+  autocmd FileType elixir nmap <leader>s :call alchemist#exdef()<CR>
+
+  " :ElixirAlternate  commands :A, :AV, :AS and :AT
+  autocmd Filetype elixir command! -bang A call ElixirAlternate(<bang>0, 'edit')
+  autocmd Filetype elixir command! -bang AV call ElixirAlternate(<bang>0, 'vsplit')
+  autocmd Filetype elixir command! -bang AS call ElixirAlternate(<bang>0, 'split')
+  autocmd Filetype elixir command! -bang AT call ElixirAlternate(<bang>0, 'tabe')
+augroup END
+
+function! ElixirAlternateForFile()
+  if expand('%:e') == "ex"
+
+    let test_file_name = expand('%:t:r') . "_test.exs"
+    let test_file_dir = substitute(expand('%:p:h'), "/lib/", "/test/", "")
+    let full_test_path = join([test_file_dir, test_file_name], "/")
+
+    return full_test_path
+
+  elseif match(expand('%:t'), "_test.exs") != -1
+
+    let test_file_name = expand('%:t:r')
+    let offset_amt = strlen(test_file_name) - strlen("_test")
+    let module_file_name = strpart(test_file_name, 0, offset_amt) . ".ex"
+    let module_file_dir = substitute(expand('%:p:h'), "/test/", "/lib/", "")
+    let full_module_path = join([module_file_dir, module_file_name], "/")
+
+    return full_module_path
+
+  endif
+endfunction
+
+function! ElixirAlternate(bang, command)
+  let alternateFile = ElixirAlternateForFile()
+
+  if alternateFile == ""
+    echoerr "can't detect alternate file"
+  elseif !filereadable(alternateFile) && !a:bang
+    echoerr "couldn't find file " . alternateFile
+  else
+    exec(":" . (a:command). " " . alternateFile)
+  endif
+endfunction
+
+let g:VimuxUseNearest = 1
+nmap <Leader>q :VimuxCloseRunner<CR>
 
 " delimitMate
 let g:delimitMate_expand_cr = 1
