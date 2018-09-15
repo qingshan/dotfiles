@@ -270,6 +270,8 @@ function! s:build_go_files()
   endif
 endfunction
 
+let g:alchemist#elixir_erlang_src = "~/code/src"
+
 augroup elixir
   autocmd!
   autocmd Filetype elixir compiler exunit
@@ -277,8 +279,8 @@ augroup elixir
   autocmd FileType elixir nmap <leader>r :call VimixTestAll()<CR>
   autocmd FileType elixir nmap <leader>t :call VimixTestCurrentFile()<CR>
   autocmd FileType elixir nmap <leader>d :call alchemist#exdoc()<CR>
-  autocmd FileType elixir nmap <leader>v :call alchemist#exdef()<CR>
-  autocmd FileType elixir nmap <leader>s :call alchemist#exdef()<CR>
+  autocmd FileType elixir nmap <leader>v :call ElixirDefinition('vsplit')<CR>
+  autocmd FileType elixir nmap <leader>s :call ElixirDefinition('split')<CR>
 
   " :ElixirAlternate  commands :A, :AV, :AS and :AT
   autocmd Filetype elixir command! -bang A call ElixirAlternate(<bang>0, 'edit')
@@ -291,8 +293,8 @@ function! ElixirAlternateForFile()
   if expand('%:e') == "ex"
 
     let test_file_name = expand('%:t:r') . "_test.exs"
-    let test_file_dir = substitute(expand('%:p:h'), "/lib/", "/test/", "")
-    let full_test_path = join([test_file_dir, test_file_name], "/")
+    let test_file_dir = substitute(expand('%:p:h') . "/", "/lib/", "/test/", "")
+    let full_test_path = join([test_file_dir, test_file_name], "")
 
     return full_test_path
 
@@ -301,8 +303,8 @@ function! ElixirAlternateForFile()
     let test_file_name = expand('%:t:r')
     let offset_amt = strlen(test_file_name) - strlen("_test")
     let module_file_name = strpart(test_file_name, 0, offset_amt) . ".ex"
-    let module_file_dir = substitute(expand('%:p:h'), "/test/", "/lib/", "")
-    let full_module_path = join([module_file_dir, module_file_name], "/")
+    let module_file_dir = substitute(expand('%:p:h') . "/", "/test/", "/lib/", "")
+    let full_module_path = join([module_file_dir, module_file_name], "")
 
     return full_module_path
 
@@ -319,6 +321,11 @@ function! ElixirAlternate(bang, command)
   else
     exec(":" . (a:command). " " . alternateFile)
   endif
+endfunction
+
+function! ElixirDefinition(command)
+  exec(":" . (a:command))
+  call alchemist#exdef()
 endfunction
 
 let g:VimuxUseNearest = 1
