@@ -29,4 +29,3 @@ fi
 alias la='ls -A'
 alias ll='ls -lA'
 alias vi='vim'
-
