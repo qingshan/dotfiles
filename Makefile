@@ -7,10 +7,10 @@ shell:
 	@sh scripts/shell.sh
 
 dotfiles:
-	@ln -vsf .dotfiles/.profile ${HOME}/.profile
-	@ln -vsf .dotfiles/.zshrc ${HOME}/.zshrc
-	@ln -vsf .dotfiles/.vimrc ${HOME}/.vimrc
-	@ln -vsf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
+	@ln -vsf ${PWD}/.profile ${HOME}/.profile
+	@ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
+	@ln -vsf ${PWD}/.vimrc ${HOME}/.vimrc
+	@ln -vsf ${PWD}/.tmux.conf ${HOME}/.tmux.conf
 
 powerline:
 	@sh ./scripts/powerline.sh
