@@ -12,5 +12,5 @@ make
 
 ## Cheatsheets
 
-[Vim Cheatsheet](doc/vim_cheatsheet.md)
-[Vim Plugins](doc/vim_plugins.md)
+- [Vim Cheatsheet](doc/vim_cheatsheet.md)
+- [Vim Plugins](doc/vim_plugins.md)

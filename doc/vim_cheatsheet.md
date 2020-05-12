@@ -85,9 +85,9 @@ An optional count that can be given before most of commands.
 - `g~~`, `guu`, `gUU` - Switch case of the line.
 
 ### Registers and Macros
-`"{a-zA-Z}` - Use register for text deleted with: `d{motion}`, `D`, `dd`, `c{motion}`, `C`, `cc` or copied with: `y{motion}`, `Y`, `yy`.
-`<Visual>"{a-zA-Z}` - Use register in Visual mode for text deleted with: `d`, `D`,`c`, `C` and copied with `y`, `Y`.
-`"{a-zA-Z0-9.%#:-"}` - Use register for put text: `p`, `P`.
+- `"{a-zA-Z}` - Use register for text deleted with: `d{motion}`, `D`, `dd`, `c{motion}`, `C`, `cc` or copied with: `y{motion}`, `Y`, `yy`.
+- `<Visual>"{a-zA-Z}` - Use register in Visual mode for text deleted with: `d`, `D`,`c`, `C` and copied with `y`, `Y`.
+- `"{a-zA-Z0-9.%#:-"}` - Use register for put text: `p`, `P`.
 - `":` - The last commnad.
 - `""` - Unnamed register: text deleted with the `d`, `c`, commands or copied with the yank `y` command.
 - `"."` - The last inserted text.
