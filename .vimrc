@@ -2,7 +2,6 @@
 call plug#begin('~/.vim/plugged')
 " Setting
 Plug 'tpope/vim-sensible'
-Plug 'myusuf3/numbers.vim'
 " Appearance
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
@@ -52,6 +51,8 @@ call plug#end()
 " }}}
 
 " Settings {{{
+set number                      " Enable number
+set relativenumber              " Enable relative number
 set mouse=a                     " Enable mouse mode
 set belloff=all                 " No beeps
 set hlsearch                    " Highlight found searches
@@ -65,9 +66,15 @@ set noshowmatch                 " Do not show matching brackets by flickering
 set noshowmode                  " We show the mode with airline or lightline
 set ignorecase                  " Search case insensitive...
 set smartcase                   " ... but not it begins with upper case
-set completeopt=longest,menuone " Show popup menu, even if there is one entry
+set smartindent                 " Smart indent
 set lazyredraw                  " Wait to redraw
-set diffopt+=internal,algorithm:patience,indent-heuristic
+set completeopt=menuone,longest " Complete options
+set pumheight=15                " Limit popup menu height
+set diffopt+=internal,algorithm:patience,indent-heuristic " Diff options
+
+" To make Vim more responsive/IDE-like.
+set updatetime=500
+set balloondelay=250
 
 " Enable to copy to clipboard for operations like yank, delete, change and put
 if has('unnamedplus')
@@ -78,6 +85,12 @@ endif
 " This enables us to undo files even if you exit Vim.
 if has('persistent_undo')
   set undofile
+endif
+
+" Show info for completion candidates in a popup menu
+if has("patch-8.1.1904")
+  set completeopt+=popup
+  set completepopup=align:menu,border:off,highlight:Pmenu
 endif
 " }}}
 
@@ -110,8 +123,18 @@ augroup END
 " Act like D and C
 nnoremap Y y$
 
-" Remap U to <C-r> for easier redo.
-nnoremap U <C-r>
+" Remap U to <C-R> for easier redo.
+nnoremap U <C-R>
+
+" fixes some annoyances
+command! Q q
+map q: :q
+
+" mimic the behavior of /%Vfoobar which searches within the previously
+" selected visual selection
+" while in search mode, pressing / will do this
+vnoremap / <Esc>/\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
+vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
 
 " Visual Mode */# from Scrooloose
 function! s:VSetSearch()
@@ -121,105 +144,97 @@ function! s:VSetSearch()
   let @@ = temp
 endfunction
 
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+vnoremap * :<C-U>call <SID>VSetSearch()<CR>//<CR><C-O>
+vnoremap # :<C-U>call <SID>VSetSearch()<CR>??<CR><C-O>
 
 " Leader
 let mapleader="\<Space>"
 
-" Close the quickfix window with <leader>q
-nnoremap <leader>q :cclose<CR>
+" Fast saving
+nnoremap <Leader>w :w!<CR>
+
+" Quit the window and tab
+noremap <Leader>q :q<CR>
+noremap <Leader>Q :tabclose<CR>
 
 " Close all but the current one
-nnoremap <leader>o :only<CR>
+noremap <Leader>o :only<CR>
+noremap <Leader>O :tabonly<CR>
+
+" Close the quickfix window
+noremap <Leader>a :cclose<CR>
 
 " s for substitute
-nmap s <plug>(SubversiveSubstitute)
-nmap ss <plug>(SubversiveSubstituteLine)
-nmap S <plug>(SubversiveSubstituteToEndOfLine)
-nmap <leader>s <plug>(SubversiveSubvertRange)
-xmap <leader>s <plug>(SubversiveSubvertRange)
-nmap <leader>ss <plug>(SubversiveSubvertWordRange)
+nmap s <Plug>(SubversiveSubstitute)
+nmap ss <Plug>(SubversiveSubstituteLine)
+nmap S <Plug>(SubversiveSubstituteToEndOfLine)
+nmap <Leader>s <Plug>(SubversiveSubstituteRange)
+xmap <Leader>s <Plug>(SubversiveSubstituteRange)
+nmap <Leader>S <Plug>(SubversiveSubvertRange)
+xmap <Leader>S <Plug>(SubversiveSubvertRange)
+nmap <Leader>ss <Plug>(SubversiveSubstituteWordRange)
 
 " Mappings to make the global register less annoying
 if has("clipboard")
-  noremap <leader>p :set paste<CR>"+]p<Esc>:set nopaste<CR>
-  noremap <leader>P :set paste<CR>"+]P<Esc>:set nopaste<CR>
-  noremap <leader>y "+y
-  noremap <leader>Y "+Y
+  noremap <Leader>p :set paste<CR>"+]p<Esc>:set nopaste<CR>
+  noremap <Leader>P :set paste<CR>"+]P<Esc>:set nopaste<CR>
+  noremap <Leader>y "+y
+  noremap <Leader>Y "+Y
 else
-  noremap <leader>p :set paste<CR>:r !xsel -ob<Esc>:set nopaste<CR>
-  noremap <leader>P :set paste<CR>:-1r !xsel -ob<Esc>:set nopaste<CR>
-  noremap <leader>y :w !xsel -ib<CR><CR>
-  noremap <leader>Y <S-v>:w !xsel -ib<CR><CR>
+  noremap <Leader>p :set paste<CR>:r !xsel -ob<Esc>:set nopaste<CR>
+  noremap <Leader>P :set paste<CR>:-1r !xsel -ob<Esc>:set nopaste<CR>
+  noremap <Leader>y :w !xsel -ib<CR><CR>
+  noremap <Leader>Y <S-v>:w !xsel -ib<CR><CR>
 endif
 
 " Terminal settings
 if has('terminal')
   " Kill job and close terminal window
-  tnoremap <Leader>q <C-w><C-C><C-w>c<cr>
+  tnoremap <Leader>q <C-W><C-C><C-W>c<CR>
 
   " Open terminal in vertical, horizontal and new tab
-  nnoremap <leader>tv :vsplit<cr>:term ++curwin<CR>
-  nnoremap <leader>ts :split<cr>:term ++curwin<CR>
-  nnoremap <leader>tt :tabnew<cr>:term ++curwin<CR>
+  nnoremap <Leader>tv :vsplit<CR>:term ++curwin<CR>
+  nnoremap <Leader>ts :split<CR>:term ++curwin<CR>
+  nnoremap <Leader>tt :tabnew<CR>:term ++curwin<CR>
 
+  tnoremap <Leader>tv <C-W>:vsplit<CR>:term ++curwin<CR>
+  tnoremap <Leader>ts <C-W>:split<CR>:term ++curwin<CR>
+  tnoremap <Leader>tt <C-W>:tabnew<CR>:term ++curwin<CR>
 endif
 
-noremap <silent><leader>1 :tabn 1<cr>
-noremap <silent><leader>2 :tabn 2<cr>
-noremap <silent><leader>3 :tabn 3<cr>
-noremap <silent><leader>4 :tabn 4<cr>
-noremap <silent><leader>5 :tabn 5<cr>
-noremap <silent><leader>6 :tabn 6<cr>
-noremap <silent><leader>7 :tabn 7<cr>
-noremap <silent><leader>8 :tabn 8<cr>
-noremap <silent><leader>9 :tabn 9<cr>
-noremap <silent><leader>0 :tabn 10<cr>
-
-noremap <silent> <leader>tc :tabnew<cr>
-noremap <silent> <leader>tq :tabclose<cr>
-noremap <silent> <leader>tn :tabnext<cr>
-noremap <silent> <leader>tp :tabprev<cr>
-noremap <silent> <leader>to :tabonly<cr>
-
-function! Tab_MoveLeft()
-  let l:tabnr = tabpagenr() - 2
-  if l:tabnr >= 0
-    exec 'tabmove '.l:tabnr
-  endif
-endfunc
-
-function! Tab_MoveRight()
-  let l:tabnr = tabpagenr() + 1
-  if l:tabnr <= tabpagenr('$')
-    exec 'tabmove '.l:tabnr
-  endif
-endfunc
-
-noremap <silent><leader>tl :call Tab_MoveLeft()<cr>
-noremap <silent><leader>tr :call Tab_MoveRight()<cr>
+noremap <silent> <Leader>1 :tabn 1<CR>
+noremap <silent> <Leader>2 :tabn 2<CR>
+noremap <silent> <Leader>3 :tabn 3<CR>
+noremap <silent> <Leader>4 :tabn 4<CR>
+noremap <silent> <Leader>5 :tabn 5<CR>
+noremap <silent> <Leader>6 :tabn 6<CR>
+noremap <silent> <Leader>7 :tabn 7<CR>
+noremap <silent> <Leader>8 :tabn 8<CR>
+noremap <silent> <Leader>9 :tabn 9<CR>
+noremap <silent> <Leader>0 :tabn 10<CR>
+nnoremap <C-S-t> :tabnew<CR>
+inoremap <C-S-t> <Esc>:tabnew<CR>
 " }}}
 
 " vim-fugitive {{{
-vnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gb :Gblame<CR>
+vnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gb :Gblame<CR>
 " }}}
 
 " fzf.vim {{{
 let g:fzf_command_prefix = 'Fzf'
-noremap <silent> <C-p> :FzfGFiles<Cr>
-nnoremap <silent> <leader>fb :FzfBuffers<Cr>
-nnoremap <silent> <leader>fg :FzfGFiles?<Cr>
-nnoremap <silent> <leader>fl :FzfBLines<Cr>
-nnoremap <silent> <leader>fL :FzfLines<Cr>
-nnoremap <silent> <leader>fh :FzfHistory<Cr>
-nnoremap <silent> <leader>fc :FzfCommands<Cr>
-nnoremap <silent> <leader>fm :FzfMarks<Cr>
-nnoremap <silent> <leader>fs :FzfSnippets<Cr>
-nnoremap <silent> <leader>ft :FzfBTags<Cr>
-nnoremap <silent> <leader>fT :FzfTags<Cr>
-nnoremap <silent> <leader>fr :FzfRg<Cr>
+noremap <silent> <C-P> :FzfGFiles<CR>
+nnoremap <silent> <Leader>fb :FzfBuffers<CR>
+nnoremap <silent> <Leader>fg :FzfGFiles?<CR>
+nnoremap <silent> <Leader>fl :FzfBLines<CR>
+nnoremap <silent> <Leader>fL :FzfLines<CR>
+nnoremap <silent> <Leader>fh :FzfHistory<CR>
+nnoremap <silent> <Leader>fc :FzfCommands<CR>
+nnoremap <silent> <Leader>fm :FzfMarks<CR>
+nnoremap <silent> <Leader>fs :FzfSnippets<CR>
+nnoremap <silent> <Leader>ft :FzfBTags<CR>
+nnoremap <silent> <Leader>fT :FzfTags<CR>
+nnoremap <silent> <Leader>fr :FzfRg<CR>
 set grepprg=rg\ -S\ --vimgrep
 "}}}
 
@@ -283,10 +298,10 @@ let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 " }}}
 
 " Plugin: UltiSnips {{{
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsListSnippets="<c-l>"
+let g:UltiSnipsExpandTrigger = "<Tab>"
+let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+let g:UltiSnipsListSnippets="<C-L>"
 " }}}
 
 " Plugin: vim-expand-region {{{
@@ -314,7 +329,7 @@ let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
-  \ 'go': ['gometalinter'],
+  \ 'go': ['gopls'],
   \ 'dart': ['language_server'],
   \ }
 let g:ale_fixers = {
@@ -322,15 +337,6 @@ let g:ale_fixers = {
   \ 'dart': ['dartfmt'],
   \ }
 let g:ale_go_gofmt_options = '-s'
-
-" ALE gometalinter settings
-let g:ale_go_gometalinter_executable = 'gometalinter'
-let g:ale_go_gometalinter_options = '--vendor'
-  \ . ' --disable-all'
-  \ . ' --enable=vet'
-  \ . ' --enable=ineffassign'
-  \ . ' --enable=goconst'
-  \ . ' --tests'
 " }}}
 
 " Plugin: vim-markdown {{{
@@ -361,8 +367,8 @@ let g:go_diagnostics_enabled = 1
 let g:go_doc_popup_window = 1
 
 " Open :GoDeclsDir with ctrl-g
-nmap <C-g> :GoDeclsDir<cr>
-imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+nmap <C-G> :GoDeclsDir<CR>
+imap <C-G> <esc>:<C-U>GoDeclsDir<CR>
 
 " Run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -378,7 +384,6 @@ augroup go
   autocmd!
 
   autocmd FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
-  autocmd FileType go nmap <silent> <Leader>h <Plug>(go-def-split)
   autocmd FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
 
   autocmd FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
@@ -386,10 +391,9 @@ augroup go
   autocmd FileType go nmap <silent> <Leader>i <Plug>(go-info)
   autocmd FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
 
-  autocmd FileType go nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
-  autocmd FileType go nmap <silent> <leader>t  <Plug>(go-test)
-  autocmd FileType go nmap <silent> <leader>r  <Plug>(go-run)
-  autocmd FileType go nmap <silent> <leader>e  <Plug>(go-install)
+  autocmd FileType go nmap <silent> <Leader>b :<C-U>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <silent> <Leader>t <Plug>(go-test)
+  autocmd FileType go nmap <silent> <Leader>r <Plug>(go-run)
 
   autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
 
