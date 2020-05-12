@@ -1,0 +1,122 @@
+# Vim Plugins
+
+## Color Scheme
+
+`gruvbox` - Color scheme.
+
+## Text Objects
+- `ia` `aa` - An argument in a list of arguments surrounded by braces and commas. (provided by targets.vim)
+- `il` `al` - The current line (provided by vim-textobj-line).
+- `ie` `ae` - The entire content of the current buffer (provided by vim-textobj-entire).
+- `if`, `af` - Function text objects (provided by vim-go)
+- `ic`, `ac` - Comment text objects (provided by vim-go)
+
+## Shortcuts
+- `Y` = `y$` - `Y` act like `D` and `C`.
+- `U` = `<Ctrl-r>` - `U` for easier redo.
+- `<Space>` - Leader
+- `<Leader>y`, `<Leader>Y`, `<Leader>p`, `<Leader>P` - Copy to and paste from system clipboard.
+- `<Leader>w` - Fast saving.
+- `<Leader>o` - Close all other windows but the current window.
+- `<Leader>O` - Close all other tabs but the current tab.
+- `<Leader>q` - Quit the current window.
+- `<Leader>Q` - Close the current tab.
+- `<Leader>a` - Close the quickfix window.
+
+Tabs
+---
+- `<Ctrl-Shift-t>` - New tab.
+- `<Leader>#` - Switch tab by #.
+
+Terminal
+---
+- `<Leader>q` - Kill job and close terminal window in terminal window
+- `<Leader>tt` - Open terminal in new tab
+- `<Leader>ts` - Open terminal in horizontal
+- `<Leader>tv` - Open terminal in vertical
+
+## Plugins
+
+### splitjoin.vim
+- `gS` - to split a one-liner into multiple lines
+- `gJ` - (with the cursor on the first line of a block) to join a block into a single-line statement.
+
+### vim-expand-region
+- `+`, `_` - Expand and shrink the visual selection.
+
+### vim-sensible
+- `<Ctrl-l>` - Clear highlighted text in normal mode
+
+### vim-surround
+- `cs{target_char}{surround_char}` - Change surrounding, e.g.: `cs'"`
+- `ds{surround_char}` - Delete surrounding, e.g.: `dst`
+- `ys{text_object/motion}{surround_char}`, `yS{text_object/motion}{surround_char}`, `yss{text_object/motion}{surround_char}` - Add surrounding. e.g.: `ysiw[`
+- `{Visual}S{surrounding_char}` - In visual mode you can select some text, then type S to add surroundings. e.g.: `Stp>` to wrap the selection in a <p> tag
+
+### vim-abolish
+- `crm` - Convert to MixedCase
+- `crc` - Convert to camelCase
+- `crs` - Convert to snake_case
+- `cru` - Convert to UPPER_CASE
+- `cr-`, `cr.`, `cr<Space>`, `crt` - dash-case (`cr-`), dot.case (`cr.`), space case (`cr<Space>`), and Title Case (`crt`).
+- `:S/p1/p2/g` - Preserve case substitute
+
+### vim-commentary
+- `gcc` - comment out a line (takes a count)
+- `gc{motion}` comment out the target of a motion
+- `gc` - in visual mode to comment out the selection,
+- `Commentary` use it as a command, either with a range like `:7,17Commentary`, or as part of a :global invocation like with `:g/TODO/Commentary`.
+
+### vim-unimpaired
+- `[b`, `]b`, `[B`, `]B` Buffers(bp, bn, bfirst, blast)
+- `[q`, `]q`, `[Q`, `]Q` Quickfix
+- `[u`, `]u`, `[x`, `]x`, `[y`, `]y` - url/xml/cstring encode and decode
+- `[<Space>`, `]<Space>` - new line above/below
+- `[e`, `]e` - exchange line above/below
+
+### ultisnips
+- `<Tab>`, `<Shift-Tab>` - Expand auto completion and ultisnips, jump forward and backword.
+- `<Ctrl-l>` - Show all snippet list in insert mode.
+
+### vim-multiple-cursor
+- `<Ctrl-n>`
+
+### vim-rsi
+- `<Ctrl-a>` - Go to beginning of line.
+- `<Ctrl-b>` - Go backwards one character.
+- `<Ctrl-d>` - Delete character in front of cursor.
+- `<Ctrl-e>` - Go to end of line.
+- `<Ctrl-f>` - Move forward one character.
+- `<Ctrl-t>` - Transpose two characters.
+- `<Alt-BS>` - Delete backward one word.
+- `<Alt-b>` - Go backwards one word.
+- `<Alt-d>` - Delete forwards one word.
+- `<Alt-f>` - Go forwards one word.
+- `<Alt-n>` - Equivalent to down.
+- `<Alt-p>` - Equivalent to up.
+
+### Gblame
+- `gb` - Git blame
+
+### Fzf
+- `<Ctrl-p>` - Open git project files.
+- `<Leader>fr`, `<Leader>fs` - Fzf rg, snippets.
+
+### Plugin: vim-subversive
+- `s{motion}`, `ss`, `S` - Substitute the text object provided by the motion with the contents of the default register (or an explicit register if provided).
+- `<Leader>ss{motion}` -  Rename variable name within the function.
+- `<Leader>s{motion1}{motion2}`, `<Leader>S{motion1}{motion2}` - motion1 should be replaced by the text we entered in the prompt for each line provided by motion2. `<Leader>S{motion1}{motion2}` will perform an abolish 'subvert' instead of using vim's built in substitute command. 
+
+### vim-go
+- `<Ctrl-g>` - Go to declare directory.
+- `<Leader>b` - go-build or go-test
+- `<Leader>t` - go-test
+- `<Leader>r` - go-run
+- `<Leader>c` - go-converage-toggle
+- `<Leader>i` - go-info
+- `<Leader>l` - go-metalinter
+- `<Leader>d` - go-def-tab
+- `<Leader>x` - go-doc-vertial
+- `<Leader>v` - go-def-vertical
+- `:A`, `:AS`, `:AV`, `:AT` - go-alternate
+
