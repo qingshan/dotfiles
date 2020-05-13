@@ -14,6 +14,7 @@
 ## Shortcuts
 - `Y` = `y$` - `Y` act like `D` and `C`.
 - `U` = `<Ctrl-r>` - `U` for easier redo.
+- `gV` - Select last inserted text
 - `<Space>` - Leader
 - `<Leader>y`, `<Leader>Y`, `<Leader>p`, `<Leader>P` - Copy to and paste from system clipboard.
 - `<Leader>w` - Fast saving.
@@ -22,6 +23,7 @@
 - `<Leader>q` - Quit the current window.
 - `<Leader>Q` - Close the current tab.
 - `<Leader>a` - Close the quickfix window.
+- `<Leader>u` - Toggle gundo window.
 
 Tabs
 ---
@@ -120,3 +122,13 @@ Terminal
 - `<Leader>v` - go-def-vertical
 - `:A`, `:AS`, `:AV`, `:AT` - go-alternate
 
+### vinegar
+- `-` - Open netrw directory brower.
+- `gh` - Toggle dot file hiding.
+- `.`, `!` -  Pre-populate the file at the end of a : or :! command line.
+- `y` - Yank an absolute path for the file under the cursor.
+- `~` - Go home.
+- `<Ctrl-^>`, `<Ctrl-6>` - switching back to the previous buffer from the netrw buffer.
+
+### open-brower
+- `gx` - Open URI with browser

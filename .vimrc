@@ -27,7 +27,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ervandew/supertab'
 " File
 Plug 'junegunn/fzf.vim'
-" Git
+" VCS
+Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " Lint
@@ -126,6 +127,9 @@ nnoremap Y y$
 " Remap U to <C-R> for easier redo.
 nnoremap U <C-R>
 
+" Select last inserted text
+nnoremap gV `[v`]
+
 " fixes some annoyances
 command! Q q
 map q: :q
@@ -163,6 +167,9 @@ noremap <Leader>O :tabonly<CR>
 
 " Close the quickfix window
 noremap <Leader>a :cclose<CR>
+
+" toggle gundo
+nnoremap <leader>u :MundoToggle<CR>
 
 " s for substitute
 nmap s <Plug>(SubversiveSubstitute)
@@ -405,13 +412,13 @@ augroup go
 augroup END
 " }}}
 
-" Plugin: open-brower {{{
+" Plugin: open-browser {{{
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 " }}}
 
-" Source a local configuration file if available. {{{
+" Local .vimrc {{{
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
