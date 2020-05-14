@@ -10,6 +10,8 @@
 - `ie` `ae` - The entire content of the current buffer (provided by vim-textobj-entire).
 - `if`, `af` - Function text objects (provided by vim-go)
 - `ic`, `ac` - Comment text objects (provided by vim-go)
+- `i%`, `a%` - Any block text objects (provided by match-up)
+- `ii`, `ai`, `iI`, `aI` - An Indentation level and line above/below (provided by vim-indent-object)
 
 ## Shortcuts
 - `Y` = `y$` - `Y` act like `D` and `C`.
@@ -23,11 +25,9 @@
 - `<Leader>q` - Quit the current window.
 - `<Leader>Q` - Close the current tab.
 - `<Leader>a` - Close the quickfix window.
-- `<Leader>u` - Toggle gundo window.
 
 Tabs
 ---
-- `<Ctrl-Shift-t>` - New tab.
 - `<Leader>#` - Switch tab by #.
 
 Terminal
@@ -38,6 +38,9 @@ Terminal
 - `<Leader>tv` - Open terminal in vertical
 
 ## Plugins
+
+### vim-matchup
+- `%`, `g%`, `[%', ']%`, `z%` - Better `%` motions.
 
 ### splitjoin.vim
 - `gS` - to split a one-liner into multiple lines
@@ -97,14 +100,21 @@ Terminal
 - `<Alt-n>` - Equivalent to down.
 - `<Alt-p>` - Equivalent to up.
 
-### Gblame
-- `gb` - Git blame
+### tagbar
+- `<Leader>tb` - Tagbar toggle.
 
-### Fzf
-- `<Ctrl-p>` - Open git project files.
+### vim-fugitive
+- `<Leader>th` - Git history.
+
+### vim-mundo
+- `<Leader>tu` - Undo tree toggle.
+
+### fzf.vim
+- `<Ctrl-p>` - Show fzf window for git project files.
+- `<Ctrl-t>`, `<Ctrl-x>`, `<Ctrl-v>` - Open the file in tab, split, vsplit.
 - `<Leader>fr`, `<Leader>fs` - Fzf rg, snippets.
 
-### Plugin: vim-subversive
+### vim-subversive
 - `s{motion}`, `ss`, `S` - Substitute the text object provided by the motion with the contents of the default register (or an explicit register if provided).
 - `<Leader>ss{motion}` -  Rename variable name within the function.
 - `<Leader>s{motion1}{motion2}`, `<Leader>S{motion1}{motion2}` - motion1 should be replaced by the text we entered in the prompt for each line provided by motion2. `<Leader>S{motion1}{motion2}` will perform an abolish 'subvert' instead of using vim's built in substitute command. 
@@ -112,15 +122,25 @@ Terminal
 ### vim-go
 - `<Ctrl-g>` - Go to declare directory.
 - `<Leader>b` - go-build or go-test
-- `<Leader>t` - go-test
 - `<Leader>r` - go-run
-- `<Leader>c` - go-converage-toggle
-- `<Leader>i` - go-info
-- `<Leader>l` - go-metalinter
-- `<Leader>d` - go-def-tab
-- `<Leader>x` - go-doc-vertial
-- `<Leader>v` - go-def-vertical
-- `:A`, `:AS`, `:AV`, `:AT` - go-alternate
+- `<Leader>R` - go-debug-start
+- `<Leader>t` - go-test
+- `<Leader>T` - go-debug-test
+- `<Leader>e` - go-test-func
+- `<Leader>c` - go-diagnostics
+- `<Leader>i` - go-doc
+- `<Leader>cn` - go-rename
+- `<Leader>ci` - GoImpl
+- `<Leader>di` - go-implements
+- `<Leader>dr` - go-referrers
+- `<Leader>ds` - go-describe
+- `<Leader>dd` - go-sameids
+- `<Leader>gd` - go-def
+- `<Leader>gs` - go-def-split
+- `<Leader>gv` - go-def-vertical
+- `<Leader>gt` - go-def-tab
+- `<Leader>gx` - go-doc-browser
+- `:A`, `:AS`, `:AV`, `:AT` - go-alternate-switch
 
 ### vinegar
 - `-` - Open netrw directory brower.
@@ -130,5 +150,30 @@ Terminal
 - `~` - Go home.
 - `<Ctrl-^>`, `<Ctrl-6>` - switching back to the previous buffer from the netrw buffer.
 
-### open-brower
+### open-browser
 - `gx` - Open URI with browser
+
+## Leader Prefixes
+- `y`, `p`, `a`, `q`, `o`, `w`, `s`, `]` - reserved for vim enhancement.
+- `<Leader>f` - files related.
+- `<Leader>g` - goto, jump, open in buffer, window, tab.
+- `<Leader>t` - tab, terminal, tools, test. toggle
+- `<Leader>r` - run.
+- `<Leader>b` - build.
+- `<Leader>i` - info.
+- `<Leader>c` - code, change.
+- `<Leader>d` - dig, data, find. display in quickfix window.
+
+TODO
+---
+- `<Leader>m` - move, management
+- `<Leader>e` - error, examine.
+- `<Leader>l` - lint.
+- `<Leader>k` - kill.
+- `<Leader>j` - jump.
+- `<Leader>n` - navigation.
+- `<Leader>v` - reverse
+- `<Leader>h` - help
+- `<Leader>u` - usage
+- `<Leader>x` - black tech.
+- `<Leader>z` - zzz.

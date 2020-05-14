@@ -5,8 +5,9 @@ Plug 'tpope/vim-sensible'
 " Appearance
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 " Editing
+Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
@@ -19,12 +20,15 @@ Plug 'wellle/targets.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'svermeulen/vim-subversive'
-Plug 'AndrewRadev/splitjoin.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
+" Coding
 Plug 'jiangmiao/auto-pairs'
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ervandew/supertab'
+Plug 'SirVer/ultisnips'
 " File
 Plug 'junegunn/fzf.vim'
 " VCS
@@ -33,9 +37,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " Lint
 Plug 'dense-analysis/ale'
-" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Dart
@@ -48,12 +49,14 @@ Plug 'cespare/vim-toml'
 Plug 'elzr/vim-json', {'for' : 'json'}
 " Tools
 Plug 'tyru/open-browser.vim'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 call plug#end()
 " }}}
 
 " Settings {{{
 set number                      " Enable number
 set relativenumber              " Enable relative number
+set signcolumn=yes              " Enable sign column
 set mouse=a                     " Enable mouse mode
 set belloff=all                 " No beeps
 set hlsearch                    " Highlight found searches
@@ -83,11 +86,14 @@ if has('unnamedplus')
   set clipboard^=unnamedplus
 endif
 
+if &diff
+    set noreadonly
+endif
+
 " This enables us to undo files even if you exit Vim.
 if has('persistent_undo')
   set undofile
 endif
-
 " Show info for completion candidates in a popup menu
 if has("patch-8.1.1904")
   set completeopt+=popup
@@ -97,6 +103,7 @@ endif
 
 " Colors {{{
 set t_Co=256
+set background=dark
 colorscheme gruvbox
 " }}}
 
@@ -168,8 +175,8 @@ noremap <Leader>O :tabonly<CR>
 " Close the quickfix window
 noremap <Leader>a :cclose<CR>
 
-" toggle gundo
-nnoremap <leader>u :MundoToggle<CR>
+" Jump to definition in vertical split
+nnoremap <Leader>] <C-W>v<C-]>
 
 " s for substitute
 nmap s <Plug>(SubversiveSubstitute)
@@ -219,13 +226,11 @@ noremap <silent> <Leader>7 :tabn 7<CR>
 noremap <silent> <Leader>8 :tabn 8<CR>
 noremap <silent> <Leader>9 :tabn 9<CR>
 noremap <silent> <Leader>0 :tabn 10<CR>
-nnoremap <C-S-t> :tabnew<CR>
-inoremap <C-S-t> <Esc>:tabnew<CR>
 " }}}
 
-" vim-fugitive {{{
-vnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gb :Gblame<CR>
+" vim-matchup {{{
+let g:matchup_matchparen_status_offscreen = 0
+let g:matchup_matchparen_enabled = 1
 " }}}
 
 " fzf.vim {{{
@@ -242,10 +247,15 @@ nnoremap <silent> <Leader>fs :FzfSnippets<CR>
 nnoremap <silent> <Leader>ft :FzfBTags<CR>
 nnoremap <silent> <Leader>fT :FzfTags<CR>
 nnoremap <silent> <Leader>fr :FzfRg<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \  }
 set grepprg=rg\ -S\ --vimgrep
 "}}}
 
-" Plugin: vim-lightline {{{
+" vim-lightline {{{
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
@@ -324,13 +334,26 @@ call expand_region#custom_text_objects('html', {
   \ })
 " }}}
 
-" Plugin: ale {{{
+" vim-fugitive {{{
+vnoremap <Leader>th :Gblame<CR>
+nnoremap <Leader>th :Gblame<CR>
+" }}}
+
+" vim-mundo {{{
+nnoremap <leader>tu :MundoToggle<CR>
+" }}}
+
+" tagbar {{{
+nnoremap <Leader>tb :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+" }}}
+
+" ale {{{
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
-let g:ale_sign_column_always = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
@@ -346,7 +369,7 @@ let g:ale_fixers = {
 let g:ale_go_gofmt_options = '-s'
 " }}}
 
-" Plugin: vim-markdown {{{
+" vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_fenced_languages = ['go=go', 'viml=vim', 'bash=sh']
 let g:vim_markdown_conceal = 0
@@ -356,12 +379,16 @@ let g:vim_markdown_new_list_item_indent = 2
 let g:vim_markdown_no_extensions_in_markdown = 1
 " }}}
 
-" Plugin: vim-go {{{
+" vim-go {{{
 let g:go_fmt_autosave = 0
 let g:go_debug_windows = {
   \ 'vars': 'leftabove 35vnew',
   \ 'stack': 'botright 10new',
   \ }
+let g:go_term_enabled = 1
+let g:go_term_mode = "split"
+let g:go_term_height = 15
+let g:go_term_width = 30
 
 let g:go_list_type = "quickfix"
 let g:go_echo_command_info = 0
@@ -372,10 +399,11 @@ let g:go_implements_mode='gopls'
 let g:go_gopls_complete_unimported = 1
 let g:go_diagnostics_enabled = 1
 let g:go_doc_popup_window = 1
+let g:go_auto_type_info = 1
 
 " Open :GoDeclsDir with ctrl-g
 nmap <C-G> :GoDeclsDir<CR>
-imap <C-G> <esc>:<C-U>GoDeclsDir<CR>
+imap <C-G> <Esc>:<C-U>GoDeclsDir<CR>
 
 " Run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -389,20 +417,28 @@ endfunction
 
 augroup go
   autocmd!
-
-  autocmd FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
-  autocmd FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
-
-  autocmd FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
-
-  autocmd FileType go nmap <silent> <Leader>i <Plug>(go-info)
-  autocmd FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
-
   autocmd FileType go nmap <silent> <Leader>b :<C-U>call <SID>build_go_files()<CR>
-  autocmd FileType go nmap <silent> <Leader>t <Plug>(go-test)
   autocmd FileType go nmap <silent> <Leader>r <Plug>(go-run)
+  autocmd FileType go nmap <silent> <Leader>R :GoDebugStart<CR>
+  autocmd FileType go nmap <silent> <Leader>t <Plug>(go-test)
+  autocmd FileType go nmap <silent> <Leader>T :GoDebugTest<CR>
+  autocmd FileType go nmap <silent> <Leader>e <Plug>(go-test-func)
+  autocmd FileType go nmap <silent> <Leader>c <Plug>(go-diagnostics)
+  autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
 
-  autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <silent> <Leader>cn <Plug>(go-rename)
+  autocmd FileType go nmap <silent> <Leader>ci :GoImpl<CR>
+
+  autocmd FileType go nmap <silent> <Leader>di <Plug>(go-implements)
+  autocmd FileType go nmap <silent> <Leader>dr <Plug>(go-referrers)
+  autocmd FileType go nmap <silent> <Leader>ds <Plug>(go-describe)
+  autocmd FileType go nmap <silent> <Leader>dd :GoSameIdsToggle<CR>
+
+  autocmd FileType go nmap <silent> <Leader>gd <Plug>(go-def)
+  autocmd FileType go nmap <silent> <Leader>gs <Plug>(go-def-split)
+  autocmd FileType go nmap <silent> <Leader>gv <Plug>(go-def-vertical)
+  autocmd FileType go nmap <silent> <Leader>gt <Plug>(go-def-tab)
+  autocmd FileType go nmap <silent> <Leader>gx <Plug>(go-doc-browser)
 
   " I like these more!
   autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -412,7 +448,7 @@ augroup go
 augroup END
 " }}}
 
-" Plugin: open-browser {{{
+" open-browser {{{
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
