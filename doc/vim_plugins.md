@@ -142,6 +142,15 @@ Terminal
 - `<Leader>gx` - go-doc-browser
 - `:A`, `:AS`, `:AV`, `:AT` - go-alternate-switch
 
+Debug
+---
+- `<F5>` - `:GoDebugContinue`, Continue execution until breakpoint or program termination.
+- `<F9>` - `:GoDebugBreakpoint`, Toggle breakpoint for the [linenr]. 
+- `<F10>` - `:GoDebugNext`, Advance execution by one line.
+- `<F11>` - `:GoDebugStep`, Advance execution by one step, stopping at the next line of code that will be executed.
+- `<F6>` - `:GoDebugPrint`, Print the result of a Go expression.
+- `:GoDebugStop`, `:GoDebugRestart`, `:GoDebugStepOut`, `:GoDebugSet`
+
 ### vinegar
 - `-` - Open netrw directory brower.
 - `gh` - Toggle dot file hiding.
