@@ -235,7 +235,7 @@ let g:matchup_matchparen_enabled = 1
 
 " fzf.vim {{{
 let g:fzf_command_prefix = 'Fzf'
-noremap <silent> <C-P> :FzfGFiles<CR>
+noremap <silent> <C-P> :ProjectFiles<CR>
 nnoremap <silent> <Leader>fb :FzfBuffers<CR>
 nnoremap <silent> <Leader>fg :FzfGFiles?<CR>
 nnoremap <silent> <Leader>fl :FzfBLines<CR>
@@ -253,6 +253,15 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit',
   \  }
 set grepprg=rg\ -S\ --vimgrep
+function! s:find_files()
+  let git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+  if git_dir != ''
+    execute 'FzfFiles' git_dir
+  else
+    execute 'FzfFiles'
+  endif
+endfunction
+command! ProjectFiles execute s:find_files()
 "}}}
 
 " vim-lightline {{{
@@ -441,10 +450,10 @@ augroup go
   autocmd FileType go nmap <silent> <Leader>gx <Plug>(go-doc-browser)
 
   " I like these more!
-  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>1, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>1, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>1, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>1, 'tabe')
 augroup END
 " }}}
 

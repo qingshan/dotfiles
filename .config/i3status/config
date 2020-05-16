@@ -1,0 +1,29 @@
+# i3status configuration file.
+
+general {
+        colors = true
+        interval = 5
+        color_good = "#2AA198"
+        color_bad = "#586E75"
+        color_degraded = "#DC322F"
+}
+
+order += "battery all"
+order += "tztime local"
+
+battery all {
+        format = " %status %percentage"
+        format_down = "No battery"
+        last_full_capacity = true
+        integer_battery_capacity = true
+        status_chr = ""
+        status_unk = ""
+        status_bat = ""
+        status_full = ""
+        low_threshold = 15
+        threshold_type = time
+}
+
+tztime local {
+        format = "  %m-%d %H:%M "
+}
