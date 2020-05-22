@@ -340,7 +340,6 @@ bindsym $mod+F5 exec telegram-desktop
 bindsym $mod+F6 exec idea
 bindsym $mod+F7 exec audacity
 bindsym $mod+F8 exec virtualbox
-bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill

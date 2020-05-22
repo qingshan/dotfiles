@@ -14,3 +14,4 @@ make
 
 - [Vim Cheatsheet](doc/vim_cheatsheet.md)
 - [Vim Plugins](doc/vim_plugins.md)
+- [i3 Cheatsheet](doc/i3_cheatsheet.md)
