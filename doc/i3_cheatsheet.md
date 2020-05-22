@@ -10,8 +10,6 @@
 `<Super>+Down` - focus down
 `<Super>+Up` - focus up
 `<Super>+Right` - focus right
-`<Super>+a` - focus parent
-`<Super>+Shift+a` - focus child
 
 ## Move Window
 
@@ -32,40 +30,36 @@
 `<Super>+v` - split horizontal
 `<Super>+f` - fullscreen toggle
 `<Super>+Shift+f` - floating toggle
-`<Super>+t` - layout toggle split
-`<Super>+Shift+t` - layout toggle stacking tabbed
-`<Super>+s` - focus mode_toggle
-`<Super>+Shift+s` - sticky toggle
+`<Super>+t` - layout toggle tabbed split
+`<Super>+Shift+t` - sticky toggle
+`<Super>+a` - focus parent
+`<Super>+Shift+a` - focus mode_toggle
 
 ## Workspace
 
-`<Super>+Ctrl+Right` - workspace next
-`<Super>+Ctrl+Left` - workspace prev
 `<Super>+#` - switch workspace #
 `<Super>+Ctrl+#` - move container to workspace #
+`<Super>+Ctrl+Right` - workspace next
+`<Super>+Ctrl+Left` - workspace prev
 `<Super>+Shift+#` - move container to workspace #; workspace #
 `<Super>+0` - lock screen
-`<Super>+b` - workspace back_and_forth
-`<Super>+Shift+b` - move container to workspace back_and_forth
 
-## Applications
+## Management
 
 `<Super>+Shift+q` - kill current application
-`<Super>+d` - application launcher
 `<Super>+Tab` - window switcher
 `<Super>+Ctrl+x` - kill selected window
-
-## i3
-
+`<Super>+Ctrl+m` - pavucontrol
 `<Super>+Shift+d` - hide/show bar
 `<Super>+Shift+c` - reload i3
 `<Super>+Shift+r` - restart i3
 `<Super>+Shift+e` - exit i3
+`<Super>+Shift+b` - reboot
+`<Super>+Shift+p` - power off
 
 ## Launch
-
 `<Super>+Return` - exec terminal
-`<Super>+Shift+Return` - exec transparet urxvt
+`<Super>+d` - application launcher
 `<Super>+F2` - exec google-chrome
 `<Super>+F3` - exec ranger
 `<Super>+F4` - exec anki
@@ -77,9 +71,8 @@
 `<Super>+F10` - exec rofi-readings
 `<Super>+F11` - exec rofi-mpc
 `<Super>+y` - exec mpv
-`<Super>+q` - mode system
 `<Super>+r` - mode resize
-`<Super>+z` - mode app"
+`<Super>+n` - notify-send date/time
+`<Super>+z` - mode app
 `<Super>+Print` - screenshot
 `<Super>+Shift+Print` - screenshot with selected region
-`<Super>+Ctrl+m` - exec pavucontrol
