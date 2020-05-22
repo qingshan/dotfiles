@@ -1,6 +1,6 @@
 # Qingshan's Dotfiles
 
-My dotfiles are for macOS to set up a development environment.
+Dotfiles are for macOS and Manjaro i3 to setup my development environment.
 
 ## Installation
 
@@ -9,6 +9,19 @@ git clone https://github.com/qingshan/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 make
 ```
+
+## Features
+
+- i3
+- zsh
+- vim
+- tmux
+
+## Development Environment
+
+- Go: Vim
+- Java: IntelliJ IDEA Community Edition with ideavim
+- Dart / Flutter: Android Studio with ideavim
 
 ## Cheatsheets
 
