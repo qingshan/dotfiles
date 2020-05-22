@@ -1,5 +1,11 @@
 # Vim Plugins
 
+## Prefixes
+
+- `<Space>` - Leader
+- `\\` - Local Leader
+- `:` - Command
+
 ## Color Scheme
 
 `gruvbox` - Color scheme.
@@ -29,13 +35,13 @@
 Tabs
 ---
 - `<Leader>#` - Switch tab by #.
+- `<Alt-#>` - Switch tab by Alt-#.
 
 Terminal
 ---
-- `<Leader>q` - Kill job and close terminal window in terminal window
-- `<Leader>tt` - Open terminal in new tab
-- `<Leader>ts` - Open terminal in horizontal
-- `<Leader>tv` - Open terminal in vertical
+- `:tterm` - Open terminal in new tab
+- `:sterm` - Open terminal in horizontal
+- `:vterm` - Open terminal in vertical
 
 ## Plugins
 
@@ -78,6 +84,7 @@ Terminal
 - `[u`, `]u`, `[x`, `]x`, `[y`, `]y` - url/xml/cstring encode and decode
 - `[<Space>`, `]<Space>` - new line above/below
 - `[e`, `]e` - exchange line above/below
+- `[c`, `]c` - Quick jumping between blocks of changed lines (prodivded by gitgutter)
 
 ### ultisnips
 - `<Tab>`, `<Shift-Tab>` - Expand auto completion and ultisnips, jump forward and backword.
@@ -101,13 +108,10 @@ Terminal
 - `<Alt-p>` - Equivalent to up.
 
 ### tagbar
-- `<Leader>tb` - Tagbar toggle.
-
-### vim-fugitive
-- `<Leader>th` - Git history.
+- `:tb` - Tagbar toggle.
 
 ### vim-mundo
-- `<Leader>tu` - Undo tree toggle.
+- `:tu` - Undo tree toggle.
 
 ### fzf.vim
 - `<Ctrl-p>` - Show fzf window for git project files.
@@ -122,12 +126,12 @@ Terminal
 ### vim-go
 - `<Ctrl-g>` - Go to declare directory.
 - `<Leader>b` - go-build or go-test
+- `<Leader>B` - go-diagnostics
 - `<Leader>r` - go-run
 - `<Leader>R` - go-debug-start
 - `<Leader>t` - go-test
 - `<Leader>T` - go-debug-test
-- `<Leader>e` - go-test-func
-- `<Leader>c` - go-diagnostics
+- `<Leader>n` - go-test-func
 - `<Leader>i` - go-doc
 - `<Leader>cn` - go-rename
 - `<Leader>ci` - GoImpl
@@ -159,10 +163,18 @@ Debug
 - `~` - Go home.
 - `<Ctrl-^>`, `<Ctrl-6>` - switching back to the previous buffer from the netrw buffer.
 
+### markdown
+- `gx` - open link
+- `ge` - open file
+- `\{1-6}`, `\a`, `\b`, `\c`, `\x`, `\ `, `\ul`, `\ol`, `\n` - markdown edit
+
 ### open-browser
 - `gx` - Open URI with browser
 
-## Leader Prefixes
+### dictionary
+- `gz` - dictionary query
+
+### Leader
 - `y`, `p`, `a`, `q`, `o`, `w`, `s`, `]` - reserved for vim enhancement.
 - `<Leader>f` - files related.
 - `<Leader>g` - goto, jump, open in buffer, window, tab.
@@ -175,8 +187,8 @@ Debug
 
 TODO
 ---
-- `<Leader>m` - move, management
-- `<Leader>e` - error, examine.
+- `<Leader>m` - move, management.
+- `<Leader>e` - error, examine, execute.
 - `<Leader>l` - lint.
 - `<Leader>k` - kill.
 - `<Leader>j` - jump.
