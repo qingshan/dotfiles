@@ -15,7 +15,7 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-obsession'
 Plug 'wellle/targets.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
@@ -30,6 +30,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 " File
+Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf.vim'
 " VCS
 Plug 'simnalamburt/vim-mundo'
@@ -43,8 +44,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'natebosch/vim-lsc'
 Plug 'natebosch/vim-lsc-dart'
-" Misc
+" Markdown
 Plug 'plasticboy/vim-markdown'
+" Misc
 Plug 'cespare/vim-toml'
 Plug 'elzr/vim-json', {'for' : 'json'}
 " Tools
@@ -63,7 +65,7 @@ set hlsearch                    " Highlight found searches
 set showcmd                     " Show me what I'm typing
 set splitright                  " Vertical windows should be split to right
 set splitbelow                  " Horizontal windows should split to bottom
-set autowrite                   " Automatically save before :next, :make etc.
+set autowriteall                " Automatically save before :next, :make etc.
 set hidden                      " Buffer should still exist if window is closed
 set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
 set noshowmatch                 " Do not show matching brackets by flickering
@@ -74,6 +76,7 @@ set smartindent                 " Smart indent
 set lazyredraw                  " Wait to redraw
 set completeopt=menuone,longest " Complete options
 set pumheight=15                " Limit popup menu height
+set history=10000               " The maximum value for the history
 set diffopt+=internal,algorithm:patience,indent-heuristic " Diff options
 
 " To make Vim more responsive/IDE-like.
@@ -86,8 +89,9 @@ if has('unnamedplus')
   set clipboard^=unnamedplus
 endif
 
+" Disable readonly in diff mode
 if &diff
-    set noreadonly
+  set noreadonly
 endif
 
 " This enables us to undo files even if you exit Vim.
@@ -125,6 +129,18 @@ augroup filetypedetect
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
 augroup END
+
+augroup vimrc-auto-mkdir
+  autocmd!
+  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+  function! s:auto_mkdir(dir, force)
+    if !isdirectory(a:dir)
+          \   && (a:force
+          \       || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+  endfunction
+augroup END
 " }}}
 
 " Mappings {{{
@@ -159,24 +175,30 @@ vnoremap * :<C-U>call <SID>VSetSearch()<CR>//<CR><C-O>
 vnoremap # :<C-U>call <SID>VSetSearch()<CR>??<CR><C-O>
 
 " Leader
-let mapleader="\<Space>"
+let mapleader = "\<Space>"
+let maplocalleader = "\\"
 
 " Fast saving
-nnoremap <Leader>w :w!<CR>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>W :wa<CR>
 
 " Quit the window and tab
-noremap <Leader>q :q<CR>
-noremap <Leader>Q :tabclose<CR>
+noremap <Leader>q :tabclose<CR>
+noremap <Leader>Q :wqa<CR>
 
 " Close all but the current one
 noremap <Leader>o :only<CR>
 noremap <Leader>O :tabonly<CR>
 
 " Close the quickfix window
-noremap <Leader>a :cclose<CR>
+noremap <Leader>a :cclose <Bar> :lclose <CR>
 
 " Jump to definition in vertical split
 nnoremap <Leader>] <C-W>v<C-]>
+
+" Edit .vimrc file
+nnoremap <Leader>ve :vsplit $MYVIMRC<CR>
+nnoremap <Leader>vs :source $MYVIMRC<CR>
 
 " s for substitute
 nmap s <Plug>(SubversiveSubstitute)
@@ -204,28 +226,27 @@ endif
 " Terminal settings
 if has('terminal')
   " Kill job and close terminal window
-  tnoremap <Leader>q <C-W><C-C><C-W>c<CR>
+  tnoremap <silent> <C-W><Leader>q <C-W><C-C><C-W>c<CR>
 
   " Open terminal in vertical, horizontal and new tab
-  nnoremap <Leader>tv :vsplit<CR>:term ++curwin<CR>
-  nnoremap <Leader>ts :split<CR>:term ++curwin<CR>
-  nnoremap <Leader>tt :tabnew<CR>:term ++curwin<CR>
-
-  tnoremap <Leader>tv <C-W>:vsplit<CR>:term ++curwin<CR>
-  tnoremap <Leader>ts <C-W>:split<CR>:term ++curwin<CR>
-  tnoremap <Leader>tt <C-W>:tabnew<CR>:term ++curwin<CR>
+  cnoreabbrev term terminal ++kill=term ++curwin ++close
+  cnoreabbrev vterm vertical terminal ++kill=term ++close
+  cnoreabbrev sterm below terminal ++kill=term ++close
+  cnoreabbrev tterm execute "tabnew<Bar>terminal ++kill=term ++curwin ++close"
 endif
 
-noremap <silent> <Leader>1 :tabn 1<CR>
-noremap <silent> <Leader>2 :tabn 2<CR>
-noremap <silent> <Leader>3 :tabn 3<CR>
-noremap <silent> <Leader>4 :tabn 4<CR>
-noremap <silent> <Leader>5 :tabn 5<CR>
-noremap <silent> <Leader>6 :tabn 6<CR>
-noremap <silent> <Leader>7 :tabn 7<CR>
-noremap <silent> <Leader>8 :tabn 8<CR>
-noremap <silent> <Leader>9 :tabn 9<CR>
-noremap <silent> <Leader>0 :tabn 10<CR>
+" <Alt-#> <Leader># switch tabs
+for c in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+  let tc = c
+  if tc == '0'
+    let tc = '10'
+  endif
+  exec "set <M-".c.">=\e".c
+  exec "noremap <silent> <M-".c."> :tabn ".tc."<CR>"
+  exec "inoremap <silent> <M-".c."> <Esc>:tabn ".tc."<CR>"
+  exec "tnoremap <silent> <M-".c."> <C-W>:tabn ".tc."<CR>"
+  exec "noremap <silent> <Leader>".c." <Esc>:tabn ".tc."<CR>"
+endfor
 " }}}
 
 " vim-matchup {{{
@@ -315,6 +336,10 @@ endfunction
 " }}}
 
 " Plugin: auto-pairs {{{
+let g:AutoPairsCenterLine = 0
+let g:AutoPairsMapSpace = 0
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsMultilineClose = 0
 let g:AutoPairsShortcutJump = '<S-Tab>'
 " }}}
 
@@ -327,7 +352,7 @@ let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 let g:UltiSnipsExpandTrigger = "<Tab>"
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
-let g:UltiSnipsListSnippets="<C-L>"
+let g:UltiSnipsListSnippets = "<C-L>"
 " }}}
 
 " Plugin: vim-expand-region {{{
@@ -343,18 +368,16 @@ call expand_region#custom_text_objects('html', {
   \ })
 " }}}
 
-" vim-fugitive {{{
-vnoremap <Leader>th :Gblame<CR>
-nnoremap <Leader>th :Gblame<CR>
-" }}}
-
 " vim-mundo {{{
-nnoremap <leader>tu :MundoToggle<CR>
+cnoreabbrev tu MundoToggle
 " }}}
 
 " tagbar {{{
-nnoremap <Leader>tb :TagbarToggle<CR>
+cnoreabbrev tb TagbarToggle
 let g:tagbar_autofocus = 1
+let g:tagbar_expand = 1
+let g:tagbar_foldlevel = 2
+let g:tagbar_autoshowtag = 1
 " }}}
 
 " ale {{{
@@ -385,7 +408,30 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_new_list_item_indent = 2
-let g:vim_markdown_no_extensions_in_markdown = 1
+let g:vim_markdown_no_extensions_in_markdown = 0
+let g:vim_markdown_edit_url_in = 'tab'
+
+augroup vimrc-markdown
+  autocmd!
+  " Use <localLeader>1/2/3/4/5/6 to add headings
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>1 I# <Esc>
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>2 I## <Esc>
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>3 I### <Esc>
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>4 I#### <Esc>
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>5 I##### <Esc>
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>6 I###### <Esc>
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>n I---<Enter><Enter>
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>a i[]()<Esc>F[a
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>c i```<Enter><Enter>```<Enter><Esc>kO
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>x 0f[lrx
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader><Space> 0f[lr<Space>
+  " Use <LocalLeader>b to add blockquotes in normal and visual mode
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>b I> <ESC>
+  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>b :s/^/> /<CR>
+  " Use <localLeader>ul and <localLeader>ol to add list symbols in visual mode
+  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>ul :s/^/- /<CR>
+  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>ol :s/^/\=(line(".")-line("'<")+1).'. '/<CR>
+augroup END
 " }}}
 
 " vim-go {{{
@@ -394,25 +440,22 @@ let g:go_debug_windows = {
   \ 'vars': 'leftabove 35vnew',
   \ 'stack': 'botright 10new',
   \ }
-let g:go_term_enabled = 1
+let g:go_term_enabled = 0
 let g:go_term_mode = "split"
 let g:go_term_height = 15
 let g:go_term_width = 30
+let g:go_term_close_on_exit = 1
 
 let g:go_list_type = "quickfix"
 let g:go_echo_command_info = 0
 
 let g:go_info_mode = 'gopls'
-let g:go_rename_command='gopls'
-let g:go_implements_mode='gopls'
+let g:go_rename_command = 'gopls'
+let g:go_implements_mode = 'gopls'
 let g:go_gopls_complete_unimported = 1
 let g:go_diagnostics_enabled = 1
 let g:go_doc_popup_window = 1
 let g:go_auto_type_info = 1
-
-" Open :GoDeclsDir with ctrl-g
-nmap <C-G> :GoDeclsDir<CR>
-imap <C-G> <Esc>:<C-U>GoDeclsDir<CR>
 
 " Run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -424,16 +467,20 @@ function! s:build_go_files()
   endif
 endfunction
 
-augroup go
+augroup vimrc-go
   autocmd!
+  autocmd FileType go nmap <silent> <C-G> :GoDeclsDir<CR>
+  autocmd FileType go imap <silent> <C-G> <Esc>:<C-U>GoDeclsDir<CR>
+
   autocmd FileType go nmap <silent> <Leader>b :<C-U>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <silent> <Leader>B <Plug>(go-diagnostics)
   autocmd FileType go nmap <silent> <Leader>r <Plug>(go-run)
   autocmd FileType go nmap <silent> <Leader>R :GoDebugStart<CR>
   autocmd FileType go nmap <silent> <Leader>t <Plug>(go-test)
   autocmd FileType go nmap <silent> <Leader>T :GoDebugTest<CR>
-  autocmd FileType go nmap <silent> <Leader>e <Plug>(go-test-func)
-  autocmd FileType go nmap <silent> <Leader>c <Plug>(go-diagnostics)
+  autocmd FileType go nmap <silent> <Leader>n <Plug>(go-test-func)
   autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
+  autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
 
   autocmd FileType go nmap <silent> <Leader>cn <Plug>(go-rename)
   autocmd FileType go nmap <silent> <Leader>ci :GoImpl<CR>
@@ -449,6 +496,8 @@ augroup go
   autocmd FileType go nmap <silent> <Leader>gt <Plug>(go-def-tab)
   autocmd FileType go nmap <silent> <Leader>gx <Plug>(go-doc-browser)
 
+  autocmd Filetype go command! -nargs=? -complete=dir GO call go#decls#Decls(1, '/usr/lib/go/src/'.<q-args>)
+
   " I like these more!
   autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>1, 'edit')
   autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>1, 'vsplit')
@@ -461,6 +510,25 @@ augroup END
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
+" }}}
+
+" stardict {{{
+function! s:sdcv(word)
+let cmd = 'sdcv -n -e '
+let word = a:word
+if word == ""
+  let word = expand('<cword>')
+endif
+let output = system(cmd . word)
+call popup_clear()
+call popup_atcursor(split(output, '\n'), {
+  \ 'padding': [1, 1, 1, 1],
+  \ 'borderchars': ['-','|','-','|','+','+','+','+'],
+  \ "border": [1, 1, 1, 1],
+  \ })
+endfunction
+command! -nargs=* -range=0 -complete=file Sdcv silent call s:sdcv(<q-args>)
+nmap gz :Sdcv<CR>
 " }}}
 
 " Local .vimrc {{{
