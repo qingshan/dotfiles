@@ -225,9 +225,6 @@ endif
 
 " Terminal settings
 if has('terminal')
-  " Kill job and close terminal window
-  tnoremap <silent> <C-W><Leader>q <C-W><C-C><C-W>c<CR>
-
   " Open terminal in vertical, horizontal and new tab
   cnoreabbrev term terminal ++kill=term ++curwin ++close
   cnoreabbrev vterm vertical terminal ++kill=term ++close
