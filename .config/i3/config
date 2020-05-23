@@ -1,13 +1,14 @@
 # i3 config file (v4)
-#
 # User guide: http://i3wm.org/docs/userguide.html
 
-# Mod is the Windows key
+# Meta Key Mappings {{{
+
+# mod is the Windows key
 set $mod Mod4
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font xft:URWGothic-Book 11
+# }}}
+
+# Launcher {{{
 
 # start a terminal
 bindsym $mod+Return exec terminal
@@ -16,9 +17,9 @@ bindsym $mod+Return exec terminal
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 
-###############################################################################
-# Window and Workspace
-###############################################################################
+# }}}
+
+# Window Navigation & Management. {{{
 
 # change focus
 bindsym $mod+h focus left
@@ -49,7 +50,7 @@ default_orientation auto
 bindsym $mod+x split vertical
 bindsym $mod+v split horizontal
 
-# change the focused window: fullscreen, floating 
+# change the focused window: fullscreen, floating
 bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+f floating toggle
 
@@ -65,18 +66,19 @@ bindsym $mod+a focus parent
 # change focus between tiling / floating windows
 bindsym $mod+Shift+a focus mode_toggle
 
-# move the currently focused window to the scratchpad
+# show and move scratchpad window
+bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
 
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
-
-#navigate workspaces next / previous
+# navigate workspaces next / previous
 bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
-# Workspace names
+# }}}
+
+# Workspace {{{
+
+# workspace names
 set $ws1 " 1:  "
 set $ws2 " 2:  "
 set $ws3 " 3:  "
@@ -98,7 +100,7 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 
-# Move focused container to workspace
+# move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
 bindsym $mod+Ctrl+2 move container to workspace $ws2
 bindsym $mod+Ctrl+3 move container to workspace $ws3
@@ -109,7 +111,7 @@ bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
 bindsym $mod+Ctrl+9 move container to workspace $ws9
 
-# Move to workspace with focused container
+# move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
@@ -120,18 +122,18 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
-# Lock screen
+# lock screen
 bindsym $mod+0 exec --no-startup-id xautolock -locknow
 
-# Use Mouse+$mod to drag floating windows
+# use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
-# Hide borders
+# hide borders
 hide_edge_borders smart
 
-###############################################################################
-# Session Management
-###############################################################################
+# }}}
+
+# Session Management {{{
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -153,13 +155,14 @@ bindsym $mod+Shift+b exec i3exit reboot
 
 # power down
 bindsym $mod+Shift+p exec i3exit shutdown
+# }}}
 
-# Resize window (you can also use the mouse for that)
+# Window Resize and Gaps {{{
+
+# trigger resize mode
 bindsym $mod+r mode "resize"
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        ## Resize // Resize Window // ↑ ↓ ← → ##
+        ## resize window
         bindsym Left resize shrink width 6 px or 6 ppt
         bindsym Down resize grow height 6 px or 6 ppt
         bindsym Up resize shrink height 6 px or 6 ppt
@@ -170,7 +173,6 @@ mode "resize" {
         bindsym Shift+Up resize shrink height 12 px or 12 ppt
         bindsym Shift+Right resize grow width 12 px or 12 ppt
 
-        ## Resize // Resize Window // k j h l ##
         bindsym h resize shrink width 6 px or 6 ppt
         bindsym k resize grow height 6 px or 6 ppt
         bindsym j resize shrink height 6 px or 6 ppt
@@ -181,35 +183,38 @@ mode "resize" {
         bindsym Shift+j resize shrink height 12 px or 12 ppt
         bindsym Shift+l resize grow width 12 px or 12 ppt
 
-        ## Resize // Window Gaps // + - ##
+        ## resize gaps
         bindsym minus gaps inner current minus 2
         bindsym plus gaps inner current plus 2
         bindsym Shift+minus gaps inner current minus 6
         bindsym Shift+plus gaps inner current plus 6
 
-        ## Resize // Exit Resize Mode // Escape or Enter ## 
+        ## exit resize mode
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
 
-###############################################################################
-# i3 Appearance and Behavior
-###############################################################################
+# }}}
 
-# Disable titlebar
+# i3 Appearance and Behavior {{{
+
+# disable titlebar
 default_border pixel 1
 default_floating_border normal
 
-# Specify the distance between windows in pixels.
+# specify the distance between windows in pixels.
 gaps inner 2
 gaps outer 0
 
-# Smart gaps and borders
+# smart gaps and borders
 smart_gaps on
 smart_borders on
 
-# Color palette used for the terminal ( ~/.Xresources file )
+# font for window titles.
+font xft:URWGothic-Book 11
+
+# color palette used for the terminal ( ~/.Xresources file )
 set_from_resource $term_background background
 set_from_resource $term_foreground foreground
 set_from_resource $term_color0     color0
@@ -229,7 +234,11 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-# Start i3bar to display a workspace bar
+# }}}
+
+# i3 Bar {{{
+
+# start i3bar to display a workspace bar
 bar {
 	i3bar_command i3bar
 	status_command i3status
@@ -258,14 +267,14 @@ client.focused          #556064 #556064 #80FFF9 #FDF6E3
 client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
 client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
 client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-client.placeholder      #000000 #0c0c0c #ffffff #000000 
+client.placeholder      #000000 #0c0c0c #ffffff #000000
 client.background       #2B2C2B
 
-###############################################################################
-# External programs launched with i3
-###############################################################################
+# }}}
 
-# Open applications on specific workspaces
+# Application Rules {{{
+
+# open applications on specific workspaces
 assign [class="Google-chrome"] $ws1
 assign [class="jetbrains-idea-ce"] $ws2
 assign [class="jetbrains-android-studio"] $ws2
@@ -282,7 +291,7 @@ assign [title="^Android Emulator - .*$"] $ws6
 assign [class="^VirtualBox Manager$"] $ws6
 assign [class="^VirtualBox Machine$"] $ws6
 
-# Open specific applications in floating mode
+# open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
 for_window [class="Lightdm-settings"] floating enable
@@ -310,7 +319,9 @@ for_window [class="Zeal"] floating enable
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
-# auto start applications
+# }}}
+
+# Auto-start Applications {{{
 exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id pa-applet
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -323,7 +334,7 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id mpd
 exec --no-startup-id ~/bin/start_conky_maia
 exec --no-startup-id xautolock -time 10 -locker 'i3lock --color=000000' -detectsleep -corners +-00 -cornerdelay 2 -cornerredelay 5
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --color=000000 
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --color=000000
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id ~/bin/auto-screen-rotate.sh eDP1
@@ -332,7 +343,10 @@ exec --no-startup-id goldendict
 exec --no-startup-id zeal
 # exec --no-startup-id telegram-desktop -startintray
 
-# Application shortcuts
+# }}}
+
+# Application Shortcuts {{{
+
 bindsym $mod+F2 exec google-chrome-stable
 bindsym $mod+F3 exec terminal -e 'ranger'
 bindsym $mod+F4 exec anki
@@ -350,7 +364,7 @@ bindsym $mod+F11 exec rofi-mpc
 bindsym $mod+y exec mpv `xsel -ob`
 bindsym $mod+n exec notify-send "$(date)"
 
-# More application shortcuts
+# more application shortcuts
 bindsym $mod+z mode "$mode_app"
 set $mode_app Apps: (b) Bluetooth, (m) Music, (r) Reading
 mode "$mode_app"{
@@ -360,3 +374,7 @@ mode "$mode_app"{
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
+
+# }}}
+
+# vim:foldmethod=marker:foldlevel=0
