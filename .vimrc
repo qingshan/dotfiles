@@ -224,10 +224,10 @@ endif
 " Terminal settings
 if has('terminal')
   " Open terminal in vertical, horizontal and new tab
-  cnoreabbrev term terminal ++kill=term ++curwin ++close
-  cnoreabbrev vterm vertical terminal ++kill=term ++close
-  cnoreabbrev sterm below terminal ++kill=term ++close
-  cnoreabbrev tterm execute "tabnew<Bar>terminal ++kill=term ++curwin ++close"
+  command! T  terminal ++kill=term ++curwin ++close
+  command! TS below terminal ++kill=term ++close
+  command! TV vertical terminal ++kill=term ++close
+  command! TT execute "tabnew<Bar>terminal ++kill=term ++curwin ++close"
 endif
 
 " <Alt-#> <Leader># switch tabs
