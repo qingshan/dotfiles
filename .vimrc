@@ -36,6 +36,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/gv.vim'
+Plug 'tpope/vim-rhubarb'
 " Lint
 Plug 'dense-analysis/ale'
 " Go
@@ -52,6 +54,7 @@ Plug 'elzr/vim-json', {'for' : 'json'}
 " Tools
 Plug 'tyru/open-browser.vim'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'KabbAmine/zeavim.vim'
 call plug#end()
 " }}}
 
@@ -204,11 +207,6 @@ nnoremap <Leader>vs :source $MYVIMRC<CR>
 nmap s <Plug>(SubversiveSubstitute)
 nmap ss <Plug>(SubversiveSubstituteLine)
 nmap S <Plug>(SubversiveSubstituteToEndOfLine)
-nmap <Leader>s <Plug>(SubversiveSubstituteRange)
-xmap <Leader>s <Plug>(SubversiveSubstituteRange)
-nmap <Leader>S <Plug>(SubversiveSubvertRange)
-xmap <Leader>S <Plug>(SubversiveSubvertRange)
-nmap <Leader>ss <Plug>(SubversiveSubstituteWordRange)
 
 " Mappings to make the global register less annoying
 if has("clipboard")
@@ -233,12 +231,22 @@ if has('terminal')
 endif
 
 " <Alt-#> <Leader># switch tabs
-for c in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+function! s:metacode(key)
+  exec "set <M-".a:key.">=\e".a:key
+endfunc
+for i in range(10)
+  call s:metacode(nr2char(char2nr('0') + i))
+endfor
+for i in range(26)
+  call s:metacode(nr2char(char2nr('a') + i))
+  call s:metacode(nr2char(char2nr('A') + i))
+endfor
+for i in range(10)
+  let c = char2nr('0') + i
   let tc = c
   if tc == '0'
     let tc = '10'
   endif
-  exec "set <M-".c.">=\e".c
   exec "noremap <silent> <M-".c."> :tabn ".tc."<CR>"
   exec "inoremap <silent> <M-".c."> <Esc>:tabn ".tc."<CR>"
   exec "tnoremap <silent> <M-".c."> <C-W>:tabn ".tc."<CR>"
@@ -256,21 +264,18 @@ let g:fzf_command_prefix = 'Fzf'
 noremap <silent> <C-P> :ProjectFiles<CR>
 nnoremap <silent> <Leader>fb :FzfBuffers<CR>
 nnoremap <silent> <Leader>fg :FzfGFiles?<CR>
-nnoremap <silent> <Leader>fl :FzfBLines<CR>
-nnoremap <silent> <Leader>fL :FzfLines<CR>
+nnoremap <silent> <Leader>fl :FzfLines<CR>
 nnoremap <silent> <Leader>fh :FzfHistory<CR>
 nnoremap <silent> <Leader>fc :FzfCommands<CR>
 nnoremap <silent> <Leader>fm :FzfMarks<CR>
 nnoremap <silent> <Leader>fs :FzfSnippets<CR>
-nnoremap <silent> <Leader>ft :FzfBTags<CR>
-nnoremap <silent> <Leader>fT :FzfTags<CR>
+nnoremap <silent> <Leader>ft :FzfTags<CR>
 nnoremap <silent> <Leader>fr :FzfRg<CR>
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit',
   \  }
-set grepprg=rg\ -S\ --vimgrep
 function! s:find_files()
   let git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
   if git_dir != ''
@@ -509,26 +514,57 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 " }}}
 
-" stardict {{{
-function! s:sdcv(word)
-let cmd = 'sdcv -n -e '
-let word = a:word
-if word == ""
-  let word = expand('<cword>')
-endif
-let output = system(cmd . word)
-call popup_clear()
-call popup_atcursor(split(output, '\n'), {
-  \ 'padding': [1, 1, 1, 1],
-  \ 'borderchars': ['-','|','-','|','+','+','+','+'],
-  \ "border": [1, 1, 1, 1],
-  \ })
+" stardict & goldendict {{{
+function! s:getVSelectOrCword() abort
+  let mode = visualmode()
+  if mode == "v"
+    let l:pos = getpos("'<")
+    call setpos('.', l:pos)
+    return getline('.')[col("'<") - 1 : col("'>") - 1]
+  else
+    return expand('<cword>')
+  endif
 endfunction
-command! -nargs=* -range=0 -complete=file Sdcv silent call s:sdcv(<q-args>)
-nmap gz :Sdcv<CR>
+
+function! s:StarDict(word)
+  let cmd = 'sdcv -n -e '
+  let word = a:word
+  if word == ""
+    let word = s:getVSelectOrCword()
+  endif
+  let output = system(cmd . word)
+  call popup_clear()
+  call popup_atcursor(split(output, '\n'), {
+    \ 'padding': [1, 1, 1, 1],
+    \ 'borderchars': ['-','|','-','|','+','+','+','+'],
+    \ "border": [1, 1, 1, 1],
+    \ })
+endfunction
+
+function! s:GoldenDict(word)
+  let cmd = 'goldendict '
+  let word = a:word
+  if word == ""
+    let word = s:getVSelectOrCword()
+  endif
+  call system(cmd . word)
+endfunction
+
+nnoremap <silent> <script> <Plug>StarDict :call <SID>StarDict('')<CR>
+vnoremap <silent> <script> <Plug>VStarDict :call <SID>StarDict('')<CR>
+nnoremap <silent> <script> <Plug>GoldenDict :call <SID>GoldenDict('')<CR>
+vnoremap <silent> <script> <Plug>VGoldenDict :call <SID>GoldenDict('')<CR>
+
+command! -nargs=* SD call <SID>StarDict(<q-args>)
+command! -nargs=* GD call <SID>GoldenDict(<q-args>)
+
+nmap gk <Plug>StarDict
+vmap gk <Plug>VStarDict
+nmap gK <Plug>GoldenDict
+vmap gK <Plug>VGoldenDict
 " }}}
 
-" Local .vimrc {{{
+" local .vimrc {{{
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
