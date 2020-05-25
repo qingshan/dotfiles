@@ -39,9 +39,10 @@ Tabs
 
 Terminal
 ---
-- `:tterm` - Open terminal in new tab
-- `:sterm` - Open terminal in horizontal
-- `:vterm` - Open terminal in vertical
+- `:T` - Open terminal in current window
+- `:TT` - Open terminal in new tab
+- `:TS` - Open terminal in horizontal
+- `:TV` - Open terminal in vertical
 
 ## Plugins
 
@@ -108,10 +109,10 @@ Terminal
 - `<Alt-p>` - Equivalent to up.
 
 ### tagbar
-- `:tb` - Tagbar toggle.
+- `:TB` - Tagbar toggle.
 
 ### vim-mundo
-- `:tu` - Undo tree toggle.
+- `:TU` - Undo tree toggle.
 
 ### fzf.vim
 - `<Ctrl-p>` - Show fzf window for git project files.
@@ -171,11 +172,17 @@ Debug
 ### open-browser
 - `gx` - Open URI with browser
 
-### dictionary
-- `gz` - dictionary query
+### zeavim
+- `gz{motion/text-object}` - Act like an operator and search for the result of a motion/text-object with the docset defined automatically+ (e.g. gziW will search for the inner Word).
+- `<Leader>z` - Search for the word under cursor or the current visual selection with the docset defined automatically.
+- `<Leader><Leader>z` - Narrow search with a docset+ and a query (A default docset is provided).
+
+### startdict & goldendict
+- `gk`, `gK` - search stardict & goldendict for the word under cursor or the current visual selection.
+- `:SD`, `:GD` - stardict & goldendict command
 
 ### Leader
-- `y`, `p`, `a`, `q`, `o`, `w`, `s`, `]` - reserved for vim enhancement.
+- `y`, `p`, `a`, `q`, `o`, `w`, `s`, `]`, `/`, `*` - reserved for vim enhancement.
 - `<Leader>f` - files related.
 - `<Leader>g` - goto, jump, open in buffer, window, tab.
 - `<Leader>t` - tab, terminal, tools, test. toggle
@@ -184,6 +191,7 @@ Debug
 - `<Leader>i` - info.
 - `<Leader>c` - code, change.
 - `<Leader>d` - dig, data, find. display in quickfix window.
+- `<Leader>z` - zeal.
 
 TODO
 ---
@@ -197,4 +205,3 @@ TODO
 - `<Leader>h` - help
 - `<Leader>u` - usage
 - `<Leader>x` - black tech.
-- `<Leader>z` - zzz.
