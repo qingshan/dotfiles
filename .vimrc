@@ -177,6 +177,12 @@ endfunction
 vnoremap * :<C-U>call <SID>VSetSearch()<CR>//<CR><C-O>
 vnoremap # :<C-U>call <SID>VSetSearch()<CR>??<CR><C-O>
 
+" Never use a mapping when a command will do! This is Vim!
+" Edit .vimrc file
+command! Erc :e $MYVIMRC<CR>
+command! Src :source $MYVIMRC<CR>
+command! Wrc :w | :source $MYVIMRC | :echom ".vimrc saved and reloaded!"
+
 " Leader
 let mapleader = "\<Space>"
 let maplocalleader = "\\"
@@ -198,10 +204,6 @@ noremap <Leader>a :cclose <Bar> :lclose <CR>
 
 " Jump to definition in vertical split
 nnoremap <Leader>] <C-W>v<C-]>
-
-" Edit .vimrc file
-nnoremap <Leader>ve :vsplit $MYVIMRC<CR>
-nnoremap <Leader>vs :source $MYVIMRC<CR>
 
 " s for substitute
 nmap s <Plug>(SubversiveSubstitute)
@@ -247,10 +249,10 @@ for i in range(26)
   call s:metacode(nr2char(char2nr('A') + i))
 endfor
 for i in range(10)
-  let c = char2nr('0') + i
+  let c = nr2char(char2nr('0') + i)
   let tc = c
   if tc == '0'
-    let tc = '10'
+    let tc = "10"
   endif
   exec "noremap <silent> <M-".c."> :tabn ".tc."<CR>"
   exec "inoremap <silent> <M-".c."> <Esc>:tabn ".tc."<CR>"
@@ -268,14 +270,25 @@ let g:matchup_matchparen_enabled = 1
 let g:fzf_command_prefix = 'Fzf'
 noremap <silent> <C-P> :ProjectFiles<CR>
 nnoremap <silent> <Leader>fb :FzfBuffers<CR>
-nnoremap <silent> <Leader>fg :FzfGFiles?<CR>
-nnoremap <silent> <Leader>fl :FzfLines<CR>
-nnoremap <silent> <Leader>fh :FzfHistory<CR>
 nnoremap <silent> <Leader>fc :FzfCommands<CR>
+nnoremap <silent> <Leader>fg :FzfGFiles?<CR>
+nnoremap <silent> <Leader>fh :FzfHistory<CR>
+nnoremap <silent> <Leader>fl :FzfLines<CR>
 nnoremap <silent> <Leader>fm :FzfMarks<CR>
+nnoremap <silent> <Leader>fr :FzfRg<CR>
 nnoremap <silent> <Leader>fs :FzfSnippets<CR>
 nnoremap <silent> <Leader>ft :FzfTags<CR>
-nnoremap <silent> <Leader>fr :FzfRg<CR>
+
+noremap <silent> <M-b> :FzfBuffers<CR>
+noremap <silent> <M-c> :FzfCommands<CR>
+noremap <silent> <M-g> :FzfGFiles?<CR>
+noremap <silent> <M-h> :FzfHistory<CR>
+noremap <silent> <M-l> :FzfLines<CR>
+noremap <silent> <M-m> :FzfMarks<CR>
+noremap <silent> <M-r> :FzfRg<CR>
+noremap <silent> <M-s> :FzfSnippets<CR>
+noremap <silent> <M-t> :FzfTags<CR>
+
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
@@ -376,7 +389,7 @@ call expand_region#custom_text_objects('html', {
 " }}}
 
 " vim-mundo {{{
-command! TU MundoToggle
+command! UT MundoToggle
 " }}}
 
 " tagbar {{{
@@ -420,7 +433,6 @@ let g:vim_markdown_edit_url_in = 'tab'
 
 augroup vimrc-markdown
   autocmd!
-  " Use <localLeader>1/2/3/4/5/6 to add headings
   autocmd Filetype markdown nnoremap <buffer> <LocalLeader>1 I# <Esc>
   autocmd Filetype markdown nnoremap <buffer> <LocalLeader>2 I## <Esc>
   autocmd Filetype markdown nnoremap <buffer> <LocalLeader>3 I### <Esc>
@@ -428,16 +440,29 @@ augroup vimrc-markdown
   autocmd Filetype markdown nnoremap <buffer> <LocalLeader>5 I##### <Esc>
   autocmd Filetype markdown nnoremap <buffer> <LocalLeader>6 I###### <Esc>
   autocmd Filetype markdown nnoremap <buffer> <LocalLeader>n I---<Enter><Enter>
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>a i[]()<Esc>F[a
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>h i[]()<Esc>F[a
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>j i![](/images/)<Esc>F[a
   autocmd Filetype markdown nnoremap <buffer> <LocalLeader>c i```<Enter><Enter>```<Enter><Esc>kO
   autocmd Filetype markdown nnoremap <buffer> <LocalLeader>x 0f[lrx
   autocmd Filetype markdown nnoremap <buffer> <LocalLeader><Space> 0f[lr<Space>
-  " Use <LocalLeader>b to add blockquotes in normal and visual mode
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>b I> <ESC>
-  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>b :s/^/> /<CR>
-  " Use <localLeader>ul and <localLeader>ol to add list symbols in visual mode
+  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>q I> <ESC>
+  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>q :s/^/> /<CR>
   autocmd Filetype markdown vnoremap <buffer> <LocalLeader>ul :s/^/- /<CR>
   autocmd Filetype markdown vnoremap <buffer> <LocalLeader>ol :s/^/\=(line(".")-line("'<")+1).'. '/<CR>
+  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>tl :s/^/- [ ] /<CR>
+
+  " Surround settings
+  autocmd FileType markdown let b:surround_{char2nr('i')} = "_\r_"
+  autocmd FileType markdown let b:surround_{char2nr('b')} = "**\r**"
+  autocmd FileType markdown let b:surround_{char2nr('c')} = "```\r```"
+  autocmd FileType markdown let b:surround_{char2nr('u')} = "<u>\r</u>"
+  autocmd FileType markdown let b:surround_{char2nr('d')} = "<del>\r</del>"
+  autocmd FileType markdown let b:surround_{char2nr('k')} = "<kbd>\r</kbd>"
+  autocmd FileType markdown let b:surround_{char2nr('n')} = "<sub>\r</sub>"
+  autocmd FileType markdown let b:surround_{char2nr('p')} = "<sup>\r</sup>"
+  autocmd FileType markdown let b:surround_{char2nr('h')} = "\[\r\]\(//\)"
+  autocmd FileType markdown let b:surround_{char2nr('e')} = "\[\r\]\(\){:rel=\"nofollow noopener noreferrer\" target=\"_blank\"}"
+  autocmd FileType markdown let b:surround_{char2nr('j')} = "\![\r\]\(/images/\){: .align-}"
 augroup END
 " }}}
 
