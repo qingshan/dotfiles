@@ -27,6 +27,7 @@ Plug 'terryma/vim-multiple-cursors'
 " Coding
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'machakann/vim-swap'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 " File
@@ -179,8 +180,8 @@ vnoremap # :<C-U>call <SID>VSetSearch()<CR>??<CR><C-O>
 
 " Never use a mapping when a command will do! This is Vim!
 " Edit .vimrc file
-command! Erc :e $MYVIMRC<CR>
-command! Src :source $MYVIMRC<CR>
+command! Erc :e $MYVIMRC
+command! Src :source $MYVIMRC
 command! Wrc :w | :source $MYVIMRC | :echom ".vimrc saved and reloaded!"
 
 " Leader
