@@ -53,6 +53,10 @@ Terminal
 - `gS` - to split a one-liner into multiple lines
 - `gJ` - (with the cursor on the first line of a block) to join a block into a single-line statement.
 
+### vim-swap (:help swap.txt)
+- `g<`, `g>` - swaps the item under the cursor with the former/latter item.
+- `gs` - works more interactive. It starts "swap mode". In the mode, use `h`/`l` to swap items, `j`/`k` to choose item, numbers `1` ~ `9` to select `n`th item, `u`/`<C-r>` to undo/redo, and as you know `<Esc>` to exit "swap mode". In |linewise-visual| and |blockwise-visual| mode, this plugin always swaps in each line.
+
 ### vim-expand-region
 - `+`, `_` - Expand and shrink the visual selection.
 
