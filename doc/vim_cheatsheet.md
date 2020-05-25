@@ -259,3 +259,4 @@ An optional count that can be given before most of commands.
 ## Plugins
 
 [Vim Plugins](vim_plugins.md)
+[Vim Tips](vim_tips.md)
