@@ -176,12 +176,21 @@ An optional count that can be given before most of commands.
 - `zt`, `zz`, `zb` - top/center/bottom cursor on screen.
 
 ### Folding
-- `za`, `zA` - Toggle folding.
+- `zo / zO` - Open
+- `zc / zC` - Close
+- `za / zA` - Toggle
+- `zv` - Open folds for this line
+- `zm` - Fold more (foldlevel += 1)
+- `zM` - Close all
+- `zr` - Reduce fold (foldlevel -= 1)
+- `zR` - Open all
+- `zf`, `zF`, `:{range}fo` - Create a fold.
+---
+- `zx` - Update folds
 - `zc`, `zC` - Fold under the cursor.
 - `zd`, `zD` - Delete one/all fold under the cursor.
 - `zE` - Eliminate all folds in the window.
-- `zf`, `zF`, `:{range}fo` - Create a fold.
-- `zm`, `zr`, `zM`, `zR`, `zn`, `zN`, `zo`, `zO` - Open and close fold.
+- `zn`, `zN`  - Open and close fold.
 
 ## Insert Mode
 
