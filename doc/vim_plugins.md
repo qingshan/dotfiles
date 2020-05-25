@@ -112,7 +112,7 @@ Terminal
 - `:TB` - Tagbar toggle.
 
 ### vim-mundo
-- `:TU` - Undo tree toggle.
+- `:UT` - Undo tree toggle.
 
 ### fzf.vim
 - `<Ctrl-p>` - Show fzf window for git project files.
