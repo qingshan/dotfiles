@@ -207,6 +207,11 @@ nnoremap <Leader>vs :source $MYVIMRC<CR>
 nmap s <Plug>(SubversiveSubstitute)
 nmap ss <Plug>(SubversiveSubstituteLine)
 nmap S <Plug>(SubversiveSubstituteToEndOfLine)
+nmap <Leader>s <Plug>(SubversiveSubstituteRange)
+xmap <Leader>s <Plug>(SubversiveSubstituteRange)
+nmap <Leader>S <Plug>(SubversiveSubvertRange)
+xmap <Leader>S <Plug>(SubversiveSubvertRange)
+nmap <Leader>ss <Plug>(SubversiveSubstituteWordRange)
 
 " Mappings to make the global register less annoying
 if has("clipboard")
@@ -371,11 +376,11 @@ call expand_region#custom_text_objects('html', {
 " }}}
 
 " vim-mundo {{{
-cnoreabbrev tu MundoToggle
+command! TU MundoToggle
 " }}}
 
 " tagbar {{{
-cnoreabbrev tb TagbarToggle
+command! TB TagbarToggle
 let g:tagbar_autofocus = 1
 let g:tagbar_expand = 1
 let g:tagbar_foldlevel = 2
@@ -515,9 +520,8 @@ vmap gx <Plug>(openbrowser-smart-search)
 " }}}
 
 " stardict & goldendict {{{
-function! s:getVSelectOrCword() abort
-  let mode = visualmode()
-  if mode == "v"
+function! s:getVSelectOrCword(mode) abort
+  if a:mode == "v"
     let l:pos = getpos("'<")
     call setpos('.', l:pos)
     return getline('.')[col("'<") - 1 : col("'>") - 1]
@@ -526,11 +530,11 @@ function! s:getVSelectOrCword() abort
   endif
 endfunction
 
-function! s:StarDict(word)
+function! s:StarDict(word, mode)
   let cmd = 'sdcv -n -e '
   let word = a:word
   if word == ""
-    let word = s:getVSelectOrCword()
+    let word = s:getVSelectOrCword(a:mode)
   endif
   let output = system(cmd . word)
   call popup_clear()
@@ -541,27 +545,24 @@ function! s:StarDict(word)
     \ })
 endfunction
 
-function! s:GoldenDict(word)
+function! s:GoldenDict(word, mode)
   let cmd = 'goldendict '
   let word = a:word
   if word == ""
-    let word = s:getVSelectOrCword()
+    let word = s:getVSelectOrCword(a:mode)
   endif
   call system(cmd . word)
 endfunction
 
-nnoremap <silent> <script> <Plug>StarDict :call <SID>StarDict('')<CR>
-vnoremap <silent> <script> <Plug>VStarDict :call <SID>StarDict('')<CR>
-nnoremap <silent> <script> <Plug>GoldenDict :call <SID>GoldenDict('')<CR>
-vnoremap <silent> <script> <Plug>VGoldenDict :call <SID>GoldenDict('')<CR>
+command! -nargs=* StarDict call <SID>StarDict(<q-args>, '')
+command! -nargs=* GoldenDict call <SID>GoldenDict(<q-args>, '')
+command! SD StarDict
+command! GD GoldenDict
 
-command! -nargs=* SD call <SID>StarDict(<q-args>)
-command! -nargs=* GD call <SID>GoldenDict(<q-args>)
-
-nmap gk <Plug>StarDict
-vmap gk <Plug>VStarDict
-nmap gK <Plug>GoldenDict
-vmap gK <Plug>VGoldenDict
+nmap <silent> gk :call <SID>StarDict('', '')<CR>
+vmap <silent> gk :call <SID>StarDict('', 'v')<CR>
+nmap <silent> gK :call <SID>GoldenDict('', '')<CR>
+vmap <silent> gK :call <SID>GoldenDict('', 'v')<CR>
 " }}}
 
 " local .vimrc {{{
