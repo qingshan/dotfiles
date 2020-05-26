@@ -82,6 +82,9 @@ set completeopt=menuone,longest " Complete options
 set pumheight=15                " Limit popup menu height
 set history=10000               " The maximum value for the history
 set diffopt+=internal,algorithm:patience,indent-heuristic " Diff options
+set swapfile                    " enable swapfile
+set undofile                    " enable undofile
+set nobackup                    " do not keep a backup file, use versions instead
 
 " To make Vim more responsive/IDE-like.
 set updatetime=500
@@ -98,12 +101,8 @@ if &diff
   set noreadonly
 endif
 
-" This enables us to undo files even if you exit Vim.
-if has('persistent_undo')
-  set undofile
-endif
 " Show info for completion candidates in a popup menu
-if has("patch-8.1.1904")
+if has('patch-8.1.1904')
   set completeopt+=popup
   set completepopup=align:menu,border:off,highlight:Pmenu
 endif
@@ -182,7 +181,7 @@ vnoremap # :<C-U>call <SID>VSetSearch()<CR>??<CR><C-O>
 " Edit .vimrc file
 command! Erc :e $MYVIMRC
 command! Src :source $MYVIMRC
-command! Wrc :w | :source $MYVIMRC | :echom ".vimrc saved and reloaded!"
+command! Wrc :w | :source $MYVIMRC | :echom '.vimrc saved and reloaded!'
 
 " Leader
 let mapleader = "\<Space>"
@@ -217,7 +216,7 @@ xmap <Leader>S <Plug>(SubversiveSubvertRange)
 nmap <Leader>ss <Plug>(SubversiveSubstituteWordRange)
 
 " Mappings to make the global register less annoying
-if has("clipboard")
+if has('clipboard')
   noremap <Leader>p :set paste<CR>"+]p<Esc>:set nopaste<CR>
   noremap <Leader>P :set paste<CR>"+]P<Esc>:set nopaste<CR>
   noremap <Leader>y "+y
@@ -235,7 +234,7 @@ if has('terminal')
   command! T  terminal ++kill=term ++curwin ++close
   command! TS below terminal ++kill=term ++close
   command! TV vertical terminal ++kill=term ++close
-  command! TT execute "tabnew<Bar>terminal ++kill=term ++curwin ++close"
+  command! TT exec 'tabnew<Bar>terminal ++kill=term ++curwin ++close'
 endif
 
 " <Alt-#> <Leader># switch tabs
@@ -253,12 +252,12 @@ for i in range(10)
   let c = nr2char(char2nr('0') + i)
   let tc = c
   if tc == '0'
-    let tc = "10"
+    let tc = '10'
   endif
-  exec "noremap <silent> <M-".c."> :tabn ".tc."<CR>"
-  exec "inoremap <silent> <M-".c."> <Esc>:tabn ".tc."<CR>"
-  exec "tnoremap <silent> <M-".c."> <C-W>:tabn ".tc."<CR>"
-  exec "noremap <silent> <Leader>".c." <Esc>:tabn ".tc."<CR>"
+  exec 'noremap <silent> <M-'.c.'> :tabn '.tc.'<CR>'
+  exec 'inoremap <silent> <M-'.c.'> <Esc>:tabn '.tc.'<CR>'
+  exec 'tnoremap <silent> <M-'.c.'> <C-W>:tabn '.tc.'<CR>'
+  exec 'noremap <silent> <Leader>'.c.' <Esc>:tabn '.tc.'<CR>'
 endfor
 " }}}
 
@@ -298,12 +297,12 @@ let g:fzf_action = {
 function! s:find_files()
   let git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
   if git_dir != ''
-    execute 'FzfFiles' git_dir
+    exec 'FzfFiles' git_dir
   else
-    execute 'FzfFiles'
+    exec 'FzfFiles'
   endif
 endfunction
-command! ProjectFiles execute s:find_files()
+command! ProjectFiles exec s:find_files()
 "}}}
 
 " vim-lightline {{{
@@ -365,15 +364,15 @@ let g:AutoPairsShortcutJump = '<S-Tab>'
 " }}}
 
 " Plugin: supertab {{{
-let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 " }}}
 
 " Plugin: UltiSnips {{{
-let g:UltiSnipsExpandTrigger = "<Tab>"
-let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
-let g:UltiSnipsListSnippets = "<C-L>"
+let g:UltiSnipsExpandTrigger = '<Tab>'
+let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+let g:UltiSnipsListSnippets = '<C-L>'
 " }}}
 
 " Plugin: vim-expand-region {{{
@@ -461,7 +460,7 @@ augroup vimrc-markdown
   autocmd FileType markdown let b:surround_{char2nr('k')} = "<kbd>\r</kbd>"
   autocmd FileType markdown let b:surround_{char2nr('n')} = "<sub>\r</sub>"
   autocmd FileType markdown let b:surround_{char2nr('p')} = "<sup>\r</sup>"
-  autocmd FileType markdown let b:surround_{char2nr('h')} = "\[\r\]\(//\)"
+  autocmd FileType markdown let b:surround_{char2nr('h')} = "\[\r\]\(\)"
   autocmd FileType markdown let b:surround_{char2nr('e')} = "\[\r\]\(\){:rel=\"nofollow noopener noreferrer\" target=\"_blank\"}"
   autocmd FileType markdown let b:surround_{char2nr('j')} = "\![\r\]\(/images/\){: .align-}"
 augroup END
@@ -474,12 +473,12 @@ let g:go_debug_windows = {
   \ 'stack': 'botright 10new',
   \ }
 let g:go_term_enabled = 0
-let g:go_term_mode = "split"
+let g:go_term_mode = 'split'
 let g:go_term_height = 15
 let g:go_term_width = 30
 let g:go_term_close_on_exit = 1
 
-let g:go_list_type = "quickfix"
+let g:go_list_type = 'quickfix'
 let g:go_echo_command_info = 0
 
 let g:go_info_mode = 'gopls'
@@ -547,7 +546,7 @@ vmap gx <Plug>(openbrowser-smart-search)
 
 " stardict & goldendict {{{
 function! s:getVSelectOrCword(mode) abort
-  if a:mode == "v"
+  if a:mode == 'v'
     let l:pos = getpos("'<")
     call setpos('.', l:pos)
     return getline('.')[col("'<") - 1 : col("'>") - 1]
@@ -559,7 +558,7 @@ endfunction
 function! s:StarDict(word, mode)
   let cmd = 'sdcv -n -e '
   let word = a:word
-  if word == ""
+  if word == ''
     let word = s:getVSelectOrCword(a:mode)
   endif
   let output = system(cmd . word)
@@ -567,14 +566,14 @@ function! s:StarDict(word, mode)
   call popup_atcursor(split(output, '\n'), {
     \ 'padding': [1, 1, 1, 1],
     \ 'borderchars': ['-','|','-','|','+','+','+','+'],
-    \ "border": [1, 1, 1, 1],
+    \ 'border': [1, 1, 1, 1],
     \ })
 endfunction
 
 function! s:GoldenDict(word, mode)
   let cmd = 'goldendict '
   let word = a:word
-  if word == ""
+  if word == ''
     let word = s:getVSelectOrCword(a:mode)
   endif
   call system(cmd . word)
