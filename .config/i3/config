@@ -309,9 +309,9 @@ for_window [class="mpv"] floating enable
 for_window [title="Welcome to Android Studio"] floating enable
 for_window [title="Android Virtual Device Manager"] floating enable
 for_window [title="Android Emulator - .*$"] floating enable
-for_window [class="GoldenDict"] floating enable, sticky enable, resize set 1024 768, move position center, move scratchpad, scratchpad show
-for_window [class="Zeal"] floating enable, sticky enable, resize set 1024 768, move position center, move scratchpad, scratchpad show
-for_window [class="TelegramDesktop"] floating enable, sticky enable, resize set 1024 768, move position center, move scratchpad
+for_window [class="GoldenDict"] floating enable, resize set 1024 768, move position center, move scratchpad
+for_window [class="Zeal"] floating enable, resize set 1024 768, move position center, move scratchpad
+for_window [class="TelegramDesktop"] floating enable, resize set 1024 768, move position center, move scratchpad
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
