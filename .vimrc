@@ -8,7 +8,8 @@ Plug 'maximbaz/lightline-ale'
 Plug 'gruvbox-community/gruvbox'
 " Editing
 Plug 'andymass/vim-matchup'
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
+Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
@@ -20,8 +21,6 @@ Plug 'wellle/targets.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'svermeulen/vim-subversive'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 " Coding
@@ -115,22 +114,22 @@ colorscheme gruvbox
 " }}}
 
 " File Types {{{
-augroup filetypedetect
+augroup vimrc-filetype
   command! -nargs=* -complete=help Help vertical belowright help <args>
   autocmd FileType help wincmd L
-  autocmd BufNewFile,BufRead *.ino setlocal noet ts=4 sw=4 sts=4
-  autocmd BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
-  autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
-  autocmd BufNewFile,BufRead *.html setlocal noet ts=4 sw=4
-  autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
-  autocmd BufNewFile,BufRead *.hcl setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.sh setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd BufNewFile,BufRead *.hcl setlocal expandtab shiftwidth=2 tabstop=2
   autocmd BufNewFile,BufRead *.proto setlocal expandtab shiftwidth=2 tabstop=2
-  
-  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+
+  autocmd FileType markdown setlocal expandtab shiftwidth=2 softtabstop=2
+  autocmd FileType vim setlocal expandtab shiftwidth=2 softtabstop=2
   autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd FileType html setlocal expandtab shiftwidth=2 softtabstop=2
+  autocmd FileType css setlocal expandtab shiftwidth=2 softtabstop=2
   autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
+  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 augroup END
 
 augroup vimrc-auto-mkdir
@@ -138,8 +137,8 @@ augroup vimrc-auto-mkdir
   autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
   function! s:auto_mkdir(dir, force)
     if !isdirectory(a:dir)
-          \   && (a:force
-          \       || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
+      \ && (a:force
+      \ || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
       call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
     endif
   endfunction
@@ -156,9 +155,15 @@ nnoremap U <C-R>
 " Select last inserted text
 nnoremap gV `[v`]
 
-" fixes some annoyances
+" Fixes some annoyances
 command! Q q
 map q: :q
+
+" Prevent unintended operation
+nmap s <Nop>
+nmap S <Nop>
+xmap s <Nop>
+xmap S <Plug>(operator-sandwich-add)
 
 " mimic the behavior of /%Vfoobar which searches within the previously
 " selected visual selection
@@ -205,16 +210,6 @@ noremap <Leader>a :cclose <Bar> :lclose <CR>
 " Jump to definition in vertical split
 nnoremap <Leader>] <C-W>v<C-]>
 
-" s for substitute
-nmap s <Plug>(SubversiveSubstitute)
-nmap ss <Plug>(SubversiveSubstituteLine)
-nmap S <Plug>(SubversiveSubstituteToEndOfLine)
-nmap <Leader>s <Plug>(SubversiveSubstituteRange)
-xmap <Leader>s <Plug>(SubversiveSubstituteRange)
-nmap <Leader>S <Plug>(SubversiveSubvertRange)
-xmap <Leader>S <Plug>(SubversiveSubvertRange)
-nmap <Leader>ss <Plug>(SubversiveSubstituteWordRange)
-
 " Mappings to make the global register less annoying
 if has('clipboard')
   noremap <Leader>p :set paste<CR>"+]p<Esc>:set nopaste<CR>
@@ -254,10 +249,30 @@ for i in range(10)
   if tc == '0'
     let tc = '10'
   endif
-  exec 'noremap <silent> <M-'.c.'> :tabn '.tc.'<CR>'
+  exec 'noremap  <silent> <M-'.c.'> :tabn '.tc.'<CR>'
   exec 'inoremap <silent> <M-'.c.'> <Esc>:tabn '.tc.'<CR>'
   exec 'tnoremap <silent> <M-'.c.'> <C-W>:tabn '.tc.'<CR>'
-  exec 'noremap <silent> <Leader>'.c.' <Esc>:tabn '.tc.'<CR>'
+  exec 'noremap  <silent> <Leader>'.c.' :tabn '.tc.'<CR>'
+endfor
+
+" }}}
+
+" vim-sandwich {{{
+call operator#sandwich#set('all', 'all', 'highlight', 0)
+
+function! s:quick_surround(t, c)
+  if a:t == ''
+    exec 'nmap <LocalLeader>s'.a:c.' saiw'.a:c
+    exec 'nmap <LocalLeader>S'.a:c.' saiW'.a:c
+  else
+    exec 'autocmd Filetype '.a:t.' nmap <LocalLeader>s'.a:c.' saiw'.a:c
+    exec 'autocmd Filetype '.a:t.' nmap <LocalLeader>S'.a:c.' saiW'.a:c
+  endif
+endfunc
+
+" Surround shortcuts for the current word/WORD
+for c in ['(', ')', '{', '}', '[', ']', '<', '>', '"', "'", '`']
+  call s:quick_surround('', c)
 endfor
 " }}}
 
@@ -279,21 +294,11 @@ nnoremap <silent> <Leader>fr :FzfRg<CR>
 nnoremap <silent> <Leader>fs :FzfSnippets<CR>
 nnoremap <silent> <Leader>ft :FzfTags<CR>
 
-noremap <silent> <M-b> :FzfBuffers<CR>
-noremap <silent> <M-c> :FzfCommands<CR>
-noremap <silent> <M-g> :FzfGFiles?<CR>
-noremap <silent> <M-h> :FzfHistory<CR>
-noremap <silent> <M-l> :FzfLines<CR>
-noremap <silent> <M-m> :FzfMarks<CR>
-noremap <silent> <M-r> :FzfRg<CR>
-noremap <silent> <M-s> :FzfSnippets<CR>
-noremap <silent> <M-t> :FzfTags<CR>
-
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit',
-  \  }
+  \ }
 function! s:find_files()
   let git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
   if git_dir != ''
@@ -311,7 +316,7 @@ let g:lightline = {
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ], [ 'filename', 'modified' ],  [ 'gostatus' ] ],
   \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ] ],
-  \ },   
+  \ },
   \ 'tabline': {
   \   'left': [ [ 'tabs' ] ],
   \   'right': [ ],
@@ -360,7 +365,9 @@ let g:AutoPairsCenterLine = 0
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsMultilineClose = 0
-let g:AutoPairsShortcutJump = '<S-Tab>'
+let g:AutoPairsMapCh = 0
+let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutBackInsert = ''
 " }}}
 
 " Plugin: supertab {{{
@@ -373,6 +380,7 @@ let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 let g:UltiSnipsListSnippets = '<C-L>'
+command! SE UltiSnipsEdit
 " }}}
 
 " Plugin: vim-expand-region {{{
@@ -386,6 +394,10 @@ call expand_region#custom_text_objects('html', {
   \ 'it' :1,
   \ 'at' :1
   \ })
+" }}}
+
+" fugitive {{{
+command! GB Gblame
 " }}}
 
 " vim-mundo {{{
@@ -413,10 +425,12 @@ let g:ale_linters_explicit = 1
 let g:ale_linters = {
   \ 'go': ['gopls'],
   \ 'dart': ['language_server'],
+  \ 'markdown': ['mdl'],
   \ }
 let g:ale_fixers = {
   \ 'go': ['gofmt', 'goimports', 'trim_whitespace', 'remove_trailing_lines'],
   \ 'dart': ['dartfmt'],
+  \ '*': ['remove_trailing_lines', 'trim_whitespace'],
   \ }
 let g:ale_go_gofmt_options = '-s'
 " }}}
@@ -452,17 +466,24 @@ augroup vimrc-markdown
   autocmd Filetype markdown vnoremap <buffer> <LocalLeader>tl :s/^/- [ ] /<CR>
 
   " Surround settings
-  autocmd FileType markdown let b:surround_{char2nr('i')} = "_\r_"
-  autocmd FileType markdown let b:surround_{char2nr('b')} = "**\r**"
-  autocmd FileType markdown let b:surround_{char2nr('c')} = "```\r```"
-  autocmd FileType markdown let b:surround_{char2nr('u')} = "<u>\r</u>"
-  autocmd FileType markdown let b:surround_{char2nr('d')} = "<del>\r</del>"
-  autocmd FileType markdown let b:surround_{char2nr('k')} = "<kbd>\r</kbd>"
-  autocmd FileType markdown let b:surround_{char2nr('n')} = "<sub>\r</sub>"
-  autocmd FileType markdown let b:surround_{char2nr('p')} = "<sup>\r</sup>"
-  autocmd FileType markdown let b:surround_{char2nr('h')} = "\[\r\]\(\)"
-  autocmd FileType markdown let b:surround_{char2nr('e')} = "\[\r\]\(\){:rel=\"nofollow noopener noreferrer\" target=\"_blank\"}"
-  autocmd FileType markdown let b:surround_{char2nr('j')} = "\![\r\]\(/images/\){: .align-}"
+  autocmd FileType markdown call sandwich#util#addlocal([
+    \ {'buns': ['_', '_'], 'nesting': 0, 'input': ['i']},
+    \ {'buns': ['**', '**'], 'nesting': 0, 'input': ['s']},
+    \ {'buns': ['```', '```'], 'nesting': 0, 'input': ['c']},
+    \ {'buns': ['<u>', '</u>'], 'nesting': 0, 'input': ['u']},
+    \ {'buns': ['<del>', '</del>'], 'nesting': 0, 'input': ['d']},
+    \ {'buns': ['<kbd>', '</kbd>'], 'nesting': 0, 'input': ['k']},
+    \ {'buns': ['<sup>', '</sup>'], 'nesting': 0, 'input': ['p']},
+    \ {'buns': ['<sub>', '</sub>'], 'nesting': 0, 'input': ['n']},
+    \ {'buns': ['[', ']()'], 'nesting': 0, 'input': ['h']},
+    \ {'buns': ['[', '](){:rel="nofollow noopener noreferrer" target="_blank"}'], 'nesting': 0, 'input': ['e']},
+    \ {'buns': ['[', '](/images/){: .align-}'], 'nesting': 0, 'input': ['j']},
+    \ ])
+
+  " Surround shortcuts
+  for c in ['i', 's', 'c', 'u', 'd', 'k', 'n', 'p', 'h', 'e', 'j']
+    call s:quick_surround('markdown', c)
+  endfor
 augroup END
 " }}}
 
