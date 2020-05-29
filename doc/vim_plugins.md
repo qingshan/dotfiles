@@ -141,10 +141,6 @@ Terminal
 
 - `:GB` - Gblame.
 
-### tagbar
-
-- `:TB` - Tagbar toggle.
-
 ### vim-mundo
 
 - `:UT` - Undo tree toggle.

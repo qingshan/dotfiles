@@ -53,7 +53,6 @@ Plug 'cespare/vim-toml'
 Plug 'elzr/vim-json', {'for' : 'json'}
 " Tools
 Plug 'tyru/open-browser.vim'
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'KabbAmine/zeavim.vim'
 call plug#end()
 " }}}
@@ -402,14 +401,6 @@ command! GB Gblame
 
 " vim-mundo {{{
 command! UT MundoToggle
-" }}}
-
-" tagbar {{{
-command! TB TagbarToggle
-let g:tagbar_autofocus = 1
-let g:tagbar_expand = 1
-let g:tagbar_foldlevel = 2
-let g:tagbar_autoshowtag = 1
 " }}}
 
 " ale {{{
