@@ -309,9 +309,10 @@ for_window [class="mpv"] floating enable
 for_window [title="Welcome to Android Studio"] floating enable
 for_window [title="Android Virtual Device Manager"] floating enable
 for_window [title="Android Emulator - .*$"] floating enable
-for_window [class="GoldenDict"] floating enable, resize set 1024 768, move position center, move scratchpad
-for_window [class="Zeal"] floating enable, resize set 1024 768, move position center, move scratchpad
-for_window [class="TelegramDesktop"] floating enable, resize set 1024 768, move position center, move scratchpad
+for_window [class="GoldenDict"] floating enable, resize set 1024 768, move position center, move scratchpad, scratchpad show
+for_window [class="Zeal"] floating enable, resize set 1024 768, move position center, move scratchpad, scratchpad show
+for_window [class="TelegramDesktop" title="Telegram"] floating enable, resize set 1024 768, move position center, move scratchpad
+for_window [class="TelegramDesktop" title="Media viewer"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -338,7 +339,7 @@ exec_always --no-startup-id ~/bin/auto-screen-rotate.sh eDP1
 exec --no-startup-id ibus-daemon --xim -d -r
 exec --no-startup-id goldendict
 exec --no-startup-id zeal
-exec --no-startup-id telegram-desktop -startintray
+exec --no-startup-id telegram-desktop
 
 # }}}
 
@@ -359,7 +360,7 @@ bindsym $mod+F10 exec rofi-readings
 bindsym $mod+F11 exec rofi-mpc
 bindsym $mod+y exec mpv `xsel -ob`
 bindsym $mod+n exec notify-send "$(date)"
-bindsym $mod+i [class="TelegramDesktop"] scratchpad show
+bindsym $mod+i [class="TelegramDesktop" title="Telegram"] scratchpad show
 
 # more application shortcuts
 bindsym $mod+e mode "$mode_app"
