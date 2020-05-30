@@ -264,12 +264,6 @@ for i in range(10)
   exec 'tnoremap <silent> <M-'.c.'> <C-W>'.tc.'gt'
   exec 'noremap  <silent> <Leader>'.c.' '.tc.'gt'
 endfor
-noremap  <silent> <M-t> :tabnew<CR>
-inoremap <silent> <M-t> <C-o>:tabnew<CR>
-noremap  <silent> <M-w> :tabclose<cr>
-inoremap <silent> <M-w> <Esc>:tabclose<CR>
-noremap  <silent> <M-s> :wa<CR>
-inoremap <silent> <M-s> <C-o>:w<CR>
 
 " Move lines
 nnoremap <silent> <M-j> mz:m+<cr>`z
