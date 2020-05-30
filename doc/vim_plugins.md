@@ -88,6 +88,11 @@ Terminal
 - `cr-`, `cr.`, `cr<Space>`, `crt` - dash-case (`cr-`), dot.case (`cr.`), space case (`cr<Space>`), and Title Case (`crt`).
 - `:S/p1/p2/g` - Preserve case substitute
 
+### vim-easy-align
+
+- `ga{motion}` - Easy align in normal mode.
+- `ga` - Easy align in visual mode.
+
 ### vim-ReplaceWithRegister
 
 - `gr{motion}` - Replace {motion} text with the contents of the unnamed register.

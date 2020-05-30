@@ -23,6 +23,7 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'junegunn/vim-easy-align'
 " Coding
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -144,6 +145,25 @@ augroup vimrc-auto-mkdir
 augroup END
 " }}}
 
+" Meta/Alt Keys {{{
+function! s:metacode(key)
+  exec "set <M-".a:key.">=\e".a:key
+endfunc
+for i in range(10)
+  call s:metacode(nr2char(char2nr('0') + i))
+endfor
+for i in range(26)
+  call s:metacode(nr2char(char2nr('a') + i))
+  call s:metacode(nr2char(char2nr('A') + i))
+endfor
+for c in [',', '.', '/', ';', '{', '}']
+  call s:metacode(c)
+endfor
+for c in ['?', ':', '-', '_', '+', '=', "'"]
+  call s:metacode(c)
+endfor
+" }}}
+
 " Mappings {{{
 " Act like D and C
 nnoremap Y y$
@@ -236,38 +256,24 @@ if has('terminal')
 endif
 
 " <Alt-#> <Leader># switch tabs
-function! s:metacode(key)
-  exec "set <M-".a:key.">=\e".a:key
-endfunc
-for i in range(10)
-  call s:metacode(nr2char(char2nr('0') + i))
-endfor
-for i in range(26)
-  call s:metacode(nr2char(char2nr('a') + i))
-  call s:metacode(nr2char(char2nr('A') + i))
-endfor
-for c in [',', '.', '/', ';', '{', '}']
-  call s:metacode(c)
-endfor
-for c in ['?', ':', '-', '_', '+', '=', "'"]
-  call s:metacode(c)
-endfor
 for i in range(10)
   let c = nr2char(char2nr('0') + i)
   let tc = (c == '0') ? '10' : c
-  exec 'noremap  <silent> <M-'.c.'> :tabn '.tc.'<CR>'
-  exec 'inoremap <silent> <M-'.c.'> <Esc>:tabn '.tc.'<CR>'
-  exec 'tnoremap <silent> <M-'.c.'> <C-W>:tabn '.tc.'<CR>'
-  exec 'noremap  <silent> <Leader>'.c.' :tabn '.tc.'<CR>'
+  exec 'noremap  <silent> <M-'.c.'> '.tc.'gt'
+  exec 'inoremap <silent> <M-'.c.'> <C-O>'.c.'gt'
+  exec 'tnoremap <silent> <M-'.c.'> <C-W>'.tc.'gt'
+  exec 'noremap  <silent> <Leader>'.c.' '.tc.'gt'
 endfor
 noremap  <silent> <M-t> :tabnew<CR>
-inoremap <silent> <M-t> <Esc>:tabnew<CR>
+inoremap <silent> <M-t> <C-o>:tabnew<CR>
 noremap  <silent> <M-w> :tabclose<cr>
 inoremap <silent> <M-w> <Esc>:tabclose<CR>
+noremap  <silent> <M-s> :wa<CR>
+inoremap <silent> <M-s> <C-o>:w<CR>
 
 " Move lines
-noremap  <silent> <M-j> mz:m+<cr>`z
-noremap  <silent> <M-k> mz:m-2<cr>`z
+nnoremap <silent> <M-j> mz:m+<cr>`z
+nnoremap <silent> <M-k> mz:m-2<cr>`z
 vnoremap <silent> <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <silent> <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 " }}}
@@ -374,6 +380,11 @@ function! LightlineGostatus()
   endif
   return winwidth('.') > 70 ? go#statusline#Show() : ''
 endfunction
+" }}}
+
+" Plugin: vim-easy-align {{{
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 " }}}
 
 " Plugin: auto-pairs {{{
@@ -545,8 +556,9 @@ augroup vimrc-go
   autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
   autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
 
+  autocmd FileType go nmap <silent> <Leader>ce :GoImpl<CR>
+  autocmd FileType go nmap <silent> <Leader>ci <Plug>(go-imports)
   autocmd FileType go nmap <silent> <Leader>cn <Plug>(go-rename)
-  autocmd FileType go nmap <silent> <Leader>ci :GoImpl<CR>
 
   autocmd FileType go nmap <silent> <Leader>di <Plug>(go-implements)
   autocmd FileType go nmap <silent> <Leader>dr <Plug>(go-referrers)
@@ -554,7 +566,6 @@ augroup vimrc-go
   autocmd FileType go nmap <silent> <Leader>dd :GoSameIdsToggle<CR>
 
   autocmd FileType go nmap <silent> <Leader>gd <Plug>(go-def)
-  autocmd FileType go nmap <silent> <Leader>gi <Plug>(go-imports)
   autocmd FileType go nmap <silent> <Leader>gs <Plug>(go-def-split)
   autocmd FileType go nmap <silent> <Leader>gv <Plug>(go-def-vertical)
   autocmd FileType go nmap <silent> <Leader>gt <Plug>(go-def-tab)
