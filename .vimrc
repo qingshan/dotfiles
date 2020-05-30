@@ -181,6 +181,10 @@ endfunction
 vnoremap * :<C-U>call <SID>VSetSearch()<CR>//<CR><C-O>
 vnoremap # :<C-U>call <SID>VSetSearch()<CR>??<CR><C-O>
 
+" Move between linting errors
+nnoremap ]r :ALENextWrap<CR>
+nnoremap [r :ALEPreviousWrap<CR>
+
 " Never use a mapping when a command will do! This is Vim!
 " Edit .vimrc file
 command! Erc :e $MYVIMRC
@@ -242,18 +246,30 @@ for i in range(26)
   call s:metacode(nr2char(char2nr('a') + i))
   call s:metacode(nr2char(char2nr('A') + i))
 endfor
+for c in [',', '.', '/', ';', '{', '}']
+  call s:metacode(c)
+endfor
+for c in ['?', ':', '-', '_', '+', '=', "'"]
+  call s:metacode(c)
+endfor
 for i in range(10)
   let c = nr2char(char2nr('0') + i)
-  let tc = c
-  if tc == '0'
-    let tc = '10'
-  endif
+  let tc = (c == '0') ? '10' : c
   exec 'noremap  <silent> <M-'.c.'> :tabn '.tc.'<CR>'
   exec 'inoremap <silent> <M-'.c.'> <Esc>:tabn '.tc.'<CR>'
   exec 'tnoremap <silent> <M-'.c.'> <C-W>:tabn '.tc.'<CR>'
   exec 'noremap  <silent> <Leader>'.c.' :tabn '.tc.'<CR>'
 endfor
+noremap  <silent> <M-t> :tabnew<CR>
+inoremap <silent> <M-t> <Esc>:tabnew<CR>
+noremap  <silent> <M-w> :tabclose<cr>
+inoremap <silent> <M-w> <Esc>:tabclose<CR>
 
+" Move lines
+noremap  <silent> <M-j> mz:m+<cr>`z
+noremap  <silent> <M-k> mz:m-2<cr>`z
+vnoremap <silent> <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <silent> <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 " }}}
 
 " vim-sandwich {{{
@@ -283,6 +299,7 @@ let g:matchup_matchparen_enabled = 1
 " fzf.vim {{{
 let g:fzf_command_prefix = 'Fzf'
 noremap <silent> <C-P> :ProjectFiles<CR>
+inoremap <silent> <C-P> <Esc>:ProjectFiles<CR>
 nnoremap <silent> <Leader>fb :FzfBuffers<CR>
 nnoremap <silent> <Leader>fc :FzfCommands<CR>
 nnoremap <silent> <Leader>fg :FzfGFiles?<CR>
@@ -365,6 +382,8 @@ let g:AutoPairsMapSpace = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsMultilineClose = 0
 let g:AutoPairsMapCh = 0
+let g:AutoPairsShortcutJump = '<M-n>'
+let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutBackInsert = ''
 " }}}
@@ -535,6 +554,7 @@ augroup vimrc-go
   autocmd FileType go nmap <silent> <Leader>dd :GoSameIdsToggle<CR>
 
   autocmd FileType go nmap <silent> <Leader>gd <Plug>(go-def)
+  autocmd FileType go nmap <silent> <Leader>gi <Plug>(go-imports)
   autocmd FileType go nmap <silent> <Leader>gs <Plug>(go-def-split)
   autocmd FileType go nmap <silent> <Leader>gv <Plug>(go-def-vertical)
   autocmd FileType go nmap <silent> <Leader>gt <Plug>(go-def-tab)
