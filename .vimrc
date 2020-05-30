@@ -84,6 +84,8 @@ set diffopt+=internal,algorithm:patience,indent-heuristic " Diff options
 set swapfile                    " enable swapfile
 set undofile                    " enable undofile
 set nobackup                    " do not keep a backup file, use versions instead
+" DRY: some settings are default or set in the system vimrc...
+" ...and the plugin vim-sensible
 
 " To make Vim more responsive/IDE-like.
 set updatetime=500
@@ -266,10 +268,10 @@ for i in range(10)
 endfor
 
 " Move lines
-nnoremap <silent> <M-j> mz:m+<cr>`z
-nnoremap <silent> <M-k> mz:m-2<cr>`z
-vnoremap <silent> <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vnoremap <silent> <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nnoremap <silent> <M-j> mz:m+<CR>`z
+nnoremap <silent> <M-k> mz:m-2<CR>`z
+vnoremap <silent> <M-j> :m'>+<CR>`<my`>mzgv`yo`z
+vnoremap <silent> <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
 " }}}
 
 " vim-sandwich {{{
@@ -300,15 +302,17 @@ let g:matchup_matchparen_enabled = 1
 let g:fzf_command_prefix = 'Fzf'
 noremap <silent> <C-P> :ProjectFiles<CR>
 inoremap <silent> <C-P> <Esc>:ProjectFiles<CR>
-nnoremap <silent> <Leader>fb :FzfBuffers<CR>
-nnoremap <silent> <Leader>fc :FzfCommands<CR>
-nnoremap <silent> <Leader>fg :FzfGFiles?<CR>
-nnoremap <silent> <Leader>fh :FzfHistory<CR>
-nnoremap <silent> <Leader>fl :FzfLines<CR>
-nnoremap <silent> <Leader>fm :FzfMarks<CR>
-nnoremap <silent> <Leader>fr :FzfRg<CR>
-nnoremap <silent> <Leader>fs :FzfSnippets<CR>
-nnoremap <silent> <Leader>ft :FzfTags<CR>
+noremap <silent> <leader>/ :FzfRg<CR>
+
+noremap <silent> <Leader>fb :FzfBuffers<CR>
+noremap <silent> <Leader>fc :FzfCommands<CR>
+noremap <silent> <Leader>fg :FzfGFiles?<CR>
+noremap <silent> <Leader>fh :FzfHistory<CR>
+noremap <silent> <Leader>fl :FzfLines<CR>
+noremap <silent> <Leader>fm :FzfMarks<CR>
+noremap <silent> <Leader>fr :FzfRg<CR>
+noremap <silent> <Leader>fs :FzfSnippets<CR>
+noremap <silent> <Leader>ft :FzfTags<CR>
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -376,12 +380,12 @@ function! LightlineGostatus()
 endfunction
 " }}}
 
-" Plugin: vim-easy-align {{{
+" vim-easy-align {{{
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 " }}}
 
-" Plugin: auto-pairs {{{
+" auto-pairs {{{
 let g:AutoPairsCenterLine = 0
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsFlyMode = 0
@@ -393,12 +397,12 @@ let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutBackInsert = ''
 " }}}
 
-" Plugin: supertab {{{
+" supertab {{{
 let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 " }}}
 
-" Plugin: UltiSnips {{{
+" ultisnips {{{
 let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
@@ -406,7 +410,7 @@ let g:UltiSnipsListSnippets = '<C-L>'
 command! SE UltiSnipsEdit
 " }}}
 
-" Plugin: vim-expand-region {{{
+" vim-expand-region {{{
 call expand_region#custom_text_objects('go', {
   \ 'if' :0,
   \ 'af' :0,
@@ -419,7 +423,7 @@ call expand_region#custom_text_objects('html', {
   \ })
 " }}}
 
-" fugitive {{{
+" vim-fugitive {{{
 command! GB Gblame
 " }}}
 
@@ -535,6 +539,14 @@ function! s:build_go_files()
   endif
 endfunction
 
+function! s:find_go_package(pkg)
+  let dir = a:pkg
+  if executable('gofind')
+    let dir = trim(system('gofind ' . dir))
+  endif
+  call go#decls#Decls(1, dir)
+endfunction
+
 augroup vimrc-go
   autocmd!
   autocmd FileType go nmap <silent> <C-G> :GoDeclsDir<CR>
@@ -565,13 +577,12 @@ augroup vimrc-go
   autocmd FileType go nmap <silent> <Leader>gt <Plug>(go-def-tab)
   autocmd FileType go nmap <silent> <Leader>gx <Plug>(go-doc-browser)
 
-  autocmd Filetype go command! -nargs=? -complete=dir GO call go#decls#Decls(1, <q-args>)
-
-  " I like these more!
   autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>1, 'edit')
   autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>1, 'vsplit')
   autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>1, 'split')
   autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>1, 'tabe')
+
+  autocmd Filetype go command! -nargs=? -complete=dir GO call <SID>find_go_package(<q-args>)
 augroup END
 " }}}
 
