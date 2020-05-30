@@ -83,7 +83,7 @@ set history=10000               " The maximum value for the history
 set diffopt+=internal,algorithm:patience,indent-heuristic " Diff options
 set swapfile                    " enable swapfile
 set undofile                    " enable undofile
-set nobackup                    " do not keep a backup file, use versions instead
+set nobackup                    " do not keep a backup file
 " DRY: some settings are default or set in the system vimrc...
 " ...and the plugin vim-sensible
 
@@ -140,7 +140,7 @@ augroup vimrc-auto-mkdir
   function! s:auto_mkdir(dir, force)
     if !isdirectory(a:dir)
       \ && (a:force
-      \ || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
+      \ || input("'".a:dir."' does not exist. Create? [y/N]") =~? '^y\%[es]$')
       call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
     endif
   endfunction
@@ -294,6 +294,7 @@ endfor
 " }}}
 
 " vim-matchup {{{
+let b:matchup_matchparen_enabled = 0
 let g:matchup_matchparen_status_offscreen = 0
 let g:matchup_matchparen_enabled = 1
 " }}}
@@ -334,13 +335,11 @@ command! ProjectFiles exec s:find_files()
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ], [ 'filename', 'modified' ],  [ 'gostatus' ] ],
-  \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ] ],
+  \   'left': [['mode', 'paste'], ['filename', 'modified'], ['gostatus']],
+  \   'right': [['lineinfo'], ['percent'], ['linter_checking',
+  \     'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok']],
   \ },
-  \ 'tabline': {
-  \   'left': [ [ 'tabs' ] ],
-  \   'right': [ ],
-  \ },
+  \ 'tabline': { 'left': [[ 'tabs' ]], 'right': [] },
   \ 'component': {
   \   'gostatus': '%#goStatuslineColor#%{LightlineGostatus()}%*',
   \ },
@@ -359,12 +358,8 @@ let g:lightline = {
   \   'linter_ok': 'right',
   \   'gostatus': 'raw',
   \ },
-  \ 'separator': {
-  \   'left': '', 'right': ''
-  \ },
-  \ 'subseparator': {
-  \   'left': '', 'right': ''
-  \ },
+  \ 'separator': { 'left': '', 'right': '' },
+  \ 'subseparator': { 'left': '', 'right': '' },
   \ }
 let g:lightline#ale#indicator_checking = ''
 let g:lightline#ale#indicator_infos = ''
@@ -495,7 +490,6 @@ augroup vimrc-markdown
     \ {'buns': ['<sup>', '</sup>'], 'nesting': 0, 'input': ['p']},
     \ {'buns': ['<sub>', '</sub>'], 'nesting': 0, 'input': ['n']},
     \ {'buns': ['[', ']()'], 'nesting': 0, 'input': ['h']},
-    \ {'buns': ['[', '](){:rel="nofollow noopener noreferrer" target="_blank"}'], 'nesting': 0, 'input': ['e']},
     \ {'buns': ['[', '](/images/){: .align-}'], 'nesting': 0, 'input': ['j']},
     \ ])
 
