@@ -560,7 +560,7 @@ augroup vimrc-go
   autocmd FileType go nmap <silent> <Leader>gt <Plug>(go-def-tab)
   autocmd FileType go nmap <silent> <Leader>gx <Plug>(go-doc-browser)
 
-  autocmd Filetype go command! -nargs=? -complete=dir GO call go#decls#Decls(1, '/usr/lib/go/src/'.<q-args>)
+  autocmd Filetype go command! -nargs=? -complete=dir GO call go#decls#Decls(1, <q-args>)
 
   " I like these more!
   autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>1, 'edit')
