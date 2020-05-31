@@ -19,13 +19,14 @@
 - `ic`, `ac` - Comment text objects (provided by vim-go)
 - `i%`, `a%` - Any block text objects (provided by match-up)
 - `ii`, `ai`, `iI`, `aI` - An Indentation level and line above/below (provided by vim-indent-object)
+- `ib`, `ab`, `is`, `as` - Search and select a sandwiched text automatically or with query (provided by vim-sandwich)
 
 ## Shortcuts
 
 - `Y` = `y$` - `Y` act like `D` and `C`.
 - `U` = `<Ctrl-r>` - `U` for easier redo.
-- `gV` - Select last inserted text
-- `<Space>` - Leader
+- `gV` - Select last inserted text.
+- `<Alt-j>`, `<Alt-k>` - Move lines in normal and visual mode.
 - `<Leader>y`, `<Leader>Y`, `<Leader>p`, `<Leader>P` - Copy to and paste from system clipboard.
 - `<Leader>w` - Fast saving.
 - `<Leader>o` - Close all other windows but the current window.
@@ -33,6 +34,7 @@
 - `<Leader>q` - Quit the current window.
 - `<Leader>Q` - Close the current tab.
 - `<Leader>a` - Close the quickfix window.
+- `:CC` - Toggle color column.
 
 Tabs
 
@@ -78,6 +80,7 @@ Terminal
 - `sd{surround_char}` - Delete surrounding, e.g.: `dst`
 - `sr{target_char}{surround_char}` - Change surrounding, , e.g.: `sr'"`
 - `sdb`, `srb` - Searchs a set of surrounding automatically.
+- `<LocalLeader>s`, `<LocalLeader>S` - Quick surround word or WORD.
 
 ### vim-abolish
 
@@ -155,40 +158,7 @@ Terminal
 - `<Ctrl-p>` - Show fzf window for git project files.
 - `<Ctrl-t>`, `<Ctrl-x>`, `<Ctrl-v>` - Open the file in tab, split, vsplit.
 - `<Leader>fr`, `<Leader>fs` - Fzf rg, snippets.
-
-### vim-go
-
-- `<Ctrl-g>` - Go to declare directory.
-- `<Leader>b` - go-build or go-test
-- `<Leader>B` - go-diagnostics
-- `<Leader>r` - go-run
-- `<Leader>R` - go-debug-start
-- `<Leader>t` - go-test
-- `<Leader>T` - go-debug-test
-- `<Leader>n` - go-test-func
-- `<Leader>i` - go-doc
-- `<Leader>cn` - go-rename
-- `<Leader>ci` - GoImpl
-- `<Leader>di` - go-implements
-- `<Leader>dr` - go-referrers
-- `<Leader>ds` - go-describe
-- `<Leader>dd` - go-sameids
-- `<Leader>gd` - go-def
-- `<Leader>gs` - go-def-split
-- `<Leader>gv` - go-def-vertical
-- `<Leader>gt` - go-def-tab
-- `<Leader>gx` - go-doc-browser
-- `:A`, `:AS`, `:AV`, `:AT` - go-alternate-switch
-
-Debug
-
----
-- `<F5>` - `:GoDebugContinue`, Continue execution until breakpoint or program termination.
-- `<F9>` - `:GoDebugBreakpoint`, Toggle breakpoint for the [linenr].
-- `<F10>` - `:GoDebugNext`, Advance execution by one line.
-- `<F11>` - `:GoDebugStep`, Advance execution by one step, stopping at the next line of code that will be executed.
-- `<F6>` - `:GoDebugPrint`, Print the result of a Go expression.
-- `:GoDebugStop`, `:GoDebugRestart`, `:GoDebugStepOut`, `:GoDebugSet`
+- `<Leader>/` - Rg line search.
 
 ### vinegar
 
@@ -198,11 +168,6 @@ Debug
 - `y` - Yank an absolute path for the file under the cursor.
 - `~` - Go home.
 - `<Ctrl-^>`, `<Ctrl-6>` - switching back to the previous buffer from the netrw buffer.
-
-### markdown
-
-- `gx` - open link
-- `ge` - open file
 
 ### open-browser
 
@@ -219,6 +184,49 @@ Debug
 - `gk`, `gK` - search stardict & goldendict for the word under cursor or the current visual selection.
 - `:SD`, `:GD` - stardict & goldendict command
 
+### vim-go
+
+- `<Ctrl-g>` - Go to declare directory.
+- `<Leader>b` - go-build or go-test
+- `<Leader>B` - go-diagnostics
+- `<Leader>r` - go-run
+- `<Leader>R` - go-debug-start
+- `<Leader>t` - go-test
+- `<Leader>T` - go-debug-test
+- `<Leader>n` - go-test-func
+- `<Leader>i` - go-doc
+- `<Leader>e` - go-coverage-toggle
+- `<Leader>ce` - GoImpl
+- `<Leader>cn` - go-rename
+- `<Leader>ci` - go-imports
+- `<Leader>ci` - go-imports
+- `<Leader>di` - go-implements
+- `<Leader>dr` - go-referrers
+- `<Leader>ds` - go-describe
+- `<Leader>dd` - go-sameids
+- `<Leader>gd` - go-def
+- `<Leader>gs` - go-def-split
+- `<Leader>gv` - go-def-vertical
+- `<Leader>gt` - go-def-tab
+- `<Leader>gx` - go-doc-browser
+- `:A`, `:AS`, `:AV`, `:AT` - go-alternate-switch
+- `:GO <pkg>` - go package decls
+
+Debug
+
+---
+- `<F5>` - `:GoDebugContinue`, Continue execution until breakpoint or program termination.
+- `<F9>` - `:GoDebugBreakpoint`, Toggle breakpoint for the [linenr].
+- `<F10>` - `:GoDebugNext`, Advance execution by one line.
+- `<F11>` - `:GoDebugStep`, Advance execution by one step, stopping at the next line of code that will be executed.
+- `<F6>` - `:GoDebugPrint`, Print the result of a Go expression.
+- `:GoDebugStop`, `:GoDebugRestart`, `:GoDebugStepOut`, `:GoDebugSet`
+
+### markdown
+
+- `gx` - open link
+- `ge` - open file
+
 ### Leader
 
 - `y`, `p`, `a`, `q`, `o`, `w`, `s`, `]`, `/`, `*` - reserved for vim enhancement.
@@ -231,13 +239,13 @@ Debug
 - `<Leader>c` - code, change.
 - `<Leader>d` - dig, data, find. display in quickfix window.
 - `<Leader>z` - zeal.
+- `<Leader>s` - substitute, surround
+- `<Leader>e` - error, examine, execute.
 
 TODO
 
 ---
-- `<Leader>s` - substitute
 - `<Leader>m` - move, management.
-- `<Leader>e` - error, examine, execute.
 - `<Leader>l` - lint.
 - `<Leader>k` - kill.
 - `<Leader>j` - jump.

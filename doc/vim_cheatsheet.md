@@ -248,8 +248,8 @@ An optional count that can be given before most of commands.
 - `cc #`, `:cn`, `:cp`, `:cfirst`, `:clast` - Display error.
 
 ## Obsolete
-- `s` = `cl` - Change character (delete and insert). Remapping to vim-subversive.
-- `S` = `cc` - Change the line. Remapping to vim-subversive and vim-surround.
+- `s` = `cl` - Change character (delete and insert).
+- `S` = `cc` - Change the line.
 - `x` = `dl` - Delete next character.
 - `X` = `dh` - Delete next character.
 
@@ -258,5 +258,5 @@ An optional count that can be given before most of commands.
 
 ## Plugins
 
-[Vim Plugins](vim_plugins.md)
-[Vim Tips](vim_tips.md)
+- [Vim Plugins](vim_plugins.md)
+- [Vim Tips](vim_tips.md)
