@@ -180,6 +180,10 @@ nnoremap gV `[v`]
 command! Q q
 map q: :q
 
+"allow deleting selection without updating the clipboard (yank buffer)
+vnoremap x "_x
+vnoremap X "_X
+
 " Prevent unintended operation
 nmap s <Nop>
 nmap S <Nop>
@@ -272,6 +276,18 @@ nnoremap <silent> <M-j> mz:m+<CR>`z
 nnoremap <silent> <M-k> mz:m-2<CR>`z
 vnoremap <silent> <M-j> :m'>+<CR>`<my`>mzgv`yo`z
 vnoremap <silent> <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
+
+" Toggle colorcolumn
+set columns=80
+
+function! s:colorcolumn_toggle()
+  if &colorcolumn == 0
+    let &colorcolumn = 81
+  else
+    let &colorcolumn = 0
+  endif
+endfunction
+command! CC exec s:colorcolumn_toggle()
 " }}}
 
 " vim-sandwich {{{
@@ -386,8 +402,6 @@ let g:AutoPairsMapSpace = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsMultilineClose = 0
 let g:AutoPairsMapCh = 0
-let g:AutoPairsShortcutJump = '<M-n>'
-let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutBackInsert = ''
 " }}}
@@ -461,40 +475,43 @@ let g:vim_markdown_edit_url_in = 'tab'
 
 augroup vimrc-markdown
   autocmd!
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>1 I# <Esc>
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>2 I## <Esc>
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>3 I### <Esc>
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>4 I#### <Esc>
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>5 I##### <Esc>
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>6 I###### <Esc>
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>n I---<Enter><Enter>
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>h i[]()<Esc>F[a
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>j i![](/images/)<Esc>F[a
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>c i```<Enter><Enter>```<Enter><Esc>kO
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>x 0f[lrx
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader><Space> 0f[lr<Space>
-  autocmd Filetype markdown nnoremap <buffer> <LocalLeader>q I> <ESC>
-  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>q :s/^/> /<CR>
-  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>ul :s/^/- /<CR>
-  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>ol :s/^/\=(line(".")-line("'<")+1).'. '/<CR>
-  autocmd Filetype markdown vnoremap <buffer> <LocalLeader>tl :s/^/- [ ] /<CR>
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>1 I# <Esc>
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>2 I## <Esc>
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>3 I### <Esc>
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>4 I#### <Esc>
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>5 I##### <Esc>
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>6 I###### <Esc>
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>n I---<Enter><Enter>
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>h i[]()<Esc>F[a
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>j i![](/images/)<Esc>F[a
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>x 0f[lrx
+  autocmd Filetype markdown nmap <buffer> <LocalLeader><Space> 0f[lr<Space>
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>q I> <ESC>
+  autocmd Filetype markdown vmap <buffer> <LocalLeader>q :s/^/> /<CR>
+  autocmd Filetype markdown vmap <buffer> <LocalLeader>ul :s/^/- /<CR>
+  autocmd Filetype markdown vmap <buffer> <LocalLeader>ol :s/^/\=(line(".")-line("'<")+1).'. '/<CR>
+  autocmd Filetype markdown vmap <buffer> <LocalLeader>tl :s/^/- [ ] /<CR>
+
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>cs i```shell<Enter><Enter>```<Enter><Esc>kO
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>cg i```go<Enter><Enter>```<Enter><Esc>kO
+  autocmd Filetype markdown nmap <buffer> <LocalLeader>cj i```java<Enter><Enter>```<Enter><Esc>kO
 
   " Surround settings
   autocmd FileType markdown call sandwich#util#addlocal([
     \ {'buns': ['_', '_'], 'nesting': 0, 'input': ['i']},
     \ {'buns': ['**', '**'], 'nesting': 0, 'input': ['s']},
-    \ {'buns': ['```', '```'], 'nesting': 0, 'input': ['c']},
+    \ {'buns': ['```', '```'], 'nesting': 0, 'indentkeys': '{,},0{,0}', 'input': ['c']},
     \ {'buns': ['<u>', '</u>'], 'nesting': 0, 'input': ['u']},
     \ {'buns': ['<del>', '</del>'], 'nesting': 0, 'input': ['d']},
     \ {'buns': ['<kbd>', '</kbd>'], 'nesting': 0, 'input': ['k']},
     \ {'buns': ['<sup>', '</sup>'], 'nesting': 0, 'input': ['p']},
     \ {'buns': ['<sub>', '</sub>'], 'nesting': 0, 'input': ['n']},
-    \ {'buns': ['[', ']()'], 'nesting': 0, 'input': ['h']},
-    \ {'buns': ['[', '](/images/){: .align-}'], 'nesting': 0, 'input': ['j']},
+    \ {'buns': ['[', ']()'], 'nesting': 0, 'action': ['add'], 'kind': ['add', 'replace'], 'input': ['h']},
+    \ {'buns': ['[', ']([^)]*)'], 'nesting': 0, 'regex': 1, 'action': ['delete'], 'kind': ['delete', 'replace', 'textobj'], 'input': ['h']},
     \ ])
 
   " Surround shortcuts
-  for c in ['i', 's', 'c', 'u', 'd', 'k', 'n', 'p', 'h', 'e', 'j']
+  for c in ['i', 's', 'c', 'u', 'd', 'k', 'n', 'p', 'h']
     call s:quick_surround('markdown', c)
   endfor
 augroup END
@@ -554,7 +571,7 @@ augroup vimrc-go
   autocmd FileType go nmap <silent> <Leader>T :GoDebugTest<CR>
   autocmd FileType go nmap <silent> <Leader>n <Plug>(go-test-func)
   autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
-  autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <silent> <Leader>e <Plug>(go-coverage-toggle)
 
   autocmd FileType go nmap <silent> <Leader>ce :GoImpl<CR>
   autocmd FileType go nmap <silent> <Leader>ci <Plug>(go-imports)
