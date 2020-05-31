@@ -564,14 +564,14 @@ augroup vimrc-go
   autocmd FileType go imap <silent> <C-G> <Esc>:<C-U>GoDeclsDir<CR>
 
   autocmd FileType go nmap <silent> <Leader>b :<C-U>call <SID>build_go_files()<CR>
-  autocmd FileType go nmap <silent> <Leader>B <Plug>(go-diagnostics)
   autocmd FileType go nmap <silent> <Leader>r <Plug>(go-run)
   autocmd FileType go nmap <silent> <Leader>R :GoDebugStart<CR>
   autocmd FileType go nmap <silent> <Leader>t <Plug>(go-test)
   autocmd FileType go nmap <silent> <Leader>T :GoDebugTest<CR>
   autocmd FileType go nmap <silent> <Leader>n <Plug>(go-test-func)
+  autocmd FileType go nmap <silent> <Leader>e <Plug>(go-diagnostics)
+  autocmd FileType go nmap <silent> <Leader>E <Plug>(go-coverage-toggle)
   autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
-  autocmd FileType go nmap <silent> <Leader>e <Plug>(go-coverage-toggle)
 
   autocmd FileType go nmap <silent> <Leader>ce :GoImpl<CR>
   autocmd FileType go nmap <silent> <Leader>ci <Plug>(go-imports)
