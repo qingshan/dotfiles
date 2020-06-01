@@ -3,7 +3,7 @@
 ## Prefixes
 
 - `<Space>` - Leader
-- `\\` - Local Leader
+- `\` - Local Leader
 - `:` - Command
 
 ## Color Scheme
@@ -12,7 +12,7 @@
 
 ## Text Objects
 
-- `ia` `aa` - An argument in a list of arguments surrounded by braces and commas. (provided by targets.vim)
+- `ia` `aa` - An argument in a list of arguments surrounded by braces and commas. (provided by vim-swap)
 - `il` `al` - The current line (provided by vim-textobj-line).
 - `ie` `ae` - The entire content of the current buffer (provided by vim-textobj-entire).
 - `if`, `af` - Function text objects (provided by vim-go)
@@ -144,6 +144,7 @@ Terminal
 - `<Alt-b>` - Go backwards one word.
 - `<Alt-d>` - Delete forwards one word.
 - `<Alt-f>` - Go forwards one word.
+- `<Alt-p>`, `<Alt-n>` - Up down
 
 ### GB
 
@@ -243,6 +244,13 @@ Debug
 - `<Leader>e` - error, examine, execute.
 
 TODO
+
+- cd cg cm co cp cq cu cv cx cy cz
+- dc dg dm dq dr du dv dx dy dz
+- gb gl gs gy
+- vc vd vm vo vp vq vr vs vu vv vx vy vz
+- yc yd ym yo yp yq yr ys yu yv yx yz
+- zp zq zy
 
 ---
 - `<Leader>m` - move, management.

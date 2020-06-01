@@ -199,6 +199,7 @@ An optional count that can be given before most of commands.
 - `<Ctrl-w>` - Delete backward one word.
 - `<Ctrl-u>` - Delete to beginning of line.
 - `<Ctrl-o>` - Run one command.
+- `<Ctrl-o> !!` - Run one command in command line.
 - `<Ctrl-v>{char}` - Insert character literally.
 
 ### Registers
@@ -207,6 +208,7 @@ An optional count that can be given before most of commands.
 - `<Ctrl-r>0` - Pastes the contents of the yank register.
 - `<Ctrl-r>=` - Evaluates an expression and inserts the result inline.
 - `<Ctrl-r>:`, `<Ctrl-r>/` - Paste expression result, last command, last search pattern.
+- `<Ctrl-r>%` - insert file name
 
 ### Suggestions
 - `<Ctrl-p>`  and  `<Ctrl-n>` - Opens a list of suggestions for auto-completion.
