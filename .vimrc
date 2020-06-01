@@ -241,15 +241,15 @@ nnoremap <Leader>] <C-W>v<C-]>
 
 " Mappings to make the global register less annoying
 if has('clipboard')
-  noremap <Leader>p :set paste<CR>"+]p<Esc>:set nopaste<CR>
-  noremap <Leader>P :set paste<CR>"+]P<Esc>:set nopaste<CR>
-  noremap <Leader>y "+y
-  noremap <Leader>Y "+Y
+  nnoremap <silent> <Leader>p :set paste<CR>"+]p<Esc>:set nopaste<CR>
+  nnoremap <silent> <Leader>P :set paste<CR>"+]P<Esc>:set nopaste<CR>
+  nnoremap <silent> <Leader>y "+yy
+  vnoremap <silent> <Leader>y "+y
 else
-  noremap <Leader>p :set paste<CR>:r !xsel -ob<Esc>:set nopaste<CR>
-  noremap <Leader>P :set paste<CR>:-1r !xsel -ob<Esc>:set nopaste<CR>
-  noremap <Leader>y :w !xsel -ib<CR><CR>
-  noremap <Leader>Y <S-v>:w !xsel -ib<CR><CR>
+  nnoremap <silent> <Leader>p :set paste<CR>:r !xsel -ob<Esc>:set nopaste<CR>
+  nnoremap <silent> <Leader>P :set paste<CR>:-1r !xsel -ob<Esc>:set nopaste<CR>
+  nnoremap <silent> <Leader>y <S-v>:w !xsel -ib<CR><CR>
+  vnoremap <silent> <Leader>y :w !xsel -ib<CR><CR>
 endif
 
 " Terminal settings
@@ -403,6 +403,8 @@ let g:AutoPairsFlyMode = 0
 let g:AutoPairsMultilineClose = 0
 let g:AutoPairsMapCh = 0
 let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutJump = '<M-l>'
+let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutBackInsert = ''
 " }}}
 
