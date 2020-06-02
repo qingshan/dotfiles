@@ -54,6 +54,7 @@ Plug 'elzr/vim-json', {'for' : 'json'}
 " Tools
 Plug 'tyru/open-browser.vim'
 Plug 'KabbAmine/zeavim.vim'
+Plug 'brglng/vim-im-select'
 call plug#end()
 " }}}
 
@@ -215,6 +216,9 @@ nnoremap [r :ALEPreviousWrap<CR>
 command! Erc :e $MYVIMRC
 command! Src :source $MYVIMRC
 command! Wrc :w | :source $MYVIMRC | :echom '.vimrc saved and reloaded!'
+
+" Go to the directory of current file
+command! CD lcd %:p:h
 
 " Leader
 let mapleader = "\<Space>"
