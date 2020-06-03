@@ -12,14 +12,17 @@
 
 ## Text Objects
 
-- `ia` `aa` - An argument in a list of arguments surrounded by braces and commas. (provided by vim-swap)
-- `il` `al` - The current line (provided by vim-textobj-line).
-- `ie` `ae` - The entire content of the current buffer (provided by vim-textobj-entire).
-- `if`, `af` - Function text objects (provided by vim-go)
-- `ic`, `ac` - Comment text objects (provided by vim-go)
+- `i,`, `a,`, `ia`, `aa` - An argument in a list of arguments surrounded by braces and commas. (provided by vim-swap)
+- `il`, `al` - The current line (provided by vim-textobj-line).
+- `ie`, `ae` - The entire content of the current buffer (provided by vim-textobj-entire).
 - `i%`, `a%` - Any block text objects (provided by match-up)
 - `ii`, `ai`, `iI`, `aI` - An Indentation level and line above/below (provided by vim-indent-object)
 - `ib`, `ab`, `is`, `as` - Search and select a sandwiched text automatically or with query (provided by vim-sandwich)
+
+Go
+---
+- `if`, `af` - Function text objects (provided by vim-go)
+- `ic`, `ac` - Comment text objects (provided by vim-go)
 
 ## Shortcuts
 
@@ -35,6 +38,7 @@
 - `<Leader>Q` - Close the current tab.
 - `<Leader>a` - Close the quickfix window.
 - `:CC` - Toggle color column.
+- `:CD` - Change directory of the current file.
 
 Tabs
 
