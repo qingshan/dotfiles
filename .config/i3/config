@@ -355,9 +355,6 @@ bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 bindsym $mod+Ctrl+m exec pavucontrol
-bindsym $mod+F9 exec rofi-bluetooth
-bindsym $mod+F10 exec rofi-readings
-bindsym $mod+F11 exec rofi-mpc
 bindsym $mod+y exec mpv `xsel -ob`
 bindsym $mod+n exec notify-send "$(date)"
 bindsym $mod+i [class="TelegramDesktop" title="Telegram"] scratchpad show
