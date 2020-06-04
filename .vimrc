@@ -42,10 +42,6 @@ Plug 'tpope/vim-rhubarb'
 Plug 'dense-analysis/ale'
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Dart
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'natebosch/vim-lsc'
-Plug 'natebosch/vim-lsc-dart'
 " Markdown
 Plug 'plasticboy/vim-markdown'
 " Misc
@@ -327,9 +323,9 @@ xmap aa <Plug>(swap-textobject-a)
 
 " fzf.vim {{{
 let g:fzf_command_prefix = 'Fzf'
-noremap <silent> <C-P> :ProjectFiles<CR>
+noremap  <silent> <C-P> :ProjectFiles<CR>
 inoremap <silent> <C-P> <Esc>:ProjectFiles<CR>
-noremap <silent> <leader>/ :FzfRg<CR>
+noremap  <silent> <leader>/ :FzfRg<CR>
 
 noremap <silent> <Leader>fb :FzfBuffers<CR>
 noremap <silent> <Leader>fc :FzfCommands<CR>
@@ -433,14 +429,14 @@ command! SE UltiSnipsEdit
 
 " vim-expand-region {{{
 call expand_region#custom_text_objects('go', {
-  \ 'if' :0,
-  \ 'af' :0,
-  \ 'ic' :0,
-  \ 'ac' :0
+  \ 'if': 0,
+  \ 'af': 0,
+  \ 'ic': 0,
+  \ 'ac': 0
   \ })
 call expand_region#custom_text_objects('html', {
-  \ 'it' :1,
-  \ 'at' :1
+  \ 'it': 1,
+  \ 'at': 1
   \ })
 " }}}
 
@@ -464,12 +460,10 @@ let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
   \ 'go': ['gopls'],
-  \ 'dart': ['language_server'],
   \ 'markdown': ['mdl'],
   \ }
 let g:ale_fixers = {
   \ 'go': ['gofmt', 'goimports', 'trim_whitespace', 'remove_trailing_lines'],
-  \ 'dart': ['dartfmt'],
   \ '*': ['remove_trailing_lines', 'trim_whitespace'],
   \ }
 let g:ale_go_gofmt_options = '-s'
