@@ -14,9 +14,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-obsession'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
@@ -32,6 +30,7 @@ Plug 'SirVer/ultisnips'
 " File
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-obsession'
 " VCS
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
@@ -55,12 +54,13 @@ call plug#end()
 " }}}
 
 " Settings {{{
+" DRY: some settings are default or set in the system vimrc...
+" ...and the plugin vim-sensible
 set number                      " Enable number
 set relativenumber              " Enable relative number
 set signcolumn=yes              " Enable sign column
 set mouse=a                     " Enable mouse mode
 set belloff=all                 " No beeps
-set hlsearch                    " Highlight found searches
 set showcmd                     " Show me what I'm typing
 set splitright                  " Vertical windows should be split to right
 set splitbelow                  " Horizontal windows should split to bottom
@@ -69,35 +69,41 @@ set hidden                      " Buffer should still exist if window is closed
 set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
 set noshowmatch                 " Do not show matching brackets by flickering
 set noshowmode                  " We show the mode with airline or lightline
-set ignorecase                  " Search case insensitive...
-set smartcase                   " ... but not it begins with upper case
 set smartindent                 " Smart indent
 set lazyredraw                  " Wait to redraw
-set completeopt=menuone,longest " Complete options
-set pumheight=15                " Limit popup menu height
+set shortmess-=S                " Show search count message
+
+" History
 set history=10000               " The maximum value for the history
-set diffopt+=internal,algorithm:patience,indent-heuristic " Diff options
 set swapfile                    " enable swapfile
 set undofile                    " enable undofile
 set nobackup                    " do not keep a backup file
-" DRY: some settings are default or set in the system vimrc...
-" ...and the plugin vim-sensible
+
+" Searching
+set hlsearch                    " Highlight found searches
+set incsearch                   " incremental searching
+set ignorecase                  " Search case insensitive...
+set smartcase                   " ... but not it begins with upper case
+set gdefault                    " have :s///g flag by default on
 
 " To make Vim more responsive/IDE-like.
 set updatetime=500
 set balloondelay=250
 
 " Enable to copy to clipboard for operations like yank, delete, change and put
-if has('unnamedplus')
-  set clipboard^=unnamed
-  set clipboard^=unnamedplus
-endif
+set clipboard^=unnamed
+set clipboard^=unnamedplus
 
+" Diff options
+set diffopt+=internal,algorithm:patience,indent-heuristic
 " Disable readonly in diff mode
 if &diff
   set noreadonly
 endif
 
+" Complete options
+set completeopt=menuone,longest " Complete options
+set pumheight=15                " Limit popup menu height
 " Show info for completion candidates in a popup menu
 if has('patch-8.1.1904')
   set completeopt+=popup
@@ -180,7 +186,7 @@ map q: :q
 vnoremap x "_x
 vnoremap X "_X
 
-" Prevent unintended operation
+" Free for other mappings
 nmap s <Nop>
 nmap S <Nop>
 xmap s <Nop>
@@ -275,9 +281,6 @@ nnoremap <silent> <M-j> mz:m+<CR>`z
 nnoremap <silent> <M-k> mz:m-2<CR>`z
 vnoremap <silent> <M-j> :m'>+<CR>`<my`>mzgv`yo`z
 vnoremap <silent> <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
-
-" Toggle colorcolumn
-set columns=80
 
 function! s:colorcolumn_toggle()
   if &colorcolumn == 0
