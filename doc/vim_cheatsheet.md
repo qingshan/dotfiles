@@ -240,6 +240,13 @@ An optional count that can be given before most of commands.
 
 ## Misc
 
+### Pattern
+
+- `^`, `$`, `.`, `*`, `[`, `]` - Magic
+- `^`, `$` - No Magic
+- `\v` - Very Magic
+- `\V` - Very No Magic
+
 ### Vimdiff
 - `[c`, `]c` - Jump to previous and next diff.
 - `do`, `dp` - Diff obtain and put

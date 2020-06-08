@@ -247,8 +247,11 @@ Debug
 - `<Leader>s` - substitute, surround
 - `<Leader>e` - error, examine, execute.
 
-TODO
+### TODO
 
+- Don't use a map when a command will do. Vim doesn't even have a map for :write.
+- Don't prompt for things. Vim prompts in only a handful of scenarios (e.g. overwriting a changed file) and never asks multiple questions in a row.
+---
 - cd cg cm co cp cq cu cv cx cy cz
 - dc dg dm dq dr du dv dx dy dz
 - gb gl gs gy
