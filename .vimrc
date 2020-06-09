@@ -18,6 +18,7 @@ Plug 'tpope/vim-rsi'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
+Plug 'mattn/vim-textobj-url'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
@@ -191,12 +192,6 @@ nmap s <Nop>
 nmap S <Nop>
 xmap s <Nop>
 xmap S <Plug>(operator-sandwich-add)
-
-" mimic the behavior of /%Vfoobar which searches within the previously
-" selected visual selection
-" while in search mode, pressing / will do this
-vnoremap / <Esc>/\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
-vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
 
 " Visual Mode */# from Scrooloose
 function! s:VSetSearch()
