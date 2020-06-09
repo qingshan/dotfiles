@@ -49,8 +49,8 @@ Plug 'cespare/vim-toml'
 Plug 'elzr/vim-json', {'for' : 'json'}
 " Tools
 Plug 'tyru/open-browser.vim'
-Plug 'KabbAmine/zeavim.vim'
 Plug 'brglng/vim-im-select'
+Plug 'qingshan/vim-toolbox'
 call plug#end()
 " }}}
 
@@ -348,7 +348,7 @@ function! s:find_files()
     exec 'FzfFiles'
   endif
 endfunction
-command! ProjectFiles exec s:find_files()
+command! ProjectFiles call s:find_files()
 "}}}
 
 " vim-lightline {{{
@@ -500,6 +500,9 @@ augroup vimrc-markdown
   autocmd Filetype markdown nmap <buffer> <LocalLeader>cg i```go<Enter><Enter>```<Enter><Esc>kO
   autocmd Filetype markdown nmap <buffer> <LocalLeader>cj i```java<Enter><Enter>```<Enter><Esc>kO
 
+  autocmd FileType markdown nmap <silent> <LocalLeader>ml :MarkdownLink<CR>
+  autocmd FileType markdown vmap <silent> <LocalLeader>ml :MarkdownLink<CR>
+
   " Surround settings
   autocmd FileType markdown call sandwich#util#addlocal([
     \ {'buns': ['_', '_'], 'nesting': 0, 'input': ['i']},
@@ -607,50 +610,17 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 " }}}
 
-" stardict & goldendict {{{
-function! s:getVSelectOrCword(mode) abort
-  if a:mode == 'v'
-    let l:pos = getpos("'<")
-    call setpos('.', l:pos)
-    return getline('.')[col("'<") - 1 : col("'>") - 1]
-  else
-    return expand('<cword>')
-  endif
-endfunction
+" vim-toolbox {{{
+nmap <silent> gk :call toolbox#dict#stardict('', '')<CR>
+vmap <silent> gk :call toolbox#dict#stardict('', 'v')<CR>
+nmap <silent> gK :call toolbox#dict#goldendict('', '')<CR>
+vmap <silent> gK :call toolbox#dict#goldendict('', 'v')<CR>
+nmap <silent> gz :call toolbox#zeal#open('', '')<CR>
+vmap <silent> gz :call toolbox#zeal#open('', 'v')<CR>
 
-function! s:StarDict(word, mode)
-  let cmd = 'sdcv -n -e '
-  let word = a:word
-  if word == ''
-    let word = s:getVSelectOrCword(a:mode)
-  endif
-  let output = system(cmd . word)
-  call popup_clear()
-  call popup_atcursor(split(output, '\n'), {
-    \ 'padding': [1, 1, 1, 1],
-    \ 'borderchars': ['-','|','-','|','+','+','+','+'],
-    \ 'border': [1, 1, 1, 1],
-    \ })
-endfunction
-
-function! s:GoldenDict(word, mode)
-  let cmd = 'goldendict '
-  let word = a:word
-  if word == ''
-    let word = s:getVSelectOrCword(a:mode)
-  endif
-  call system(cmd . word)
-endfunction
-
-command! -nargs=* StarDict call <SID>StarDict(<q-args>, '')
-command! -nargs=* GoldenDict call <SID>GoldenDict(<q-args>, '')
-command! SD StarDict
-command! GD GoldenDict
-
-nmap <silent> gk :call <SID>StarDict('', '')<CR>
-vmap <silent> gk :call <SID>StarDict('', 'v')<CR>
-nmap <silent> gK :call <SID>GoldenDict('', '')<CR>
-vmap <silent> gK :call <SID>GoldenDict('', 'v')<CR>
+command! -nargs=* SD StarDict <q-args>
+command! -nargs=* GD GoldenDict <q-args>
+command! -nargs=* Z Zeal <q-args>
 " }}}
 
 " local .vimrc {{{
