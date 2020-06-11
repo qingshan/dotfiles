@@ -133,8 +133,9 @@ Terminal
 
 ### auto-pairs
 
+- `<Alt-a>` - Toggle auto pairs
 - `<Alt-e>` - Fast Wrap
-- `<Alt-n>` - Jump to next closed pair
+- `<Alt-l>` - Jump to next closed pair
 
 ### vim-rsi
 
@@ -178,16 +179,12 @@ Terminal
 
 - `gx` - Open URI with browser
 
-### zeavim
+### toolbox
 
-- `gz{motion/text-object}` - Act like an operator and search for the result of a motion/text-object with the docset defined automatically+ (e.g. gziW will search for the inner Word).
-- `<Leader>z` - Search for the word under cursor or the current visual selection with the docset defined automatically.
-- `<Leader><Leader>z` - Narrow search with a docset+ and a query (A default docset is provided).
-
-### stardict & goldendict
-
-- `gk`, `gK` - search stardict & goldendict for the word under cursor or the current visual selection.
-- `:SD`, `:GD` - stardict & goldendict command
+- `gk` - search stardict for the word under cursor or the current visual selection.
+- `gK` - search goldendict for the word under cursor or the current visual selection.
+- `gZ` - search zeal for the word under cursor or the current visual selection.
+- `:SD`, `:GD`, `:Z` - stardict & goldendict, zeal command
 
 ### vim-go
 
@@ -260,7 +257,7 @@ Debug
 - zp zq zy
 
 ---
-- `<Leader>m` - move, management.
+- `<Leader>m` - make, move, management.
 - `<Leader>l` - lint.
 - `<Leader>k` - kill.
 - `<Leader>j` - jump.
