@@ -43,6 +43,7 @@ Plug 'dense-analysis/ale'
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Markdown
+Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 " Misc
 Plug 'cespare/vim-toml'
@@ -62,17 +63,17 @@ set relativenumber              " Enable relative number
 set signcolumn=yes              " Enable sign column
 set mouse=a                     " Enable mouse mode
 set belloff=all                 " No beeps
-set showcmd                     " Show me what I'm typing
 set splitright                  " Vertical windows should be split to right
 set splitbelow                  " Horizontal windows should split to bottom
 set autowriteall                " Automatically save before :next, :make etc.
 set hidden                      " Buffer should still exist if window is closed
-set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
+set showcmd                     " Show me what I'm typing
 set noshowmatch                 " Do not show matching brackets by flickering
 set noshowmode                  " We show the mode with airline or lightline
 set smartindent                 " Smart indent
 set lazyredraw                  " Wait to redraw
 set shortmess-=S                " Show search count message
+set shortmess+=c                " suppress annoy completion messages.
 
 " History
 set history=10000               " The maximum value for the history
@@ -97,10 +98,6 @@ set clipboard^=unnamedplus
 
 " Diff options
 set diffopt+=internal,algorithm:patience,indent-heuristic
-" Disable readonly in diff mode
-if &diff
-  set noreadonly
-endif
 
 " Complete options
 set completeopt=menuone,longest " Complete options
@@ -222,22 +219,22 @@ let mapleader = "\<Space>"
 let maplocalleader = "\\"
 
 " Fast saving
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>W :wa<CR>
+noremap <Leader>w :<C-U>w<CR>
+noremap <Leader>W :<C-U>wa<CR>
 
 " Quit the window and tab
-noremap <Leader>q :tabclose<CR>
-noremap <Leader>Q :wqa<CR>
+noremap <Leader>q :<C-U>tabclose<CR>
+noremap <Leader>Q :<C-U>wqa<CR>
 
 " Close all but the current one
-noremap <Leader>o :only<CR>
-noremap <Leader>O :tabonly<CR>
+noremap <Leader>o :<C-U>only<CR>
+noremap <Leader>O :<C-U>tabonly<CR>
 
 " Close the quickfix window
-noremap <Leader>a :cclose <Bar> :lclose <CR>
+noremap <Leader>a :<C-U>cclose <Bar> :lclose <CR>
 
 " Jump to definition in vertical split
-nnoremap <Leader>] <C-W>v<C-]>
+noremap <Leader>] <C-W>v<C-]>
 
 " Mappings to make the global register less annoying
 if has('clipboard')
@@ -272,10 +269,12 @@ for i in range(10)
 endfor
 
 " Move lines
-nnoremap <silent> <M-j> mz:m+<CR>`z
-nnoremap <silent> <M-k> mz:m-2<CR>`z
-vnoremap <silent> <M-j> :m'>+<CR>`<my`>mzgv`yo`z
-vnoremap <silent> <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
+nnoremap <silent> <M-j> :m .+1<CR>==
+nnoremap <silent> <M-k> :m .-2<CR>==
+inoremap <silent> <M-j> <Esc>:m .+1<CR>==gi
+inoremap <silent> <M-k> <Esc>:m .-2<CR>==gi
+vnoremap <silent> <M-j> :m '>+1<CR>gv=gv
+vnoremap <silent> <M-k> :m '<-2<CR>gv=gv
 
 function! s:colorcolumn_toggle()
   if &colorcolumn == 0
@@ -321,19 +320,18 @@ xmap aa <Plug>(swap-textobject-a)
 
 " fzf.vim {{{
 let g:fzf_command_prefix = 'Fzf'
-noremap  <silent> <C-P> :ProjectFiles<CR>
-inoremap <silent> <C-P> <Esc>:ProjectFiles<CR>
-noremap  <silent> <leader>/ :FzfRg<CR>
+noremap  <silent> <C-P> :<C-U>ProjectFiles<CR>
+noremap  <silent> <leader>/ :<C-U>FzfRg<CR>
 
-noremap <silent> <Leader>fb :FzfBuffers<CR>
-noremap <silent> <Leader>fc :FzfCommands<CR>
-noremap <silent> <Leader>fg :FzfGFiles?<CR>
-noremap <silent> <Leader>fh :FzfHistory<CR>
-noremap <silent> <Leader>fl :FzfLines<CR>
-noremap <silent> <Leader>fm :FzfMarks<CR>
-noremap <silent> <Leader>fr :FzfRg<CR>
-noremap <silent> <Leader>fs :FzfSnippets<CR>
-noremap <silent> <Leader>ft :FzfTags<CR>
+noremap <silent> <Leader>fb :<C-U>FzfBuffers<CR>
+noremap <silent> <Leader>fc :<C-U>FzfCommands<CR>
+noremap <silent> <Leader>fg :<C-U>FzfGFiles?<CR>
+noremap <silent> <Leader>fh :<C-U>FzfHistory<CR>
+noremap <silent> <Leader>fl :<C-U>FzfLines<CR>
+noremap <silent> <Leader>fm :<C-U>FzfMarks<CR>
+noremap <silent> <Leader>fr :<C-U>FzfRg<CR>
+noremap <silent> <Leader>fs :<C-U>FzfSnippets<CR>
+noremap <silent> <Leader>ft :<C-U>FzfTags<CR>
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -406,7 +404,7 @@ let g:AutoPairsMapSpace = 0
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsMultilineClose = 0
 let g:AutoPairsMapCh = 0
-let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutToggle = '<M-a>'
 let g:AutoPairsShortcutJump = '<M-l>'
 let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutBackInsert = ''
@@ -476,6 +474,7 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_new_list_item_indent = 2
 let g:vim_markdown_no_extensions_in_markdown = 0
 let g:vim_markdown_edit_url_in = 'tab'
+let g:vim_markdown_auto_insert_bullets = 0
 
 augroup vimrc-markdown
   autocmd!
@@ -502,6 +501,8 @@ augroup vimrc-markdown
 
   autocmd FileType markdown nmap <silent> <LocalLeader>ml :MarkdownLink<CR>
   autocmd FileType markdown vmap <silent> <LocalLeader>ml :MarkdownLink<CR>
+
+  autocmd Filetype markdown command! MDP execute 'read ! markdown_previewer' expand('%')
 
   " Surround settings
   autocmd FileType markdown call sandwich#util#addlocal([
@@ -612,11 +613,11 @@ vmap gx <Plug>(openbrowser-smart-search)
 
 " vim-toolbox {{{
 nmap <silent> gk :call toolbox#dict#stardict('', '')<CR>
-vmap <silent> gk :call toolbox#dict#stardict('', 'v')<CR>
+vmap <silent> gk :<C-U>call toolbox#dict#stardict('', 'v')<CR>
 nmap <silent> gK :call toolbox#dict#goldendict('', '')<CR>
-vmap <silent> gK :call toolbox#dict#goldendict('', 'v')<CR>
-nmap <silent> gz :call toolbox#zeal#open('', '')<CR>
-vmap <silent> gz :call toolbox#zeal#open('', 'v')<CR>
+vmap <silent> gK :<C-U>call toolbox#dict#goldendict('', 'v')<CR>
+nmap <silent> gZ :call toolbox#zeal#open('', '')<CR>
+vmap <silent> gZ :<C-U>call toolbox#zeal#open('', 'v')<CR>
 
 command! -nargs=* SD StarDict <q-args>
 command! -nargs=* GD GoldenDict <q-args>
