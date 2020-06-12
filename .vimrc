@@ -175,9 +175,21 @@ nnoremap U <C-R>
 " Select last inserted text
 nnoremap gV `[v`]
 
+" Easier indentation
+vnoremap < <gv
+vnoremap > >gv
+
 " Fixes some annoyances
 command! Q q
 map q: :q
+
+" Remap up and down to scroll by visual lines
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
 
 "allow deleting selection without updating the clipboard (yank buffer)
 vnoremap x "_x
@@ -218,7 +230,7 @@ let mapleader = "\<Space>"
 let maplocalleader = "\\"
 
 " Fast saving
-noremap <Leader>w :<C-U>w<CR>
+noremap <Leader>w :<C-U>update<CR>
 noremap <Leader>W :<C-U>wa<CR>
 
 " Quit the window and tab
@@ -419,7 +431,7 @@ let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 let g:UltiSnipsListSnippets = '<C-L>'
-command! SE UltiSnipsEdit
+cabbrev SE UltiSnipsEdit
 " }}}
 
 " vim-expand-region {{{
@@ -436,11 +448,11 @@ call expand_region#custom_text_objects('html', {
 " }}}
 
 " vim-fugitive {{{
-command! GB Gblame
+cabbrev GB Gblame
 " }}}
 
 " vim-mundo {{{
-command! UT MundoToggle
+cabbrev UT MundoToggle
 " }}}
 
 " ale {{{
@@ -618,9 +630,9 @@ vmap <silent> gK :<C-U>call toolbox#dict#goldendict('', 'v')<CR>
 nmap <silent> gZ :call toolbox#zeal#open('', '')<CR>
 vmap <silent> gZ :<C-U>call toolbox#zeal#open('', 'v')<CR>
 
-command! -nargs=* SD StarDict <q-args>
-command! -nargs=* GD GoldenDict <q-args>
-command! -nargs=* Z Zeal <q-args>
+cabbrev SD StarDict
+cabbrev GD GoldenDict
+cabbrev Z Zeal
 " }}}
 
 " local .vimrc {{{
