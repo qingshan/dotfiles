@@ -34,9 +34,9 @@ Plug 'tpope/vim-obsession'
 " VCS
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
-Plug 'tpope/vim-rhubarb'
 " Lint
 Plug 'dense-analysis/ale'
 " Go
@@ -188,8 +188,12 @@ nnoremap <Down> gj
 nnoremap <Up> gk
 vnoremap <Down> gj
 vnoremap <Up> gk
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
+inoremap <Down> <C-O>gj
+inoremap <Up> <C-O>gk
+
+" skip paragraphs
+nnoremap <C-Up> {
+nnoremap <C-Down> }
 
 "allow deleting selection without updating the clipboard (yank buffer)
 vnoremap x "_x
@@ -330,31 +334,15 @@ xmap aa <Plug>(swap-textobject-a)
 " }}}
 
 " fzf.vim {{{
-let g:fzf_command_prefix = 'Fzf'
 noremap  <silent> <C-P> :<C-U>ProjectFiles<CR>
-noremap  <silent> <leader>/ :<C-U>FzfRg<CR>
+noremap  <silent> <leader>/ :<C-U>Rg<CR>
 
-noremap <silent> <Leader>fb :<C-U>FzfBuffers<CR>
-noremap <silent> <Leader>fc :<C-U>FzfCommands<CR>
-noremap <silent> <Leader>fg :<C-U>FzfGFiles?<CR>
-noremap <silent> <Leader>fh :<C-U>FzfHistory<CR>
-noremap <silent> <Leader>fl :<C-U>FzfLines<CR>
-noremap <silent> <Leader>fm :<C-U>FzfMarks<CR>
-noremap <silent> <Leader>fr :<C-U>FzfRg<CR>
-noremap <silent> <Leader>fs :<C-U>FzfSnippets<CR>
-noremap <silent> <Leader>ft :<C-U>FzfTags<CR>
-
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit',
-  \ }
 function! s:find_files()
   let git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
   if git_dir != ''
-    exec 'FzfFiles' git_dir
+    exec 'Files' git_dir
   else
-    exec 'FzfFiles'
+    exec 'Files'
   endif
 endfunction
 command! ProjectFiles call s:find_files()
@@ -489,29 +477,29 @@ let g:vim_markdown_auto_insert_bullets = 0
 
 augroup vimrc-markdown
   autocmd!
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>1 I# <Esc>
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>2 I## <Esc>
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>3 I### <Esc>
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>4 I#### <Esc>
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>5 I##### <Esc>
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>6 I###### <Esc>
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>n I---<Enter><Enter>
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>h i[]()<Esc>F[a
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>j i![](/images/)<Esc>F[a
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>x 0f[lrx
-  autocmd Filetype markdown nmap <buffer> <LocalLeader><Space> 0f[lr<Space>
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>q I> <ESC>
-  autocmd Filetype markdown vmap <buffer> <LocalLeader>q :s/^/> /<CR>
-  autocmd Filetype markdown vmap <buffer> <LocalLeader>ul :s/^/- /<CR>
-  autocmd Filetype markdown vmap <buffer> <LocalLeader>ol :s/^/\=(line(".")-line("'<")+1).'. '/<CR>
-  autocmd Filetype markdown vmap <buffer> <LocalLeader>tl :s/^/- [ ] /<CR>
+  autocmd Filetype markdown nmap <LocalLeader>1 I# <Esc>
+  autocmd Filetype markdown nmap <LocalLeader>2 I## <Esc>
+  autocmd Filetype markdown nmap <LocalLeader>3 I### <Esc>
+  autocmd Filetype markdown nmap <LocalLeader>4 I#### <Esc>
+  autocmd Filetype markdown nmap <LocalLeader>5 I##### <Esc>
+  autocmd Filetype markdown nmap <LocalLeader>6 I###### <Esc>
+  autocmd Filetype markdown nmap <LocalLeader>n I---<CR><CR>
+  autocmd Filetype markdown nmap <LocalLeader>h i[]()<Esc>F[a
+  autocmd Filetype markdown nmap <LocalLeader>j i![](/images/)<Esc>F[a
+  autocmd Filetype markdown nmap <LocalLeader>x 0f[lrx
+  autocmd Filetype markdown nmap <LocalLeader><Space> 0f[lr<Space>
+  autocmd Filetype markdown nmap <LocalLeader>q I> <Esc>
+  autocmd Filetype markdown vmap <LocalLeader>q :s/^/> /<CR>
+  autocmd Filetype markdown vmap <LocalLeader>ul :s/^/- /<CR>
+  autocmd Filetype markdown vmap <LocalLeader>ol :s/^/\=(line(".")-line("'<")+1).'. '/<CR>
+  autocmd Filetype markdown vmap <LocalLeader>tl :s/^/- [ ] /<CR>
+  autocmd Filetype markdown nnoremap <LocalLeader>` i```<CR>```<CR><Esc>kO
 
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>cs i```shell<Enter><Enter>```<Enter><Esc>kO
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>cg i```go<Enter><Enter>```<Enter><Esc>kO
-  autocmd Filetype markdown nmap <buffer> <LocalLeader>cj i```java<Enter><Enter>```<Enter><Esc>kO
-
-  autocmd FileType markdown nmap <silent> <LocalLeader>ml :MarkdownLink<CR>
-  autocmd FileType markdown vmap <silent> <LocalLeader>ml :MarkdownLink<CR>
+  autocmd FileType markdown nmap <silent> <Leader>r :<C-U>MDP<CR>
+  autocmd FileType markdown vmap <silent> <Leader>r :<C-U>MDP<CR>
+  autocmd FileType markdown nmap <silent> <Leader>ch :MarkdownLink<CR>
+  autocmd FileType markdown vmap <silent> <Leader>ch :MarkdownLink<CR>
+  autocmd FileType markdown nmap <silent> <Leader>ct :TableFormat<CR>
 
   autocmd Filetype markdown command! MDP execute 'read ! markdown_previewer' expand('%')
 
@@ -519,14 +507,17 @@ augroup vimrc-markdown
   autocmd FileType markdown call sandwich#util#addlocal([
     \ {'buns': ['_', '_'], 'nesting': 0, 'input': ['i']},
     \ {'buns': ['**', '**'], 'nesting': 0, 'input': ['s']},
-    \ {'buns': ['```', '```'], 'nesting': 0, 'indentkeys': '{,},0{,0}', 'input': ['c']},
+    \ {'buns': ['```', '```'], 'nesting': 0, 'input': ['c'],
+    \   'indentkeys': '{,},0{,0}'},
     \ {'buns': ['<u>', '</u>'], 'nesting': 0, 'input': ['u']},
     \ {'buns': ['<del>', '</del>'], 'nesting': 0, 'input': ['d']},
     \ {'buns': ['<kbd>', '</kbd>'], 'nesting': 0, 'input': ['k']},
     \ {'buns': ['<sup>', '</sup>'], 'nesting': 0, 'input': ['p']},
     \ {'buns': ['<sub>', '</sub>'], 'nesting': 0, 'input': ['n']},
-    \ {'buns': ['[', ']()'], 'nesting': 0, 'action': ['add'], 'kind': ['add', 'replace'], 'input': ['h']},
-    \ {'buns': ['[', ']([^)]*)'], 'nesting': 0, 'regex': 1, 'action': ['delete'], 'kind': ['delete', 'replace', 'textobj'], 'input': ['h']},
+    \ {'buns': ['[', ']()'], 'nesting': 0, 'input': ['h'],
+    \   'action': ['add'], 'kind': ['add', 'replace']},
+    \ {'buns': ['[', ']([^)]*)'], 'nesting': 0, 'regex': 1, 'input': ['h'],
+    \   'action': ['delete'], 'kind': ['delete', 'replace', 'textobj']},
     \ ])
 
   " Surround shortcuts
@@ -580,9 +571,8 @@ endfunction
 augroup vimrc-go
   autocmd!
   autocmd FileType go nmap <silent> <C-G> :GoDeclsDir<CR>
-  autocmd FileType go imap <silent> <C-G> <Esc>:<C-U>GoDeclsDir<CR>
 
-  autocmd FileType go nmap <silent> <Leader>b :<C-U>call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <silent> <Leader>b :call <SID>build_go_files()<CR>
   autocmd FileType go nmap <silent> <Leader>r <Plug>(go-run)
   autocmd FileType go nmap <silent> <Leader>R :GoDebugStart<CR>
   autocmd FileType go nmap <silent> <Leader>t <Plug>(go-test)
@@ -612,7 +602,8 @@ augroup vimrc-go
   autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>1, 'split')
   autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>1, 'tabe')
 
-  autocmd Filetype go command! -nargs=? -complete=dir GO call <SID>find_go_package(<q-args>)
+  autocmd Filetype go command! -nargs=? -complete=dir GO
+    \ call <SID>find_go_package(<q-args>)
 augroup END
 " }}}
 
