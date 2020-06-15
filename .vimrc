@@ -44,6 +44,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'dkarter/bullets.vim'
 " Misc
 Plug 'cespare/vim-toml'
 Plug 'elzr/vim-json', {'for' : 'json'}
@@ -234,19 +235,19 @@ let mapleader = "\<Space>"
 let maplocalleader = "\\"
 
 " Fast saving
-noremap <Leader>w :<C-U>update<CR>
-noremap <Leader>W :<C-U>wa<CR>
+noremap <silent> <Leader>w :<C-U>update<CR>
+noremap <silent> <Leader>W :<C-U>wa<CR>
 
 " Quit the window and tab
-noremap <Leader>q :<C-U>tabclose<CR>
-noremap <Leader>Q :<C-U>wqa<CR>
+noremap <silent> <Leader>q :<C-U>tabclose<CR>
+noremap <silent> <Leader>Q :<C-U>wqa<CR>
 
 " Close all but the current one
-noremap <Leader>o :<C-U>only<CR>
-noremap <Leader>O :<C-U>tabonly<CR>
+noremap <silent> <Leader>o :<C-U>only<CR>
+noremap <silent> <Leader>O :<C-U>tabonly<CR>
 
 " Close the quickfix window
-noremap <Leader>a :<C-U>cclose <Bar> :lclose <CR>
+noremap <silent> <Leader>a :<C-U>cclose <Bar> :lclose <CR>
 
 " Jump to definition in vertical split
 noremap <Leader>] <C-W>v<C-]>
@@ -352,7 +353,7 @@ command! ProjectFiles call s:find_files()
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
-  \   'left': [['mode', 'paste'], ['filename', 'modified'], ['gostatus']],
+  \   'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gostatus']],
   \   'right': [['lineinfo'], ['percent'], ['linter_checking',
   \     'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok']],
   \ },
@@ -486,7 +487,6 @@ augroup vimrc-markdown
   autocmd Filetype markdown nmap <LocalLeader>n I---<CR><CR>
   autocmd Filetype markdown nmap <LocalLeader>h i[]()<Esc>F[a
   autocmd Filetype markdown nmap <LocalLeader>j i![](/images/)<Esc>F[a
-  autocmd Filetype markdown nmap <LocalLeader>x 0f[lrx
   autocmd Filetype markdown nmap <LocalLeader><Space> 0f[lr<Space>
   autocmd Filetype markdown nmap <LocalLeader>q I> <Esc>
   autocmd Filetype markdown vmap <LocalLeader>q :s/^/> /<CR>
