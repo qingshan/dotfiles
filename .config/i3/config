@@ -312,6 +312,7 @@ for_window [title="Android Emulator - .*$"] floating enable
 for_window [class="GoldenDict"] floating enable, resize set 1024 768, move position center, move scratchpad, scratchpad show
 for_window [class="Zeal"] floating enable, resize set 1024 768, move position center, move scratchpad, scratchpad show
 for_window [class="TelegramDesktop" title="Telegram"] floating enable, resize set 1024 768, move position center, move scratchpad
+for_window [class="URxvt" instance="dropdown"] floating enable, resize set 1024 768, move position center, move scratchpad
 for_window [class="TelegramDesktop" title="Media viewer"] floating enable
 
 # switch to workspace with urgent window automatically
@@ -340,17 +341,14 @@ exec --no-startup-id ibus-daemon --xim -d -r
 exec --no-startup-id goldendict
 exec --no-startup-id zeal
 exec --no-startup-id telegram-desktop
+exec --no-startup-id urxvt -name dropdown -e zsh -c dropdown
 
 # }}}
 
 # Application Shortcuts {{{
+bindsym $mod+F1 exec rofi-readings
 bindsym $mod+F2 exec google-chrome-stable
-bindsym $mod+F3 exec terminal -e 'ranger'
-bindsym $mod+F4 exec anki
-bindsym $mod+F5 exec telegram-desktop
-bindsym $mod+F6 exec idea
-bindsym $mod+F7 exec audacity
-bindsym $mod+F8 exec virtualbox
+bindsym $mod+F3 exec terminal -e 'vifm'
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
@@ -358,6 +356,7 @@ bindsym $mod+Ctrl+m exec pavucontrol
 bindsym $mod+y exec mpv `xsel -ob`
 bindsym $mod+n exec notify-send "$(date)"
 bindsym $mod+i [class="TelegramDesktop" title="Telegram"] scratchpad show
+bindsym $mod+grave [class="URxvt" instance="dropdown"] scratchpad show
 
 # more application shortcuts
 bindsym $mod+e mode "$mode_app"
