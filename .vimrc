@@ -29,8 +29,10 @@ Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 " File
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-obsession'
+Plug 'majutsushi/tagbar'
 " VCS
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
@@ -45,6 +47,8 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'dkarter/bullets.vim'
+" Protobuf
+Plug 'bufbuild/vim-buf'
 " Misc
 Plug 'cespare/vim-toml'
 Plug 'elzr/vim-json', {'for' : 'json'}
@@ -132,6 +136,7 @@ augroup vimrc-filetype
   autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
   autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+  autocmd FileType java setlocal noexpandtab tabstop=4 shiftwidth=4
 augroup END
 
 augroup vimrc-auto-mkdir
@@ -184,14 +189,6 @@ vnoremap > >gv
 command! Q q
 map q: :q
 
-" Remap up and down to scroll by visual lines
-nnoremap <Down> gj
-nnoremap <Up> gk
-vnoremap <Down> gj
-vnoremap <Up> gk
-inoremap <Down> <C-O>gj
-inoremap <Up> <C-O>gk
-
 " skip paragraphs
 nnoremap <C-Up> {
 nnoremap <C-Down> }
@@ -229,6 +226,7 @@ command! Wrc :w | :source $MYVIMRC | :echom '.vimrc saved and reloaded!'
 
 " Go to the directory of current file
 command! CD lcd %:p:h
+cabbr <expr> %% expand('%:p:h')
 
 " Leader
 let mapleader = "\<Space>"
@@ -336,7 +334,30 @@ xmap aa <Plug>(swap-textobject-a)
 
 " fzf.vim {{{
 noremap  <silent> <C-P> :<C-U>ProjectFiles<CR>
-noremap  <silent> <leader>/ :<C-U>Rg<CR>
+noremap  <silent> <C-K>c; :<C-U>Commands<CR>
+noremap  <silent> <C-K>m; :<C-U>Maps<CR>
+noremap  <silent> <C-K>s :<C-U>Snippets<CR>
+
+noremap  <silent> <C-G>b :<C-U>Buffers<CR>
+inoremap  <silent> <C-G>b <Esc>:<C-U>Buffers<CR>
+noremap  <silent> <C-G>f :<C-U>Files %:h<CR>
+inoremap  <silent> <C-G>f <Esc>:<C-U>Files %:h<CR>
+noremap  <silent> <C-G>g :<C-U>GFiles?<CR>
+inoremap  <silent> <C-G>g <Esc>:<C-U>GFiles?<CR>
+noremap  <silent> <C-G>h :<C-U>History<CR>
+inoremap  <silent> <C-G>h <Esc>:<C-U>History<CR>
+noremap  <silent> <C-G>m :<C-U>Marks<CR>
+inoremap  <silent> <C-G>m <Esc>:<C-U>Marks<CR>
+noremap  <silent> <C-G>p :<C-U>ProjectFiles<CR>
+inoremap  <silent> <C-G>p <Esc>:<C-U>ProjectFiles<CR>
+noremap  <silent> <C-G>t :<C-U>Tags<CR>
+inoremap  <silent> <C-G>t <Esc>:<C-U>Tags<CR>
+noremap  <silent> <C-G>w :<C-U>Windows<CR>
+inoremap  <silent> <C-G>w <Esc>:<C-U>Windows<CR>
+noremap  <silent> <C-G>/ :<C-U>BLines<CR>
+inoremap  <silent> <C-G>/ <Esc>:<C-U>BLines<CR>
+noremap  <silent> <C-G>? :<C-U>DLines<CR>
+inoremap  <silent> <C-G>? <Esc>:<C-U>DLines<CR>
 
 function! s:find_files()
   let git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
@@ -347,6 +368,11 @@ function! s:find_files()
   endif
 endfunction
 command! ProjectFiles call s:find_files()
+
+command! -bang -nargs=* DLines
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': expand('%:h')}), <bang>0)
 "}}}
 
 " vim-lightline {{{
@@ -440,6 +466,10 @@ call expand_region#custom_text_objects('html', {
 cabbrev GB Gblame
 " }}}
 
+" tagbar {{{
+cabbrev TB TagbarToggle
+" }}}
+
 " vim-mundo {{{
 cabbrev UT MundoToggle
 " }}}
@@ -456,13 +486,17 @@ let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
   \ 'go': ['gopls'],
+  \ 'java': ['javac'],
   \ 'markdown': ['mdl'],
+  \ 'proto': ['buf-check-lint',],
   \ }
 let g:ale_fixers = {
   \ 'go': ['gofmt', 'goimports', 'trim_whitespace', 'remove_trailing_lines'],
   \ '*': ['remove_trailing_lines', 'trim_whitespace'],
   \ }
 let g:ale_go_gofmt_options = '-s'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters_explicit = 1
 " }}}
 
 " vim-markdown {{{
@@ -570,7 +604,11 @@ endfunction
 
 augroup vimrc-go
   autocmd!
-  autocmd FileType go nmap <silent> <C-G> :GoDeclsDir<CR>
+  autocmd FileType go nmap <silent> <C-G>d :GoDecls<CR>
+  autocmd FileType go imap <silent> <C-G>d <Esc>:<C-u>GoDecls<CR>
+  autocmd FileType go nmap <silent> <C-G>D :GoDeclsDir<CR>
+  autocmd FileType go imap <silent> <C-G>D <Esc>:<C-u>GoDeclsDir<CR>
+  autocmd FileType go let g:fzf_tags_command = 'gotags -f tags -R .'
 
   autocmd FileType go nmap <silent> <Leader>b :call <SID>build_go_files()<CR>
   autocmd FileType go nmap <silent> <Leader>r <Plug>(go-run)
@@ -582,9 +620,10 @@ augroup vimrc-go
   autocmd FileType go nmap <silent> <Leader>E <Plug>(go-coverage-toggle)
   autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
 
-  autocmd FileType go nmap <silent> <Leader>ce :GoImpl<CR>
   autocmd FileType go nmap <silent> <Leader>ci <Plug>(go-imports)
   autocmd FileType go nmap <silent> <Leader>cn <Plug>(go-rename)
+  autocmd FileType go nmap <silent> <Leader>ce <Plug>(go-iferr)
+  autocmd FileType go nmap <silent> <Leader>cI :GoImpl<CR>
 
   autocmd FileType go nmap <silent> <Leader>di <Plug>(go-implements)
   autocmd FileType go nmap <silent> <Leader>dr <Plug>(go-referrers)
@@ -607,6 +646,13 @@ augroup vimrc-go
 augroup END
 " }}}
 
+" java {{{
+augroup vimrc-java
+  autocmd!
+  autocmd FileType java nmap <silent> <Leader>r :!clear && javac % && java %:p:t:r<CR>
+augroup END
+" }}}
+
 " open-browser {{{
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
@@ -624,6 +670,12 @@ vmap <silent> gZ :<C-U>call toolbox#zeal#open('', 'v')<CR>
 cabbrev SD StarDict
 cabbrev GD GoldenDict
 cabbrev Z Zeal
+" }}}
+
+
+" tags {{{
+command! Todo   noautocmd vimgrep /TODO\|FIXME/j ** | cw
+command! MkTags noautocmd !gotags -R -sort * > tags
 " }}}
 
 " local .vimrc {{{
