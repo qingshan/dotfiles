@@ -24,3 +24,7 @@ Repeat last substitution in normal and visual mode `&`
 - `<Ctrl-r>=system('ls')<enter>` - The output of the ls command will be pasted in your buffer.
 - `:vimgrep /pattern/ filename`  - search for pattern in multiple files
 
+## Rename Current File
+
+`:Gmove` - From the plugin fugitive.vim
+https://stackoverflow.com/a/13501814
