@@ -85,6 +85,26 @@ set swapfile                    " enable swapfile
 set undofile                    " enable undofile
 set nobackup                    " do not keep a backup file
 
+" Temporary files
+if exists('$XDG_CACHE_HOME')
+  let &g:directory=$XDG_CACHE_HOME
+else
+  let &g:directory=$HOME . '/.cache'
+endif
+let &g:undodir=&g:directory . '/vim/undo//'
+let &g:backupdir=&g:directory . '/vim/backup//'
+let &g:directory.='/vim/swap//'
+" Create directories if they doesn't exist
+if ! isdirectory(expand(&g:directory))
+  silent! call mkdir(expand(&g:directory), 'p', 0700)
+endif
+if ! isdirectory(expand(&g:backupdir))
+  silent! call mkdir(expand(&g:backupdir), 'p', 0700)
+endif
+if ! isdirectory(expand(&g:undodir))
+  silent! call mkdir(expand(&g:undodir), 'p', 0700)
+endif
+
 " Searching
 set hlsearch                    " Highlight found searches
 set incsearch                   " incremental searching
@@ -95,10 +115,6 @@ set gdefault                    " have :s///g flag by default on
 " To make Vim more responsive/IDE-like.
 set updatetime=500
 set balloondelay=250
-
-" Enable to copy to clipboard for operations like yank, delete, change and put
-set clipboard^=unnamed
-set clipboard^=unnamedplus
 
 " Diff options
 set diffopt+=internal,algorithm:patience,indent-heuristic
