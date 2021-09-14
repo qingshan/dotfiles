@@ -20,7 +20,7 @@ brew "jq"
 brew "ripgrep"
 brew "tldr"
 brew "socat"
-brew "hub"
+brew "gh"
 brew "rename"
 brew "tree"
 brew "watch"
@@ -42,3 +42,8 @@ cask "vagrant"
 cask "visualvm"
 cask "kap"
 mas "pocket", id: 568494494
+mas "save-to-pocket", id: 1477385213
+mas "medis", id: 1579200037
+mas "mindnote", id: 1289197285
+mas "vimari", id: 1480933944
+mas "adblock", id: 1018301773
