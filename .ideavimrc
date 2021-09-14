@@ -7,7 +7,8 @@ set smartindent
 set showmode
 set gdefault
 set relativenumber
-"set ideajoin
+
+set ideajoin
 set surround
 set commentary
 set ReplaceWithRegister
