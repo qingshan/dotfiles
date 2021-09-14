@@ -1,4 +1,4 @@
-set hlsearch 
+set hlsearch
 set incsearch
 set ignorecase
 set smartcase
@@ -9,10 +9,16 @@ set gdefault
 set relativenumber
 "set ideajoin
 set surround
-set multiple-cursors
 set commentary
+set ReplaceWithRegister
+set exchange
 set argtextobj
 set textobj-entire
+set textobj-indent
+set highlightedyank
+set vim-paragraph-motion
+
+set keep-english-in-normal-and-restore-in-insert
 
 " Always show statusline
 set laststatus=2
@@ -35,7 +41,7 @@ let mapleader = " "
 " Fast saving
 noremap <leader>w :w!<cr>
 
-" Fast quit 
+" Fast quit
 "noremap <leader>q :quit<CR>  " Quit current window
 "noremap <leader>Q :qa!<CR>   " Quit all windows
 nnoremap <leader>q :action CloseContent<CR>
