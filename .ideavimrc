@@ -7,9 +7,12 @@ set smartindent
 set showmode
 set gdefault
 set relativenumber
+set visualbell
 
 set ideajoin
+set ideamarks
 set surround
+set NERDTree
 set commentary
 set ReplaceWithRegister
 set exchange
@@ -17,132 +20,238 @@ set argtextobj
 set textobj-entire
 set textobj-indent
 set highlightedyank
-set vim-paragraph-motion
 
+set vim-paragraph-motion
 set keep-english-in-normal-and-restore-in-insert
+set idearefactormode=keep
+set ideastatusicon=gray
 
 " Always show statusline
 set laststatus=2
 
-" easy system clipboard copy/paste
-inoremap <C-v> <esc>"+pa
-vnoremap <C-c> "+y
-vnoremap <C-x> "+x
-
 " Remap U to <C-r> for easier redo. http://vimbits.com/bits/356
 nnoremap U <C-r>
 
+" Select last inserted text
+nnoremap gV `[v`]
+
+" Easier indentation
 vnoremap < <gv
 vnoremap > >gv
+vnoremap = =gv
+
+" Selection
+map + <Action>(EditorSelectWord)
+map - <Action>(EditorUnSelectWord)
+
+" Move lines
+nnoremap <silent> <C-j> :m .+1<CR>==
+nnoremap <silent> <C-k> :m .-2<CR>==
+inoremap <silent> <C-j> <Esc>:m .+1<CR>==gi
+inoremap <silent> <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <silent> <C-j> :m '>+1<CR>gv=gv
+vnoremap <silent> <C-k> :m '<-2<CR>gv=gv
+
+" Copy path
+map yp <Action>(CopyContentRootPath)
+map yr <Action>(CopyReference)
+
+" Google
+map gx <Action>(com.obroom.plugin.smartsearch.SearchActionGroup)
+
+" Translate
+map gK <Action>($EditorTranslateAction)
+
+" DevDocs
+map gZ <Action>(DevDocs.Search)
+
+" Insert lines
+nmap [<space> O<Esc>j
+nmap ]<space> o<Esc>k
+
+" Moving lines
+nmap [e <Action>(MoveLineUp)
+nmap ]e <Action>(MoveLineDown)
+
+" Moving statements
+nmap [s <Action>(MoveStatementUp)
+nmap ]s <Action>(MoveStatementDown)
+
+" Unimpaired mappings
+nmap [c <Action>(PreviousDiff)
+nmap ]c <Action>(NextDiff)
+nmap [q <Action>(PreviousOccurence)
+nmap ]q <Action>(NextOccurence)
+nmap [[ <Action>(MethodUp)
+nmap ]] <Action>(MethodDown)
+nmap [m <Action>(MethodUp)
+nmap ]m <Action>(MethodDown)
+nmap [c <Action>(VcsShowPrevChangeMarker)
+nmap ]c <Action>(VcsShowNextChangeMarker)
+nmap [r <Action>(GotoPreviousError)
+nmap ]r <Action>(GotoNextError)
+
+" Code block
+nmap g[ <Action>(EditorCodeBlockStart)
+nmap g] <Action>(EditorCodeBlockEnd)
+
+" Vim-sandwich styled mappings for vim-surround
+unmap cs
+unmap ys
+unmap ds
+map sa <Plug>YSurround
+vmap sa <Plug>VSurround
+map sd <Plug>DSurround
+map sr <Plug>CSurround
+
+" Vim-abolish
+map crm <Action>(StringManipulation.ToPascalCaseOrCamelCase)
+map crc <Action>(StringManipulation.ToCamelCase)
+map crs <Action>(StringManipulation.ToSnakeCase)
+map cru <Action>(StringManipulation.ToScreamingSnakeCase)
+
+" Clear highlight
+noremap <C-L> :nohlsearch<CR><C-L>
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file.
 let mapleader = " "
+let maplocalleader = "\\"
 
 " Fast saving
-noremap <leader>w :w!<cr>
+map <leader>w :w!<CR>
 
 " Fast quit
-"noremap <leader>q :quit<CR>  " Quit current window
-"noremap <leader>Q :qa!<CR>   " Quit all windows
-nnoremap <leader>q :action CloseContent<CR>
-nnoremap <leader>Q :action ReopenClosedTab<CR>
+map <leader>q :quit<CR>
+map <leader>Q :qa!<CR>
+map <leader>o :<C-U>tabonly<CR>
+map <leader>O :<C-U>tabonly<CR>
 
+" Hide all windows
+map <leader>a <Action>(HideAllWindows)
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" ideavimrc specific:
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"nnoremap <leader><leader> :action VimFilePrevious<CR>
-"nnoremap <leader>p :action SearchEverywhere<CR>
-"nnoremap <leader>P :action Switcher<CR>
+" Jump to definition in vertical split
+map <leader>] <C-W>v<C-]>
 
+" System clipboard
+vmap <leader>y "+y
+nmap <leader>y "+yy
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Navigation controls:
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>ga :action GotoAction<CR>
-nnoremap <leader>gS :action GotoSymbol<CR>
-nnoremap <leader>gs :action FileStructurePopup<CR>
-nnoremap <leader>gc :action GotoClass<CR>
-nnoremap <leader>gf :action GotoFile<CR>
-nnoremap <leader>ge :action GotoNextError<CR>
-nnoremap <leader>gE :action GotoPreviousError<CR>
-nnoremap <leader>gn :action NextOccurence<CR>
-nnoremap <leader>gN :action PreviousOccurence<CR>
-nnoremap <leader>gm :action MethodDown<CR>
-nnoremap <leader>gM :action MethodUp<CR>
-nnoremap <leader>gP :action GotoSuperMethod<CR>
-nnoremap <leader>gz :action TypeHierarchy<CR>
-nnoremap <leader>gv :action VcsShowNextChangeMarker<CR>
-nnoremap <leader>gV :action VcsShowPrevChangeMarker<CR>
-nnoremap <leader>gw :action GotoImplementation<CR>
-nnoremap <leader>gr :action GotoRelated<CR>
-nnoremap <leader>gb :action GotoDeclaration<CR>
-nnoremap <leader>gB :action GotoTypeDeclaration<CR>
-nnoremap <leader>gt :action GotoTest<CR>
-nnoremap <leader>gp :action RecentFiles<CR>
-"nnoremap <leader>go :action Back<CR>
-"nnoremap <leader>gi :action Forward<CR>
-nnoremap <leader>go <C-o>
-nnoremap <leader>gi <C-i>
-noremap <leader>gx :action CloseActiveTab<CR>
-noremap <leader>gu <C-u>
-noremap <leader>gd <C-d>
+" Tabs
+map ]b <Action>(NextTab)
+map [b <Action>(PreviousTab)
+map <leader>1 <Action>(GoToTab1)
+map <leader>2 <Action>(GoToTab2)
+map <leader>3 <Action>(GoToTab3)
+map <leader>4 <Action>(GoToTab4)
+map <leader>5 <Action>(GoToTab5)
+map <leader>6 <Action>(GoToTab6)
+map <leader>7 <Action>(GoToTab7)
+map <leader>8 <Action>(GoToTab8)
+map <leader>9 <Action>(GoToTab9)
 
-noremap <leader>fu :action FindUsages<CR>
-noremap <leader>fU :action FindUsagesInFile<CR>
-" Consistent mapping for split navigation.
-nnoremap <leader>gl <C-W>l
-nnoremap <leader>gh <C-W>h
-nnoremap <leader>gj <C-W>j
-nnoremap <leader>gk <C-W>k
+" Search
+map <leader>/ <Action>(FindInPath)
+map <leader>\ <Action>(ReplaceInPath)
+map <leader>* <Action>(FindInPath)
 
-nnoremap <C-h> gT
-nnoremap <C-l> gt
+" Distraction free mode
+map <leader>z <Action>(ToggleDistractionFreeMode)
+map <leader>Z <Action>(ToggleZenMode)
+map <leader>x <Action>(RunAnything)
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Tool Windows:
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-noremap <leader>ts :action ActivateStructureToolWindow<CR>
-noremap <leader>te :action ActivateProjectToolWindow<CR>
-noremap <leader>tn :action ActivateNavBar<CR>
-noremap <leader>tc :action ActivateCMakeToolWindow<CR>
-noremap <leader>tb :action ActivateTerminalToolWindow<CR>
-noremap <leader>tm :action ActivateMessagesToolWindow<CR>
-noremap <leader>tr :action ActivateRunToolWindow<CR>
-noremap <leader>td :action ActivateDebugToolWindow<CR>
-noremap <leader>tt :action HideAllWindows<CR>
+" Run
+map <leader>r <Action>(RunClass)
+map <leader>R <Action>(DebugClass)
+map <leader>b <Action>(CompileDirty)
+map <leader>B <Action>(CompileProject)
+map <leader>t <Action>(RerunTests)
+map <leader>T <Action>(RerunFailedTests)
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Misc:
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-noremap <leader>d :action QuickJavaDoc<CR>
-noremap <leader>D :action QuickImplementations<CR>
-noremap <leader>el :action EditorToggleShowLineNumbers<CR>
-noremap <leader>ew :action EditorSelectWord<CR>
-noremap <leader>fs :action ToggleFullScreen<CR>
-noremap <leader>mv :action RenameElement<CR>
+" Search
+map <C-n> <Action>(SelectInProjectView)
+map <C-p> <Action>(SearchEverywhere)
+map <C-g>r <Action>(RecentFiles)
+map <C-g>w <Action>(Switcher)
+map <C-g>a <Action>(GotoAction)
+map <C-g>s <Action>(GotoSymbol)
+map <C-g>c <Action>(GotoClass)
+map <C-g>f <Action>(GotoFile)
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Run Commands:
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-noremap <leader>rr :action Run<CR>
-noremap <leader>rd :action Debug<CR>
-noremap <leader>rc :action Clean<CR>
-noremap <leader>rm :action Build<CR>
-noremap <leader>rb :action ToggleLineBreakpoint<CR>
-noremap <leader>re :action editRunConfigurations<CR>
+" Coding
+map <leader>cr <Action>(ReformatCode)
+map <leader>cg <Action>(Generate)
+map <leader>cs <Action>(SurroundWith)
+map <leader>cS <Action>(SurroundWithLiveTemplate)
+map <leader>cm <Action>(ImplementMethods)
+map <leader>co <Action>(OverrideMethods)
+map <leader>ci <Action>(OptimizeImports)
+map <leader>mv <Action>(RenameElement)
+map <leader>mr <Action>(Refactorings.QuickListPopupAction)
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Editing
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>cc :action CommentByLineComment<CR> :action VimMotionUp<CR>
-vnoremap <leader>cc :action CommentGroup<CR>
-nnoremap <leader>cr :action ReformatCode<CR>
-nnoremap <leader>cg :action Generate<CR>
-nnoremap <leader>cm :action ImplementMethods<CR>
-nnoremap <leader>co :action OptimizeImports<CR>
-nnoremap <leader>ce :action RecentFiles<CR>
-nnoremap <leader>ci :action ImplementMethods<CR>
+" Details
+map <leader>df <Action>(FindUsages)
+map <leader>du <Action>(ShowUsages)
+map <leader>dc <Action>(CallHierarchy)
+map <leader>dt <Action>(TypeHierarchy)
+
+" Debug
+map <leader>es <Action>(ChooseDebugConfiguration)
+map <leader>er <Action>(Run)
+map <leader>ed <Action>(Debug)
+map <leader>ec <Action>(Resume)
+map <leader>eq <Action>(Stop)
+map <leader>eb <Action>(ToggleLineBreakpoint)
+map <leader>eh <Action>(RunToCursor)
+map <leader>ei <Action>(StepInto)
+map <leader>eo <Action>(StepOut)
+map <leader>eO <Action>(StepOver)
+map <leader>ev <Action>(EvaluateExpression)
+
+" Go
+map <leader>gs <Action>(GotoSuperMethod)
+map <leader>gi <Action>(GotoImplementation)
+map <leader>gr <Action>(GotoRelated)
+map <leader>gd <Action>(GotoTypeDeclaration)
+map <leader>gt <Action>(GotoTest)
+
+" Info
+map <leader>ia <Action>(ShowIntentionActions)
+map <leader>ip <Action>(ParameterInfo)
+map <leader>ir <Action>(ExpressionTypeInfo)
+map <leader>ie <Action>(ShowErrorDescription)
+map <leader>ii <Action>(QuickImplementations)
+
+" Tool windows
+command! TT action ActivateTerminalToolWindow
+command! SS action ActivateServicesToolWindow
+command! TD action ActivateTODOToolWindow
+command! ST action ActivateStructureToolWindow
+command! FT action ActivateFavoritesToolWindow
+command! RT action ActivateRunToolWindow
+command! DT action ActivateDebugToolWindow
+command! GT action ActivateVersionControlToolWindow
+command! UT action LocalHistory.ShowHistory
+
+" Git
+command! GA action Vcs.QuickListPopupAction
+command! GH action Vcs.ShowTabbedFileHistory
+command! GU action Vcs.UpdateProject
+command! GP action Vcs.Push
+command! GC action Vcs.Show.Local.Changes
+command! GD action Compare.LastVersion
+
+" Reload
+command! Reload action IdeaVim.ReloadVimRc.reload
+
+function! IsThisFive(number)
+  if a:number == 5
+      return "This is five"
+  else
+      return "This is not five"
+  endif
+endfunction

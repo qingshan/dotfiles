@@ -64,11 +64,12 @@ An optional count that can be given before most of commands.
 - `c` - Substitute (inserted text replicated on each line for blockwise)
 - `J` / `gJ` - Join / join (remove whitespace)
 - `p` - Put (replace selection with contents of register)
-- `u`, `U` - Switch case.
 - `I` - Insert (prepend, only on blockwise selection)
 - `A` - Insert (append, only on blockwise selection)
+- `~`, `u`, `U` - most of normal commands
 ---
 - `gv` - Start visual mode with the previous selection.
+- `gV` - Select last inserted text.
 - `O` - Move to other corner of block.
 - `o` - Move to other end of marked area.
 
@@ -150,6 +151,7 @@ An optional count that can be given before most of commands.
 ### Undo/Redo
 - `u` - Undo.
 - `<Ctrl-r>` - Redo.
+- `U` = `<Ctrl-r>` - `U` for easier redo.
 
 ## Navigation
 
@@ -246,15 +248,6 @@ An optional count that can be given before most of commands.
 - `^`, `$` - No Magic
 - `\v` - Very Magic
 - `\V` - Very No Magic
-
-### Vimdiff
-- `[c`, `]c` - Jump to previous and next diff.
-- `do`, `dp` - Diff obtain and put
-- `:diffupdate` - Re-scan the files for differences
-
-### Quickfix
-- `:copen`, `:cclose` - Open/close quickfix window.
-- `cc #`, `:cn`, `:cp`, `:cfirst`, `:clast` - Display error.
 
 ## Obsolete
 - `s` = `cl` - Change character (delete and insert).

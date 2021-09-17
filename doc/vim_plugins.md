@@ -26,10 +26,7 @@ Go
 
 ## Shortcuts
 
-- `Y` = `y$` - `Y` act like `D` and `C`.
-- `U` = `<Ctrl-r>` - `U` for easier redo.
-- `gV` - Select last inserted text.
-- `<Alt-j>`, `<Alt-k>` - Move lines in normal and visual mode.
+- `<Ctrl-j>`, `<Ctrl-k>` - Move lines in normal and visual mode.
 - `<Leader>y`, `<Leader>Y`, `<Leader>p`, `<Leader>P` - Copy to and paste from system clipboard.
 - `<Leader>w` - Fast saving.
 - `<Leader>o` - Close all other windows but the current window.
@@ -44,7 +41,6 @@ Tabs
 
 ---
 - `<Leader>#` - Switch tab by #.
-- `<Alt-#>` - Switch tab by Alt-#.
 
 Terminal
 
@@ -55,6 +51,17 @@ Terminal
 - `:TV` - Open terminal in vertical
 
 ## Plugins
+
+### Vimdiff
+
+- `[c`, `]c` - Jump to previous and next diff.
+- `do`, `dp` - Diff obtain and put
+- `:diffupdate` - Re-scan the files for differences
+
+### Quickfix
+
+- `:copen`, `:cclose` - Open/close quickfix window.
+- `cc #`, `:cn`, `:cp`, `:cfirst`, `:clast` - Display error.
 
 ### vim-matchup
 

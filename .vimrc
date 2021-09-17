@@ -299,12 +299,12 @@ for i in range(10)
 endfor
 
 " Move lines
-nnoremap <silent> <M-j> :m .+1<CR>==
-nnoremap <silent> <M-k> :m .-2<CR>==
-inoremap <silent> <M-j> <Esc>:m .+1<CR>==gi
-inoremap <silent> <M-k> <Esc>:m .-2<CR>==gi
-vnoremap <silent> <M-j> :m '>+1<CR>gv=gv
-vnoremap <silent> <M-k> :m '<-2<CR>gv=gv
+nnoremap <silent> <C-j> :m .+1<CR>==
+nnoremap <silent> <C-k> :m .-2<CR>==
+inoremap <silent> <C-j> <Esc>:m .+1<CR>==gi
+inoremap <silent> <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <silent> <C-j> :m '>+1<CR>gv=gv
+vnoremap <silent> <C-k> :m '<-2<CR>gv=gv
 
 function! s:colorcolumn_toggle()
   if &colorcolumn == 0
@@ -350,10 +350,9 @@ xmap aa <Plug>(swap-textobject-a)
 
 " fzf.vim {{{
 noremap  <silent> <C-P> :<C-U>ProjectFiles<CR>
-noremap  <silent> <C-K>c; :<C-U>Commands<CR>
-noremap  <silent> <C-K>m; :<C-U>Maps<CR>
-noremap  <silent> <C-K>s :<C-U>Snippets<CR>
-
+noremap  <silent> <C-G>c; :<C-U>Commands<CR>
+noremap  <silent> <C-G>n; :<C-U>Maps<CR>
+noremap  <silent> <C-G>s :<C-U>Snippets<CR>
 noremap  <silent> <C-G>b :<C-U>Buffers<CR>
 inoremap  <silent> <C-G>b <Esc>:<C-U>Buffers<CR>
 noremap  <silent> <C-G>f :<C-U>Files %:h<CR>
@@ -364,8 +363,6 @@ noremap  <silent> <C-G>h :<C-U>History<CR>
 inoremap  <silent> <C-G>h <Esc>:<C-U>History<CR>
 noremap  <silent> <C-G>m :<C-U>Marks<CR>
 inoremap  <silent> <C-G>m <Esc>:<C-U>Marks<CR>
-noremap  <silent> <C-G>p :<C-U>ProjectFiles<CR>
-inoremap  <silent> <C-G>p <Esc>:<C-U>ProjectFiles<CR>
 noremap  <silent> <C-G>t :<C-U>Tags<CR>
 inoremap  <silent> <C-G>t <Esc>:<C-U>Tags<CR>
 noremap  <silent> <C-G>w :<C-U>Windows<CR>
