@@ -12,7 +12,6 @@ make
 
 ## Features
 
-- i3
 - zsh
 - vim
 - tmux
@@ -20,11 +19,12 @@ make
 ## Development Environment
 
 - Go: Vim
-- Java: IntelliJ IDEA Community Edition with ideavim
-- Dart / Flutter: Android Studio with ideavim
+- Java: IntelliJ IDEA Community Edition with IdeaVim
+- Dart / Flutter: Android Studio with IdeaVim
 
 ## Cheatsheets
 
 - [Vim Cheatsheet](doc/vim_cheatsheet.md)
 - [Vim Plugins](doc/vim_plugins.md)
+- [IdeaVim](doc/ideavim.md)
 - [i3 Cheatsheet](doc/i3_cheatsheet.md)
