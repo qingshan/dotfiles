@@ -4,7 +4,7 @@ Dotfiles are for macOS and Manjaro i3 to setup my development environment.
 
 ## Installation
 
-```bash
+```shell
 git clone https://github.com/qingshan/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 make
