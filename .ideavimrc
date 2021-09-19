@@ -247,11 +247,3 @@ command! GD action Compare.LastVersion
 
 " Reload
 command! Reload action IdeaVim.ReloadVimRc.reload
-
-function! IsThisFive(number)
-  if a:number == 5
-      return "This is five"
-  else
-      return "This is not five"
-  endif
-endfunction

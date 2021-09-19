@@ -30,6 +30,7 @@ Plug 'SirVer/ultisnips'
 " File
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-obsession'
 Plug 'majutsushi/tagbar'
