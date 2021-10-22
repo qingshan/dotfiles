@@ -158,6 +158,7 @@ map <leader>9 <Action>(GoToTab9)
 map <leader>/ <Action>(FindInPath)
 map <leader>\ <Action>(ReplaceInPath)
 map <leader>* <Action>(FindInPath)
+map <leader>- <Action>(ShowNavBar)
 
 " Distraction free mode
 map <leader>z <Action>(ToggleDistractionFreeMode)
@@ -185,6 +186,7 @@ map <C-g>f <Action>(GotoFile)
 " Coding
 map <leader>cr <Action>(ReformatCode)
 map <leader>cg <Action>(Generate)
+map <leader>cn <Action>(NewClass)
 map <leader>cs <Action>(SurroundWith)
 map <leader>cS <Action>(SurroundWithLiveTemplate)
 map <leader>cm <Action>(ImplementMethods)
@@ -236,6 +238,9 @@ command! RT action ActivateRunToolWindow
 command! DT action ActivateDebugToolWindow
 command! GT action ActivateVersionControlToolWindow
 command! UT action LocalHistory.ShowHistory
+
+" List
+command! BL action ViewBreakpoints
 
 " Git
 command! GA action Vcs.QuickListPopupAction
