@@ -52,10 +52,6 @@ inoremap <silent> <C-k> <Esc>:m .-2<CR>==gi
 vnoremap <silent> <C-j> :m '>+1<CR>gv=gv
 vnoremap <silent> <C-k> :m '<-2<CR>gv=gv
 
-" Copy path
-map yp <Action>(CopyContentRootPath)
-map yr <Action>(CopyReference)
-
 " Google
 map gx <Action>(com.obroom.plugin.smartsearch.SearchActionGroup)
 
@@ -184,16 +180,14 @@ map <C-g>c <Action>(GotoClass)
 map <C-g>f <Action>(GotoFile)
 
 " Coding
-map <leader>cr <Action>(ReformatCode)
+map <leader>cr <Action>(Refactorings.QuickListPopupAction)
 map <leader>cg <Action>(Generate)
 map <leader>cn <Action>(NewClass)
 map <leader>cs <Action>(SurroundWith)
 map <leader>cS <Action>(SurroundWithLiveTemplate)
-map <leader>cm <Action>(ImplementMethods)
+map <leader>ci <Action>(ImplementMethods)
 map <leader>co <Action>(OverrideMethods)
-map <leader>ci <Action>(OptimizeImports)
-map <leader>mv <Action>(RenameElement)
-map <leader>mr <Action>(Refactorings.QuickListPopupAction)
+map <leader>cm <Action>(RenameElement))
 
 " Details
 map <leader>df <Action>(FindUsages)
@@ -227,6 +221,12 @@ map <leader>ip <Action>(ParameterInfo)
 map <leader>ir <Action>(ExpressionTypeInfo)
 map <leader>ie <Action>(ShowErrorDescription)
 map <leader>ii <Action>(QuickImplementations)
+
+" Copy path
+map <leader>mf <Action>(ReformatCode)
+map <leader>mi <Action>(OptimizeImports)
+map <leader>mp <Action>(CopyContentRootPath)
+map <leader>mr <Action>(CopyReference)
 
 " Tool windows
 command! TT action ActivateTerminalToolWindow
