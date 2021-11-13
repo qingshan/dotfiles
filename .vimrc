@@ -215,6 +215,7 @@ vnoremap x "_x
 vnoremap X "_X
 
 " Free for other mappings
+nmap Q <Nop>
 nmap s <Nop>
 nmap S <Nop>
 xmap s <Nop>
