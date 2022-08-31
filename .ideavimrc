@@ -6,7 +6,7 @@ set autoindent
 set smartindent
 set showmode
 set gdefault
-set relativenumber
+set relativenumber number
 set visualbell
 
 set ideajoin
