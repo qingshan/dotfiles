@@ -18,9 +18,9 @@ make
 
 ## Development Environment
 
-- Go: Vim
 - Java: IntelliJ IDEA Community Edition with IdeaVim
-- Dart / Flutter: Android Studio with IdeaVim
+- Go: Vim
+- Rust: Vim
 
 ## Cheatsheets
 
