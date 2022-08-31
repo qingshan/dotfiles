@@ -44,6 +44,8 @@ Plug 'junegunn/gv.vim'
 Plug 'dense-analysis/ale'
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Rust
+Plug 'rust-lang/rust.vim'
 " Markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -233,8 +235,10 @@ vnoremap * :<C-U>call <SID>VSetSearch()<CR>//<CR><C-O>
 vnoremap # :<C-U>call <SID>VSetSearch()<CR>??<CR><C-O>
 
 " Move between linting errors
-nnoremap ]r :ALENextWrap<CR>
-nnoremap [r :ALEPreviousWrap<CR>
+nmap [r <Plug>(ale_previous)
+nmap ]r <Plug>(ale_next)
+nmap [R <Plug>(ale_first)
+nmap ]R <Plug>(ale_last)
 
 " Never use a mapping when a command will do! This is Vim!
 " Edit .vimrc file
@@ -501,17 +505,29 @@ let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
   \ 'go': ['gopls'],
+  \ 'rust': ['analyzer'],
   \ 'java': ['javac'],
   \ 'markdown': ['mdl'],
   \ 'proto': ['buf-check-lint',],
   \ }
 let g:ale_fixers = {
-  \ 'go': ['gofmt', 'goimports', 'trim_whitespace', 'remove_trailing_lines'],
-  \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \ 'go': ['gofmt', 'goimports'],
+  \ 'rust': ['rustfmt'],
+  \ '*': ['trim_whitespace', 'remove_trailing_lines'],
   \ }
-let g:ale_go_gofmt_options = '-s'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters_explicit = 1
+
+let g:ale_completion_enabled = 1 " Allow autocompletion
+let g:ale_completion_autoimport = 1 " Allow autocompletion of imports
+let g:ale_set_balloons = 1 " Show hover info in balloon
+let g:ale_hover_to_floating_preview = 1
+set omnifunc=ale#completion#OmniFunc
+
+let g:ale_go_gofmt_options = '-s'
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_check_tests = 1
+let g:ale_rust_cargo_check_examples = 1
 " }}}
 
 " vim-markdown {{{
@@ -658,6 +674,26 @@ augroup vimrc-go
 
   autocmd Filetype go command! -nargs=? -complete=dir GO
     \ call <SID>find_go_package(<q-args>)
+augroup END
+" }}}
+
+" rust {{{
+augroup vimrc-rust
+  autocmd!
+  autocmd FileType rust nmap <silent> <Leader>b :Cbuild<CR>
+  autocmd FileType rust nmap <silent> <Leader>r :Crun<CR>
+  autocmd FileType rust nmap <silent> <Leader>t :Ctest<CR>
+  autocmd FileType rust nmap <silent> <Leader>e :Ccheck<CR>
+
+  autocmd FileType rust nmap <silent> <Leader>gd <Plug>(ale_go_to_definition)
+  autocmd FileType rust nmap <silent> <Leader>gD <Plug>(ale_go_to_type_definition)
+  autocmd FileType rust nmap <silent> <Leader>gs <Plug>(ale_go_to_definition_in_split)
+  autocmd FileType rust nmap <silent> <Leader>gv <Plug>(ale_go_to_definition_in_vsplit)
+  autocmd FileType rust nmap <silent> <Leader>gt <Plug>(ale_go_to_definition_in_tab)
+  autocmd FileType rust nmap <silent> <Leader>gr <Plug>(ale_find_references)
+  autocmd FileType rust nmap <buffer> K <Plug>(ale_hover)
+
+  autocmd FileType rust nmap <silent> <Leader>cn <Plug>(ale_rename)
 augroup END
 " }}}
 
