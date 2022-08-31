@@ -1,6 +1,7 @@
 alias rscp='rsync --archive --compress-level=3 --copy-links --partial --inplace --progress --rsh=ssh -r'
 alias ql='qlmanage -p 2>/dev/null'
 alias sucs='sort | uniq -c | sort -n'
+alias ytdl='yt-dlp --write-auto-sub --sub-lang en --convert-subs=srt'
 
 cl() {
   cd "${1-$HOME}" && ll;
