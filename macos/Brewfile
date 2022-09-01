@@ -41,6 +41,7 @@ brew "zsh"
 brew "rustup"
 brew "rust-analyzer"
 brew "zola"
+brew "mackup"
 cask "iterm2"
 cask "font-meslo-lg-nerd-font"
 cask "font-jetbrains-mono"
@@ -63,7 +64,8 @@ cask "mat"
 cask "microsoft-remote-desktop"
 cask "anki"
 cask "brave-browser"
-cask "send-to-kindle""
+cask "send-to-kindle"
+cask "dropbox"
 mas "pocket", id: 568494494
 mas "save-to-pocket", id: 1477385213
 mas "medis", id: 1579200037
