@@ -1,6 +1,6 @@
 # Qingshan's Dotfiles
 
-Dotfiles are for macOS and Manjaro i3 to setup my development environment.
+Dotfiles are for macOS and Linux to setup my development environment.
 
 ## Installation
 
@@ -12,11 +12,23 @@ make
 
 ## Features
 
+### Desktop
+
+- macOS
+- Manjaro i3
+- Ubuntu
+
+### Server
+
+- Redhat Linux 8 (CentOS / Oracle)
+
+### Tools
+
 - zsh
 - vim
 - tmux
 
-## Development Environment
+### Development Environment
 
 - Java: IntelliJ IDEA Community Edition with IdeaVim
 - Go: Vim

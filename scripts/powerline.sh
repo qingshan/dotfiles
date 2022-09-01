@@ -1,6 +1,5 @@
 #!/bin/sh
-echo "Installing Powerline status..."
-pip3 install powerline-status
+
 POWERLINE_ROOT=$(pip3 show powerline-status | grep Location | sed 's/Location: //')
 
 cat <<EOF > ~/.zshrc.local
