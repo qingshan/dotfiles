@@ -16,23 +16,29 @@ make
 
 - macOS
 - Manjaro i3
-- Ubuntu
 
 ### Server
 
-- Redhat Linux 8 (CentOS / Oracle)
+- Redhat Enterprise Linux 8 (CentOS / Oracle)
+- Ubuntu
 
 ### Tools
 
 - zsh
 - vim
 - tmux
+- gh
 
 ### Development Environment
 
 - Java: IntelliJ IDEA Community Edition with IdeaVim
 - Go: Vim
 - Rust: Vim
+
+### Deployment Environment
+
+- docker
+- caddy
 
 ## Cheatsheets
 

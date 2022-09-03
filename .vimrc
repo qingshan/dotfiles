@@ -42,6 +42,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 " Lint
 Plug 'dense-analysis/ale'
+" Go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Rust
 Plug 'rust-lang/rust.vim'
 " Markdown
@@ -398,12 +400,13 @@ command! -bang -nargs=* DLines
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
-  \   'left': [['mode', 'paste'], ['readonly', 'filename', 'modified']],
+  \   'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gostatus']],
   \   'right': [['lineinfo'], ['percent'], ['linter_checking',
   \     'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok']],
   \ },
   \ 'tabline': { 'left': [[ 'tabs' ]], 'right': [] },
   \ 'component': {
+  \   'gostatus': '%#goStatuslineColor#%{LightlineGostatus()}%*',
   \ },
   \ 'component_expand': {
   \   'linter_checking': 'lightline#ale#checking',
@@ -418,6 +421,7 @@ let g:lightline = {
   \   'linter_warnings': 'warning',
   \   'linter_errors': 'error',
   \   'linter_ok': 'right',
+  \   'gostatus': 'raw',
   \ },
   \ 'separator': { 'left': '', 'right': '' },
   \ 'subseparator': { 'left': '', 'right': '' },
@@ -428,6 +432,12 @@ let g:lightline#ale#indicator_warnings = "\uf071"
 let g:lightline#ale#indicator_errors = "\uf05e"
 let g:lightline#ale#indicator_ok = "\uf00c"
 
+function! LightlineGostatus()
+  if ! exists('*go#statusline#Show')
+    return ''
+  endif
+  return winwidth('.') > 70 ? go#statusline#Show() : ''
+endfunction
 " }}}
 
 " vim-easy-align {{{
@@ -461,6 +471,12 @@ cabbrev SE UltiSnipsEdit
 " }}}
 
 " vim-expand-region {{{
+call expand_region#custom_text_objects('go', {
+  \ 'if': 0,
+  \ 'af': 0,
+  \ 'ic': 0,
+  \ 'ac': 0
+  \ })
 call expand_region#custom_text_objects('html', {
   \ 'it': 1,
   \ 'at': 1
@@ -490,12 +506,14 @@ let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
+  \ 'go': ['gopls'],
   \ 'rust': ['analyzer'],
   \ 'java': ['javac'],
   \ 'markdown': ['mdl'],
   \ 'proto': ['buf-check-lint',],
   \ }
 let g:ale_fixers = {
+  \ 'go': ['gofmt', 'goimports'],
   \ 'rust': ['rustfmt'],
   \ '*': ['trim_whitespace', 'remove_trailing_lines'],
   \ }
@@ -508,6 +526,7 @@ let g:ale_set_balloons = 1 " Show hover info in balloon
 let g:ale_hover_to_floating_preview = 1
 set omnifunc=ale#completion#OmniFunc
 
+let g:ale_go_gofmt_options = '-s'
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_check_tests = 1
 let g:ale_rust_cargo_check_examples = 1
@@ -515,7 +534,7 @@ let g:ale_rust_cargo_check_examples = 1
 
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_fenced_languages = ['rs=rust', 'viml=vim', 'bash=sh']
+let g:vim_markdown_fenced_languages = ['go=go', 'rust=rs', 'viml=vim', 'bash=sh']
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_frontmatter = 1
@@ -572,6 +591,91 @@ augroup vimrc-markdown
   for c in ['i', 's', 'c', 'u', 'd', 'k', 'n', 'p', 'h']
     call s:quick_surround('markdown', c)
   endfor
+augroup END
+" }}}
+
+" vim-go {{{
+let g:go_fmt_autosave = 0
+let g:go_debug_windows = {
+  \ 'vars': 'leftabove 35vnew',
+  \ 'stack': 'botright 10new',
+  \ }
+let g:go_term_enabled = 0
+let g:go_term_mode = 'split'
+let g:go_term_height = 15
+let g:go_term_width = 30
+let g:go_term_close_on_exit = 1
+
+let g:go_list_type = 'quickfix'
+let g:go_echo_command_info = 0
+
+let g:go_info_mode = 'gopls'
+let g:go_rename_command = 'gopls'
+let g:go_implements_mode = 'gopls'
+let g:go_gopls_complete_unimported = 1
+let g:go_diagnostics_enabled = 1
+let g:go_doc_popup_window = 1
+let g:go_auto_type_info = 1
+
+" Run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+function! s:find_go_package(pkg)
+  let dir = a:pkg
+  if executable('gofind')
+    let dir = trim(system('gofind ' . dir))
+  endif
+  call go#decls#Decls(1, dir)
+endfunction
+
+augroup vimrc-go
+  autocmd!
+  autocmd FileType go nmap <silent> <C-G>d :GoDecls<CR>
+  autocmd FileType go imap <silent> <C-G>d <Esc>:<C-u>GoDecls<CR>
+  autocmd FileType go nmap <silent> <C-G>D :GoDeclsDir<CR>
+  autocmd FileType go imap <silent> <C-G>D <Esc>:<C-u>GoDeclsDir<CR>
+  autocmd FileType go let g:fzf_tags_command = 'gotags -f tags -R .'
+
+  autocmd FileType go nmap <silent> <Leader>b :call <SID>build_go_files()<CR>
+  autocmd FileType go nmap <silent> <Leader>r <Plug>(go-run)
+  autocmd FileType go nmap <silent> <Leader>R :GoDebugStart<CR>
+  autocmd FileType go nmap <silent> <Leader>t <Plug>(go-test)
+  autocmd FileType go nmap <silent> <Leader>T :GoDebugTest<CR>
+  autocmd FileType go nmap <silent> <Leader>n <Plug>(go-test-func)
+  autocmd FileType go nmap <silent> <Leader>e <Plug>(go-diagnostics)
+  autocmd FileType go nmap <silent> <Leader>E <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
+
+  autocmd FileType go nmap <silent> <Leader>ci <Plug>(go-imports)
+  autocmd FileType go nmap <silent> <Leader>cn <Plug>(go-rename)
+  autocmd FileType go nmap <silent> <Leader>ce <Plug>(go-iferr)
+  autocmd FileType go nmap <silent> <Leader>cI :GoImpl<CR>
+
+  autocmd FileType go nmap <silent> <Leader>di <Plug>(go-implements)
+  autocmd FileType go nmap <silent> <Leader>dr <Plug>(go-referrers)
+  autocmd FileType go nmap <silent> <Leader>ds <Plug>(go-describe)
+  autocmd FileType go nmap <silent> <Leader>dd :GoSameIdsToggle<CR>
+
+  autocmd FileType go nmap <silent> <Leader>gd <Plug>(go-def)
+  autocmd FileType go nmap <silent> <Leader>gs <Plug>(go-def-split)
+  autocmd FileType go nmap <silent> <Leader>gv <Plug>(go-def-vertical)
+  autocmd FileType go nmap <silent> <Leader>gt <Plug>(go-def-tab)
+  autocmd FileType go nmap <silent> <Leader>gx <Plug>(go-doc-browser)
+
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>1, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>1, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>1, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>1, 'tabe')
+
+  autocmd Filetype go command! -nargs=? -complete=dir GO
+    \ call <SID>find_go_package(<q-args>)
 augroup END
 " }}}
 

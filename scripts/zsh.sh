@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/usr/bin/chsh -s $(which zsh) $USER
+sudo /usr/bin/chsh -s $(which zsh) $USER
