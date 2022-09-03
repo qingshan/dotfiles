@@ -120,9 +120,11 @@ set updatetime=500
 set balloondelay=250
 
 " Diff options
-if has("patch-8.1.0360")
-  set diffopt+=internal,algorithm:patience,indent-heuristic
-end
+if has('mac') && $VIM == '/usr/share/vim'
+  set diffopt-=internal
+elseif has('patch-8.1.0360')
+  set diffopt+=algorithm:patience
+endif
 
 " Complete options
 set completeopt=menuone,longest " Complete options

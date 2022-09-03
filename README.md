@@ -42,7 +42,7 @@ make
 
 ## Cheatsheets
 
-- [Vim Cheatsheet](doc/vim_cheatsheet.md)
-- [Vim Plugins](doc/vim_plugins.md)
-- [IdeaVim](doc/ideavim.md)
-- [i3 Cheatsheet](doc/i3_cheatsheet.md)
+- [Vim Cheatsheet](docs/vim_cheatsheet.md)
+- [Vim Plugins](docs/vim_plugins.md)
+- [IdeaVim](docs/ideavim.md)
+- [i3 Cheatsheet](docs/i3_cheatsheet.md)
