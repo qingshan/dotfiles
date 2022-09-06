@@ -3,6 +3,8 @@
 sudo apt update
 sudo apt install zsh
 sudo apt install python3-pip
+sudo apt install fzf
+sudo apt install ripgrep
 
 # caddy
 sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
