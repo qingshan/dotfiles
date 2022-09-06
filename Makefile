@@ -14,6 +14,7 @@ linux:
 	@if [ -f /etc/redhat-release ]; then sh ./linux/redhat/setup.sh; fi
 	@if [ -f /etc/arch-release ]; then sh ./linux/arch/setup.sh; fi
 	@if [ -f /etc/debian_version ]; then sh ./linux/debian/setup.sh; fi
+	touch ~/.hushlogin
 	bash -c 'rm -rf /usr/local/go && curl -sL https://go.dev/dl/go1.19.linux-amd64.tar.gz | sudo tar -C /usr/local -xz'
 	bash -c 'sh <(curl https://sh.rustup.rs -sSf) -y'
 	rustup component add rust-src
