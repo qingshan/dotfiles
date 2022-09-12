@@ -116,7 +116,6 @@ set gdefault                    " have :s///g flag by default on
 
 " To make Vim more responsive/IDE-like.
 set updatetime=500
-set balloondelay=250
 
 " Diff options
 if has('mac') && $VIM == '/usr/share/vim'
@@ -172,25 +171,6 @@ augroup vimrc-auto-mkdir
     endif
   endfunction
 augroup END
-" }}}
-
-" Meta/Alt Keys {{{
-function! s:metacode(key)
-  exec "set <M-".a:key.">=\e".a:key
-endfunc
-for i in range(10)
-  call s:metacode(nr2char(char2nr('0') + i))
-endfor
-for i in range(26)
-  call s:metacode(nr2char(char2nr('a') + i))
-  call s:metacode(nr2char(char2nr('A') + i))
-endfor
-for c in [',', '.', '/', ';', '{', '}']
-  call s:metacode(c)
-endfor
-for c in ['?', ':', '-', '_', '+', '=', "'"]
-  call s:metacode(c)
-endfor
 " }}}
 
 " Mappings {{{
