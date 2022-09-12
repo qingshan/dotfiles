@@ -25,7 +25,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'machakann/vim-swap'
-Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 " File
 Plug 'tpope/vim-vinegar'
@@ -271,7 +270,7 @@ noremap <silent> <Leader>o :<C-U>only<CR>
 noremap <silent> <Leader>O :<C-U>tabonly<CR>
 
 " Close the quickfix window
-noremap <silent> <Leader>a :<C-U>cclose <Bar> :lclose <CR>
+noremap <silent> <Leader>x :<C-U>cclose <Bar> :lclose <CR>
 
 " Jump to definition in vertical split
 noremap <Leader>] <C-W>v<C-]>
@@ -459,11 +458,6 @@ let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutBackInsert = ''
 " }}}
 
-" supertab {{{
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-" }}}
-
 " ultisnips {{{
 let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:UltiSnipsJumpForwardTrigger = '<Tab>'
@@ -597,6 +591,7 @@ augroup END
 " }}}
 
 " vim-go {{{
+let g:go_test_show_name = 1
 let g:go_fmt_autosave = 0
 let g:go_debug_windows = {
   \ 'vars': 'leftabove 35vnew',
@@ -611,13 +606,9 @@ let g:go_term_close_on_exit = 1
 let g:go_list_type = 'quickfix'
 let g:go_echo_command_info = 0
 
-let g:go_info_mode = 'gopls'
-let g:go_rename_command = 'gopls'
-let g:go_implements_mode = 'gopls'
 let g:go_gopls_complete_unimported = 1
-let g:go_diagnostics_enabled = 1
+let g:go_diagnostics_enabled = 2
 let g:go_doc_popup_window = 1
-let g:go_auto_type_info = 1
 
 " Run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -651,21 +642,16 @@ augroup vimrc-go
   autocmd FileType go nmap <silent> <Leader>t <Plug>(go-test)
   autocmd FileType go nmap <silent> <Leader>T :GoDebugTest<CR>
   autocmd FileType go nmap <silent> <Leader>n <Plug>(go-test-func)
+  autocmd FileType go nmap <silent> <Leader>i <Plug>(go-info)
   autocmd FileType go nmap <silent> <Leader>e <Plug>(go-diagnostics)
-  autocmd FileType go nmap <silent> <Leader>E <Plug>(go-coverage-toggle)
-  autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
 
   autocmd FileType go nmap <silent> <Leader>ci <Plug>(go-imports)
   autocmd FileType go nmap <silent> <Leader>cn <Plug>(go-rename)
   autocmd FileType go nmap <silent> <Leader>ce <Plug>(go-iferr)
   autocmd FileType go nmap <silent> <Leader>cI :GoImpl<CR>
 
-  autocmd FileType go nmap <silent> <Leader>di <Plug>(go-implements)
-  autocmd FileType go nmap <silent> <Leader>dr <Plug>(go-referrers)
-  autocmd FileType go nmap <silent> <Leader>ds <Plug>(go-describe)
-  autocmd FileType go nmap <silent> <Leader>dd :GoSameIdsToggle<CR>
-
-  autocmd FileType go nmap <silent> <Leader>gd <Plug>(go-def)
+  autocmd FileType go nmap <silent> <Leader>gi <Plug>(go-implements)
+  autocmd FileType go nmap <silent> <Leader>gr <Plug>(go-referrers)
   autocmd FileType go nmap <silent> <Leader>gs <Plug>(go-def-split)
   autocmd FileType go nmap <silent> <Leader>gv <Plug>(go-def-vertical)
   autocmd FileType go nmap <silent> <Leader>gt <Plug>(go-def-tab)
@@ -689,15 +675,19 @@ augroup vimrc-rust
   autocmd FileType rust nmap <silent> <Leader>t :Ctest<CR>
   autocmd FileType rust nmap <silent> <Leader>e :Ccheck<CR>
 
-  autocmd FileType rust nmap <silent> <Leader>gd <Plug>(ale_go_to_definition)
-  autocmd FileType rust nmap <silent> <Leader>gD <Plug>(ale_go_to_type_definition)
+  autocmd FileType rust nmap <silent> <Leader>ca <Plug>(ale_code_action)
+  autocmd FileType rust nmap <silent> <Leader>ci <Plug>(ale_import)
+  autocmd FileType rust nmap <silent> <Leader>cn <Plug>(ale_rename)
+
+  autocmd FileType rust nmap <silent> <Leader>gr <Plug>(ale_find_references)
+  autocmd FileType rust nmap <silent> <Leader>gi <Plug>(ale_go_to_implementation)
   autocmd FileType rust nmap <silent> <Leader>gs <Plug>(ale_go_to_definition_in_split)
   autocmd FileType rust nmap <silent> <Leader>gv <Plug>(ale_go_to_definition_in_vsplit)
   autocmd FileType rust nmap <silent> <Leader>gt <Plug>(ale_go_to_definition_in_tab)
-  autocmd FileType rust nmap <silent> <Leader>gr <Plug>(ale_find_references)
-  autocmd FileType rust nmap <buffer> K <Plug>(ale_hover)
 
-  autocmd FileType rust nmap <silent> <Leader>cn <Plug>(ale_rename)
+  autocmd FileType rust nmap <buffer> K <Plug>(ale_hover)
+  autocmd FileType rust nmap <silent> gd <Plug>(ale_go_to_definition)
+  autocmd FileType rust nmap <silent> gD <Plug>(ale_go_to_type_definition)
 augroup END
 " }}}
 
@@ -712,6 +702,18 @@ augroup END
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
+let g:openbrowser_search_engines = {
+  \ 'wiki': 'http://en.wikipedia.org/wiki/{query}',
+  \ 'devdocs': 'http://devdocs.io/#q={query}',
+  \ 'duckduckgo': 'http://duckduckgo.com/?q={query}',
+  \ 'github': 'http://github.com/search?q={query}',
+  \ 'google': 'http://google.com/search?q={query}',
+  \ 'rsd': 'https://docs.rs/releases/search?query={query}',
+  \ 'rust': 'https://doc.rust-lang.org/nightly/std/index.html?search={query}',
+  \ 'crates.io': 'https://crates.io/search?q={query}',
+  \ 'go': 'https://pkg.go.dev/search?q={query}',
+  \ 'stackoverflow': 'https://stackoverflow.com/search?q={query}',
+  \ }
 " }}}
 
 " vim-toolbox {{{

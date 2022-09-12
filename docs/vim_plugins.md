@@ -33,7 +33,7 @@ Go
 - `<Leader>O` - Close all other tabs but the current tab.
 - `<Leader>q` - Quit the current window.
 - `<Leader>Q` - Close the current tab.
-- `<Leader>a` - Close the quickfix window.
+- `<Leader>x` - Close the quickfix window.
 - `:CC` - Toggle color column.
 - `:CD` - Change directory of the current file.
 
@@ -51,17 +51,6 @@ Terminal
 - `:TV` - Open terminal in vertical
 
 ## Plugins
-
-### Vimdiff
-
-- `[c`, `]c` - Jump to previous and next diff.
-- `do`, `dp` - Diff obtain and put
-- `:diffupdate` - Re-scan the files for differences
-
-### Quickfix
-
-- `:copen`, `:cclose` - Open/close quickfix window.
-- `cc #`, `:cn`, `:cp`, `:cfirst`, `:clast` - Display error.
 
 ### vim-matchup
 
@@ -133,10 +122,6 @@ Terminal
 
 - `<Tab>`, `<Shift-Tab>` - Expand auto completion and ultisnips, jump forward and backword.
 - `<Ctrl-l>` - Show all snippet list in insert mode.
-
-### vim-multiple-cursor
-
-- `<Ctrl-n>`
 
 ### auto-pairs
 
@@ -221,23 +206,19 @@ Commands
 
 - `<Ctrl-g>` - Go to declare directory.
 - `<Leader>b` - go-build or go-test
-- `<Leader>B` - go-diagnostics
 - `<Leader>r` - go-run
 - `<Leader>R` - go-debug-start
 - `<Leader>t` - go-test
 - `<Leader>T` - go-debug-test
 - `<Leader>n` - go-test-func
-- `<Leader>i` - go-doc
-- `<Leader>e` - go-coverage-toggle
-- `<Leader>ce` - GoImpl
+- `<Leader>i` - go-info
+- `<Leader>e` - go-diagnostics
+- `<Leader>ci` - go-imports
 - `<Leader>cn` - go-rename
-- `<Leader>ci` - go-imports
-- `<Leader>ci` - go-imports
-- `<Leader>di` - go-implements
-- `<Leader>dr` - go-referrers
-- `<Leader>ds` - go-describe
-- `<Leader>dd` - go-sameids
-- `<Leader>gd` - go-def
+- `<Leader>ce` - go-iferr
+- `<Leader>cI` - GoImpl
+- `<Leader>gi` - go-implements
+- `<Leader>gr` - go-referrers
 - `<Leader>gs` - go-def-split
 - `<Leader>gv` - go-def-vertical
 - `<Leader>gt` - go-def-tab
@@ -254,6 +235,22 @@ Debug
 - `<F11>` - `:GoDebugStep`, Advance execution by one step, stopping at the next line of code that will be executed.
 - `<F6>` - `:GoDebugPrint`, Print the result of a Go expression.
 - `:GoDebugStop`, `:GoDebugRestart`, `:GoDebugStepOut`, `:GoDebugSet`
+
+### rust
+
+- `<Leader>b` - build
+- `<Leader>r` - run
+- `<Leader>t` - test
+- `<Leader>e` - check
+- `<Leader>ca` - code action
+- `<Leader>ci` - imports
+- `<Leader>cn` - rename
+- `<Leader>gi` - go to implementation
+- `<Leader>gr` - find references
+- `<Leader>gs` - go to definition in split
+- `<Leader>gv` - go to definition in vsplit
+- `<Leader>gt` - go to definition in tab
+- `<Leader>gx` - open doc in browser
 
 ### markdown
 
@@ -296,4 +293,3 @@ Debug
 - `<Leader>v` - reverse
 - `<Leader>h` - help
 - `<Leader>u` - usage
-- `<Leader>x` - black tech.

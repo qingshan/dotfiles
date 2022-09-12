@@ -240,6 +240,17 @@ An optional count that can be given before most of commands.
 - `<Ctrl-w>T` - Move the current split window into its own tab.
 - `:tabo`, `:tabdo`, `:tabc`, `tabmove #` - Manage tabs.
 
+### Vimdiff
+
+- `[c`, `]c` - Jump to previous and next diff.
+- `do`, `dp` - Diff obtain and put
+- `:diffupdate` - Re-scan the files for differences
+
+### Quickfix
+
+- `:copen`, `:cclose` - Open/close quickfix window.
+- `cc #`, `:cn`, `:cp`, `:cfirst`, `:clast` - Display error.
+
 ## Misc
 
 ### Pattern
