@@ -1,0 +1,36 @@
+theme = "gruvbox"
+
+[editor]
+line-number = "relative"
+color-modes = true
+rulers = [100]
+
+[editor.lsp]
+display-messages = true
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name"]
+right = ["diagnostics", "spacer", "selections", "spacer", "position-percentage", "spacer", "position"]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+render = false
+
+[editor.whitespace.render]
+space = "none"
+tab = "all"
+newline = "none"
+
+[editor.whitespace.characters]
+tab = "→"
+
+[keys.normal]
+esc = ["flip_selections", "collapse_selection", "keep_primary_selection"]

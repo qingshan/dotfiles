@@ -31,7 +31,7 @@ node-packages:
 
 rust-packages:
 
-dotfiles: zsh powerline vim tmux git dirs
+dotfiles: zsh powerline vim helix tmux git dirs
 
 zsh:
 	ln -vsf .dotfiles/.aliases ${HOME}/.aliases
@@ -45,6 +45,9 @@ powerline:
 vim:
 	ln -vsf .dotfiles/.vimrc ${HOME}/.vimrc
 	@sh scripts/vim.sh
+
+helix:
+	ln -vsf .dotfiles/helix ${HOME}/.config/helix
 
 tmux:
 	ln -vsf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
