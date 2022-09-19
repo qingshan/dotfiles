@@ -51,6 +51,7 @@ helix:
 
 tmux:
 	ln -vsf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
+	ln -vsf .dotfiles/tmux ${HOME}/.tmux
 
 git:
 	git config --global user.name $(GIT_NAME)
@@ -59,5 +60,5 @@ git:
 dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
 
-.PHONY: darwin linux
+.PHONY: darwin linux tmux
 .DEFAULT_GOAL := install

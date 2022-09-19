@@ -24,16 +24,17 @@ make
 
 ### Tools
 
+- fish
 - zsh
-- vim
 - tmux
+- fzf
 - gh
 
 ### Development Environment
 
 - Java: IntelliJ IDEA Community Edition with IdeaVim
-- Go: Vim
-- Rust: Vim
+- Go: Vim with vim-go
+- Rust: Helix editor
 
 ### Deployment Environment
 
