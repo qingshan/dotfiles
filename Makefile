@@ -31,7 +31,7 @@ node-packages:
 
 rust-packages:
 
-dotfiles: zsh powerline vim helix tmux git dirs
+dotfiles: zsh powerline vim alacritty helix tmux git dirs
 
 zsh:
 	ln -vsf .dotfiles/.aliases ${HOME}/.aliases
@@ -45,6 +45,9 @@ powerline:
 vim:
 	ln -vsf .dotfiles/.vimrc ${HOME}/.vimrc
 	@sh scripts/vim.sh
+
+alacritty:
+	ln -vsf .dotfiles/alacritty ${HOME}/.config/alacritty
 
 helix:
 	ln -vsf .dotfiles/helix ${HOME}/.config/helix
@@ -60,5 +63,5 @@ git:
 dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
 
-.PHONY: darwin linux tmux
+.PHONY: darwin linux alacritty tmux
 .DEFAULT_GOAL := install

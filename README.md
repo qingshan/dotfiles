@@ -26,6 +26,7 @@ make
 
 - fish
 - zsh
+- alacritty
 - tmux
 - fzf
 - gh
