@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-echo "lab" |\
-    sed '/^$/d' |\
-    fzf |\
-    xargs -I{} tmux new-window -n {} "ssh {}"

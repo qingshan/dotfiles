@@ -40,13 +40,13 @@ key_bindings:
   # hexcode guide: https://www.csee.umbc.edu/portal/help/theory/ascii.txt
   # template: https://arslan.io/2018/02/05/gpu-accelerated-terminal-alacritty/#make-alacritty-feel-like-iterm2
   - { key: D,        mods: Command,       chars: "\x1c\x22" } # vertical pane
-  - { key: Return,   mods: Command,       chars: "\x1c\x25" } # horizontal pane
   - { key: D,        mods: Command|Shift, chars: "\x1c\x25" } # horizontal pane
+  - { key: Return,   mods: Command,       chars: "\x1c\x25" } # horizontal pane
   - { key: Return,   mods: Command|Shift, chars: "\x1c\x22" } # vertical pane
-  - { key: T,        mods: Command,       chars: "\x1c\x63" } # new window with shell
-  - { key: T,        mods: Command|Shift, chars: "\x1c\x54" } # new window with ssh server menu
-  - { key: N,        mods: Command,       chars: "\x1c\x53" } # sessions menu
-  - { key: N,        mods: Command|Shift, command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/autossh", "-M0", "-t", "lab", "tmux new -A -s main"] } } # tmux servers menu
+  - { key: T,        mods: Command,       chars: "\x1c\x63" } # new tab with shell
+  - { key: T,        mods: Command|Shift, chars: "\x1c\x43" } # new tab with commands menu
+  - { key: N,        mods: Command,       chars: "\x1c\x53" } # new window with sessions menu
+  - { key: N,        mods: Command|Shift, command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/autossh", "-M0", "-t", "lab", "tmux new -A -s main"] } } # lab server
   - { key: Q,        mods: Command,       chars: "\x1c\x64" } # detach session
   - { key: W,        mods: Command,       chars: "\x1c\x78" } # close pane
   - { key: I,        mods: Command|Shift, chars: "\x1c\x49" } # synchronize panes
