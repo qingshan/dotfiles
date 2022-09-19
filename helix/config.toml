@@ -3,7 +3,6 @@ theme = "gruvbox"
 [editor]
 line-number = "relative"
 color-modes = true
-rulers = [100]
 
 [editor.lsp]
 display-messages = true
