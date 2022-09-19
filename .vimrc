@@ -58,6 +58,7 @@ Plug 'elzr/vim-json', {'for' : 'json'}
 Plug 'tyru/open-browser.vim'
 Plug 'brglng/vim-im-select'
 Plug 'qingshan/vim-toolbox'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 call plug#end()
 " }}}
 
@@ -261,11 +262,14 @@ if has('clipboard')
   nnoremap <silent> <Leader>P :set paste<CR>"+]P<Esc>:set nopaste<CR>
   nnoremap <silent> <Leader>y "+yy
   vnoremap <silent> <Leader>y "+y
-else
+elseif executable('xsel')
   nnoremap <silent> <Leader>p :set paste<CR>:r !xsel -ob<Esc>:set nopaste<CR>
   nnoremap <silent> <Leader>P :set paste<CR>:-1r !xsel -ob<Esc>:set nopaste<CR>
   nnoremap <silent> <Leader>y <S-v>:w !xsel -ib<CR><CR>
   vnoremap <silent> <Leader>y :w !xsel -ib<CR><CR>
+else
+  nnoremap <Leader>y V:OSCYank<CR>
+  vnoremap <leader>y :OSCYank<CR>
 endif
 
 " Terminal settings
