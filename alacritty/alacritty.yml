@@ -46,7 +46,7 @@ key_bindings:
   - { key: T,        mods: Command,       chars: "\x1c\x63" } # new tab with shell
   - { key: T,        mods: Command|Shift, chars: "\x1c\x43" } # new tab with commands menu
   - { key: N,        mods: Command,       chars: "\x1c\x53" } # new window with sessions menu
-  - { key: N,        mods: Command|Shift, command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/autossh", "-M0", "-t", "lab", "tmux new -A -s main"] } } # lab server
+  - { key: N,        mods: Command|Shift, command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/autossh", "-M0", "-t", "lab", "tmux new -A -D -s main"] } } # lab server
   - { key: Q,        mods: Command,       chars: "\x1c\x64" } # detach session
   - { key: W,        mods: Command,       chars: "\x1c\x78" } # close pane
   - { key: I,        mods: Command|Shift, chars: "\x1c\x49" } # synchronize panes

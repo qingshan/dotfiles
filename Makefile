@@ -22,7 +22,7 @@ linux:
 	curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
 	chmod +x ~/.local/bin/rust-analyzer
 
-packages: python-packages node-packages rust-packages
+packages: python-packages node-packages rust-packages fish-packages
 
 python-packages:
 	pip3 install powerline-status
@@ -31,7 +31,17 @@ node-packages:
 
 rust-packages:
 
-dotfiles: zsh powerline vim alacritty helix tmux git dirs
+fish-packages:
+	curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+        fish -c "fisher install oh-my-fish/theme-bobthefish"
+        fish -c "fisher install jethrokuan/fzf"
+        fish -c "fisher install jethrokuan/z"
+        fish -c "fisher install 0rax/fish-bd"
+
+dotfiles: fish zsh powerline vim alacritty helix tmux git dirs
+
+fish:
+	ln -vsf .dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 
 zsh:
 	ln -vsf .dotfiles/.aliases ${HOME}/.aliases
