@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-echo -e "main\nrust\ndotfiles" |\
-    sed '/^$/d' |\
-    fzf --reverse --header jump-to-session --preview 'tmux capture-pane -pt {}'  |\
-    xargs /usr/local/bin/alacritty msg create-window -e /usr/local/bin/tmux new-session -A -D -s

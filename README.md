@@ -12,26 +12,37 @@ make
 
 ## Features
 
-### Desktop
+### Desktops
 
 - macOS
 - Manjaro i3
 
-### Server
+### Servers
 
 - Redhat Enterprise Linux 8 (CentOS / Oracle)
 - Ubuntu
 
-### Tools
+### Terminals
+
+- alacritty
+- tmux
+
+### Shells
 
 - fish
 - zsh
-- alacritty
-- tmux
-- fzf
-- gh
 
-### Development Environment
+### Tools
+
+- bat
+- fd
+- lsd
+- fzf
+- ripgrip
+- gh
+- lazygit
+
+### Development Environments
 
 - Java: IntelliJ IDEA Community Edition with IdeaVim
 - Go: Vim with vim-go
