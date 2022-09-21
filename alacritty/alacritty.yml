@@ -48,12 +48,12 @@ key_bindings:
   - { key: Minus,    mods: Command,       action: DecreaseFontSize }
   # ----- new pane/tab/window -----
   - { key: D,        mods: Command,       chars: "\x1c\""   } # new vertical pane with default shell
-  - { key: D,        mods: Command|Shift, chars: "\x1cV"    } # new vertical pane with commands menu
+  - { key: D,        mods: Command|Shift, chars: "\x1c-"    } # new vertical pane with commands menu
   - { key: Return,   mods: Command,       chars: "\x1c%"    } # new horizontal pane with default shell
-  - { key: Return,   mods: Command|Shift, chars: "\x1cX"    } # new horizontal pane with commands menu
+  - { key: Return,   mods: Command|Shift, chars: "\x1c|"    } # new horizontal pane with commands menu
   - { key: T,        mods: Command,       chars: "\x1cc"    } # new tab with default shell
   - { key: T,        mods: Command|Shift, chars: "\x1cC"    } # new tab with commands menu
-  - { key: N,        mods: Command,       command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/fish", "--login", "--command", "tmux new-session -A -D -s $(tmux-sessions)"] } } # new window with sessions menu
+  - { key: N,        mods: Command,       command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/fish", "--login", "--command", "tmux run-shell $(tmux-sessions)"] } } # new window with sessions menu
   - { key: N,        mods: Command|Shift, command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/fish", "--login", "--command", "autossh -M0 -t $(tmux-servers) tmux new -A -D -s main"] } } # new window with servers menu
   # ----- close pane/tab/window -----
   - { key: W,        mods: Command,       chars: "\x1cx"    } # close the pane
