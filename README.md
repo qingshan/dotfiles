@@ -53,6 +53,11 @@ make
 - docker
 - caddy
 
+### Fonts
+
+- JetBrains Mono Font
+- Nerd Font
+
 ## Cheatsheets
 
 - [Vim Cheatsheet](docs/vim_cheatsheet.md)
