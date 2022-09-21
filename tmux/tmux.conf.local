@@ -1,4 +1,4 @@
-set -g @session "#[fg=#282828,bg=#a89984] #[nobold] #S #[fg=#a89984,bg=#3c3836]"
+set -g @session "#[fg=#282828,bg=#a89984] #[nobold] #S ﬿ #[fg=#a89984,bg=#3c3836]"
 set -g @datetime "#[fg=#504945,bg=#3c3836]#[fg=#a89984,bg=#504945]  %a %b %d   %H:%M %p "
 set -g @keyboard "#[fg=#a89984,bg=#504945]#[fg=#282828,bg=#a89984]   #(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID | awk -F. '{print $4}' | sed 's/PinyinKeyboard/中/') "
 
