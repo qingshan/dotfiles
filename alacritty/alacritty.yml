@@ -67,7 +67,6 @@ key_bindings:
   - { key: Comma,    mods: Command,       chars: "\x1c,"    } # zoom toggle of the current pane.
   - { key: S,        mods: Command,       chars: "\x1b:w\x0a" } # Type <escape>:w<enter> to save vim
   # ----- navigate panes -----
-  - { key: B,        mods: Command,       chars: "\x1c;"    } # back to last pane
   - { key: H,        mods: Command,       chars: "\x1ch"    } # go to the pane left
   - { key: J,        mods: Command,       chars: "\x1cj"    } # go to the pane above
   - { key: K,        mods: Command,       chars: "\x1ck"    } # go to the pane below
@@ -86,7 +85,7 @@ key_bindings:
   - { key: Up,       mods: Command|Shift, chars: "\x1cK"    }
   - { key: Right,    mods: Command|Shift, chars: "\x1cL"    }
   # ----- navigate tabs -----
-  - { key: B,        mods: Command|Shift, chars: "\x1c^"    } # back to last tab
+  - { key: B,        mods: Command,       chars: "\x1c^"    } # back to last tab
   - { key: LBracket, mods: Command,       chars: "\x1cp"    } # go to previous tab
   - { key: RBracket, mods: Command,       chars: "\x1cn"    } # go to next tab
   - { key: Key1,     mods: Command,       chars: "\x1c1"    } # go to tab 1..9
