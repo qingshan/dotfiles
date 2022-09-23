@@ -5,6 +5,9 @@ window:
   startup_mode: SimpleFullscreen
   decorations: none
 
+# Display tabs using this many cells
+tabspaces: 4
+
 font:
   normal:
     family: JetBrainsMono Nerd Font
@@ -62,9 +65,10 @@ key_bindings:
   # ----- misc shortcuts -----
   - { key: I,        mods: Command,       chars: "\x1c:"    } # input tmux command
   - { key: I,        mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
-  - { key: R,        mods: Command,       chars: "\x1c "    } # retile panes in the current window with preset layouts
+  - { key: R,        mods: Command,       chars: "\x1cR"    } # run command with commands menu
   - { key: Z,        mods: Command,       chars: "\x1cz"    } # zoom toggle of the current pane.
-  - { key: Comma,    mods: Command,       chars: "\x1c,"    } # zoom toggle of the current pane.
+  - { key: Z,        mods: Command|Shift, chars: "\x1c "    } # retile panes in the current window with preset layouts
+  - { key: Comma,    mods: Command,       chars: "\x1c,"    } # rename tab
   - { key: S,        mods: Command,       chars: "\x1b:w\x0a" } # Type <escape>:w<enter> to save vim
   # ----- navigate panes -----
   - { key: H,        mods: Command,       chars: "\x1ch"    } # go to the pane left
