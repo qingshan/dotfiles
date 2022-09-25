@@ -1,6 +1,3 @@
-env:
-  TERM: xterm-256color
-
 window:
   startup_mode: SimpleFullscreen
   decorations: none
@@ -27,6 +24,9 @@ font:
 
   size: 14
 
+env:
+  TERM: xterm-256color
+
 shell:
   program: /usr/local/bin/fish
   args:
@@ -45,6 +45,8 @@ shell:
 #   `\x1b` is `Esc`
 #   `Alt` is mapped to `Esc`
 key_bindings:
+  # ----- useful keys -----
+  - { key: Back,                          action:  ReceiveChar     }
   # ----- change font size ----
   - { key: Key0,     mods: Command,       action: ResetFontSize    }
   - { key: Equals,   mods: Command,       action: IncreaseFontSize }
@@ -56,12 +58,15 @@ key_bindings:
   - { key: Return,   mods: Command|Shift, chars: "\x1c|"    } # new horizontal pane with commands menu
   - { key: T,        mods: Command,       chars: "\x1cc"    } # new tab with default shell
   - { key: T,        mods: Command|Shift, chars: "\x1cC"    } # new tab with commands menu
-  - { key: N,        mods: Command,       command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/fish", "--login", "--command", "tmux run-shell $(tmux-sessions)"] } } # new window with sessions menu
+  - { key: N,        mods: Command,       chars: "\x1cS"    } # switch session with sessions menu for current tmux
   - { key: N,        mods: Command|Shift, command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/fish", "--login", "--command", "autossh -M0 -t $(tmux-servers) tmux new -A -D -s main"] } } # new window with servers menu
   # ----- close pane/tab/window -----
   - { key: W,        mods: Command,       chars: "\x1cx"    } # close the pane
   - { key: W,        mods: Command|Shift, chars: "\x1c&"    } # close the tab
   - { key: Q,        mods: Command,       chars: "\x1cd"    } # close the window
+  # ----- search -----
+  - { key: F,        mods: Command,       chars: "\x1c[/"   } # enter vi copy mode, and search from up to down
+  - { key: F,        mods: Command|Shift, chars: "\x1c[?"   } # enter vi copy mode, search from down to up
   # ----- misc shortcuts -----
   - { key: I,        mods: Command,       chars: "\x1c:"    } # input tmux command
   - { key: I,        mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
@@ -69,7 +74,7 @@ key_bindings:
   - { key: Z,        mods: Command,       chars: "\x1cz"    } # zoom toggle of the current pane.
   - { key: Z,        mods: Command|Shift, chars: "\x1c "    } # retile panes in the current window with preset layouts
   - { key: Comma,    mods: Command,       chars: "\x1c,"    } # rename tab
-  - { key: S,        mods: Command,       chars: "\x1b:w\x0a" } # Type <escape>:w<enter> to save vim
+  - { key: S,        mods: Command,       chars: "\x1b:w\x0a"} # Type <escape>:w<enter> to save vim
   # ----- navigate panes -----
   - { key: H,        mods: Command,       chars: "\x1ch"    } # go to the pane left
   - { key: J,        mods: Command,       chars: "\x1cj"    } # go to the pane above
@@ -112,7 +117,6 @@ key_bindings:
   - { key: Key8,     mods: Command|Shift, chars: "\x1c\x1b8"}
   - { key: Key9,     mods: Command|Shift, chars: "\x1c\x1b9"}
   # ----- map Alt to Escape -----
-  - { key: Escape,                        chars: "\x1b\x1b" }
   - { key: A,        mods: Alt,           chars: "\x1ba"    }
   - { key: B,        mods: Alt,           chars: "\x1bb"    }
   - { key: C,        mods: Alt,           chars: "\x1bc"    }
