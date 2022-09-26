@@ -7,6 +7,7 @@ set -Ux PROJECTS ~/Developer
 
 # path
 fish_add_path -m ~/.bin
+fish_add_path -m ~/.dotfiles/bin
 fish_add_path -m ~/.local/bin
 fish_add_path -m ~/go/bin
 fish_add_path -m ~/.cargo/bin

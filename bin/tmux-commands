@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+commands() {
+  tmux show-options -g -v @COMMANDS 2> /dev/null || builtin history
+}
+
+commands | fzf --no-sort --prompt " "

@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+sessions() {
+  tmux show-options -g -v @SESSIONS 2> /dev/null || tmux list-sessions -F '#{session_name}' 2> /dev/null
+}
+
+servers() {
+  (tmux show-options -g -v @SERVERS 2> /dev/null | awk '{print "@" $1}') || (test -f ~/.ssh/config && cat ~/.ssh/config | grep "^Host " | awk '{print $2}' | grep -v "*")
+}
+
+search() {
+  (sessions; [[ $ALL == true ]] && servers) | tr ' ' '\n' | grep -v "^$" | nl -w 1 -s ": " | fzf --no-sort --prompt "﬿ " | awk '{print $2}'
+}
+
+ALL=false
+if [[ $# -eq 1 ]]; then
+  case "$1" in
+    --all)
+      ALL=true
+      ;;
+    *)
+      SESSION=$1
+      ;;
+  esac
+fi
+
+if [[ -z $SESSION ]]; then
+    SESSION=$(search)
+fi
+
+if [[ -z $SESSION ]]; then
+    exit 0
+fi
+
+if [[ $SESSION  =~ "@" ]]; then
+  SERVER=$(echo $SESSION | cut -d@ -f2)
+  SESSION=$(echo $SESSION | cut -d@ -f1)
+  exec autossh -M0 -t $SERVER /usr/bin/fish --login --command "tmux-sessions $SESSION"
+else
+  # new session if session is not available
+  tmux_running=$(pgrep tmux)
+  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -A -D -s $SESSION
+  else
+    if ! tmux has-session -t $SESSION 2> /dev/null; then
+      WORKING_DIRECTORY=$PROJECTS/$SESSION
+      if [[ -d "$WORKING_DIRECTORY" ]]; then
+        tmux new-session -ds $SESSION -c $WORKING_DIRECTORY
+      else
+        tmux new-session -ds $SESSION
+      fi
+    fi
+    if [[ -z $TMUX ]]; then
+      tmux new-session -A -D -s $SESSION
+    else
+      tmux switch-client -t $SESSION
+    fi
+  fi
+fi
