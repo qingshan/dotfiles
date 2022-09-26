@@ -75,9 +75,6 @@ abbr --add vpu "nvim +PlugUpdate"
 # rsync
 abbr --add rcp "rsync -vhra --include='**.gitignore' --exclude='/.git' --filter=':- .gitignore' --delete-after"
 
-# cloudian-tunnel
-abbr --add ctc "cloudian-tunnel.app connect"
-
 # fzf
 if command -v fzf &> /dev/null
   set -gx FZF_DEFAULT_OPTS "--layout=reverse --inline-info --height '80%' --select-1 --exit-0"
