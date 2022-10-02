@@ -47,7 +47,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'rust-lang/rust.vim'
 " Markdown
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'preservim/vim-markdown'
 Plug 'dkarter/bullets.vim'
 " Protobuf
 Plug 'bufbuild/vim-buf'
