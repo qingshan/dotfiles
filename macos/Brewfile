@@ -23,6 +23,7 @@ brew "watch"
 brew "tldr"
 brew "direnv"
 brew "htop"
+brew "terminal-notifier"
 # data
 brew "xsv"
 brew "jq"
@@ -76,7 +77,6 @@ cask "dropbox"
 cask "alfred"
 cask "eqmac"
 cask "hiddenbar"
-cask "tomatobar"
 cask "keycastr"
 cask "microsoft-remote-desktop"
 cask "rectangle"
@@ -103,3 +103,4 @@ mas "pocket", id: 568494494
 mas "save-to-pocket", id: 1477385213
 mas "medis", id: 1579200037
 mas "vimari", id: 1480933944
+mas "tomito", id: 1526042938
