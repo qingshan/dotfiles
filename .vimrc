@@ -32,7 +32,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-obsession'
-Plug 'majutsushi/tagbar'
 " VCS
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
@@ -465,10 +464,6 @@ call expand_region#custom_text_objects('html', {
 
 " vim-fugitive {{{
 cabbrev GB Gblame
-" }}}
-
-" tagbar {{{
-cabbrev TB TagbarToggle
 " }}}
 
 " vim-mundo {{{
