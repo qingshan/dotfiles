@@ -5,7 +5,6 @@ set -Ux TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
 set -Ux DOTFILES ~/.dotfiles
 set -Ux PROJECTS ~/Developer
 
-# path
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
 fish_add_path -m ~/.local/bin
@@ -92,6 +91,9 @@ abbr --add ytdl 'yt-dlp --write-auto-sub --sub-lang en --convert-subs=srt'
 # aliases
 alias ql='qlmanage -p 2>/dev/null'
 alias sucs='sort | uniq -c | sort -n'
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
 
 # fzf
 if command -v fzf &> /dev/null
