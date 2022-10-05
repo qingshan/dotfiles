@@ -60,6 +60,9 @@ key_bindings:
   - { key: N,        mods: Command,       chars: "\x1cS"    } # switch session in current window with local sessions menu
   - { key: N,        mods: Command|Shift, command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/fish", "--login", "--command", "tmux-sessions --all"] } } # open session in new window with all sessions menu across servers
 
+  # ----- popup window -----
+  - { key: P,        mods: Command,       chars: "\x1cP"    } # close the pane
+
   # ----- close pane/tab/window -----
   - { key: W,        mods: Command,       chars: "\x1cx"    } # close the pane
   - { key: W,        mods: Command|Shift, chars: "\x1c&"    } # close the tab
