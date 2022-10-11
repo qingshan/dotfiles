@@ -33,10 +33,10 @@ rust-packages:
 
 fish-packages:
 	curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
-        fish -c "fisher install oh-my-fish/theme-bobthefish"
-        fish -c "fisher install jethrokuan/fzf"
-        fish -c "fisher install jethrokuan/z"
-        fish -c "fisher install 0rax/fish-bd"
+	fish -c "fisher install oh-my-fish/theme-bobthefish"
+	fish -c "fisher install jethrokuan/fzf"
+	fish -c "fisher install jethrokuan/z"
+	fish -c "fisher install 0rax/fish-bd"
 
 dotfiles: fish zsh powerline vim alacritty helix tmux git dirs
 
