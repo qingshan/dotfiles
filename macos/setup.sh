@@ -24,10 +24,10 @@ x86_64)
 esac
 
 # Install all dependencies from the Brewfile
-brew bundle -v --no-lock || true
+brew bundle -v --no-lock --file ~/.dotfiles/macos/Brewfile || true
 
 # Create Developer Directory
 mkdir -p ~/Developer
 
 # Apply macoS system settings
-. "macos.sh"
+. ~/.dotfiles/macos/macos.sh"
