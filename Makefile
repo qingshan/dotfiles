@@ -24,7 +24,6 @@ linux:
 packages: python-packages node-packages rust-packages fish-packages
 
 python-packages:
-	pip3 install powerline-status
 
 node-packages:
 
@@ -35,7 +34,7 @@ fish-packages:
 	fish -c "fisher install oh-my-fish/theme-bobthefish"
 	fish -c "fisher install jethrokuan/fzf"
 
-dotfiles: fish zsh powerline vim alacritty helix tmux git dirs
+dotfiles: fish zsh vim alacritty helix tmux git dirs
 
 fish:
 	ln -vsf .dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
@@ -45,9 +44,6 @@ zsh:
 	ln -vsf .dotfiles/.profile ${HOME}/.profile
 	ln -vsf .dotfiles/.zshrc ${HOME}/.zshrc
 	@sh ./scripts/zsh.sh
-
-powerline:
-	@sh ./scripts/powerline.sh
 
 vim:
 	ln -vsf .dotfiles/.vimrc ${HOME}/.vimrc
