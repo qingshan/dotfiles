@@ -10,6 +10,8 @@ fish_add_path -m ~/.dotfiles/bin
 fish_add_path -m ~/.local/bin
 fish_add_path -m ~/go/bin
 fish_add_path -m ~/.cargo/bin
+fish_add_path -m /opt/local/bin
+fish_add_path -m /opt/local/sbin
 
 # zoxide
 zoxide init fish | source
