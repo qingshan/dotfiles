@@ -31,29 +31,25 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-obsession'
 " VCS
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
-" Lint
+" Coding
 Plug 'dense-analysis/ale'
-" Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Rust
 Plug 'rust-lang/rust.vim'
+Plug 'jtdowney/vimux-cargo'
+Plug 'cespare/vim-toml'
+Plug 'elzr/vim-json', {'for' : 'json'}
 " Markdown
 Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
 Plug 'dkarter/bullets.vim'
-" Protobuf
-Plug 'bufbuild/vim-buf'
-" Misc
-Plug 'cespare/vim-toml'
-Plug 'elzr/vim-json', {'for' : 'json'}
 " Tools
+Plug 'preservim/vimux'
 Plug 'tyru/open-browser.vim'
 Plug 'brglng/vim-im-select'
 Plug 'qingshan/vim-toolbox'
@@ -649,9 +645,11 @@ augroup END
 " rust {{{
 augroup vimrc-rust
   autocmd!
-  autocmd FileType rust nmap <silent> <Leader>b :Cbuild<CR>
-  autocmd FileType rust nmap <silent> <Leader>r :Crun<CR>
-  autocmd FileType rust nmap <silent> <Leader>t :Ctest<CR>
+  autocmd FileType rust nmap <silent> <Leader>b :wa<CR> :CargoBuild<CR>
+  autocmd FileType rust nmap <silent> <Leader>r :wa<CR> :CargoUnitTestCurrentFile<CR>
+  autocmd FileType rust nmap <silent> <Leader>R :wa<CR> :CargoRun<CR>
+  autocmd FileType rust nmap <silent> <Leader>t :wa<CR> :CargoUnitTestFocused<CR>
+  autocmd FileType rust nmap <silent> <Leader>T :wa<CR> :CargoTestAll<CR>
   autocmd FileType rust nmap <silent> <Leader>e :Ccheck<CR>
 
   autocmd FileType rust nmap <silent> <Leader>ca <Plug>(ale_code_action)
@@ -670,11 +668,9 @@ augroup vimrc-rust
 augroup END
 " }}}
 
-" java {{{
-augroup vimrc-java
-  autocmd!
-  autocmd FileType java nmap <silent> <Leader>r :!clear && javac % && java %:p:t:r<CR>
-augroup END
+" vimux {{{
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "50"
 " }}}
 
 " open-browser {{{
