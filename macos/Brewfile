@@ -83,7 +83,7 @@ cask "rectangle"
 # development
 cask "github"
 cask "intellij-idea-ce"
-cask "logseq"
+cask "obsidian"
 cask "mat"
 cask "sublime-text"
 # reading
