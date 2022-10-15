@@ -44,11 +44,14 @@ else
   else
     if ! tmux has-session -t $SESSION 2> /dev/null; then
       WORKING_DIRECTORY=$PROJECTS/$SESSION
-      if [[ -d "$WORKING_DIRECTORY" ]]; then
-        tmux new-session -ds $SESSION -c $WORKING_DIRECTORY
-      else
-        tmux new-session -ds $SESSION
+      INITIAL_FILE="~/.dotfiles/tmux/sessions/$SESSION.tmux.conf"
+      if [[ -f "$INITIAL_FILE" ]]; then
+        INITIAL_COMMAND="tmux source-file $INTIALL_FILE"
       fi
+      if [[ ! -d "$WORKING_DIRECTORY" ]]; then
+        WORKING_DIRECTORY="~"
+      fi
+      tmux new-session -ds $SESSION -c $WORKING_DIRECTORY $INTIAL_COMMAND
     fi
     if [[ -z $TMUX ]]; then
       tmux new-session -A -D -s $SESSION
