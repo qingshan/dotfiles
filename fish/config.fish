@@ -1,5 +1,6 @@
 # env
 set -Ux EDITOR vim
+set -Ux GOPATH ~/.go
 set -Ux TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
 
 set -Ux DOTFILES ~/.dotfiles
@@ -8,13 +9,16 @@ set -Ux PROJECTS ~/code
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
 fish_add_path -m ~/.local/bin
-fish_add_path -m ~/go/bin
+fish_add_path -m ~/.go/bin
 fish_add_path -m ~/.cargo/bin
 fish_add_path -m /opt/local/bin
 fish_add_path -m /opt/local/sbin
 
 # zoxide
 zoxide init fish | source
+
+# direnv
+direnv hook fish | source
 
 # greeting
 function fish_greeting
@@ -59,6 +63,10 @@ if command -sq lsd
   abbr --add ll 'lsd --group-dirs first -Al'
   abbr --add lt 'lsd --group-dirs last -A --tree'
 end
+if command -sq exa
+  abbr --add ll 'exa -l -g --icons'
+  abbr --add lt 'exa -l -g --icons --tree'
+end
 abbr --add rmr 'rm -rf'
 
 # brew
@@ -95,6 +103,10 @@ abbr --add tsa 'tmux-sessions algorithms'
 abbr --add tsd 'tmux-sessions dotfiles'
 abbr --add tsm 'tmux-sessions main'
 abbr --add tsn 'tmux-sessions notes'
+
+# ssh
+abbr --add lab 'ssh lab'
+abbr --add homelab 'ssh homelab'
 
 # aliases
 alias ql='qlmanage -p 2>/dev/null'
