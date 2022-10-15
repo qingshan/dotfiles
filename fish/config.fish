@@ -3,7 +3,7 @@ set -Ux EDITOR vim
 set -Ux TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
 
 set -Ux DOTFILES ~/.dotfiles
-set -Ux PROJECTS ~/Developer
+set -Ux PROJECTS ~/code
 
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
@@ -89,6 +89,12 @@ abbr --add rscp 'rsync --archive --compress-level=3 --copy-links --partial --inp
 
 # yt-dlp
 abbr --add ytdl 'yt-dlp --write-auto-sub --sub-lang en --convert-subs=srt'
+
+# tmux sessions
+abbr --add tsa 'tmux-sessions algorithms'
+abbr --add tsd 'tmux-sessions dotfiles'
+abbr --add tsm 'tmux-sessions main'
+abbr --add tsn 'tmux-sessions notes'
 
 # aliases
 alias ql='qlmanage -p 2>/dev/null'
