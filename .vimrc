@@ -669,8 +669,8 @@ augroup END
 " }}}
 
 " vimux {{{
-let g:VimuxOrientation = "h"
-let g:VimuxHeight = "50"
+let g:VimuxOrientation = "v"
+let g:VimuxHeight = "25"
 " }}}
 
 " open-browser {{{
