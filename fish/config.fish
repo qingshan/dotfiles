@@ -9,8 +9,12 @@ set -Ux PROJECTS ~/code
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
 fish_add_path -m ~/.local/bin
-fish_add_path -m ~/.go/bin
-fish_add_path -m ~/.cargo/bin
+if test -d "$HOME/.go/bin"
+  fish_add_path -m ~/.go/bin
+end
+if test -d "$HOME/.cargo/bin"
+  fish_add_path -m ~/.cargo/bin
+end
 fish_add_path -m /opt/local/bin
 fish_add_path -m /opt/local/sbin
 
@@ -44,9 +48,10 @@ abbr --add e 'exit'
 
 # git
 abbr --add g 'git'
-abbr --add ga 'git amend'
-abbr --add gbr 'git br'
-abbr --add gco 'git co'
+abbr --add gbr 'git branch'
+abbr --add gcm 'git commit -m'
+abbr --add gca 'git commit --amend -m'
+abbr --add gco 'git checkout'
 abbr --add gd 'git diff -w'
 abbr --add gds 'git diff -w --staged'
 abbr --add gp 'git push origin'
@@ -55,7 +60,16 @@ abbr --add glf 'git logf'
 abbr --add glo 'git logo'
 abbr --add gl 'git pull'
 abbr --add gp 'git push'
-abbr --add lg 'lazygit'
+
+# lazygit
+if command -sq lazygit
+  abbr --add lg 'lazygit'
+end
+
+# bat
+if command -sq bat
+  abbr --add cat 'bat'
+end
 
 # lsd
 if command -sq lsd
@@ -64,6 +78,7 @@ if command -sq lsd
   abbr --add lt 'lsd --group-dirs last -A --tree'
 end
 if command -sq exa
+  abbr --add l 'exa --icons'
   abbr --add ll 'exa -l -g --icons'
   abbr --add lt 'exa -l -g --icons --tree'
 end
@@ -107,6 +122,14 @@ abbr --add tsn 'tmux-sessions notes'
 # ssh
 abbr --add lab 'ssh lab'
 abbr --add homelab 'ssh homelab'
+
+# rust
+abbr --add cb cargo build
+abbr --add cr cargo run
+abbr --add ct cargo test
+abbr --add ch cargo check
+abbr --add cl cargo clippy
+abbr --add cw cargo watch -x 'run'
 
 # aliases
 alias ql='qlmanage -p 2>/dev/null'
