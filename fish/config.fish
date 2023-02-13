@@ -15,6 +15,9 @@ end
 if test -d "$HOME/.cargo/bin"
   fish_add_path -m ~/.cargo/bin
 end
+if test -d "$HOME/Library/Application\ Support/multipass/bin"
+  fish_add_path -m ~/Library/Application\ Support/multipass/bin
+end
 fish_add_path -m /opt/local/bin
 fish_add_path -m /opt/local/sbin
 
@@ -83,6 +86,9 @@ if command -sq exa
   abbr --add lt 'exa -l -g --icons --tree'
 end
 abbr --add rmr 'rm -rf'
+
+# cd
+abbr --add cdload 'cd ~/Downloads'
 
 # brew
 abbr --add bi 'brew install'
