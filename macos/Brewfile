@@ -56,8 +56,6 @@ brew "rust-analyzer"
 brew "ant"
 brew "protobuf"
 brew "spotbugs"
-# containers
-brew "docker"
 # publish
 brew "pandoc"
 brew "pandoc-crossref"
