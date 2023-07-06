@@ -18,6 +18,9 @@ end
 if test -d "$HOME/Library/Application\ Support/multipass/bin"
   fish_add_path -m ~/Library/Application\ Support/multipass/bin
 end
+if test -d "/Applications/IntelliJ IDEA CE.app/Contents/MacOS"
+  fish_add_path -m /Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS
+end
 fish_add_path -m /opt/local/bin
 fish_add_path -m /opt/local/sbin
 
@@ -71,7 +74,7 @@ end
 
 # bat
 if command -sq bat
-  abbr --add cat 'bat'
+  abbr --add cat 'bat -p'
 end
 
 # lsd
@@ -129,6 +132,10 @@ abbr --add tsn 'tmux-sessions notes'
 abbr --add lab 'ssh lab'
 abbr --add homelab 'ssh homelab'
 
+# make
+abbr --add mb make build
+abbr --add mr make run
+
 # rust
 abbr --add cb cargo build
 abbr --add cr cargo run
@@ -137,12 +144,16 @@ abbr --add ch cargo check
 abbr --add cl cargo clippy
 abbr --add cw cargo watch -x 'run'
 
+# multipass
+abbr --add mp multipass
+
 # aliases
 alias ql='qlmanage -p 2>/dev/null'
 alias sucs='sort | uniq -c | sort -n'
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+alias gcurl='grpcurl -plaintext localhost:3000'
 
 # fzf
 if command -v fzf &> /dev/null
