@@ -9,10 +9,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Prevent sleeping during script execution, as long as the machine is on AC power
 caffeinate -s -w $$ &
 
-# Disable spotlight
-sudo mdutil -a -i off
-sudo rm -rf /System/Volumes/Data/.Spotlight-V100
-
 # Check for Homebrew, install if we don't have it
 command -v brew >/dev/null || \
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
