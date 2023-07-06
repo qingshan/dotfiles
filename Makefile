@@ -16,7 +16,6 @@ linux:
 	touch ~/.hushlogin
 	bash -c 'rm -rf /usr/local/go && curl -sL https://go.dev/dl/go1.19.linux-amd64.tar.gz | sudo tar -C /usr/local -xz'
 	bash -c 'sh <(curl https://sh.rustup.rs -sSf) -y'
-	rustup component add rust-src
 	mkdir -p ~/.local/bin
 	curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
 	chmod +x ~/.local/bin/rust-analyzer
@@ -28,16 +27,17 @@ python-packages:
 node-packages:
 
 rust-packages:
+	rustup component add rust-src
 
 fish-packages:
-	curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+	curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 	fish -c "fisher install oh-my-fish/theme-bobthefish"
 	fish -c "fisher install jethrokuan/fzf"
 
 dotfiles: fish zsh vim alacritty helix tmux git dirs
 
 fish:
-	ln -vsf .dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
+	ln -vsf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 
 zsh:
 	ln -vsf .dotfiles/.aliases ${HOME}/.aliases
@@ -50,10 +50,10 @@ vim:
 	@sh scripts/vim.sh
 
 alacritty:
-	ln -vsf .dotfiles/alacritty ${HOME}/.config/alacritty
+	ln -vsf ../.dotfiles/alacritty ${HOME}/.config/alacritty
 
 helix:
-	ln -vsf .dotfiles/helix ${HOME}/.config/helix
+	ln -vsf ../.dotfiles/helix ${HOME}/.config/helix
 
 tmux:
 	ln -vsf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
@@ -65,5 +65,5 @@ git:
 dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
 
-.PHONY: darwin linux alacritty tmux
+.PHONY: darwin linux alacritty tmux fish helix
 .DEFAULT_GOAL := install
