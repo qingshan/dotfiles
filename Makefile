@@ -16,9 +16,6 @@ linux:
 	touch ~/.hushlogin
 	bash -c 'rm -rf /usr/local/go && curl -sL https://go.dev/dl/go1.19.linux-amd64.tar.gz | sudo tar -C /usr/local -xz'
 	bash -c 'sh <(curl https://sh.rustup.rs -sSf) -y'
-	mkdir -p ~/.local/bin
-	curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
-	chmod +x ~/.local/bin/rust-analyzer
 
 packages: python-packages node-packages rust-packages fish-packages
 
@@ -28,6 +25,7 @@ node-packages:
 
 rust-packages:
 	rustup component add rust-src
+	rustup component add rust-analyzer
 
 fish-packages:
 	curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
