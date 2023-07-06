@@ -9,7 +9,7 @@ servers() {
 }
 
 search() {
-  (sessions; [[ $ALL == true ]] && servers) | tr ' ' '\n' | grep -v "^$" | nl -w 1 -s ": " | fzf --no-sort --prompt "﬿ " | awk '{print $2}'
+  (sessions; [[ $ALL == true ]] && servers) | tr ' ' '\n' | grep -v "^$" | nl -w 1 -s ": " | fzf --no-sort --prompt "  " | awk '{print $2}'
 }
 
 ALL=false
