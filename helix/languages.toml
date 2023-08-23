@@ -1,0 +1,19 @@
+[[language]]
+name = "rust"
+
+[language-server.rust-analyzer.config]
+check = { command = "clippy", features = "all" }
+diagnostics = { experimental = { enable = true } }
+hover = { actions = { enable = true } }
+typing = { autoClosingAngleBrackets = { enable = true } }
+cargo = { allFeatures = true }
+procMacro = { enable = true }
+
+[[language]]
+name = "go"
+
+[language-server.gopls]
+analyses = { unusedparams = true }
+staticcheck = true
+codelenses = { generate = true }
+completion = { usePlaceholders = true }

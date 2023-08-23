@@ -1,4 +1,4 @@
-theme = "gruvbox"
+theme = "onedark"
 
 [editor]
 line-number = "relative"
@@ -8,9 +8,9 @@ color-modes = true
 display-messages = true
 
 [editor.statusline]
-left = ["mode", "spinner"]
-center = ["file-name"]
-right = ["diagnostics", "spacer", "selections", "spacer", "position-percentage", "spacer", "position"]
+left = ["mode", "spinner", "file-name", "file-modification-indicator"]
+center = []
+right = ["diagnostics", "selections", "primary-selection-length", "position-percentage", "position"]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -20,16 +20,13 @@ select = "underline"
 [editor.file-picker]
 hidden = false
 
-[editor.indent-guides]
-render = false
-
-[editor.whitespace.render]
-space = "none"
-tab = "all"
-newline = "none"
-
-[editor.whitespace.characters]
-tab = "→"
-
 [keys.normal]
-esc = ["flip_selections", "collapse_selection", "keep_primary_selection"]
+"esc" = ["flip_selections", "collapse_selection", "keep_primary_selection"]
+
+[keys.normal.space]
+l = ":toggle lsp.display-inlay-hints"
+
+[keys.normal."+"]
+b = ":sh cargo build"
+r = ":sh cargo run"
+t = ":sh cargo test"
