@@ -2,6 +2,7 @@ theme = "onedark"
 
 [editor]
 line-number = "relative"
+true-color = true
 color-modes = true
 
 [editor.lsp]
