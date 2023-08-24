@@ -20,13 +20,5 @@ select = "underline"
 [editor.file-picker]
 hidden = false
 
-[keys.normal]
-"esc" = ["flip_selections", "collapse_selection", "keep_primary_selection"]
-
 [keys.normal.space]
 l = ":toggle lsp.display-inlay-hints"
-
-[keys.normal."+"]
-b = ":sh cargo build"
-r = ":sh cargo run"
-t = ":sh cargo test"
