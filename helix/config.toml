@@ -20,5 +20,8 @@ select = "underline"
 [editor.file-picker]
 hidden = false
 
+[editor.soft-wrap]
+enable = true
+
 [keys.normal.space]
 l = ":toggle lsp.display-inlay-hints"
