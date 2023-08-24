@@ -13,3 +13,6 @@ makepkg --noconfirm -si
 cd ..
 rm -rf paru
 paru --noconfirm --needed -S - < aurlist.txt
+
+# install helix
+sudo pacman -S helix

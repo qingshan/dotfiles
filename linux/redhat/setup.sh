@@ -31,3 +31,7 @@ sudo firewall-cmd --zone=public --permanent --add-service=http
 sudo firewall-cmd --zone=public --permanent --add-service=https
 sudo firewall-cmd --zone=public --add-service=http
 sudo firewall-cmd --zone=public --add-service=https
+
+# helix
+sudo dnf copr enable varlad/helix
+sudo dnf install helix

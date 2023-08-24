@@ -38,6 +38,11 @@ curl -sL https://github.com/getzola/zola/releases/download/v${ZOLA_VERSION}/zola
 MDBOOK_VERSION=0.4.21
 curl -sL https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz | sudo tar xz -C /usr/local/bin
 
+# helix
+sudo add-apt-repository ppa:maveonair/helix-editor
+sudo apt update
+sudo apt install helix
+
 # TODO
 # iptables: http/https
 # gh auth login
