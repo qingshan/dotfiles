@@ -4,6 +4,7 @@ theme = "onedark"
 line-number = "relative"
 true-color = true
 color-modes = true
+auto-completion = false
 
 [editor.lsp]
 display-messages = true
