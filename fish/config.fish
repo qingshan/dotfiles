@@ -91,7 +91,8 @@ end
 abbr --add rmr 'rm -rf'
 
 # cd
-abbr --add cdload 'cd ~/Downloads'
+abbr cdd 'cd ~/Downloads'
+abbr cdh 'cd ~'
 
 # brew
 abbr --add bi 'brew install'
