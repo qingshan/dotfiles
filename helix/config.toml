@@ -35,10 +35,5 @@ pagedown = "no_op"
 home = "no_op"
 end = "no_op"
 
-# Jump to start of line to prepend
-C-a = ["collapse_selection", "insert_at_line_start"]
-# Jump to end of line to append
-C-e = ["collapse_selection", "insert_at_line_end"]
-
 [keys.normal.space]
 l = ":toggle lsp.display-inlay-hints"
