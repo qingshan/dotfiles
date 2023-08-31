@@ -8,6 +8,7 @@ install: setup packages dotfiles
 setup: $(OS)
 
 darwin:
+	sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 
 linux:
 	@if [ -f /etc/redhat-release ]; then sh ./linux/redhat/setup.sh; fi
