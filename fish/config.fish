@@ -5,6 +5,7 @@ set -Ux TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
 
 set -Ux DOTFILES ~/.dotfiles
 set -Ux PROJECTS ~/code
+set -Ux CDPATH $CDPATH $PROJECTS
 
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
@@ -32,11 +33,6 @@ direnv hook fish | source
 
 # greeting
 function fish_greeting
-end
-
-function ide
-  tmux split-window -v -p 30
-  tmux split-window -h -p 50
 end
 
 function mkcd
@@ -166,6 +162,11 @@ if command -v fzf &> /dev/null
   if command -v fd &> /dev/null
     set -gx  FZF_DEFAULT_COMMAND "fd --hidden --follow --exclude .git --type f"
   end
+end
+
+function p
+  cd ~/code/$argv[1]
+  hx .
 end
 
 # local config.
