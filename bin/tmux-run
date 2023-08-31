@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+commands() {
+  tmux show-options -g -v @COMMANDS 2> /dev/null || builtin history
+}
+
+command=$(commands | fzf --no-sort --prompt ' ' --pointer='➤ ' --marker='➤')
+if [ ! -z "$command" ]; then
+  tmux if-shell -F '#{e|==:#{window_panes},1}' 'split-window -h -l 80; run-shell "sleep 0.2"'
+  tmux send-keys -t 2 C-z "$command" Enter
+fi
