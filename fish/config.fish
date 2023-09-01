@@ -5,7 +5,6 @@ set -Ux TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
 
 set -Ux DOTFILES ~/.dotfiles
 set -Ux PROJECTS ~/code
-set -Ux CDPATH $CDPATH $PROJECTS
 
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
@@ -44,9 +43,6 @@ set -g theme_nerd_fonts yes
 set -g theme_color_scheme gruvbox
 set -g theme_date_format "+%H:%M:%S"
 set -g theme_display_git no
-
-# abbr
-abbr --add e 'exit'
 
 # git
 abbr --add g 'git'
@@ -133,6 +129,7 @@ abbr --add homelab 'ssh homelab'
 # make
 abbr --add mb make build
 abbr --add mr make run
+abbr --add mt make test
 
 # rust
 abbr --add cb cargo build
@@ -170,6 +167,6 @@ function p
 end
 
 # local config.
-if [ -f ~/.config.fish ]
-  source ~/.config.fish
+if [ -f ~/.config.fish.local ]
+  source ~/.config.fish.local
 end
