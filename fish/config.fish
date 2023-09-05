@@ -4,6 +4,7 @@ set -Ux GOPATH ~/.go
 set -Ux TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
 
 set -Ux DOTFILES ~/.dotfiles
+set -Ux NOTES ~/.notes
 set -Ux PROJECTS ~/code
 
 fish_add_path -m ~/.bin
@@ -24,18 +25,8 @@ end
 fish_add_path -m /opt/local/bin
 fish_add_path -m /opt/local/sbin
 
-# zoxide
-zoxide init fish | source
-
-# direnv
-direnv hook fish | source
-
 # greeting
 function fish_greeting
-end
-
-function mkcd
-  mkdir -p -- "$1" && cd -P -- "$1"
 end
 
 # theme
@@ -43,6 +34,49 @@ set -g theme_nerd_fonts yes
 set -g theme_color_scheme gruvbox
 set -g theme_date_format "+%H:%M:%S"
 set -g theme_display_git no
+
+# zoxide
+if command -q zoxide
+  zoxide init fish | source
+end
+
+# direnv
+if command -q direnv
+  direnv hook fish | source
+end
+
+# lazygit
+if command -q lazygit
+  abbr --add lg 'lazygit'
+end
+
+# bat
+if command -q bat
+  abbr --add cat 'bat -p'
+end
+
+# lsd
+if command -q lsd
+  abbr --add l 'lsd --group-dirs first -A'
+  abbr --add ll 'lsd --group-dirs first -Al'
+  abbr --add lt 'lsd --group-dirs last -A --tree'
+end
+if command -q exa
+  abbr --add l 'exa --icons'
+  abbr --add ll 'exa -l -g --icons'
+  abbr --add lt 'exa -l -g --icons --tree'
+end
+
+# cd
+abbr cdd 'cd ~/Downloads'
+abbr cdh 'cd ~'
+
+# directory
+abbr --add rmr 'rm -rf'
+
+function mkcd
+  mkdir -p -- "$1" && cd -P -- "$1"
+end
 
 # git
 abbr --add g 'git'
@@ -59,38 +93,14 @@ abbr --add glo 'git logo'
 abbr --add gl 'git pull'
 abbr --add gp 'git push'
 
-# lazygit
-if command -sq lazygit
-  abbr --add lg 'lazygit'
-end
-
-# bat
-if command -sq bat
-  abbr --add cat 'bat -p'
-end
-
-# lsd
-if command -sq lsd
-  abbr --add l 'lsd --group-dirs first -A'
-  abbr --add ll 'lsd --group-dirs first -Al'
-  abbr --add lt 'lsd --group-dirs last -A --tree'
-end
-if command -sq exa
-  abbr --add l 'exa --icons'
-  abbr --add ll 'exa -l -g --icons'
-  abbr --add lt 'exa -l -g --icons --tree'
-end
-abbr --add rmr 'rm -rf'
-
-# cd
-abbr cdd 'cd ~/Downloads'
-abbr cdh 'cd ~'
-
 # brew
 abbr --add bi 'brew install'
 abbr --add bic 'brew install --cask'
 abbr --add bo 'brew outdated'
 abbr --add bu 'brew update'
+
+# rustup
+abbr --add ru 'rustup update'
 
 # config
 abbr --add sf 'source ~/.config/fish/config.fish'
