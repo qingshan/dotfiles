@@ -29,11 +29,10 @@ fish_add_path -m /opt/local/sbin
 function fish_greeting
 end
 
-# theme
-set -g theme_nerd_fonts yes
-set -g theme_color_scheme gruvbox
-set -g theme_date_format "+%H:%M:%S"
-set -g theme_display_git no
+# starship
+if command -q starship
+  starship init fish | source
+end
 
 # zoxide
 if command -q zoxide
