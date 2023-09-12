@@ -70,8 +70,8 @@ key_bindings:
   - { key: F,        mods: Command|Shift, chars: "\x1c[?"   } # enter vi copy mode, search from down to up
 
   # ----- misc shortcuts -----
-  - { key: I,        mods: Command,       chars: "\x1c:"    } # input tmux command
-  - { key: I,        mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
+  - { key: Semicolon,mods: Command,       chars: "\x1c:"    } # input tmux command
+  - { key: Semicolon,mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
   - { key: R,        mods: Command,       chars: "\x1cR"    } # run command with commands menu in right vertical
   - { key: P,        mods: Command,       chars: "\x1cP"    } # toggle popup window
   - { key: Z,        mods: Command,       chars: "\x1cz"    } # zoom toggle of the current pane
