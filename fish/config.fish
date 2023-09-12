@@ -1,11 +1,11 @@
 # env
-set -Ux EDITOR vim
-set -Ux GOPATH ~/.go
-set -Ux TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
+set -gx EDITOR vim
+set -gx GOPATH ~/.go
+set -gx TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
 
-set -Ux DOTFILES ~/.dotfiles
-set -Ux NOTES ~/.notes
-set -Ux PROJECTS ~/code
+set -gx DOTFILES ~/.dotfiles
+set -gx NOTES ~/.notes
+set -gx PROJECTS ~/code
 
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
@@ -176,6 +176,6 @@ function p
 end
 
 # local config.
-if [ -f ~/.config.fish.local ]
+if test -f ~/.config.fish.local
   source ~/.config.fish.local
 end

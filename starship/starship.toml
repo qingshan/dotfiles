@@ -1,3 +1,12 @@
+# Which is equivalent to
+format = """
+$username\
+$hostname\
+$directory\
+$cmd_duration\
+$line_break\
+$character"""
+
 [character]
 success_symbol = "[\uf054](white)" # 
 vicmd_symbol = "[\ue62b](white)" # 
@@ -5,33 +14,3 @@ error_symbol = "[\uf467](red)" # 
 
 [directory]
 style = "blue bold"
-
-[package]
-disabled = true
-
-[username]
-disabled = true
-
-[hostname]
-disabled = true
-
-[aws]
-disabled = true
-
-[docker_context]
-disabled = true
-
-[git_branch]
-disabled = true
-
-[git_commit]
-disabled = true
-
-[git_state]
-disabled = true
-
-[git_metrics]
-disabled = true
-
-[git_status]
-disabled = true
