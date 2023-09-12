@@ -175,6 +175,15 @@ function p
   hx .
 end
 
+function scratch
+  cd $NOTES
+  set scratchFile "scratch-$(date +%Y-%m-%d).md"
+  if test -f $scratchFile
+    echo "# Notes for $(date +%Y-%m-%d)" > $scratchFile
+  end
+  hx $scratchFile
+end
+
 # local config.
 if test -f ~/.config.fish.local
   source ~/.config.fish.local
