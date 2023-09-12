@@ -159,6 +159,11 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias gcurl='grpcurl -plaintext localhost:3000'
 
+# greeting
+if command -q fortune
+  alias zf="fortune ~/.dotfiles/fortunes"
+end
+
 # fzf
 if command -v fzf &> /dev/null
   set -gx FZF_DEFAULT_OPTS "--layout=reverse --inline-info --height '80%' --select-1 --exit-0"
