@@ -59,6 +59,7 @@ brew "translate-shell"
 brew "zk"
 brew "just"
 brew "rargs"
+brew "fortune"
 # publish
 brew "pandoc"
 brew "pandoc-crossref"
