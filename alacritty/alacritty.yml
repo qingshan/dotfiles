@@ -72,6 +72,7 @@ key_bindings:
   # ----- misc shortcuts -----
   - { key: Semicolon,mods: Command,       chars: "\x1c:"    } # input tmux command
   - { key: Semicolon,mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
+  - { key: R,        mods: Command,       chars: "\x1cR"    } # run command with commands menu in right vertical
   - { key: R,        mods: Command|Shift, chars: "\x1c "    } # retile panes in the current window with preset layouts
   - { key: P,        mods: Command,       chars: "\x1cP"    } # toggle popup window
   - { key: Z,        mods: Command,       chars: "\x1cz"    } # zoom toggle of the current pane
@@ -79,9 +80,9 @@ key_bindings:
   - { key: S,        mods: Command,       chars: "\x1b:w\x0a"} # Type <escape>:w<enter> to save in vim or helix
   - { key: S,        mods: Command|Shift, chars: "\x1b:wa\x0a"} # Type <escape>:wa<enter> to save in vim or helix
   - { key: Comma,    mods: Command,       chars: "\x1c,"    } # rename tab
-  - { key: R,        mods: Command,       chars: "\x1cR"    } # run command with commands menu in right vertical
 
   # ----- navigate panes -----
+  - { key: G,        mods: Command,       chars: "\x1cG"    } # go to the selected pane
   - { key: H,        mods: Command,       chars: "\x1ch"    } # go to the pane left
   - { key: J,        mods: Command,       chars: "\x1cj"    } # go to the pane above
   - { key: K,        mods: Command,       chars: "\x1ck"    } # go to the pane below
