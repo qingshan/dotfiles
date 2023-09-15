@@ -7,6 +7,8 @@ set -gx DOTFILES ~/.dotfiles
 set -gx NOTES ~/.notes
 set -gx PROJECTS ~/code
 
+set -gx STARSHIP_CONFIG ~/.dotfiles/starship/starship.toml
+
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
 fish_add_path -m ~/.local/bin
