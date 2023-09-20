@@ -10,10 +10,21 @@ cargo = { allFeatures = true }
 procMacro = { enable = true }
 
 [[language]]
-name = "go"
+name = "markdown"
+auto-format = true
+formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}
 
-[language-server.gopls]
-analyses = { unusedparams = true }
-staticcheck = true
-codelenses = { generate = true }
-completion = { usePlaceholders = true }
+[[language]]
+name = "toml"
+auto-format = true
+formatter = { command = "dprint", args = ["fmt", "--stdin", "toml"]}
+
+[[language]]
+name = "yaml"
+auto-format = true
+formatter = { command = "dprint", args = ["fmt", "--stdin", "yaml"] }
+
+[[language]]
+name = "json"
+auto-format = true
+formatter = { command = 'dprint', args = ["fmt", "--stdin", "json"] }
