@@ -4,10 +4,8 @@ set -gx GOPATH ~/.go
 set -gx TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
 
 set -gx DOTFILES ~/.dotfiles
-set -gx NOTES ~/.notes
+set -gx NOTES ~/code/notes
 set -gx PROJECTS ~/code
-
-set -gx STARSHIP_CONFIG ~/.dotfiles/starship/starship.toml
 
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
@@ -33,6 +31,7 @@ end
 
 # starship
 if command -q starship
+  set -gx STARSHIP_CONFIG $DOTFILES/starship/starship.toml
   starship init fish | source
 end
 
@@ -49,6 +48,11 @@ end
 # lazygit
 if command -q lazygit
   abbr --add lg 'lazygit'
+end
+
+# zk
+if command -q zk
+  set -gx ZK_NOTEBOOK_DIR $NOTES
 end
 
 # bat
@@ -69,8 +73,11 @@ if command -q exa
 end
 
 # cd
+abbr cdc 'cd ~/code'
 abbr cdd 'cd ~/Downloads'
+abbr cdf 'cd ~/.dotfiles'
 abbr cdh 'cd ~'
+abbr cdn 'cd ~/.notes'
 
 # directory
 abbr --add rmr 'rm -rf'
@@ -116,6 +123,7 @@ abbr --add vh 'vim ~/.dotfiles/helix/config.toml'
 abbr --add vs 'vim ~/.ssh/config'
 abbr --add vt 'vim ~/.dotfiles/.tmux.conf'
 abbr --add vv 'vim ~/.dotfiles/.vimrc'
+abbr --add vz 'vim ~/.dotfiles/zk/config.toml'
 abbr --add vpc 'vim +PlugClean'
 abbr --add vpi 'vim +PlugInstall'
 abbr --add vpu 'vim +PlugUpdate'
@@ -142,6 +150,13 @@ abbr --add mb make build
 abbr --add mr make run
 abbr --add mt make test
 
+# just
+if command -q just
+  abbr --add jb just build
+  abbr --add jr just run
+  abbr --add jt just test
+end
+
 # rust
 abbr --add cb cargo build
 abbr --add cr cargo run
@@ -150,8 +165,18 @@ abbr --add ch cargo check
 abbr --add cl cargo clippy
 abbr --add cw cargo watch -x 'run'
 
+# zk
+if command -q zk
+  abbr --add zc zk snippet
+  abbr --add zj zk journal
+  abbr --add zs zk scratch
+  abbr --add zn zk inbox
+end
+
 # multipass
-abbr --add mp multipass
+if command -q multipass
+  abbr --add mp multipass
+end
 
 # aliases
 alias ql='qlmanage -p 2>/dev/null'
@@ -160,11 +185,6 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias gcurl='grpcurl -plaintext localhost:3000'
-
-# greeting
-if command -q fortune
-  alias zf="fortune ~/.dotfiles/fortunes"
-end
 
 # fzf
 if command -v fzf &> /dev/null
@@ -175,11 +195,6 @@ if command -v fzf &> /dev/null
   if command -v fd &> /dev/null
     set -gx  FZF_DEFAULT_COMMAND "fd --hidden --follow --exclude .git --type f"
   end
-end
-
-function p
-  cd ~/code/$argv[1]
-  hx .
 end
 
 # local config.
