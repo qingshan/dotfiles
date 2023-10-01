@@ -38,6 +38,7 @@ brew "wget"
 # editors
 brew "vim"
 brew "helix"
+brew "dprint"
 # git
 brew "git"
 brew "git-lfs"

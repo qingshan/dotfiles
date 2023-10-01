@@ -53,6 +53,7 @@ alacritty:
 
 helix:
 	ln -vsf ../.dotfiles/helix ${HOME}/.config/helix
+	ln -vsf ../.dotfiles/.dprint.json ${HOME}/.dprint.json
 
 tmux:
 	ln -vsf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
