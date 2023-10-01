@@ -25,11 +25,15 @@ if [[ $# -eq 1 ]]; then
 fi
 
 if [[ -z $SESSION ]]; then
-    SESSION=$(search)
+  tmux_running=$(pgrep tmux)
+  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -ds main
+  fi
+  SESSION=$(search)
 fi
 
 if [[ -z $SESSION ]]; then
-    exit 0
+  exit 0
 fi
 
 if [[ $SESSION  =~ "@" ]]; then
