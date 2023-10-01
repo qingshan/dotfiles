@@ -77,7 +77,7 @@ abbr cdc 'cd ~/code'
 abbr cdd 'cd ~/Downloads'
 abbr cdf 'cd ~/.dotfiles'
 abbr cdh 'cd ~'
-abbr cdn 'cd ~/.notes'
+abbr cdn 'cd ~/code/notes'
 
 # directory
 abbr --add rmr 'rm -rf'
@@ -131,6 +131,7 @@ abbr --add vpu 'vim +PlugUpdate'
 # rsync
 abbr --add rcp "rsync -vhra --include='**.gitignore' --exclude='/.git' --filter=':- .gitignore' --delete-after"
 abbr --add rscp 'rsync --archive --compress-level=3 --copy-links --partial --inplace --progress --rsh=ssh -r'
+abbr --add rcpl 'rsync --compress --verbose --human-readable --partial --progress'
 
 # yt-dlp
 abbr --add ytdl 'yt-dlp --write-auto-sub --sub-lang en --convert-subs=srt'
