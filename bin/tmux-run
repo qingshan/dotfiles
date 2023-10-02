@@ -2,18 +2,35 @@
 
 POSITION="right"
 while [ $# -gt 0 ]; do
-    case $1 in
-    right|bottom) POSITION="$1" ;;
-    --) ;;
-    *) break ;;
-    esac
-    shift
+  case $1 in
+    --) break;;
+    -*) POSITION="${1#-}" ;;
+    *) NAME="$1"; shift; break;;
+  esac
+  shift
 done
 
-if [ "$POSITION" = "bottom" ]; then
+if [ $# -gt 0 ]; then
+  shift
+  CMD="$@"
+else
+  CMD="$NAME"
+fi
+
+if [ "$POSITION" = "popup" ]; then
+  tmux if-shell -F '#{e|==:#{N/s:popup},0}' 'new-session -d -s popup "tmux source-file ~/.dotfiles/tmux/sessions/popup.tmux.conf"'
+  tmux if-shell "tmux select-window -t popup:$NAME" "" "new-window -t popup: -c \"#{pane_current_path}\" -n $NAME $CMD"
+  tmux display-popup -b rounded -h 90% -w 85% -E "tmux attach-session -t popup"
+elif [ "$POSITION" = "window" ]; then
+  tmux if-shell "tmux select-window -t $NAME" "" "new-window -c \"#{pane_current_path}\" -n $NAME $CMD"
+elif [ "$POSITION" = "top" ]; then
+  tmux display-popup -b rounded -h 24 -w 80 -x R -y W -d '#{pane_current_path}' -T "#[fg=orange]❀ $NAME" -E "$CMD"
+elif [ "$POSITION" = "bottom" ]; then
   tmux if-shell -F '#{e|==:#{window_panes},1}' 'split-window -d -v -l 15 -c "#{pane_current_path}"' 'respawn-pane -k -t "{bottom}" -c "#{pane_current_path}'
+  tmux run-shell 'sleep 0.2'
+  tmux send-keys -t "{$POSITION}" "$*" Enter
 else
   tmux if-shell -F '#{e|==:#{window_panes},1}' 'split-window -d -h -l 80 -c "#{pane_current_path}"' 'respawn-pane -k -t "{right}" -c "#{pane_current_path}'
+  tmux run-shell 'sleep 0.2'
+  tmux send-keys -t "{$POSITION}" "$*" Enter
 fi
-tmux run-shell 'sleep 0.2'
-tmux send-keys -t "{$POSITION}" "$*" Enter
