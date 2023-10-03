@@ -36,4 +36,4 @@ home = "no_op"
 end = "no_op"
 
 [keys.normal.space]
-l = ":toggle lsp.display-inlay-hints"
+i = ":toggle lsp.display-inlay-hints"
