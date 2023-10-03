@@ -19,11 +19,6 @@ if [ -f $HOME/.profile ]; then
     source $HOME/.profile
 fi
 
-# aliases
-if [ -f $HOME/.aliases ]; then
-    source $HOME/.aliases
-fi
-
 # local zshrc
 if [ -f $HOME/.zshrc.local ]; then
     source $HOME/.zshrc.local
