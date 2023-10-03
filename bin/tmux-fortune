@@ -1,0 +1,12 @@
+#/bin/sh
+
+fortune=$(fortune ~/.config/fortunes | sed -e "s/\x1b\[.\{0,5\}m//g")
+cat <<EOF | slides
+---
+author: ""
+date: ""
+paging: ""
+---
+
+$fortune
+EOF
