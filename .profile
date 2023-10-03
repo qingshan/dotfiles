@@ -1,8 +1,15 @@
-GOPATH=$HOME/go
-PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/.bin:/usr/local/go/bin:$PATH
+export PATH="$HOME/.local/bin:$HOME/.bin:$PATH"
 
-export CGO_CFLAGS="-Wno-return-local-addr"
+# Go
+if [ -d "/usr/local/go/bin" ]; then
+    export PATH="$PATH:/usr/local/go/bin"
+fi
+if [ -d "$HOME/.go" ]; then
+    export GOPATH=$HOME/.go
+    export PATH="$GOPATH/bin:$PATH"
+fi
 
-export GOPATH
-export PATH
-. "$HOME/.cargo/env"
+# Rust
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
