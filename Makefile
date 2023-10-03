@@ -39,7 +39,6 @@ fish:
 	ln -vsf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 
 zsh:
-	ln -vsf .dotfiles/.aliases ${HOME}/.aliases
 	ln -vsf .dotfiles/.profile ${HOME}/.profile
 	ln -vsf .dotfiles/.zshrc ${HOME}/.zshrc
 	@sh ./scripts/zsh.sh
