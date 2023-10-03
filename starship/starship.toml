@@ -14,3 +14,4 @@ error_symbol = "[\uf467](red)" # 
 
 [directory]
 style = "blue bold"
+truncation_length = 5
