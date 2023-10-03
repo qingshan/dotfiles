@@ -37,3 +37,13 @@ end = "no_op"
 
 [keys.normal.space]
 i = ":toggle lsp.display-inlay-hints"
+
+[keys.normal."A-\\"]
+S = [":pipe ccase -t screamingsnake", "delete_char_forward"]
+c = [":pipe ccase -t camel", "delete_char_forward"]
+k = [":pipe ccase -t kebab", "delete_char_forward"]
+K = [":pipe ccase -t upperkebab", "delete_char_forward"]
+l = [":pipe ccase -t lower", "delete_char_forward"]
+p = [":pipe ccase -t pascal", "delete_char_forward"]
+s = [":pipe ccase -t snake", "delete_char_forward"]
+u = [":pipe ccase -t upper", "delete_char_forward"]
