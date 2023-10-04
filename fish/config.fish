@@ -16,6 +16,9 @@ end
 if test -d "$HOME/.cargo/bin"
   fish_add_path -m ~/.cargo/bin
 end
+if test -d "/usr/local/opt/llvm/bin"
+  fish_add_path -m /usr/local/opt/llvm/bin
+end
 if test -d "$HOME/Library/Application\ Support/multipass/bin"
   fish_add_path -m ~/Library/Application\ Support/multipass/bin
 end
@@ -79,12 +82,12 @@ abbr cdf 'cd ~/.dotfiles'
 abbr cdh 'cd ~'
 abbr cdn 'cd ~/code/notes'
 
-# directory
-abbr --add rmr 'rm -rf'
-
 function mkcd
   mkdir -p -- "$1" && cd -P -- "$1"
 end
+
+# directory
+abbr --add rmr 'rm -rf'
 
 # git
 abbr --add g 'git'
