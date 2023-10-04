@@ -4,7 +4,7 @@ GIT_MAIL = qs@qingshan.dev
 OS := $(shell uname -s | tr A-Z a-z)
 
 .PHONY: install
-install: setup packages dotfiles
+install: setup packages tools
 
 .PHONY: setup
 setup: $(OS)
@@ -31,9 +31,16 @@ python-packages:
 .PHONY: node-packages
 node-packages:
 
+.PHONY: go-packages
+go-packages:
+	go install golang.org/x/tools/gopls@latest
+	go install github.com/go-delve/delve/cmd/dlv@latest
+	go install golang.org/x/tools/cmd/goimports@latest
+
 .PHONY: rust-packages
 rust-packages:
 	rustup component add rust-src
+	rustup component add clippy
 	rustup component add rust-analyzer
 
 .PHONY: fish-packages
@@ -42,8 +49,8 @@ fish-packages:
 	fish -c "fisher install jethrokuan/fzf"
 	fish -c "fisher install jorgebucaran/autopair.fish"
 
-.PHONY: dotfiles
-dotfiles: fish bash zsh vim alacritty helix tmux git dirs
+.PHONY: tools
+tools: fish bash zsh vim alacritty helix tmux git dirs
 
 .PHONY: profile
 profile:
