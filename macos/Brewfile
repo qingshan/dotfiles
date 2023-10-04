@@ -26,6 +26,7 @@ brew "terminal-notifier"
 # data
 brew "xsv"
 brew "jq"
+brew "htmlq"
 brew "miller"
 # terminal
 brew "tmux"
@@ -39,6 +40,7 @@ brew "wget"
 brew "vim"
 brew "helix"
 brew "dprint"
+brew "marksman"
 # git
 brew "git"
 brew "git-lfs"
@@ -46,6 +48,7 @@ brew "git-delta"
 brew "lazygit"
 brew "gh"
 # languages
+brew "llvm"
 brew "go"
 brew "python"
 brew "node"
