@@ -9,6 +9,11 @@ typing = { autoClosingAngleBrackets = { enable = true } }
 cargo = { allFeatures = true }
 procMacro = { enable = true }
 
+[[languages]]
+name = "go"
+auto-format = true
+formatter = { command = "goimports" }
+
 [[language]]
 name = "markdown"
 auto-format = true
