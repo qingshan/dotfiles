@@ -2,6 +2,11 @@
 format = """
 $username\
 $hostname\
+$golang\
+$java\
+$nodejs\
+$python\
+$rust\
 $directory\
 $cmd_duration\
 $line_break\
@@ -15,3 +20,23 @@ error_symbol = "[\uf467](red)" # 
 [directory]
 style = "blue bold"
 truncation_length = 5
+
+[golang]
+format = "[${symbol}](white)"
+symbol = " "
+
+[java]
+format = "[${symbol}](white)"
+symbol = " "
+
+[nodejs]
+format = "[$symbol}](white)"
+symbol = "󰎙 "
+
+[python]
+format = "[${symbol}](white)"
+symbol = " "
+
+[rust]
+format = "[${symbol}](white)"
+symbol = " "
