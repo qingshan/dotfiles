@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cargo_builds() {
+function cargo_builds() {
   cargo metadata --format-version 1 \
         | jq -r -c '
         .workspace_members as $members | .packages
@@ -10,7 +10,7 @@ cargo_builds() {
       '
 }
 
-cargo_runs() {
+function cargo_runs() {
   cargo metadata --format-version 1 \
         | jq -r -c '
         .workspace_members as $members | .packages
@@ -20,7 +20,7 @@ cargo_runs() {
       '
 }
 
-cargo_tests() {
+function cargo_tests() {
   cargo test -- --list --format=terse \
     | awk '{print "--", $1}' \
     | sed 's/:$//'
