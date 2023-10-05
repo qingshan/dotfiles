@@ -38,9 +38,17 @@ make
 - fd
 - lsd
 - fzf
+- direnv
 - ripgrip
+- starship
 - gh
 - lazygit
+- zoxide
+
+### Notes
+
+- mdbook for publish notes
+- zk for private notes
 
 ### Development Environments
 
