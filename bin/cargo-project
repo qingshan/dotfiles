@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function cargo_builds() {
-  cargo metadata --format-version 1 \
+  cargo metadata -q --format-version 1 \
         | jq -r -c '
         .workspace_members as $members | .packages
         | map(select(.id as $id | $members[] | contains($id) ))
@@ -11,7 +11,7 @@ function cargo_builds() {
 }
 
 function cargo_runs() {
-  cargo metadata --format-version 1 \
+  cargo metadata -q --format-version 1 \
         | jq -r -c '
         .workspace_members as $members | .packages
         | map(select(.id as $id | $members[] | contains($id) ))
@@ -21,7 +21,7 @@ function cargo_runs() {
 }
 
 function cargo_tests() {
-  cargo test -- --list --format=terse \
+  cargo test -q -- --list --format=terse \
     | awk '{print "--", $1}' \
     | sed 's/:$//'
 }

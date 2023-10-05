@@ -33,17 +33,8 @@ name=${positional_args[0]}
 if [ $# -gt 0 ]; then
   cmd="$@"
 else
-  case $name in
-    build|run|test)
-      tmux display-popup -b rounded -d "#{pane_current_path}" -E "tmux-project $name | xargs tmux-run -t $target $name --"
-      exit 0
-      ;;
-    *)
-      cmd="$name"
-      ;;
-  esac
+  cmd="$name"
 fi
-echo "$name: $cmd"
 
 if [ "$target" = "popup" ]; then
   tmux if-shell -F '#{e|==:#{N/s:popup},0}' 'new-session -d -s popup "tmux source-file ~/.dotfiles/tmux/sessions/popup.tmux.conf"'
