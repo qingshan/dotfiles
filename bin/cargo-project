@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+cargo_builds() {
+  cargo metadata --format-version 1 \
+        | jq -r -c '
+        .workspace_members as $members | .packages
+        | map(select(.id as $id | $members[] | contains($id) ))
+        | map(.targets)[] | map(select(.kind[] | contains("bin") or contains("example") or contains("test")))[]
+	| "--\(.kind[0]) \(.name)"
+      '
+}
+
+cargo_runs() {
+  cargo metadata --format-version 1 \
+        | jq -r -c '
+        .workspace_members as $members | .packages
+        | map(select(.id as $id | $members[] | contains($id) ))
+        | map(.targets)[] | map(select(.kind[] | contains("bin") or contains("example")))[]
+	| "--\(.kind[0]) \(.name)"
+      '
+}
+
+cargo_tests() {
+  cargo test -- --list --format=terse \
+    | awk '{print "--", $1}' \
+    | sed 's/:$//'
+}
+
+if [[ $# -gt 1 ]]; then
+  echo "cargo $@"
+  exit 0
+fi
+
+cmd="$1"
+case $cmd in
+  build)
+    cargo_builds
+    ;;
+  run)
+    cargo_runs
+    ;;
+  test)
+    cargo_tests
+    ;;
+  *)
+    exit 0
+    ;;
+esac
