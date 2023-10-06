@@ -1,18 +1,33 @@
 #!/usr/bin/env bash
 
+function cargo_packages() {
+  cargo metadata -q --no-deps --format-version 1 \
+      | jq -r ".packages[] | .name"
+}
+
 function cargo_targets() {
   cargo metadata -q --no-deps --format-version 1 \
-        | jq -r -c '
+        | jq -r '
         .workspace_members as $members | .packages
         | map(select(.id as $id | $members[] | contains($id) ))
-        | map(.targets)[] | map(select(.kind[] | contains("bin") or contains("example") or contains("test")))[]
+        | map(.targets)[] | map(select(.kind[] | contains("example") or contains("test") or contains("bench")))[]
+	| "--\(.kind[0]) \(.name)"
+      '
+}
+
+function cargo_run_targets() {
+  cargo metadata -q --no-deps --format-version 1 \
+        | jq -r '
+        .workspace_members as $members | .packages
+        | map(select(.id as $id | $members[] | contains($id) ))
+        | map(.targets)[] | map(select(.kind[] | contains("bin") or contains("example")))[]
 	| "--\(.kind[0]) \(.name)"
       '
 }
 
 function cargo_tests() {
   cargo test -q -- --list --format=terse \
-    | awk '/: test$/ { print "--", substr($1, 1, length($1) - 1) }'
+    | awk '/: test$/ { print substr($1, 1, length($1) - 1) }'
 }
 
 cmd="$1"
@@ -33,14 +48,16 @@ fi
 
 case $cmd in
   build)
+    cargo_packages | awk '{print "--package", $1}'
     cargo_targets
     ;;
   run)
-    cargo_targets | grep -v -- "^--test"
+    cargo_run_targets
     ;;
   test)
+    cargo_packages | awk '{print "--package", $1}'
     cargo_targets
-    cargo_tests
+    cargo_tests | awk '{print "--", $1}'
     ;;
   build-all)
     echo "--all-targets"
