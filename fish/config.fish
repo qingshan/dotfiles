@@ -153,6 +153,7 @@ abbr --add homelab 'ssh homelab'
 abbr --add mb make build
 abbr --add mr make run
 abbr --add mt make test
+abbr --add mc make clean
 
 # just
 if command -q just
@@ -162,12 +163,23 @@ if command -q just
 end
 
 # rust
+abbr --add ca cargo add
 abbr --add cb cargo build
+abbr --add cba cargo build --all-targets
+abbr --add cbe cargo build --example
+abbr --add cbr cargo build --release
 abbr --add cr cargo run
+abbr --add cre cargo run --example
+abbr --add crr cargo run --release
 abbr --add ct cargo test
+abbr --add cta cargo test --all-targets
+abbr --add ctt cargo test --test
 abbr --add ch cargo check
+abbr --add ci cargo install
 abbr --add cl cargo clippy
+abbr --add cs cargo search
 abbr --add cw cargo watch -x 'run'
+abbr --add cdoc cargo doc
 
 # zk
 if command -q zk
