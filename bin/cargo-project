@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-function cargo_builds() {
-  cargo metadata -q --format-version 1 \
+function cargo_targets() {
+  cargo metadata -q --no-deps --format-version 1 \
         | jq -r -c '
         .workspace_members as $members | .packages
         | map(select(.id as $id | $members[] | contains($id) ))
@@ -10,37 +10,43 @@ function cargo_builds() {
       '
 }
 
-function cargo_runs() {
-  cargo metadata -q --format-version 1 \
-        | jq -r -c '
-        .workspace_members as $members | .packages
-        | map(select(.id as $id | $members[] | contains($id) ))
-        | map(.targets)[] | map(select(.kind[] | contains("bin") or contains("example")))[]
-	| "--\(.kind[0]) \(.name)"
-      '
-}
-
 function cargo_tests() {
   cargo test -q -- --list --format=terse \
-    | awk '{print "--", $1}' \
-    | sed 's/:$//'
+    | awk '/: test$/ { print "--", substr($1, 1, length($1) - 1) }'
 }
 
-if [[ $# -gt 1 ]]; then
-  echo "cargo $@"
+cmd="$1"
+shift
+
+if [[ $# -gt 0 ]]; then
+  case $cmd in
+    build-all)
+      cmd="build"
+      ;;
+    test-all)
+      cmd="test"
+      ;;
+  esac
+  echo "cargo $cmd $@"
   exit 0
 fi
 
-cmd="$1"
 case $cmd in
   build)
-    cargo_builds
+    cargo_targets
     ;;
   run)
-    cargo_runs
+    cargo_targets | grep -v -- "^--test"
     ;;
   test)
+    cargo_targets
     cargo_tests
+    ;;
+  build-all)
+    echo "--all-targets"
+    ;;
+  test-all)
+    echo "--all-targets"
     ;;
   *)
     exit 0

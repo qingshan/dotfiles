@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-function _check_toolchain {
+function _goto_project_root {
   cd $(git rev-parse --show-toplevel)
+}
+
+function _check_toolchain {
   if [ -f Cargo.toml ] ; then
     _TOOLCHAIN="cargo"
   elif [ -f go.mod ] ; then
@@ -9,15 +12,20 @@ function _check_toolchain {
   fi
 }
 
-cmd="$1"
-
+_goto_project_root
 _check_toolchain
 
 if [ -z "$_TOOLCHAIN" ]; then
   exit 0
 fi
 
-run=$(${_TOOLCHAIN}-project $cmd | fzf --with-nth=2 --no-sort --prompt ' ' --pointer='➤ ' --marker='➤')
+if [[ $# -eq 0 ]]; then
+  exit 0
+fi
+
+cmd="$1"
+shift
+run=$(${_TOOLCHAIN}-project $cmd $@ | fzf --with-nth=2 --no-sort --prompt ' ' --pointer='➤ ' --marker='➤')
 
 if [ -z "$run" ]; then
   exit 0
