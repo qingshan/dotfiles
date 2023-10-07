@@ -13,9 +13,9 @@ $line_break\
 $character"""
 
 [character]
-success_symbol = "[\uf054](white)" # 
-vicmd_symbol = "[\ue62b](white)" # 
-error_symbol = "[\uf467](red)" # 
+success_symbol = "[](white)"
+vicmd_symbol = "[](white)"
+error_symbol = "[](red)"
 
 [directory]
 style = "blue bold"
