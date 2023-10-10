@@ -1,71 +1,139 @@
 #!/usr/bin/env bash
 
-function cargo_packages() {
+function find_cargo_packages() {
   cargo metadata -q --no-deps --format-version 1 \
       | jq -r ".packages[] | .name"
 }
 
-function cargo_targets() {
+function find_cargo_targets() {
   cargo metadata -q --no-deps --format-version 1 \
         | jq -r '
         .workspace_members as $members | .packages
         | map(select(.id as $id | $members[] | contains($id) ))
-        | map(.targets)[] | map(select(.kind[] | contains("example") or contains("test") or contains("bench")))[]
-	| "--\(.kind[0]) \(.name)"
-      '
+        | map(.targets)[] | map(select(.kind[] | contains($kind)))[]
+	| .name
+      ' --arg kind "$1"
 }
 
 function cargo_run_targets() {
-  cargo metadata -q --no-deps --format-version 1 \
-        | jq -r '
-        .workspace_members as $members | .packages
-        | map(select(.id as $id | $members[] | contains($id) ))
-        | map(.targets)[] | map(select(.kind[] | contains("bin") or contains("example")))[]
-	| "--\(.kind[0]) \(.name)"
-      '
+  find_cargo_targets "bin" | awk '{print "--bin", $1}'
+  find_cargo_targets "example" | awk '{print "--example", $1}'
 }
 
-function cargo_tests() {
-  cargo test -q -- --list --format=terse \
-    | awk '/: test$/ { print substr($1, 1, length($1) - 1) }'
+function cargo_all_targets() {
+  find_cargo_packages | awk '{print "--package", $1}'
+  find_cargo_targets "bin" | awk '{print "--bin", $1}'
+  find_cargo_targets "example" | awk '{print "--example", $1}'
+  find_cargo_targets "test" | awk '{print "--test", $1}'
+  find_cargo_targets "bench" | awk '{print "--bench", $1}'
+}
+
+function cargo_test_names() {
+  RUSTFLAGS=-Awarnings cargo test -q -- --list --format=terse \
+    | awk '/: test$/ { print substr($1, 1, length($1) - 1) }' \
+    | sort \
+    | uniq
+}
+
+function cargo_package_name() {
+  file_name="$1"
+  cd `dirname $file_name`
+  cargo read-manifest | jq -r '.name'
+}
+
+function cargo_test_name() {
+  file_name="$1"
+  package_name="$2"
+  function_name="$3"
+  file_name=${file_name#"$package_name/"}
+  if [[ $file_name == tests/* ]]; then
+    test_name=${file_name#tests/}
+    test_name=${test_name%.rs}
+    if [ -z "$function_name" ]; then
+      echo "--test $test_name"
+    else
+      echo "--test $test_name -- $function_name"
+    fi
+  else
+    test_name=${file_name#src/}
+    test_name=${test_name%.rs}
+    test_name=${test_name//\//::}
+    if [ "$test_name" = "lib" ] || [ "$test_name" = "mod" ] || [ "$test_name" = "main" ]; then
+      test_name="tests::$function_name"
+    else
+      test_name="$test_name::tests::$function_name"
+    fi
+    if [ -z "$function_name" ]; then
+      echo "-- $test_name"
+    else
+      echo "-- $test_name --exact"
+    fi
+  fi
+}
+
+function cargo_function_name() {
+  file_name="$1"
+  file_line="$2"
+  function_name=$(head -$file_line $file_name | grep -A 1 -E '^ *#\[test\]$' | grep -E '\s*(async )?fn\s+' | tail -1 | gsed -E 's/\s*(async )?fn\s+(\w+)\(.*/\2/')
+  if [ -z "$function_name" ]; then
+    function_name=$(cat $file_name | grep -A 1 -E '^ *#\[test\]$' | grep -E '\s*(async )?fn\s+' | head -1 | gsed -E 's/\s*(async )?fn\s+(\w+)\(.*/\2/')
+  fi
+  echo "$function_name"
+}
+
+function rust_file_name() {
+  echo $1 | awk -F ':' '{print $1}'
+}
+
+function rust_file_line() {
+  echo $1 | awk -F ':' '{print $2}'
 }
 
 cmd="$1"
 shift
 
-if [[ $# -gt 0 ]]; then
-  case $cmd in
-    build-all)
-      cmd="build"
-      ;;
-    test-all)
-      cmd="test"
-      ;;
-  esac
-  echo "cargo $cmd $@"
-  exit 0
-fi
-
 case $cmd in
   build)
-    cargo_packages | awk '{print "--package", $1}'
-    cargo_targets
+    cargo_all_targets | awk '{print "cargo", "build", $1, $2}'
     ;;
   run)
-    cargo_run_targets
+    cargo_run_targets | awk '{print "cargo", "run", $1, $2}'
     ;;
   test)
-    cargo_packages | awk '{print "--package", $1}'
-    cargo_targets
-    cargo_tests | awk '{print "--", $1}'
+    cargo_all_targets | awk '{print "cargo", "test", $1, $2}'
+    cargo_test_names | awk '{print "cargo", "test", "--", $1}'
     ;;
-  build-all)
-    echo "--all-targets"
+  build-package|run-package|test-package)
+    file_name=$(rust_file_name $1)
+    package_name=$(cargo_package_name $file_name)
+    echo "cargo ${cmd%-package} --package $package_name"
     ;;
-  test-all)
-    echo "--all-targets"
+  test-function)
+    file_name=$(rust_file_name $1)
+    file_line=$(rust_file_line $1)
+    package_name=$(cargo_package_name $file_name)
+    function_name=$(cargo_function_name $file_name $file_line)
+    test_name=$(cargo_test_name $file_name $package_name $function_name)
+    echo "cargo ${cmd%-function} --package $package_name $test_name"
+    ;;
+  test-file)
+    file_name=$(rust_file_name $1)
+    package_name=$(cargo_package_name $file_name)
+    test_name=$(cargo_test_name $file_name $package_name)
+    echo "cargo ${cmd%-file} --package $package_name $test_name"
+    ;;
+  run-all)
+    echo "cargo run"
+    ;;
+  build-all|test-all)
+    echo "cargo ${cmd%-all} --all-targets"
+    ;;
+  all)
+    $0 build
+    $0 run
+    $0 test
     ;;
   *)
-    exit 0
+    exit 1
     ;;
 esac

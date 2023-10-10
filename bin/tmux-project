@@ -25,10 +25,11 @@ fi
 
 cmd="$1"
 shift
-run=$(${_TOOLCHAIN}-project $cmd $@ | fzf --with-nth=2 --no-sort --prompt ' ' --pointer='➤ ' --marker='➤')
-
-if [ -z "$run" ]; then
-  exit 0
-fi
-
-${_TOOLCHAIN}-project $cmd $run
+case $cmd in
+  all)
+    ${_TOOLCHAIN}-project $cmd $@ | fzf --no-sort --prompt ' ' --pointer='➤ ' --marker='➤'
+    ;;
+  *)
+    ${_TOOLCHAIN}-project $cmd $@ | fzf --with-nth=3,4 --no-sort --prompt ' ' --pointer='➤ ' --marker='➤'
+    ;;
+esac

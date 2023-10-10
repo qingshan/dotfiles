@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+cmd="$1"
+
+case $cmd in
+  file)
+    tmux capture-pane -p -t '{top}' | rg -e "(?:NOR|INS|SEL)\s+(\S*)\s[^│]* (\d+):*.*" -o --replace '$1:$2'
+    ;;
+  *)
+    ;;
+esac
