@@ -1,11 +1,31 @@
 #!/usr/bin/env bash
 
+function current_file_and_line() {
+  status_line=$(tmux capture-pane -p -t '{top}' | grep -E "(NOR|INS|SEL)")
+  status_line=$(echo $status_line | sed -n -E 's/.*(NOR|INS|SEL)[[:space:]]*(.*)/\1 \2/p')
+  file_name=$(echo $status_line | cut -d' ' -f2)
+  if [[ "$file_name" =~ [⣾⣽⣻⢿⡿⣟⣯⣷] ]]; then
+      file_name=$(echo $status_line | cut -d' ' -f3)
+  fi
+  line=$(echo $status_line | awk -F '[: ]' '{print $(NF-1)}')
+  echo "$file_name:$line"
+}
+
+function open_file() {
+  file="$1"
+  tmux send-keys -t '{top}' ":open $file" C-m
+}
+
 cmd="$1"
 
 case $cmd in
+  open)
+    open_file $2
+    ;;
   file)
-    tmux capture-pane -p -t '{top}' | rg -e "(?:NOR|INS|SEL)\s+(\S*)\s[^│]* (\d+):*.*" -o --replace '$1:$2'
+    current_file_and_line
     ;;
   *)
+    echo "Usage: tmux-helix [open|file]"
     ;;
 esac
