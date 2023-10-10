@@ -73,7 +73,7 @@ key_bindings:
   - { key: Semicolon,mods: Command,       chars: "\x1c:"    } # input tmux command
   - { key: Semicolon,mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
   - { key: R,        mods: Command,       chars: "\x1cR"    } # run command with commands menu in right vertical
-  - { key: R,        mods: Command|Shift, chars: "\x1c "    } # retile panes in the current window with preset layouts
+  - { key: R,        mods: Command|Shift, chars: "\x1cE"    } # run command with commands selector in right vertical
   - { key: P,        mods: Command,       chars: "\x1cP"    } # toggle popup window
   - { key: P,        mods: Command|Shift, chars: "\x1cP"    } # toggle popup window
   - { key: Z,        mods: Command,       chars: "\x1cz"    } # zoom toggle of the current pane
