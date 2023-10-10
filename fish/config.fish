@@ -112,6 +112,7 @@ abbr --add bu 'brew update'
 
 # rustup
 abbr --add ru 'rustup update'
+abbr --add rc 'rustup check'
 
 # config
 abbr --add sf 'source ~/.config/fish/config.fish'
