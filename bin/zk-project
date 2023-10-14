@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+function zk_file_name() {
+  echo $1 | awk -F ':' '{print $1}'
+}
+
+function zk_file_line() {
+  echo $1 | awk -F ':' '{print $2}'
+}
+
+cmd="$1"
+shift
+
+case $cmd in
+  build|run|test|build-package|run-package|test-package|all)
+    zk list --quiet --format path | awk '{print "glow", $1}'
+    ;;
+  test-function|test-file)
+    file_name=$(zk_file_name $1)
+    echo "glow $file_name"
+    ;;
+  *)
+    exit 1
+    ;;
+esac
