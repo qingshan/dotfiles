@@ -30,7 +30,6 @@ make
 ### Shells
 
 - fish
-- zsh
 
 ### Tools
 
@@ -44,6 +43,7 @@ make
 - gh
 - lazygit
 - zoxide
+- jq
 
 ### Notes
 
@@ -71,4 +71,5 @@ make
 - [Vim Cheatsheet](docs/vim_cheatsheet.md)
 - [Vim Plugins](docs/vim_plugins.md)
 - [IdeaVim](docs/ideavim.md)
+- [Helix](docs/helix.md)
 - [i3 Cheatsheet](docs/i3_cheatsheet.md)
