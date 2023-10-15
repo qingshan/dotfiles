@@ -18,17 +18,17 @@ ln -s $(brew --prefix)/opt/llvm/bin/lldb-vscode $(brew --prefix)/bin/
 
 lsp for go
 ```shell
-go install golang.org/x/tools/gopls@latest          # LSP
+go install golang.org/x/tools/gopls@latest
 ```
 
 formatter for go
 ```shell
-go install golang.org/x/tools/cmd/goimports@latest  # Formatter
+go install golang.org/x/tools/cmd/goimports@latest
 ```
 
 debugger for go
 ```shell
-go install github.com/go-delve/delve/cmd/dlv@latest # Debugger
+go install github.com/go-delve/delve/cmd/dlv@latest
 ```
 
 lsp for markdown
@@ -64,7 +64,7 @@ updates lanuages.toml & .dprint.json
 
 ### Project Menu
 
-<kbd>Command + r<kbd> to launch project menu.
+<kbd>Command + r</kbd> to launch project menu.
 
 - <kbd>f</kbd>: Test function
 - <kbd>F</kbd>: Test file
@@ -77,7 +77,7 @@ updates lanuages.toml & .dprint.json
 
 ### Command Selector
 
-<kbd>Command + Shift + r<kbd> to launch project command selector.
+<kbd>Command + Shift + r</kbd> to launch project command selector.
 
 ### Markdown Keymap
 
