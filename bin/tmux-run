@@ -10,7 +10,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     -h|--help)
       # Print help
-      echo "Usage: tmux-run -t [right|bottom|top|window|popup] name -- command".
+      echo "Usage: tmux-run -t [right|bottom|top|window|popup|menu] name -- command".
       exit 0
       ;;
     --)
@@ -56,6 +56,7 @@ function build_menu_items {
   project=$(detect_project)
   case $project in
     rust)
+      menu_items=()
       menu_items+=('Test Function' 'f' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "tmux-helix file | xargs -r rust-project test-function | xargs -r tmux-run -t right test --"')
       menu_items+=('Test File' 'F' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "tmux-helix file | xargs -r rust-project test-file | xargs -r tmux-run -t right test --"')
       menu_items+=('Test Package' 't' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "tmux-helix file | xargs -r rust-project test-package | xargs -r tmux-run -t right test --"')
@@ -85,29 +86,31 @@ function build_menu_items {
 case $target in
   menu)
     $cmd
-    menu_items=()
     build_menu_items
-    tmux display-menu -x R -y P -T '#[align=centre fg=orange]❀ Commands' "${menu_items[@]}"
+    tmux display-menu -x R -y P -T "#[align=centre fg=orange]❀ Commands" "${menu_items[@]}"
     ;;
   popup)
-    tmux if-shell -F '#{e|==:#{N/s:popup},0}' 'new-session -d -s popup "tmux source-file ~/.dotfiles/tmux/sessions/popup.tmux.conf"'
-    tmux if-shell "tmux select-window -t popup:$name" "" "new-window -t popup: -c \"#{pane_current_path}\" -n $name $cmd"
+    tmux if-shell -F "#{e|==:#{N/s:popup},0}" "new-session -d -s popup 'tmux source-file ~/.dotfiles/tmux/sessions/popup.tmux.conf'"
+    tmux if-shell "tmux select-window -t popup:$name" "" "new-window -t popup: -c '#{pane_current_path}' -n $name $cmd"
     tmux display-popup -b rounded -h 90% -w 85% -E "tmux attach-session -t popup"
     ;;
   window)
-    tmux if-shell "tmux select-window -t $name" "" "new-window -c \"#{pane_current_path}\" -n $name $cmd"
+    tmux if-shell "tmux select-window -t $name" "" "new-window -c '#{pane_current_path}' -n $name $cmd"
     ;;
   top)
-    tmux display-popup -b rounded -h 24 -w 80 -x R -y W -d '#{pane_current_path}' -T "#[fg=orange]❀ $name" -E "$cmd"
+    tmux display-popup -b rounded -h 24 -w 80 -x R -y W -d "#{pane_current_path}" -T "#[fg=orange]❀ $name" -E "$cmd"
     ;;
   bottom)
-    tmux if-shell -F '#{e|==:#{window_panes},1}' 'split-window -d -v -l 15 -c "#{pane_current_path}"' 'respawn-pane -k -t "{bottom}" -c "#{pane_current_path}'
-    tmux run-shell 'sleep 0.2'
+    tmux if-shell -F "#{e|==:#{window_panes},1}" "split-window -d -v -l 15 -c '#{pane_current_path}'" "respawn-pane -k -t '{$target}' -c '#{pane_current_path}'"
+    tmux run-shell "sleep 0.2"
+    tmux send-keys -t "{$target}" "$cmd" Enter
+    ;;
+  right)
+    tmux if-shell -F "#{e|==:#{window_panes},1}" "split-window -d -v -l 15 -c '#{pane_current_path}'" "respawn-pane -k -t '{$target}' -c '#{pane_current_path}'"
+    tmux run-shell "sleep 0.2"
     tmux send-keys -t "{$target}" "$cmd" Enter
     ;;
   *)
-    tmux if-shell -F '#{e|==:#{window_panes},1}' 'split-window -d -h -l 80 -c "#{pane_current_path}"' 'respawn-pane -k -t "{right}" -c "#{pane_current_path}'
-    tmux run-shell 'sleep 0.2'
-    tmux send-keys -t "{$target}" "$cmd" Enter
+    echo "Unkown target: $target"
     ;;
 esac
