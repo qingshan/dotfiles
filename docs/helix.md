@@ -36,6 +36,16 @@ lsp for markdown
 brew install marksman
 ```
 
+lsp for toml
+```shell
+brew install taplo
+```
+
+lsp for protobuf
+```shell
+go install github.com/bufbuild/buf-language-server/cmd/bufls@latest
+```
+
 formatter for markdown, json, toml and yaml.
 
 ```shell
