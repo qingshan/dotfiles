@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+cmd="$1"
+shift
+
+case $cmd in
+  all)
+    grep -oE '^[a-zA-Z0-9_-][a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_-]*$//' | awk '{print "make", $1}'
+    ;;
+  *)
+    exit 1
+    ;;
+esac
