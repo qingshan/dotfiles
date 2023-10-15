@@ -64,7 +64,7 @@ updates lanuages.toml & .dprint.json
 
 ### Project Menu
 
-<kbd>Command + r<kdb> to launch project menu.
+<kbd>Command + r<kbd> to launch project menu.
 
 - <kbd>f</kbd>: Test function
 - <kbd>F</kbd>: Test file
@@ -77,7 +77,7 @@ updates lanuages.toml & .dprint.json
 
 ### Command Selector
 
-<kbd>Command + Shift + r<kdb> to launch project command selector.
+<kbd>Command + Shift + r<kbd> to launch project command selector.
 
 ### Markdown Keymap
 
