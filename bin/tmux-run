@@ -10,7 +10,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     -h|--help)
       # Print help
-      echo "Usage: tmux-run -t [right|bottom|top|window|popup|menu] name -- command".
+      echo "Usage: tmux-run -t [right|bottom|top|window|popup] name -- command".
       exit 0
       ;;
     --)
@@ -36,59 +36,7 @@ else
   cmd="$name"
 fi
 
-function detect_project {
-  if [ -f Cargo.toml ] ; then
-    echo "rust"
-  elif [ -f go.mod ] ; then
-    echo "go"
-  elif [ -f pom.xm ] || [ -f build.xml ] ; then
-    echo "java"
-  elif [ -f requirements.txt ] || [ -f setup.py ] || [ -f __init__.py ] ; then
-    echo "python"
-  elif [ -f package.json ] ; then
-    echo "nodejs"
-  elif [ -d .zk ] ; then
-    echo "zk"
-  fi
-}
-
-function build_menu_items {
-  project=$(detect_project)
-  case $project in
-    rust)
-      menu_items=()
-      menu_items+=('Test Function' 'f' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "tmux-helix file | xargs -r rust-project test-function | xargs -r tmux-run -t right test --"')
-      menu_items+=('Test File' 'F' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "tmux-helix file | xargs -r rust-project test-file | xargs -r tmux-run -t right test --"')
-      menu_items+=('Test Package' 't' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "tmux-helix file | xargs -r rust-project test-package | xargs -r tmux-run -t right test --"')
-      menu_items+=('Test All' 'T' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "rust-project test-all | xargs -r tmux-run -t right test --"')
-      menu_items+=('')
-      menu_items+=('Build Package' 'b' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "tmux-helix file | xargs -r rust-project build-package | xargs -r tmux-run -t right build --"')
-      menu_items+=('Build All' 'B' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "rust-project build-all | xargs -r tmux-run -t right build --"')
-      menu_items+=('Run Package' 'r' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "tmux-helix file | xargs -r rust-project run-package | xargs -r tmux-run -t right run --"')
-      menu_items+=('Run All' 'R' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "rust-project run-all | xargs -r tmux-run -t right run --"')
-      menu_items+=('')
-      ;;
-    zk)
-      menu_items+=('Preview File' 'r' 'display-popup -b rounded -d "#{pane_current_path}" -T "#[fg=orange]❀ Commands" -E "tmux-helix file | xargs -r zk-project test-file | xargs -r tmux-run -t right test --"')
-      menu_items+=('')
-      ;;
-  esac
-  menu_items+=('Lazygit' 'l' 'run-shell "tmux-run -t window lazygit"')
-  menu_items+=('Htop' 'h' 'run-shell "tmux-run -t window htop"')
-  menu_items+=('')
-  menu_items+=('Journal' 'j' 'run-shell "tmux-run -t popup journal -- zk journal"')
-  menu_items+=('Yue' 'y' 'run-shell "tmux-run -t top yue -- tmux-fortune"')
-  menu_items+=('')
-  menu_items+=('Clock' 'c' 'clock-mode')
-  menu_items+=('Quit' 'q' '')
-}
-
 case $target in
-  menu)
-    $cmd
-    build_menu_items
-    tmux display-menu -x R -y P -T "#[align=centre fg=orange]❀ Commands" "${menu_items[@]}"
-    ;;
   popup)
     tmux if-shell -F "#{e|==:#{N/s:popup},0}" "new-session -d -s popup 'tmux source-file ~/.dotfiles/tmux/sessions/popup.tmux.conf'"
     tmux if-shell "tmux select-window -t popup:$name" "" "new-window -t popup: -c '#{pane_current_path}' -n $name $cmd"
@@ -106,7 +54,7 @@ case $target in
     tmux send-keys -t "{$target}" "$cmd" Enter
     ;;
   right)
-    tmux if-shell -F "#{e|==:#{window_panes},1}" "split-window -d -v -l 15 -c '#{pane_current_path}'" "respawn-pane -k -t '{$target}' -c '#{pane_current_path}'"
+    tmux if-shell -F "#{e|==:#{window_panes},1}" "split-window -d -h -l 80 -c '#{pane_current_path}'" " respawn-pane -k -t '{$target}' -c '#{pane_current_path}'"
     tmux run-shell "sleep 0.2"
     tmux send-keys -t "{$target}" "$cmd" Enter
     ;;

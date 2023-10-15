@@ -1,5 +1,36 @@
 #!/usr/bin/env bash
 
+directory="."
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d|--directory)
+      directory="$2"
+      shift 2
+      ;;
+    -h|--help)
+      # Print help
+      echo "Usage: tmux-project -d [directory] [cmd] -- arguments".
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*|--*)
+      echo "${0}: invalid option -- '${1}'"
+      exit 1
+      ;;
+    *)
+      positional_args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+cmd=${positional_args[0]}
+file=${positional_args[1]}
+
 function find_cargo_packages() {
   cargo metadata -q --no-deps --format-version 1 \
       | jq -r ".packages[] | .name"
@@ -7,12 +38,11 @@ function find_cargo_packages() {
 
 function find_cargo_targets() {
   cargo metadata -q --no-deps --format-version 1 \
-        | jq -r '
-        .workspace_members as $members | .packages
-        | map(select(.id as $id | $members[] | contains($id) ))
-        | map(.targets)[] | map(select(.kind[] | contains($kind)))[]
-	| .name
-      ' --arg kind "$1"
+    | jq -r '
+      .workspace_members as $members | .packages
+      | map(select(.id as $id | $members[] | contains($id) ))
+      | map(.targets)[] | map(select(.kind[] | contains($kind)))[]
+      | .name' --arg kind "$1"
 }
 
 function cargo_run_targets() {
@@ -89,8 +119,7 @@ function rust_file_line() {
   echo $1 | awk -F ':' '{print $2}'
 }
 
-cmd="$1"
-shift
+cd "$directory"
 
 case $cmd in
   build)
@@ -104,20 +133,20 @@ case $cmd in
     cargo_test_names | awk '{print "cargo", "test", "--", $1}'
     ;;
   build-package|run-package|test-package)
-    file_name=$(rust_file_name $1)
+    file_name=$(rust_file_name $file)
     package_name=$(cargo_package_name $file_name)
     echo "cargo ${cmd%-package} --package $package_name"
     ;;
   test-function)
-    file_name=$(rust_file_name $1)
-    file_line=$(rust_file_line $1)
+    file_name=$(rust_file_name $file)
+    file_line=$(rust_file_line $file)
     package_name=$(cargo_package_name $file_name)
     function_name=$(cargo_function_name $file_name $file_line)
     test_name=$(cargo_test_name $file_name $package_name $function_name)
     echo "cargo ${cmd%-function} --package $package_name $test_name"
     ;;
   test-file)
-    file_name=$(rust_file_name $1)
+    file_name=$(rust_file_name $file)
     package_name=$(cargo_package_name $file_name)
     test_name=$(cargo_test_name $file_name $package_name)
     echo "cargo ${cmd%-file} --package $package_name $test_name"

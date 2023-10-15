@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+directory="."
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d|--directory)
+      directory="$2"
+      shift 2
+      ;;
+    -h|--help)
+      # Print help
+      echo "Usage: tmux-project -d [directory] [cmd] -- arguments".
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*|--*)
+      echo "${0}: invalid option -- '${1}'"
+      exit 1
+      ;;
+    *)
+      positional_args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+cmd=${positional_args[0]}
+
+function detect_project {
+  if [ -f $directory/Cargo.toml ] ; then
+    echo "rust"
+  elif [ -f $directory/go.mod ] ; then
+    echo "go"
+  elif [ -f $directory/pom.xm ] || [ -f $directory/build.xml ] ; then
+    echo "java"
+  elif [ -f $directory/requirements.txt ] || [ -f $directory/setup.py ] || [ -f $directory/__init__.py ] ; then
+    echo "python"
+  elif [ -f $directory/package.json ] ; then
+    echo "nodejs"
+  elif [ -d $directory/.zk ] ; then
+    echo "zk"
+  elif [ -f $directory/justfile ] || [ -f $directory/Justfile ] ; then
+    echo "just"
+  elif [ -f $directory/Makefile ] ; then
+    echo "make"
+  fi
+}
+
+function build_commands {
+  project=$(detect_project)
+  $project-project all
+}
+
+function build_menu_items {
+  project=$(detect_project)
+  case $project in
+    rust)
+      menu_items=()
+      menu_items+=('Test Function' 'f' 'run-shell "tmux-run -t right test -- $(tmux-helix file | xargs -r rust-project -d '$directory' test-function)"')
+      menu_items+=('Test File' 'F' 'run-shell "tmux-run -t right test -- $(tmux-helix file | xargs -r rust-project -d '$directory' test-file)"')
+      menu_items+=('Test Package' 't' 'run-shell "tmux-run -t right test -- $(tmux-helix file | xargs -r rust-project -d '$directory' test-package)"')
+      menu_items+=('Test All' 'T' 'run-shell "tmux-run -t right test -- $(rust-project -d '$directory' test-all)"')
+      menu_items+=('')
+      menu_items+=('Build Package' 'b' 'run-shell "tmux-run -t right test -- $(tmux-helix file | xargs -r rust-project -d '$directory' build-package)"')
+      menu_items+=('Build All' 'B' 'run-shell "tmux-run -t right test -- $(rust-project -d '$directory' build-all)"')
+      menu_items+=('Run Package' 'r' 'run-shell "tmux-run -t right test -- $(tmux-helix file | xargs -r rust-project -d '$directory' run-package)"')
+      menu_items+=('Run All' 'R' 'run-shell "tmux-run -t right test -- $(rust-project -d '$directory' run-all)"')
+      menu_items+=('')
+      ;;
+    go)
+      menu_items+=('Test File' 'f' 'run-shell "tmux-run -t right test -- $(tmux-helix file | xargs -r go-project -d '$directory' test-file)"')
+      menu_items+=('Test Package' 't' 'run-shell "tmux-run -t right test -- $(tmux-helix file | xargs -r go-project -d '$directory' test-package)"')
+      menu_items+=('Test All' 'T' 'run-shell "tmux-run -t right test --$(go-project -d test-all)"')
+      menu_items+=('')
+      menu_items+=('Build File' 'b' 'run-shell "tmux-run -t right test -- $(tmux-helix file | xargs -r go-project -d '$directory' build-file)"')
+      menu_items+=('Run File' 'r' 'run-shell "tmux-run -t right test -- $(tmux-helix file | xargs -r go-project -d '$directory' run-file)"')
+      menu_items+=('')
+      ;;
+    just)
+      menu_items+=('Build' 'b' 'run-shell "tmux-run -t right build -- just -d '$directory' build"')
+      menu_items+=('Run' 'r' 'run-shell "tmux-run -t right run -- just -d '$directory' run"')
+      menu_items+=('Test' 't' 'run-shell "tmux-run -t right test -- just -d '$directory' test"')
+      menu_items+=('')
+      ;;
+    make)
+      menu_items+=('Build' 'b' 'run-shell "tmux-run -t right build -- make -C '$directory' build"')
+      menu_items+=('Run' 'r' 'run-shell "tmux-run -t right run -- make -C '$directory' run"')
+      menu_items+=('Test' 't' 'run-shell "tmux-run -t right test -- make -C '$directory' test"')
+      menu_items+=('')
+      ;;
+    zk)
+      menu_items+=('Preview File' 'r' 'run-shell "tmux-run -t right preview --$(tmux-helix file | xargs -r zk-project -d '$directory' preview)"')
+      menu_items+=('')
+      ;;
+  esac
+  menu_items+=('Lazygit' 'l' 'run-shell "tmux-run -t window lazygit"')
+  menu_items+=('Htop' 'h' 'run-shell "tmux-run -t window htop"')
+  menu_items+=('')
+  menu_items+=('Journal' 'j' 'run-shell "tmux-run -t popup journal -- zk journal"')
+  menu_items+=('Yue' 'y' 'run-shell "tmux-run -t top yue -- tmux-fortune"')
+  menu_items+=('')
+  menu_items+=('Clock' 'c' 'clock-mode')
+  menu_items+=('Quit' 'q' '')
+}
+
+case $cmd in
+  all)
+    build_commands | fzf --no-sort --prompt ' ' --pointer='➤ ' --marker='➤'
+    ;;
+  menu)
+    build_menu_items
+    tmux display-menu -x R -y P -T "#[align=centre fg=orange]❀ Commands" "${menu_items[@]}"
+    ;;
+  *)
+    echo "Unkown command: $cmd"
+    ;;
+esac

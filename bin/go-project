@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+directory="."
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d|--directory)
+      directory="$2"
+      shift 2
+      ;;
+    -h|--help)
+      # Print help
+      echo "Usage: tmux-project -d [directory] [cmd] -- arguments".
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*|--*)
+      echo "${0}: invalid option -- '${1}'"
+      exit 1
+      ;;
+    *)
+      positional_args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+cmd=${positional_args[0]}
+file=${positional_args[1]}
+
+function go_package_name() {
+  echo $1 | sed -E -e 's/[^\/]+.go/./' -e 's/\/.?$//' -e 's/^/.\//'
+}
+
+function go_test_name() {
+  echo $1 | sed -E -e 's/(_test)?.go/_test.go/'
+}
+
+function go_file_name() {
+  echo $1 | awk -F ':' '{print $1}'
+}
+
+function go_file_line() {
+  echo $1 | awk -F ':' '{print $2}'
+}
+
+cd "$directory"
+
+case $cmd in
+  build|run|test)
+    echo "go $cmd"
+    ;;
+  build-package|run-package|test-package)
+    file_name=$(go_file_name $file)
+    package_name=$(go_package_name $file_name)
+    echo "go ${cmd%-package} $package_name/..."
+    ;;
+  test-function)
+    file_name=$(go_file_name $file)
+    test_name=$(go_test_name $file_name)
+    echo "go test $test_name"
+    ;;
+  test-file)
+    file_name=$(go_file_name $file)
+    test_name=$(go_test_name $file_name)
+    echo "go ${cmd%-file} $test_name"
+    ;;
+  build-file|run-file)
+    file_name=$(go_file_name $file)
+    echo "go ${cmd%-file} $file_name"
+    ;;
+  run-all)
+    echo "go run"
+    ;;
+  test-all)
+    echo "go test ./..."
+    ;;
+  build-all)
+    echo "go build"
+    ;;
+  all)
+    $0 build
+    $0 run
+    $0 test
+    ;;
+  *)
+    exit 1
+    ;;
+esac
