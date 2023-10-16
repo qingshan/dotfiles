@@ -3,6 +3,10 @@
 word="$1"
 
 if [ -z "$word" ]; then
+  word=$(</dev/stdin)
+fi
+
+if [ -z "$word" ]; then
   tmux command-prompt -p "Word:" 'run-shell "tmux-vocab %%"'
   exit 0
 fi
@@ -10,7 +14,7 @@ fi
 definition=$(dict COWL $word | htmlq ".gdc" | html2text -utf8)
 pronunciation=$(dict COWL $word | htmlq ".hwrap .ipa" | html2text -utf8)
 
-menu_cmd=(tmux display-menu -x R -y W -T "#[align=centre, fg=orange]${word}")
+menu_cmd=(tmux display-menu -x R -y W -T "#[align=centre, fg=orange]󰗊 ${word} ")
 menu_cmd+=("")
 menu_cmd+=("-#[nodim, fg=white] " "" "")
 while read -r line; do
@@ -22,9 +26,9 @@ menu_cmd+=("-#[nodim, fg=white] " "" "")
 menu_cmd+=("")
 menu_cmd+=("-#[align=centre, nodim, fg=white] ${pronunciation}" "" "")
 menu_cmd+=("")
-menu_cmd+=("Apple" "a" "run-shell 'ws apple ${word}; $0 $@'" )
-menu_cmd+=("Cambridge" "c" "run-shell 'ws cambridge ${word}; $0 $@'" )
-menu_cmd+=("Oxford" "o" "run-shell 'ws oxford ${word}; $0 $@'" )
-menu_cmd+=("Webster" "w" "run-shell 'ws webster ${word}; $0 $@'" )
+menu_cmd+=("Apple" "a" "run-shell 'ws apple ${word}; $0 $word'" )
+menu_cmd+=("Cambridge" "c" "run-shell 'ws cambridge ${word}; $0 $word'" )
+menu_cmd+=("Oxford" "o" "run-shell 'ws oxford ${word}; $0 $word'" )
+menu_cmd+=("Webster" "w" "run-shell 'ws webster ${word}; $0 $word'" )
 
 "${menu_cmd[@]}"
