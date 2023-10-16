@@ -58,7 +58,9 @@ function detect_project {
 
 function build_commands {
   local project=$(detect_project)
-  $project-project all
+  if [ ! -z "$project" ]; then
+    $project-project all
+  fi
 }
 
 function build_menu_items {
@@ -120,7 +122,7 @@ function build_menu_items {
 }
 
 case $cmd in
-  all)
+  commands)
     build_commands | fzf --no-sort --prompt ' ' --pointer='➤ ' --marker='➤'
     ;;
   menu)
