@@ -5,22 +5,33 @@ function current_file_and_line() {
   status_line=$(echo $status_line | sed -n -E 's/.*(NOR|INS|SEL)[[:space:]]*(.*)/\1 \2/p')
   file_name=$(echo $status_line | cut -d' ' -f2)
   if [[ "$file_name" =~ [⣾⣽⣻⢿⡿⣟⣯⣷] ]]; then
-      file_name=$(echo $status_line | cut -d' ' -f3)
+    file_name=$(echo $status_line | cut -d' ' -f3)
   fi
   line=$(echo $status_line | awk -F '[: ]' '{print $(NF-1)}')
   echo "$file_name:$line"
 }
 
 function open_file() {
-  file="$1"
-  tmux send-keys -t '{top}' ":open $file" C-m
+  tmux if-shell "tmux select-window -t :hx" "" "new-window -c '#{pane_current_path}' -n hx hx; run-shell 'sleep 1'"
+  for file in $@; do
+    tmux send-keys -t :hx ":"
+    tmux send-keys -t :hx "open $file" C-m
+  done
+}
+
+function reload_helix() {
+  tmux send-keys -t :hx ":reload-all" C-m
 }
 
 cmd="$1"
+shift
 
 case $cmd in
   open)
-    open_file $2
+    open_file $@
+    ;;
+  reload)
+    reload_helix
     ;;
   file)
     current_file_and_line

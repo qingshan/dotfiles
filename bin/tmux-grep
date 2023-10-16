@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+rg --color=always --line-number --no-heading --smart-case "${*:-}" \
+  | fzf --ansi \
+     --no-sort --prompt ' ' --pointer='➤ ' --marker='➤ ' \
+     --border none \
+     --color "hl+:$ORANGE:reverse,hl:$FOREGROUND:reverse" \
+     --delimiter ':' \
+     --height '100%' \
+     --multi \
+     --bind ctrl-a:select-all \
+     --header '<ctrl-a to select-all>  <ctrl-x to clear-selection>' \
+     --bind ctrl-x:clear-selection \
+     --exit-0 \
+     --preview 'bat {1} --highlight-line {2}' \
+     --preview-window 'right,+{2}+3/3,~3' \
+     --scrollbar '▍' \
+  | awk -F ':' '{print $1 ":" $2}'
