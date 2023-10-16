@@ -31,6 +31,7 @@ brew "terminal-notifier"
 brew "xsv"
 brew "jq"
 brew "htmlq"
+brew "html2text"
 brew "miller"
 # markdown
 brew "mdbook"
