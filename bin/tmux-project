@@ -112,7 +112,6 @@ function build_menu_items {
   esac
   menu_items+=('Lazygit' 'l' 'run-shell "tmux-run -t window lazygit"')
   menu_items+=('Htop' 'h' 'run-shell "tmux-run -t window htop"')
-  menu_items+=('Grep' '/' 'display-popup -b rounded -h 90% -w 85% -x C -y C -d "#{pane_current_path}" -E "tmux-grep | xargs -r tmux-helix open"')
   menu_items+=('')
   menu_items+=('Journal' 'j' 'run-shell "tmux-run -t popup journal -- zk journal"')
   menu_items+=('Yue' 'y' 'run-shell "tmux-run -t top yue -- tmux-fortune"')

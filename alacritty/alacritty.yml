@@ -68,14 +68,15 @@ key_bindings:
   # ----- copy mode -----
   - { key: F,        mods: Command,       chars: "\x1c[/"   } # enter vi copy mode, and search from up to down
   - { key: F,        mods: Command|Shift, chars: "\x1c[?"   } # enter vi copy mode, search from down to up
+  - { key: G,        mods: Command,       chars: "\x1cG"    } # go to selected file and line
 
   # ----- misc shortcuts -----
   - { key: Semicolon,mods: Command,       chars: "\x1c:"    } # input tmux command
   - { key: Semicolon,mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
   - { key: R,        mods: Command,       chars: "\x1cR"    } # run command with commands menu in right vertical
   - { key: R,        mods: Command|Shift, chars: "\x1cE"    } # run command with commands selector in right vertical
-  - { key: P,        mods: Command,       chars: "\x1cP"    } # toggle popup window
-  - { key: P,        mods: Command|Shift, chars: "\x1cP"    } # toggle popup window
+  - { key: P,        mods: Command,       chars: "\x1cO"    } # toggle popup window
+  - { key: P,        mods: Command|Shift, chars: "\x1cP"    } # go to the selected pane
   - { key: Z,        mods: Command,       chars: "\x1cz"    } # zoom toggle of the current pane
   - { key: Z,        mods: Command|Shift, chars: "\x1cX"    } # kill other panes
   - { key: S,        mods: Command,       chars: "\x1b:w\x0a"} # Type <escape>:w<enter> to save in vim or helix
@@ -83,7 +84,6 @@ key_bindings:
   - { key: Comma,    mods: Command,       chars: "\x1c,"    } # rename tab
 
   # ----- navigate panes -----
-  - { key: G,        mods: Command,       chars: "\x1cG"    } # go to the selected pane
   - { key: H,        mods: Command,       chars: "\x1ch"    } # go to the pane left
   - { key: J,        mods: Command,       chars: "\x1cj"    } # go to the pane above
   - { key: K,        mods: Command,       chars: "\x1ck"    } # go to the pane below
