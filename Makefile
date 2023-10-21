@@ -4,7 +4,7 @@ GIT_MAIL = qs@qingshan.dev
 OS := $(shell uname -s | tr A-Z a-z)
 
 .PHONY: install
-install: setup packages tools
+install: setup tools packages
 
 .PHONY: setup
 setup: $(OS)
@@ -19,7 +19,7 @@ linux:
 	@if [ -f /etc/arch-release ]; then sh ./linux/arch/setup.sh; fi
 	@if [ -f /etc/debian_version ]; then sh ./linux/debian/setup.sh; fi
 	touch ~/.hushlogin
-	bash -c 'rm -rf /usr/local/go && curl -sL https://go.dev/dl/go1.19.linux-amd64.tar.gz | sudo tar -C /usr/local -xz'
+	bash -c 'rm -rf /usr/local/go && curl -sL https://go.dev/dl/go1.21.3.linux-amd64.tar.gz | sudo tar -C /usr/local -xz'
 	bash -c 'sh <(curl https://sh.rustup.rs -sSf) -y'
 
 .PHONY: packages
@@ -40,14 +40,19 @@ go-packages:
 .PHONY: rust-packages
 rust-packages:
 	rustup component add rust-src
-	rustup component add clippy
 	rustup component add rust-analyzer
 
 .PHONY: fish-packages
 fish-packages:
-	curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-	fish -c "fisher install jethrokuan/fzf"
+	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
+	fish -c "fisher install patrickf1/fzf.fish"
 	fish -c "fisher install jorgebucaran/autopair.fish"
+
+.PHONY: racket-packages
+racket-packages:
+	raco pkg install --auto racket-langserver
+	raco pkg install --auto fmt
+	raco pkg install --auto drracket
 
 .PHONY: tools
 tools: fish bash zsh vim alacritty helix tmux git dirs
@@ -58,6 +63,7 @@ profile:
 
 .PHONY: fish
 fish: profile
+	mkdir -p ${HOME}/.config/fish
 	ln -vsf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 
 .PHONY: bash
