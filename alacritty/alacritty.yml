@@ -71,8 +71,7 @@ key_bindings:
   - { key: G,        mods: Command,       chars: "\x1cG"    } # go to selected file and line
 
   # ----- misc shortcuts -----
-  - { key: Semicolon,mods: Command,       chars: "\x1c:"    } # input tmux command
-  - { key: Semicolon,mods: Command|Shift, chars: "\x1cI"    } # synchronize panes in the current window
+  - { key: A,        mods: Command,       chars: "\x1cA"    } # Useful commands menux for tmux
   - { key: R,        mods: Command,       chars: "\x1cR"    } # run command with commands menu in right vertical
   - { key: R,        mods: Command|Shift, chars: "\x1cE"    } # run command with commands selector in right vertical
   - { key: P,        mods: Command,       chars: "\x1cO"    } # toggle popup window
@@ -81,7 +80,6 @@ key_bindings:
   - { key: Z,        mods: Command|Shift, chars: "\x1cX"    } # kill other panes
   - { key: S,        mods: Command,       chars: "\x1b:w\x0a"} # Type <escape>:w<enter> to save in vim or helix
   - { key: S,        mods: Command|Shift, chars: "\x1b:wa\x0a"} # Type <escape>:wa<enter> to save in vim or helix
-  - { key: Comma,    mods: Command,       chars: "\x1c,"    } # rename tab
 
   # ----- navigate panes -----
   - { key: H,        mods: Command,       chars: "\x1ch"    } # go to the pane left
