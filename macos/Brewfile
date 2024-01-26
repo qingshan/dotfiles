@@ -36,12 +36,12 @@ brew "miller"
 # markdown
 brew "mdbook"
 brew "mdcat"
+brew "glow"
 # terminal
 brew "tmux"
 # network
 brew "rsync"
 brew "socat"
-brew "iproute2mac"
 brew "autossh"
 brew "wget"
 brew "caddy"
@@ -68,9 +68,8 @@ brew "ant"
 brew "maven"
 brew "grpcurl"
 brew "protobuf"
-brew "bufbuild/buf/buf"
+brew "buf"
 brew "spotbugs"
-brew "minimal-racket"
 # tools
 brew "zk"
 brew "just"
@@ -81,6 +80,8 @@ brew "pandoc"
 brew "pandoc-crossref"
 brew "yt-dlp"
 brew "zola"
+# media
+brew "ffmpeg"
 # fonts
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
@@ -92,24 +93,24 @@ cask "brave-browser"
 cask "google-chrome"
 cask "dropbox"
 # desktop
-cask "xquartz"
 cask "alfred"
 cask "eqmac"
-cask "hiddenbar"
+cask "vlc"
 cask "keycastr"
-cask "microsoft-remote-desktop"
 cask "rectangle"
+cask "microsoft-remote-desktop"
 # development
 cask "github"
 cask "intellij-idea-ce"
 cask "obsidian"
 cask "mat"
-cask "sublime-text"
+cask "zed"
 # reading
-cask "netnewswire"
 cask "send-to-kindle"
+cask "kindle-previewer"
 # vms
 cask "multipass"
+cask "orbstack"
 cask "vagrant"
 cask "virtualbox"
 cask "xquartz"
@@ -119,8 +120,6 @@ cask "telegram"
 cask "wechat"
 cask "zoom"
 # mas
-mas "pocket", id: 568494494
-mas "save-to-pocket", id: 1477385213
 mas "medis", id: 1579200037
 mas "vimari", id: 1480933944
 mas "tomito", id: 1526042938
