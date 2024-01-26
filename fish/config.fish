@@ -127,7 +127,7 @@ abbr --add st 'tmux source ~/.tmux.conf'
 
 # vim
 abbr --add v 'vim (fd --type f --hidden --follow --exclude .git | fzf-tmux -p --reverse)'
-abbr --add va 'vim ~/.config/alacritty/alacritty.yml'
+abbr --add va 'vim ~/.config/alacritty/alacritty.toml'
 abbr --add vb 'vim ~/.dotfiles/macos/Brewfile'
 abbr --add vf 'vim ~/.config/fish/config.fish'
 abbr --add vh 'vim ~/.dotfiles/helix/config.toml'
