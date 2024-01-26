@@ -1,0 +1,112 @@
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 14
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
+
+[shell]
+args = ["--login", "--command", "tmux new-session -A -D -s main"]
+program = "/usr/local/bin/fish"
+
+[window]
+decorations = "None"
+option_as_alt = "Both"
+startup_mode = "SimpleFullscreen"
+
+# Key bindings
+# A list with all available `key` names can be found here:
+# https://docs.rs/glutin/*/glutin/enum.VirtualKeyCode.html#variants
+#
+# Run "xxd -psd" to find hex codes of keys.
+#
+# Alacritty + Tmux key integratio
+#   `\u001c` is `C-\` as tmux prefix
+#   `\u001b` is `Esc`
+[keyboard]
+bindings = [
+  # ----- change font size ----
+  { key = "Key0",     mods = "Command",       action = "ResetFontSize"    },
+  { key = "Equals",   mods = "Command",       action = "IncreaseFontSize" },
+  { key = "Minus",    mods = "Command",       action = "DecreaseFontSize" },
+
+  # ----- new pane/tab/window -----
+  { key = "D",        mods = "Command",       chars = "\u001c\""          }, # new vertical pane with default shell
+  { key = "D",        mods = "Command|Shift", chars = "\u001c-"           }, # new vertical pane with commands menu
+  { key = "Return",   mods = "Command",       chars = "\u001c%"           }, # new horizontal pane with default shell
+  { key = "Return",   mods = "Command|Shift", chars = "\u001c|"           }, # new horizontal pane with commands menu
+  { key = "T",        mods = "Command",       chars = "\u001cc"           }, # new tab with default shell
+  { key = "T",        mods = "Command|Shift", chars = "\u001cC"           }, # new tab with commands menu
+  { key = "N",        mods = "Command",       chars = "\u001cS"           }, # switch session in current window with local sessions menu
+  { key = "N",        mods = "Command|Shift", command = { program = "/usr/local/bin/alacritty", args = ["msg", "create-window", "-e", "/usr/local/bin/fish", "--login", "--command", "tmux-sessions --all"] } }, # open session in new window with all sessions menu across servers
+
+  # ----- close pane/tab/window -----
+  { key = "W",        mods = "Command",       chars = "\u001cx"           }, # close the pane
+  { key = "W",        mods = "Command|Shift", chars = "\u001c&"           }, # close the tab
+  { key = "Q",        mods = "Command",       chars = "\u001cd"           }, # close the window
+
+  # ----- copy mode -----
+  { key = "F",        mods = "Command",       chars = "\u001c[/"          }, # enter vi copy mode, and search from up to down
+  { key = "F",        mods = "Command|Shift", chars = "\u001c[?"          }, # enter vi copy mode, search from down to up
+  { key = "G",        mods = "Command",       chars = "\u001cG"           }, # go to selected file and line
+
+  # ----- misc shortcuts -----
+  { key = "A",        mods = "Command",       chars = "\u001cA"           }, # Useful commands menux for tmux
+  { key = "R",        mods = "Command",       chars = "\u001cR"           }, # run command with commands menu in right vertical
+  { key = "R",        mods = "Command|Shift", chars = "\u001cE"           }, # run command with commands selector in right vertical
+  { key = "P",        mods = "Command",       chars = "\u001cO"           }, # toggle popup window
+  { key = "P",        mods = "Command|Shift", chars = "\u001cP"           }, # go to the selected pane
+  { key = "Z",        mods = "Command",       chars = "\u001cz"           }, # zoom toggle of the current pane
+  { key = "Z",        mods = "Command|Shift", chars = "\u001cX"           }, # kill other panes
+  { key = "S",        mods = "Command",       chars = "\u001b:w\u000a"    }, # Type <escape>:w<enter> to save in vim or helix
+  { key = "S",        mods = "Command|Shift", chars = "\u001b:wa\u000a"   }, # Type <escape>:wa<enter> to save in vim or helix
+
+  # ----- navigate panes -----
+  { key = "H",        mods = "Command",       chars = "\u001ch"           }, # go to the pane left
+  { key = "J",        mods = "Command",       chars = "\u001cj"           }, # go to the pane above
+  { key = "K",        mods = "Command",       chars = "\u001ck"           }, # go to the pane below
+  { key = "L",        mods = "Command",       chars = "\u001cl"           }, # go to the pane right
+  { key = "Left",     mods = "Command",       chars = "\u001ch"           },
+  { key = "Down",     mods = "Command",       chars = "\u001cj"           },
+  { key = "Up",       mods = "Command",       chars = "\u001ck"           },
+  { key = "Right",    mods = "Command",       chars = "\u001cl"           },
+
+  # ----- resize panes -----
+  { key = "H",        mods = "Command|Shift", chars = "\u001cH"           }, # resize the current pane left
+  { key = "J",        mods = "Command|Shift", chars = "\u001cJ"           }, # resize the current pane above
+  { key = "K",        mods = "Command|Shift", chars = "\u001cK"           }, # resize the current pane below
+  { key = "L",        mods = "Command|Shift", chars = "\u001cL"           }, # resize the current pane right
+  { key = "Left",     mods = "Command|Shift", chars = "\u001cH"           },
+  { key = "Down",     mods = "Command|Shift", chars = "\u001cJ"           },
+  { key = "Up",       mods = "Command|Shift", chars = "\u001cK"           },
+  { key = "Right",    mods = "Command|Shift", chars = "\u001cL"           },
+
+  # ----- navigate tabs -----
+  { key = "B",        mods = "Command",       chars = "\u001c^"           }, # back to last tab
+  { key = "LBracket", mods = "Command",       chars = "\u001cp"           }, # go to previous tab
+  { key = "RBracket", mods = "Command",       chars = "\u001cn"           }, # go to next tab
+  { key = "Key1",     mods = "Command",       chars = "\u001c1"           }, # go to tab 1..9
+  { key = "Key2",     mods = "Command",       chars = "\u001c2"           },
+  { key = "Key3",     mods = "Command",       chars = "\u001c3"           },
+  { key = "Key4",     mods = "Command",       chars = "\u001c4"           },
+  { key = "Key5",     mods = "Command",       chars = "\u001c5"           },
+  { key = "Key6",     mods = "Command",       chars = "\u001c6"           },
+  { key = "Key7",     mods = "Command",       chars = "\u001c7"           },
+  { key = "Key8",     mods = "Command",       chars = "\u001c8"           },
+  { key = "Key9",     mods = "Command",       chars = "\u001c9"           },
+
+  # ----- move panes -----
+  { key = "B",        mods = "Command|Shift", chars = "\u001c!"           }, # Break the current pane out of the window
+  { key = "Key1",     mods = "Command|Shift", chars = "\u001c\u001b1"     }, # move the current pane to tab 1..9
+  { key = "Key2",     mods = "Command|Shift", chars = "\u001c\u001b2"     },
+  { key = "Key3",     mods = "Command|Shift", chars = "\u001c\u001b3"     },
+  { key = "Key4",     mods = "Command|Shift", chars = "\u001c\u001b4"     },
+  { key = "Key5",     mods = "Command|Shift", chars = "\u001c\u001b5"     },
+  { key = "Key6",     mods = "Command|Shift", chars = "\u001c\u001b6"     },
+  { key = "Key7",     mods = "Command|Shift", chars = "\u001c\u001b7"     },
+  { key = "Key8",     mods = "Command|Shift", chars = "\u001c\u001b8"     },
+  { key = "Key9",     mods = "Command|Shift", chars = "\u001c\u001b9"     },
+]
