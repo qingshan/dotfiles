@@ -2,6 +2,7 @@
 set -gx EDITOR vim
 set -gx GOPATH ~/.go
 set -gx TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
+set -gx LANG 'en_US.UTF-8'
 
 set -gx DOTFILES ~/.dotfiles
 set -gx NOTES ~/code/notes
@@ -53,6 +54,11 @@ if command -q lazygit
   abbr --add lg 'lazygit'
 end
 
+# direnv
+if command -q fzf
+  fzf --fish | source
+end
+
 # zk
 if command -q zk
   set -gx ZK_NOTEBOOK_DIR $NOTES
@@ -94,6 +100,7 @@ abbr --add g 'git'
 abbr --add ga 'git add'
 abbr --add gaa 'git add -A'
 abbr --add gb 'git branch'
+abbr --add gbc 'git branch --show-current'
 abbr --add gbd 'git branch -d'
 abbr --add gbD 'git branch -D'
 abbr --add gc 'git commit'
@@ -111,11 +118,18 @@ abbr --add gpr 'git pull --rebase'
 abbr --add gP 'git push'
 abbr --add gPo 'git push origin'
 
+# pr
+abbr --add prl 'gh pr list'
+abbr --add prp 'git push --set-upstream origin (git branch --show-current)'
+abbr --add prn 'gh pr create --draft --fill --title (git branch --show-current) --body-file .github/pull_request_template.md'
+abbr --add prw 'gh pr view --web'
+
 # brew
 abbr --add bi 'brew install'
 abbr --add bic 'brew install --cask'
 abbr --add bo 'brew outdated'
-abbr --add bu 'brew update'
+abbr --add bog 'brew outdated --greedy --verbose'
+abbr --add bu 'brew upgrade'
 
 # rustup
 abbr --add ru 'rustup update'
