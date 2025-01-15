@@ -19,7 +19,7 @@ linux:
 	@if [ -f /etc/arch-release ]; then sh ./linux/arch/setup.sh; fi
 	@if [ -f /etc/debian_version ]; then sh ./linux/debian/setup.sh; fi
 	touch ~/.hushlogin
-	bash -c 'rm -rf /usr/local/go && curl -sL https://go.dev/dl/go1.21.3.linux-amd64.tar.gz | sudo tar -C /usr/local -xz'
+	bash -c 'rm -rf /usr/local/go && curl -sL https://go.dev/dl/go1.23.4.linux-amd64.tar.gz | sudo tar -C /usr/local -xz'
 	bash -c 'sh <(curl https://sh.rustup.rs -sSf) -y'
 
 .PHONY: packages
@@ -33,9 +33,6 @@ node-packages:
 
 .PHONY: go-packages
 go-packages:
-	go install golang.org/x/tools/gopls@latest
-	go install github.com/go-delve/delve/cmd/dlv@latest
-	go install golang.org/x/tools/cmd/goimports@latest
 
 .PHONY: rust-packages
 rust-packages:
@@ -48,14 +45,8 @@ fish-packages:
 	fish -c "fisher install patrickf1/fzf.fish"
 	fish -c "fisher install jorgebucaran/autopair.fish"
 
-.PHONY: racket-packages
-racket-packages:
-	raco pkg install --auto racket-langserver
-	raco pkg install --auto fmt
-	raco pkg install --auto drracket
-
 .PHONY: tools
-tools: fish bash zsh vim alacritty helix tmux git dirs
+tools: fish bash zsh vim alacritty tmux git dirs
 
 .PHONY: profile
 profile:
@@ -79,11 +70,6 @@ vim:
 	ln -vsf .dotfiles/.vimrc ${HOME}/.vimrc
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	vim +PlugInstall +qall
-
-.PHONY: helix
-helix:
-	ln -vsf ../.dotfiles/helix ${HOME}/.config/helix
-	ln -vsf ../.dotfiles/.dprint.json ${HOME}/.dprint.json
 
 .PHONY: alacritty
 alacritty:
