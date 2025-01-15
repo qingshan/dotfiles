@@ -1,5 +1,5 @@
 window:
-  startup_mode: SimpleFullscreen
+  startup_mode: Fullscreen
   decorations: None
   option_as_alt: Both
 
@@ -29,11 +29,13 @@ env:
   TERM: xterm-256color
 
 shell:
-  program: /usr/local/bin/fish
+  program: /usr/bin/tmux
   args:
-    - --login
-    - --command
-    - "tmux new-session -A -D -s main"
+    - new-session
+    - -A
+    - -D
+    - -s
+    - main
 
 # Key bindings
 # A list with all available `key` names can be found here:
@@ -45,6 +47,9 @@ shell:
 #   `\x1c` is `C-\` as tmux prefix
 #   `\x1b` is `Esc`
 key_bindings:
+  # ----- Copy & Paste  ----
+  - { key: V,        mods: Command,       action: Paste            }
+  - { key: C,        mods: Command,       action: Copy             }
   # ----- change font size ----
   - { key: Key0,     mods: Command,       action: ResetFontSize    }
   - { key: Equals,   mods: Command,       action: IncreaseFontSize }
@@ -58,7 +63,7 @@ key_bindings:
   - { key: T,        mods: Command,       chars: "\x1cc"    } # new tab with default shell
   - { key: T,        mods: Command|Shift, chars: "\x1cC"    } # new tab with commands menu
   - { key: N,        mods: Command,       chars: "\x1cS"    } # switch session in current window with local sessions menu
-  - { key: N,        mods: Command|Shift, command: { program: "/usr/local/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/local/bin/fish", "--login", "--command", "tmux-sessions --all"] } } # open session in new window with all sessions menu across servers
+  - { key: N,        mods: Command|Shift, command: { program: "/usr/bin/alacritty", args: ["msg", "create-window", "-e", "/usr/bin/fish", "--login", "--command", "~/.dotfiles/bin/tmux-sessions --all"] } } # open session in new window with all sessions menu across servers
 
   # ----- close pane/tab/window -----
   - { key: W,        mods: Command,       chars: "\x1cx"    } # close the pane
