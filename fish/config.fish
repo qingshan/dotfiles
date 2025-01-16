@@ -54,7 +54,7 @@ if command -q lazygit
   abbr --add lg 'lazygit'
 end
 
-# direnv
+# fzf
 if command -q fzf
   fzf --fish | source
 end
