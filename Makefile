@@ -50,34 +50,34 @@ tools: fish bash zsh vim alacritty tmux git dirs
 
 .PHONY: profile
 profile:
-	ln -vshf .dotfiles/.profile ${HOME}/.profile
+	ln -vsf .dotfiles/.profile ${HOME}/.profile
 
 .PHONY: fish
 fish: profile
 	mkdir -p ${HOME}/.config/fish
-	ln -vshf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
+	ln -vsf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 
 .PHONY: bash
 bash: profile
-	ln -vshf .dotfiles/.bashrc ${HOME}/.bashrc
+	ln -vsf .dotfiles/.bashrc ${HOME}/.bashrc
 
 .PHONY: zsh
 zsh: profile
-	ln -vshf .dotfiles/.zshrc ${HOME}/.zshrc
+	ln -vsf .dotfiles/.zshrc ${HOME}/.zshrc
 
 .PHONY: vim
 vim:
-	ln -vshf .dotfiles/.vimrc ${HOME}/.vimrc
+	ln -vsf .dotfiles/.vimrc ${HOME}/.vimrc
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	vim +PlugInstall +qall
 
 .PHONY: alacritty
 alacritty:
-	ln -vshf ../.dotfiles/alacritty ${HOME}/.config/alacritty
+	ln -vsf ../.dotfiles/alacritty ${HOME}/.config/alacritty
 
 .PHONY: tmux
 tmux:
-	ln -vshf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
+	ln -vsf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
 
 .PHONY: git
 git:
