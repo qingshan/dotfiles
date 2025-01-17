@@ -1,5 +1,4 @@
 window:
-  startup_mode: Fullscreen
   decorations: None
   option_as_alt: Both
 
