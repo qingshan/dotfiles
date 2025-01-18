@@ -1,0 +1,12 @@
+[Unit]
+Description=User resume actions
+After=suspend.target
+
+[Service]
+User=%I
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/xmodmap /home/%u/.dotfiles/debian/.Xmodmap
+
+[Install]
+WantedBy=suspend.target

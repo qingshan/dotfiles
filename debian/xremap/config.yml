@@ -1,0 +1,26 @@
+keymap:
+  - name: Brave Browser
+    application:
+      only: Brave-browser
+    remap:
+      Super-a: C-a
+      Super-d: C-d
+      Super-f: C-f
+      Super-l: C-l
+      Super-n: C-n
+      Super-r: C-r
+      Super-t: C-t
+      Super-w: C-w
+      Super-y: C-y
+      Super-c: C-c
+      Super-v: C-v
+      Super-x: C-x
+      Super-1: C-1
+      Super-2: C-2
+      Super-3: C-3
+      Super-4: C-4
+      Super-5: C-5
+      Super-6: C-6
+      Super-7: C-7
+      Super-8: C-8
+      Super-9: C-9

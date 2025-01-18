@@ -1,0 +1,9 @@
+wm.mod: Mod3
+wm.bar.position: top
+wm.bar.mode: hide
+wm.binding.bar_toggle: Shift+i
+wm.binding.bluetooth: KP_1
+wm.binding.display: KP_2
+wm.binding.settings: KP_3
+wm.binding.wifi: KP_4
+regolith.look.path: /usr/share/regolith-look/lascaille
