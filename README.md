@@ -14,18 +14,22 @@ make
 
 ### Desktops
 
-- macOS
-- Manjaro i3
+- macOS: aerospace & hyperkey
+- Debian: regolith-i3 & xremap & xmodmap
+
+Both desktops use same key bindigs, go to [Desktop Cheatsheet](docs/desktop_cheatsheet.md).
 
 ### Servers
 
-- Redhat Enterprise Linux 8 (CentOS / Oracle)
 - Ubuntu
+- Rocky Linux
 
 ### Terminals
 
 - alacritty
 - tmux
+
+For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacritty-integration-with-tmux/)
 
 ### Shells
 
@@ -54,22 +58,14 @@ make
 
 - Java: IntelliJ IDEA Community Edition with IdeaVim
 - Go: Vim with vim-go
-- Rust: Helix editor
-
-### Deployment Environment
-
-- docker
-- caddy
+- Rust: Zed
 
 ### Fonts
 
 - JetBrains Mono Font
 - Nerd Font
 
-## Cheatsheets
-
+### Vim
 - [Vim Cheatsheet](docs/vim_cheatsheet.md)
 - [Vim Plugins](docs/vim_plugins.md)
 - [IdeaVim](docs/ideavim.md)
-- [Helix](docs/helix.md)
-- [i3 Cheatsheet](docs/i3_cheatsheet.md)
