@@ -1,6 +1,3 @@
-set_from_resource $wm.program.media-keys wm.program.media-keys /usr/libexec/gnome-flashback-media-keys
-exec --no-startup-id $wm.program.media-keys
-
 ## Launch // Launcher // <❖> Space ##
 bindsym Mod4+$wm.binding.launcher.app exec --no-startup-id $wm.program.launcher.app -t $ilia.stylesheet
 
@@ -14,7 +11,13 @@ bindsym $mod+c workspace $ws2; exec ~/.cargo/bin/run-or-raise 'class="dev.zed.Ze
 bindsym $mod+t workspace $ws3; exec ~/.cargo/bin/run-or-raise 'class="Alacritty"' /usr/bin/gtk-launch Alacritty
 
 ## Launch // Ebook // <❖> E ##
-bindsym $mod+e workspace $ws4; exec ~/.cargo/bin/run-or-raise 'name="Foliate"' /usr/bin/gtk-launch com.github.johnfactotum.Foliate
+bindsym $mod+e workspace $ws4; exec ~/.cargo/bin/run-or-raise 'class="Com.github.johnfactotum.Foliate"' /usr/bin/gtk-launch com.github.johnfactotum.Foliate
+
+## Launch // Dictionary // <❖> D ##
+bindsym $mod+d exec ~/.cargo/bin/run-or-raise 'class="GoldenDict"' /usr/bin/gtk-launch org.goldendict.GoldenDict
+
+## Launch // Zeal // <❖> Z ##
+bindsym $mod+z exec ~/.cargo/bin/run-or-raise 'class="Zeal"' /usr/bin/gtk-launch org.zealdocs.zeal
 
 # open applications on specific workspaces
 for_window [class="Brave-browser"] move to workspace $ws1
@@ -22,3 +25,5 @@ for_window [class="dev.zed.Zed"] move to workspace $ws2
 for_window [class="Alacritty"] move to workspace $ws3
 for_window [class="Com.github.johnfactotum.Foliate"] move to workspace $ws4
 for_window [class="regolith-control-center"] floating enable
+for_window [class="GoldenDict"] floating enable, resize set 800 600, move position center, move scratchpad, scratchpad show
+for_window [class="Zeal"] floating enable, resize set 800 600, move position center, move scratchpad, scratchpad show
