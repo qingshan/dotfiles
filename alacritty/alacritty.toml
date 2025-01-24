@@ -8,14 +8,9 @@ italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
 bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
 bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
 
-[shell]
-args = ["--login", "--command", "tmux new-session -A -D -s main"]
-program = "/usr/local/bin/fish"
-
 [window]
 decorations = "None"
 option_as_alt = "Both"
-startup_mode = "SimpleFullscreen"
 
 # Key bindings
 # A list with all available `key` names can be found here:
@@ -110,3 +105,9 @@ bindings = [
   { key = "Key8",     mods = "Command|Shift", chars = "\u001c\u001b8"     },
   { key = "Key9",     mods = "Command|Shift", chars = "\u001c\u001b9"     },
 ]
+
+[terminal]
+
+[terminal.shell]
+args = ["--login", "--command", "tmux new-session -A -D -s main"]
+program = "/usr/local/bin/fish"
