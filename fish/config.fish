@@ -60,8 +60,8 @@ if command -q fzf
 end
 
 # zk
-if command -q zk
   set -gx ZK_NOTEBOOK_DIR $NOTES
+  if command -q zk
 end
 
 # bat
@@ -83,6 +83,7 @@ end
 
 # cd
 abbr cdc 'cd ~/code'
+abbr cdw 'cd ~/work'
 abbr cdd 'cd ~/Downloads'
 abbr cdf 'cd ~/.dotfiles'
 abbr cdh 'cd ~'
@@ -111,18 +112,13 @@ abbr --add gcb 'git checkout -b'
 abbr --add gd 'git diff -w'
 abbr --add gds 'git diff -w --staged'
 abbr --add gs 'git status'
-abbr --add glf 'git logf'
-abbr --add glo 'git logo'
-abbr --add gp 'git pull'
-abbr --add gpr 'git pull --rebase'
-abbr --add gP 'git push'
-abbr --add gPo 'git push origin'
+abbr --add gpu 'git push -u'
+abbr --add gpd 'git push -d origin'
+abbr --add gf 'git pull'
 
 # pr
 abbr --add prl 'gh pr list'
-abbr --add prp 'git push --set-upstream origin (git branch --show-current)'
-abbr --add prn 'gh pr create --draft --fill --title (git branch --show-current) --body-file .github/pull_request_template.md'
-abbr --add prw 'gh pr view --web'
+abbr --add prv 'gh pr view --web'
 
 # brew
 abbr --add bi 'brew install'
@@ -243,6 +239,12 @@ end
 # multipass
 if command -q multipass
   abbr --add mp 'multipass'
+end
+
+# gh
+if command -q gh
+  abbr --add ghce 'gh copilot explain'
+  abbr --add ghcs 'gh copilot suggest -t shell'
 end
 
 # aliases
