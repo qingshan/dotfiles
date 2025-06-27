@@ -148,3 +148,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 [[on-window-detected]]
     if.app-id = 'com.apple.podcasts'
     run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'com.tencent.xinWeChat'
+    run = 'layout floating'
