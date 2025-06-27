@@ -25,7 +25,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'machakann/vim-swap'
-Plug 'SirVer/ultisnips'
 " File
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
@@ -39,7 +38,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
 " Coding
 Plug 'dense-analysis/ale'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'rust-lang/rust.vim'
 Plug 'jtdowney/vimux-cargo'
 Plug 'cespare/vim-toml'
@@ -435,14 +433,6 @@ let g:AutoPairsShortcutToggle = '<M-a>'
 let g:AutoPairsShortcutJump = '<M-l>'
 let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutBackInsert = ''
-" }}}
-
-" ultisnips {{{
-let g:UltiSnipsExpandTrigger = '<Tab>'
-let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-let g:UltiSnipsListSnippets = '<C-L>'
-cabbrev SE UltiSnipsEdit
 " }}}
 
 " vim-expand-region {{{
