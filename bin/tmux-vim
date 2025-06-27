@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+file=$1
+line=$2
+
+tmux if-shell "tmux select-window -t :vim" "" "new-window -c '#{pane_current_path}' -n vim vim"
+tmux send-keys -t :vim ":open $file" C-m
+tmux send-keys -t :vim ":$line" C-m

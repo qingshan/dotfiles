@@ -15,4 +15,4 @@ rg --color=always --line-number --no-heading --smart-case "${*:-}" \
      --preview 'bat {1} --highlight-line {2}' \
      --preview-window 'right,+{2}+3/3,~3' \
      --scrollbar '▍' \
-  | awk -F ':' '{print $1 ":" $2}'
+  | awk -F ':' '{print $1, $2}'
