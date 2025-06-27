@@ -11,6 +11,7 @@ bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
 [window]
 decorations = "None"
 option_as_alt = "Both"
+startup_mode = "SimpleFullscreen"
 
 # Key bindings
 # A list with all available `key` names can be found here:
