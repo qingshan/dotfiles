@@ -1,0 +1,38 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - curl
+  - wget
+  - make
+  - git
+  - fish
+  - fzf
+  - unzip
+  - ripgrep
+  - fd-find
+  - bat
+  - direnv
+  - zoxide
+  - starship
+  - htop
+  - rsync
+  - tmux
+  - vim
+  - gh
+  - jq
+  - yq
+
+users:
+  - name: qingshan
+    shell: /usr/bin/fish
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: sudo
+    lock_passwd: false
+
+runcmd:
+  - sudo -H -u qingshan git clone https://github.com/qingshan/dotfiles.git ~/.dotfiles
+  - sudo -H -u qingshan make -C ~/.dotfiles packages tools
+
+final_message: "The system is finally configured, after $UPTIME seconds"
