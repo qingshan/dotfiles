@@ -18,6 +18,7 @@ linux:
 	@if [ -f /etc/redhat-release ]; then sh ./linux/redhat/setup.sh; fi
 	@if [ -f /etc/arch-release ]; then sh ./linux/arch/setup.sh; fi
 	@if [ -f /etc/debian_version ]; then sh ./linux/debian/setup.sh; fi
+	touch ~/.hushlogin
 
 .PHONY: packages
 packages: python-packages node-packages rust-packages fish-packages
@@ -33,6 +34,7 @@ go-packages:
 
 .PHONY: rust-packages
 rust-packages:
+	rustup default stable
 	rustup component add rust-src
 	rustup component add rust-analyzer
 
