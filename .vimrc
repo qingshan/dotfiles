@@ -131,7 +131,7 @@ endif
 " Colors {{{
 set t_Co=256
 set background=dark
-colorscheme gruvbox
+silent! colorscheme gruvbox
 " }}}
 
 " File Types {{{
@@ -303,7 +303,7 @@ command! CC exec s:colorcolumn_toggle()
 " }}}
 
 " vim-sandwich {{{
-call operator#sandwich#set('all', 'all', 'highlight', 0)
+silent! call operator#sandwich#set('all', 'all', 'highlight', 0)
 
 function! s:quick_surround(t, c)
   if a:t == ''
@@ -436,13 +436,13 @@ let g:AutoPairsShortcutBackInsert = ''
 " }}}
 
 " vim-expand-region {{{
-call expand_region#custom_text_objects('go', {
+silent! call expand_region#custom_text_objects('go', {
   \ 'if': 0,
   \ 'af': 0,
   \ 'ic': 0,
   \ 'ac': 0
   \ })
-call expand_region#custom_text_objects('html', {
+silent! call expand_region#custom_text_objects('html', {
   \ 'it': 1,
   \ 'at': 1
   \ })
