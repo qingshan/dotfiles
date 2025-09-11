@@ -21,7 +21,8 @@ Both desktops use same key bindigs, go to [Desktop Cheatsheet](docs/desktop_chea
 
 ### Servers
 
-- Ubuntu
+- Debian
+- Ubuntu 
 - Rocky Linux
 
 ### Terminals
@@ -48,16 +49,15 @@ For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacrit
 - lazygit
 - zoxide
 - jq
+- just
 
 ### Notes
 
 - mdbook for publish notes
-- zk for private notes
 
 ### Development Environments
 
 - Java: IntelliJ IDEA Community Edition with IdeaVim
-- Go: Vim with vim-go
 - Rust: Zed
 
 ### Fonts
