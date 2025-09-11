@@ -1,0 +1,49 @@
+FROM debian:latest
+
+RUN apt-get update && \
+    apt install -y \
+    openssh-server \
+    locales \
+    sudo \
+    curl \
+    wget \
+    make \
+    git \
+    fish \
+    fzf \
+    unzip \
+    ripgrep \
+    fd-find \
+    bat \
+    direnv \
+    zoxide \
+    starship \
+    htop \
+    rsync \
+    tmux \
+    vim \
+    gh \
+    jq \
+    yq
+
+RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+  && locale-gen en_US.utf8 \
+  && /usr/sbin/update-locale LANG=en_US.UTF-8
+
+RUN groupadd --gid 1000 qingshan && \
+    useradd --create-home --shell=/usr/bin/fish --uid=1000 --gid=1000 qingshan && \
+    echo "qingshan ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/qingshan && \
+    chmod 0440 /etc/sudoers.d/qingshan
+
+#COPY qingshan.pub /home/qingshan/.ssh/authorized_keys
+#RUN chown -R qingshan:qingshan /home/qingshan && \
+#    chmod 0700 /home/qingshan/.ssh && \
+#    chmod 0600 /home/qingshan/.ssh/authorized_keys
+
+EXPOSE 8022
+CMD ["/usr/sbin/sshd", "-D", "-e"]
