@@ -90,4 +90,14 @@ git:
 dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
 
+.PHONY: test
+test:
+	mkdir -p test
+	ssh-keygen -q -N "" -t rsa -f test/id_rsa
+	docker build -t dotbox -f ~/.dotfiles/linux/debian/Dockerfile .
+	docker run --name dotbox -h dotbox -d --rm -p 8022:22 dotbox
+	ssh -q -i test/id_rsa -p 8022 127.0.0.1 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" "rustup show"
+	docker stop dotbox
+	rm -rf test
+
 .DEFAULT_GOAL := install

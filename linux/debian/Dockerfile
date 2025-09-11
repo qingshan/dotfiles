@@ -24,7 +24,8 @@ RUN apt-get update && \
     vim \
     gh \
     jq \
-    yq
+    yq \
+    rustup
 
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 
@@ -40,10 +41,13 @@ RUN groupadd --gid 1000 qingshan && \
     echo "qingshan ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/qingshan && \
     chmod 0440 /etc/sudoers.d/qingshan
 
-#COPY qingshan.pub /home/qingshan/.ssh/authorized_keys
-#RUN chown -R qingshan:qingshan /home/qingshan && \
-#    chmod 0700 /home/qingshan/.ssh && \
-#    chmod 0600 /home/qingshan/.ssh/authorized_keys
+RUN sudo -H -u qingshan git clone https://github.com/qingshan/dotfiles.git /home/qingshan/.dotfiles && \
+    sudo -H -u qingshan make -C /home/qingshan/.dotfiles packages tools 
 
-EXPOSE 8022
+COPY test/id_rsa.pub /home/qingshan/.ssh/authorized_keys
+RUN chown -R qingshan:qingshan /home/qingshan/.ssh && \
+    chmod 0700 /home/qingshan/.ssh && \
+    chmod 0600 /home/qingshan/.ssh/authorized_keys
+
+EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D", "-e"]
