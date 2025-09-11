@@ -90,7 +90,7 @@ abbr cdh 'cd ~'
 abbr cdn 'cd ~/code/notes'
 
 function mkcd
-  mkdir -p -- "$1" && cd -P -- "$1"
+  mkdir -p -- "$argv[1]" && cd -P -- "$argv[1]"
 end
 
 # directory
@@ -236,10 +236,34 @@ if command -q zk
   abbr --add zn 'zk inbox'
 end
 
-# multipass
-if command -q multipass
-  abbr --add mp 'multipass'
+# orb
+if test -d ~/.orbstack
+  source ~/.orbstack/shell/init2.fish
 end
+
+if command -q orb
+  orb completion fish | source
+end
+
+function devbox
+  set action $argv[1]
+  if test "$action" = "create"
+    if command -q orbctl
+      orbctl create -u qingshan -c ~/.dotfiles/linux/debian/cloud-init.yaml debian:trixie devbox
+    else
+      docker build -t devbox -f ~/.dotfiles/linux/debian/Dockerfile .
+    end
+  else if test "$action" = "ssh"
+    ssh devbox
+  else
+    if command -q orbctl
+      orbctl $argv[1] devbox $argv[2..]
+    else
+      docker $argv[1] devbox $argv[2..]
+    end
+  end
+end
+
 
 # gh
 if command -q gh
