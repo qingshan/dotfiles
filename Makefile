@@ -72,7 +72,9 @@ vim:
 
 .PHONY: alacritty
 alacritty:
-	ln -vsf ../.dotfiles/alacritty ${HOME}/.config/alacritty
+	@if [ -z "$$SSH_CLIENT" ]; then \
+		ln -vsf -T ../.dotfiles/alacritty ${HOME}/.config/alacritty; \
+	fi
 
 .PHONY: tmux
 tmux:
