@@ -79,6 +79,9 @@ brew "pandoc"
 brew "pandoc-crossref"
 brew "yt-dlp"
 brew "zola"
+# ai
+brew "gemini-cli"
+brew "codex"
 # fonts
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
