@@ -91,7 +91,8 @@ dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
 
 .PHONY: test
-test:
+test: docker-test orb-test
+docker-test:
 	mkdir -p test
 	ssh-keygen -q -N "" -t rsa -f test/id_rsa
 	docker build -t dotbox -f ~/.dotfiles/linux/debian/Dockerfile .
@@ -99,5 +100,13 @@ test:
 	ssh -q -i test/id_rsa -p 8022 127.0.0.1 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" "rustup show"
 	docker stop dotbox
 	rm -rf test
+
+orb-test:
+	orbctl stop dotbox
+	orbctl delete -f dotbox
+	orbctl create -u qingshan -c ~/.dotfiles/linux/debian/cloud-init.yaml debian:trixie dotbox
+	orbctl run -m dotbox rustup show
+	orbctl stop dotbox
+	orbctl delete -f dotbox
 
 .DEFAULT_GOAL := install

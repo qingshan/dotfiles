@@ -69,3 +69,21 @@ For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacrit
 - [Vim Cheatsheet](docs/vim_cheatsheet.md)
 - [Vim Plugins](docs/vim_plugins.md)
 - [IdeaVim](docs/ideavim.md)
+
+## Mantainance
+
+OrbStack on MacOS:
+
+```
+make orb-test
+```
+
+it uses OrbStack to build `linux/debian/cloud-init.yml` to test dotfiles on Debian 13.
+
+Docker on Linux:
+
+```
+make docker-test
+```
+
+it uses Docker to build `linux/debian/Dockkerfile` to test dotfiles on Debian 13.
