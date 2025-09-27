@@ -81,6 +81,22 @@ if command -q exa
   abbr --add lt 'exa -l -g --icons --tree'
 end
 
+# Use GNU find, grep, sed, sort, and xargs if on a Mac
+if test (uname) = "Darwin"
+    if command -q gfind &>/dev/null
+        alias find=gfind
+    end
+    if command -q gsed &>/dev/null
+        alias xsed=gsed
+    end
+    if command -q gsort &>/dev/null
+        alias sort=gsort
+    end
+    if command -q gxargs &>/dev/null
+        alias xargs=gxargs
+    end
+end
+
 # cd
 abbr cdc 'cd ~/code'
 abbr cdw 'cd ~/work'
