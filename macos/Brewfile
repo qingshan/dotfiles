@@ -2,7 +2,6 @@ tap "homebrew/bundle"
 tap "hashicorp/tap"
 # shells
 brew "bash"
-brew "zsh"
 brew "fish"
 # utils
 brew "coreutils"
@@ -29,10 +28,9 @@ brew "terminal-notifier"
 # data
 brew "jq"
 brew "htmlq"
-brew "html2text"
+brew "mdq"
 # markdown
 brew "mdbook"
-brew "mdcat"
 brew "glow"
 # terminal
 brew "tmux"
@@ -79,6 +77,8 @@ brew "pandoc"
 brew "pandoc-crossref"
 brew "yt-dlp"
 brew "zola"
+brew "asciinema"
+brew "agg"
 # ai
 brew "gemini-cli"
 brew "codex"
@@ -94,7 +94,7 @@ cask "dropbox"
 # desktop
 cask "alfred"
 cask "eqmac"
-cask "vlc"
+cask "iina"
 cask "keycastr"
 cask "hyperkey"
 cask "microsoft-remote-desktop"
