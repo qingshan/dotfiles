@@ -34,6 +34,7 @@ go-packages:
 
 .PHONY: rust-packages
 rust-packages:
+	rustup toolchain install stable
 	rustup default stable
 	rustup component add rust-src
 	rustup component add rust-analyzer
