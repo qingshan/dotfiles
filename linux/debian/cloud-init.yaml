@@ -22,7 +22,6 @@ packages:
   - vim
   - gh
   - jq
-  - yq
   - rustup
 
 users:

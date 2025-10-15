@@ -24,7 +24,6 @@ RUN apt-get update && \
     vim \
     gh \
     jq \
-    yq \
     rustup
 
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
@@ -42,7 +41,7 @@ RUN groupadd --gid 1000 qingshan && \
     chmod 0440 /etc/sudoers.d/qingshan
 
 RUN sudo -H -u qingshan git clone https://github.com/qingshan/dotfiles.git /home/qingshan/.dotfiles && \
-    sudo -H -u qingshan make -C /home/qingshan/.dotfiles packages tools 
+    sudo -H -u qingshan make -C /home/qingshan/.dotfiles packages tools
 
 COPY test/id_rsa.pub /home/qingshan/.ssh/authorized_keys
 RUN chown -R qingshan:qingshan /home/qingshan/.ssh && \
