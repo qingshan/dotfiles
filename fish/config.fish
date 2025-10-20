@@ -280,6 +280,15 @@ function devbox
   end
 end
 
+# ports
+function ports
+  if set -q argv[1]
+    set PORT $argv[1]
+    sudo lsof -iTCP:$PORT -sTCP:LISTEN -n -P
+  else
+    sudo lsof -iTCP -sTCP:LISTEN -n -P
+  end
+end
 
 # gh
 if command -q gh
