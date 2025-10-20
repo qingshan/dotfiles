@@ -1,0 +1,65 @@
+#!/bin/sh
+
+directory=""
+action="top"
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -a|--action)
+      action="$2"
+      shift 2
+      ;;
+    -d|--directory)
+      directory="$2"
+      shift 2
+      ;;
+    -h|--help)
+      # Print help
+      echo "Usage: tmux-project -a [action] -d [directory] [cluster] -- arguments".
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*|--*)
+      echo "${0}: invalid option -- '${1}'"
+      exit 1
+      ;;
+    *)
+      positional_args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+cluster=${positional_args[0]}
+hosts=$(sed -n 's/^'$cluster'[[:space:]]=[[:space:]]//p' ~/.csshrc)
+
+if [ -z "${hosts}" ]; then
+  echo "no hosts in cluster $cluster"
+  exit 2
+fi
+
+controller=$(echo $hosts | cut -f 1)
+workers=$(echo $hosts | cut -f 2- | tr ' ' '\n')
+tile="tiled"
+
+tmux new-window "ssh $controller"
+tmux rename-window "$cluster"
+sleep 0.2
+if [ -n "${directory}" ]; then
+  tmux send-keys "cd $directory" Enter
+fi
+for node in $workers; do
+  tmux split-window "ssh $node"
+  sleep 0.2
+  if [ -n "${directory}" ]; then
+    tmux send-keys "cd $directory" Enter
+  fi
+  tmux select-layout $tile
+done
+sleep 0.2
+tmux select-pane -t 1
+tmux set-window-option synchronize-panes on
+tmux set-hook pane-exited "select-layout tiled"
+tmux send-keys "$action" Enter

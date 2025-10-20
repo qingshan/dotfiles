@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
 
-commands() {
-  tmux show-options -g -v @COMMANDS 2> /dev/null || builtin history
+clusters() {
+    test -f ~/.csshrc && sed -n 's/^clusters[[:space:]]=[[:space:]]//p' ~/.csshrc | tr ' ' "\n"  | sort | uniq | awk '{print "tmux-cssh", $1 }'
 }
 
-commands | fzf --no-sort --prompt ' ' --pointer='➤ ' --marker='➤'
+servers() {
+  test -f ~/.ssh/config && cat ~/.ssh/config | grep "^Host " | awk '{print $2}' | grep -v "*" | awk '{print "ssh", $1}'
+}
+
+search() {
+  clusters
+  servers
+}
+
+search | fzf --no-sort --prompt ' ' --pointer='➤ ' --marker='➤'
