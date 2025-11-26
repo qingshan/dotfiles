@@ -60,13 +60,13 @@ if command -q fzf
 end
 
 # zk
+if command -q zk
   set -gx ZK_NOTEBOOK_DIR $NOTES
-  if command -q zk
 end
 
 # bat
 if command -q bat
-  abbr --add cat 'bat -p'
+  alias cat 'bat --style=plain --paging=never'
 end
 
 # lsd
