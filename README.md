@@ -14,7 +14,7 @@ make
 
 ### Desktops
 
-- macOS: aerospace & hyperkey
+- macOS
 - Debian: regolith-i3 & xremap & xmodmap
 
 Both desktops use same key bindigs, go to [Desktop Cheatsheet](docs/desktop_cheatsheet.md).
@@ -22,7 +22,7 @@ Both desktops use same key bindigs, go to [Desktop Cheatsheet](docs/desktop_chea
 ### Servers
 
 - Debian
-- Ubuntu 
+- Ubuntu
 - Rocky Linux
 
 ### Terminals
