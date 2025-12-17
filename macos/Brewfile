@@ -76,9 +76,10 @@ cask "alacritty"
 cask "brave-browser"
 cask "google-chrome"
 # desktop
-cask "keycastr"
 cask "eqmac"
 cask "iina"
+cask "keycastr"
+cask "hyperkey"
 # development
 cask "intellij-idea"
 cask "obsidian"
