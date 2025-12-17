@@ -14,8 +14,8 @@ make
 
 ### Desktops
 
-- macOS
-- Debian: regolith-i3 & xremap & xmodmap
+- [macOS](macos/README.md)
+- [Debian](debian/README.md): regolith-i3 & xremap & xmodmap
 
 Both desktops use same key bindigs, go to [Desktop Cheatsheet](docs/desktop_cheatsheet.md).
 
