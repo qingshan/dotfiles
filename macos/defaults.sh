@@ -22,6 +22,8 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock show-recents -bool false
 # Dock: orientation
 defaults write com.apple.dock orientation -string left
+# Don’t automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false
 # Dock: corners
 defaults write com.apple.dock wvous-bl-corner -int 14
 defaults write com.apple.dock wvous-br-corner -int 13
