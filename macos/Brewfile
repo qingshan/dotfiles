@@ -68,6 +68,8 @@ brew "agg"
 # ai
 brew "gemini-cli"
 brew "copilot-cli"
+# container
+brew "container"
 # fonts
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"

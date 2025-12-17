@@ -2,6 +2,7 @@ GIT_NAME = Qingshan
 GIT_MAIL = qs@qingshan.dev
 
 OS := $(shell uname -s | tr A-Z a-z)
+DOCKER := $(shell if command -v container >/dev/null 2>&1; then echo "container"; else echo "docker"; fi)
 
 .PHONY: install
 install: setup tools packages
@@ -73,9 +74,6 @@ vim:
 
 .PHONY: alacritty
 alacritty:
-	@if [ -z "$$SSH_CLIENT" ]; then \
-		ln -vsf -T ../.dotfiles/alacritty ${HOME}/.config/alacritty; \
-	fi
 
 .PHONY: tmux
 tmux:
@@ -92,22 +90,14 @@ dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
 
 .PHONY: test
-test: docker-test orb-test
-docker-test:
+test: debian-test
+debian-test:
 	mkdir -p test
 	ssh-keygen -q -N "" -t rsa -f test/id_rsa
-	docker build -t dotbox -f ~/.dotfiles/linux/debian/Dockerfile .
-	docker run --name dotbox -h dotbox -d --rm -p 8022:22 dotbox
+	$(DOCKER) build -t dotbox -f ~/.dotfiles/linux/debian/Dockerfile .
+	$(DOCKER) run --name dotbox -h dotbox -d --rm -p 8022:22 dotbox
 	ssh -q -i test/id_rsa -p 8022 127.0.0.1 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" "rustup show"
-	docker stop dotbox
+	$(DOCKER) stop dotbox
 	rm -rf test
-
-orb-test:
-	orbctl stop dotbox
-	orbctl delete -f dotbox
-	orbctl create -u qingshan -c ~/.dotfiles/linux/debian/cloud-init.yaml debian:trixie dotbox
-	orbctl run -m dotbox rustup show
-	orbctl stop dotbox
-	orbctl delete -f dotbox
 
 .DEFAULT_GOAL := install

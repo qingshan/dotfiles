@@ -7,8 +7,7 @@ Dotfiles are for macOS and Linux to setup my development environment.
 ```shell
 git clone https://github.com/qingshan/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-make
-```
+make ```
 
 ## Features
 
@@ -70,20 +69,10 @@ For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacrit
 - [Vim Plugins](docs/vim_plugins.md)
 - [IdeaVim](docs/ideavim.md)
 
-## Mantainance
+## Test
 
-OrbStack on MacOS:
+It uses Docker on Linux or Apple container to build `linux/debian/Dockkerfile` to test dotfiles on latest version of Debian.
 
+```shell
+make test
 ```
-make orb-test
-```
-
-it uses OrbStack to build `linux/debian/cloud-init.yml` to test dotfiles on Debian 13.
-
-Docker on Linux:
-
-```
-make docker-test
-```
-
-it uses Docker to build `linux/debian/Dockkerfile` to test dotfiles on Debian 13.
