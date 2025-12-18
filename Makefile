@@ -104,6 +104,7 @@ debian-test:
 	ssh-keygen -q -N "" -t rsa -f test/id_rsa
 	$(DOCKER) build -t dotbox -f ~/.dotfiles/linux/debian/Dockerfile .
 	$(DOCKER) run --name dotbox -h dotbox -d --rm -p 8022:22 dotbox
+	sleep 1
 	ssh -q -i test/id_rsa -p 8022 127.0.0.1 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" "rustup show"
 	$(DOCKER) stop dotbox
 	rm -rf test
