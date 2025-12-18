@@ -7,7 +7,8 @@ Dotfiles are for macOS and Linux to setup my development environment.
 ```shell
 git clone https://github.com/qingshan/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-make ```
+make
+```
 
 ## Features
 
