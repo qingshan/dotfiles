@@ -67,7 +67,7 @@ brew "asciinema"
 brew "agg"
 # ai
 brew "gemini-cli"
-brew "copilot-cli"
+cask "copilot-cli"
 # container
 brew "container"
 # fonts
