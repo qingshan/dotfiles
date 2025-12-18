@@ -2,24 +2,39 @@ GIT_NAME = Qingshan
 GIT_MAIL = qs@qingshan.dev
 
 OS := $(shell uname -s | tr A-Z a-z)
-DOCKER := $(shell if command -v container >/dev/null 2>&1; then echo "container"; else echo "docker"; fi)
+
 
 .PHONY: install
 install: setup tools packages
 
 .PHONY: setup
-setup: $(OS)
+setup: setup-$(OS)
 
-.PHONY: darwin
-darwin:
-	sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+.PHONY: setup-darwin
+setup-darwin:
+	@sh ./macos/setup.sh
 
-.PHONY: linux
-linux:
+.PHONY: setup-linux
+setup-linux:
 	@if [ -f /etc/redhat-release ]; then sh ./linux/redhat/setup.sh; fi
 	@if [ -f /etc/arch-release ]; then sh ./linux/arch/setup.sh; fi
 	@if [ -f /etc/debian_version ]; then sh ./linux/debian/setup.sh; fi
 	touch ~/.hushlogin
+
+.PHONY: desktop
+desktop: desktop-$(OS)
+
+.PHONY: alacritty
+alacritty:
+	mkdir -p ${HOME}/.config/alacritty
+	ln -vsf ../../.dotfiles/alacritty/alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
+
+.PHONY: desktop-darwin
+desktop-darwin: alacritty
+
+.PHONY: desktop-linux
+desktop-linux: alacritty
+	@if [ -f /etc/debian_version ]; then sh ./debian/setup.sh; fi
 
 .PHONY: packages
 packages: python-packages node-packages rust-packages fish-packages
@@ -29,9 +44,6 @@ python-packages:
 
 .PHONY: node-packages
 node-packages:
-
-.PHONY: go-packages
-go-packages:
 
 .PHONY: rust-packages
 rust-packages:
@@ -47,7 +59,7 @@ fish-packages:
 	fish -c "fisher install jorgebucaran/autopair.fish"
 
 .PHONY: tools
-tools: fish bash zsh vim alacritty tmux git dirs
+tools: fish bash vim tmux git dirs
 
 .PHONY: profile
 profile:
@@ -62,18 +74,11 @@ fish: profile
 bash: profile
 	ln -vsf .dotfiles/.bashrc ${HOME}/.bashrc
 
-.PHONY: zsh
-zsh: profile
-	ln -vsf .dotfiles/.zshrc ${HOME}/.zshrc
-
 .PHONY: vim
 vim:
 	ln -vsf .dotfiles/.vimrc ${HOME}/.vimrc
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	vim +PlugInstall +qall
-
-.PHONY: alacritty
-alacritty:
 
 .PHONY: tmux
 tmux:
@@ -91,6 +96,9 @@ dirs:
 
 .PHONY: test
 test: debian-test
+
+DOCKER := $(shell if command -v container >/dev/null 2>&1; then echo "container"; else echo "docker"; fi)
+
 debian-test:
 	mkdir -p test
 	ssh-keygen -q -N "" -t rsa -f test/id_rsa
