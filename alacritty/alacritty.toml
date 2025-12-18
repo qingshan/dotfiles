@@ -11,7 +11,7 @@ bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
 [window]
 decorations = "None"
 option_as_alt = "Both"
-startup_mode = "SimpleFullscreen"
+startup_mode = "Fullscreen"
 
 # Key bindings
 # A list with all available `key` names can be found here:
@@ -37,7 +37,6 @@ bindings = [
   { key = "T",        mods = "Command",       chars = "\u001cc"           }, # new tab with default shell
   { key = "T",        mods = "Command|Shift", chars = "\u001cC"           }, # new tab with commands menu
   { key = "N",        mods = "Command",       chars = "\u001cS"           }, # switch session in current window with local sessions menu
-  { key = "N",        mods = "Command|Shift", command = { program = "/usr/local/bin/alacritty", args = ["msg", "create-window", "-e", "/usr/local/bin/fish", "--login", "--command", "tmux-sessions --all"] } }, # open session in new window with all sessions menu across servers
 
   # ----- close pane/tab/window -----
   { key = "W",        mods = "Command",       chars = "\u001cx"           }, # close the pane
@@ -106,9 +105,3 @@ bindings = [
   { key = "Key8",     mods = "Command|Shift", chars = "\u001c\u001b8"     },
   { key = "Key9",     mods = "Command|Shift", chars = "\u001c\u001b9"     },
 ]
-
-[terminal]
-
-[terminal.shell]
-args = ["--login", "--command", "tmux new-session -A -D -s main"]
-program = "/usr/local/bin/fish"

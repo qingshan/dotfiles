@@ -1,0 +1,16 @@
+[general]
+import = ["~/.dotfiles/alacritty/alacritty.toml"]
+
+[window]
+startup_mode = "Fullscreen"
+
+[terminal]
+
+[terminal.shell]
+args = ["--login", "--command", "tmux new-session -A -D -s main"]
+program = "/usr/bin/fish"
+
+[keyboard]
+bindings = [
+  { key = "N",        mods = "Command|Shift", command = { program = "/usr/bin/alacritty", args = ["msg", "create-window", "-e", "/usr/bin/fish", "--login", "--command", "tmux-sessions --all"] } }, # open session in new window with all sessions menu across servers
+]

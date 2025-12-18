@@ -27,7 +27,7 @@ desktop: desktop-$(OS)
 .PHONY: alacritty
 alacritty:
 	mkdir -p ${HOME}/.config/alacritty
-	ln -vsf ../../.dotfiles/alacritty/alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
+	ln -vsf ../../.dotfiles/alacritty/$(OS)_alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
 
 .PHONY: desktop-darwin
 desktop-darwin: alacritty
