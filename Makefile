@@ -95,14 +95,14 @@ dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
 
 .PHONY: test
-test: docker-test debian-test
+test: server-test desktop-test
 
-.PHONY: docker-test
-docker-test:
-	make -C ./test docker-test
+.PHONY: server-test
+server-test:
+	make -C ./test server-test
 
-.PHONY: debian-test
-debian-test:
-	make -C ./test debian-test
+.PHONY: desktop-test
+desktop-test:
+	make -C ./test desktop-test
 
 .DEFAULT_GOAL := install
