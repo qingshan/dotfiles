@@ -3,7 +3,6 @@ GIT_MAIL = qs@qingshan.dev
 
 OS := $(shell uname -s | tr A-Z a-z)
 
-
 .PHONY: install
 install: setup tools packages
 

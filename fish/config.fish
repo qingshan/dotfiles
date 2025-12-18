@@ -9,8 +9,10 @@ set -gx NOTES ~/code/notes
 set -gx PROJECTS ~/code
 
 # homebrew shell environment (macOS only)
-if test -x /opt/homebrew/bin/brew
-  /opt/homebrew/bin/brew shellenv | source
+if command -q brew
+  brew shellenv | source
+  # version agnostic python links
+  fish_add_path -m (brew --prefix python)/libexec/bin
 end
 
 fish_add_path -m ~/.bin
