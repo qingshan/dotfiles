@@ -43,7 +43,7 @@ RUN groupadd --gid 1000 qingshan && \
 RUN sudo -H -u qingshan git clone https://github.com/qingshan/dotfiles.git /home/qingshan/.dotfiles && \
     sudo -H -u qingshan make -C /home/qingshan/.dotfiles packages tools
 
-COPY test/id_rsa.pub /home/qingshan/.ssh/authorized_keys
+COPY id_rsa.pub /home/qingshan/.ssh/authorized_keys
 RUN chown -R qingshan:qingshan /home/qingshan/.ssh && \
     chmod 0700 /home/qingshan/.ssh && \
     chmod 0600 /home/qingshan/.ssh/authorized_keys

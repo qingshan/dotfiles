@@ -33,6 +33,6 @@ users:
 
 runcmd:
   - sudo -H -u qingshan git clone https://github.com/qingshan/dotfiles.git /home/qingshan/.dotfiles
-  - sudo -H -u qingshan make -C /home/qingshan/.dotfiles packages tools
+  - sudo -H -u qingshan make -C /home/qingshan/.dotfiles setup desktop packages tools
 
 final_message: "The system is finally configured, after $UPTIME seconds"
