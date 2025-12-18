@@ -1,5 +1,12 @@
 # macOS
 
+## Host Name
+
+```shell
+sudo scutil --set LocalHostName qingshan-mba
+hostname
+```
+
 ## Apps in Dock and Space
 
 5 Spaces
