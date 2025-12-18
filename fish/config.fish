@@ -8,6 +8,11 @@ set -gx DOTFILES ~/.dotfiles
 set -gx NOTES ~/code/notes
 set -gx PROJECTS ~/code
 
+# homebrew shell environment (macOS only)
+if test -x /opt/homebrew/bin/brew
+  /opt/homebrew/bin/brew shellenv | source
+end
+
 fish_add_path -m ~/.bin
 fish_add_path -m ~/.dotfiles/bin
 fish_add_path -m ~/.local/bin
@@ -17,21 +22,12 @@ end
 if test -d ~/.cargo/bin
   fish_add_path -m ~/.cargo/bin
 end
-if test -d /usr/local/opt/llvm/bin
-  fish_add_path -m /usr/local/opt/llvm/bin
-end
-if test -d ~/Library/Application\ Support/multipass/bin
-  fish_add_path -m ~/Library/Application\ Support/multipass/bin
-end
-if test -d /Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS
-  fish_add_path -m /Applications/IntelliJ\ IDEA\ CE.app/Contents/MacOS
-end
-fish_add_path -m /opt/local/bin
-fish_add_path -m /opt/local/sbin
 
 # greeting
-function fish_greeting
-end
+set -U fish_greeting
+
+# docker
+set -gx DOCKER (if command -q container; echo "container"; else; echo "docker"; end)
 
 # starship
 if command -q starship
@@ -216,21 +212,28 @@ abbr --add cw 'cargo watch -x "run"'
 abbr --add cdoc 'cargo doc'
 
 # Docker
-abbr -a de 'docker exec'
+abbr dc 'docker container'
+abbr dce 'docker container exec -i -t'
+abbr dcr 'docker container run'
+abbr dcrn 'docker container run -i -t --name'
+abbr dcri 'docker container run -i -t --rm'
+abbr dcrm 'docker container rm -f'
+abbr dcpr 'docker container prune'
+
+abbr di 'docker image'
+abbr dils 'docker image ls'
+abbr dipr 'docker image prune'
+abbr dcps 'docker container ps'
+abbr dirm 'docker image rm'
+abbr dit 'docker image tag'
+
+abbr -a dce 'docker exec'
 abbr -a deit 'docker exec -it'
 abbr -a dka 'docker kill (docker ps -q)'
 abbr -a dil 'docker image list'
 abbr -a dip 'docker image prune'
 abbr -a dipa 'docker image prune -a'
-abbr -a dlg 'docker logs'
-abbr -a dlgf 'docker logs -f'
-abbr -a dps 'docker ps'
-abbr -a dpsa 'docker ps -a'
-abbr -a drm 'docker rm'
-abbr -a drmi 'docker rmi'
-abbr -a drun 'docker run'
-abbr -a drunn 'docker run --name'
-abbr -a dsa 'docker stop (docker ps -q)'
+
 # Docker Compose
 abbr -a dcd 'docker compose down'
 abbr -a dck 'docker compose kill'
@@ -297,12 +300,13 @@ if command -q gh
 end
 
 # aliases
-alias ql='qlmanage -p 2>/dev/null'
-alias sucs='sort | uniq -c | sort -n'
+alias d="$DOCKER"
+alias e="$EDITOR"
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias gcurl='grpcurl -plaintext localhost:3000'
+alias ql='qlmanage -p 2>/dev/null'
+alias sucs='sort | uniq -c | sort -n'
 
 # fzf
 if command -v fzf &> /dev/null
