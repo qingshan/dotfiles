@@ -31,9 +31,8 @@ bindings = [
 
   # ----- new pane/tab/window -----
   { key = "D",        mods = "Command",       chars = "\u001c\""          }, # new vertical pane with default shell
-  { key = "D",        mods = "Command|Shift", chars = "\u001c-"           }, # new vertical pane with commands menu
+  { key = "D",        mods = "Command|Shift", chars = "\u001c%"           }, # new vertical pane with commands menu
   { key = "Return",   mods = "Command",       chars = "\u001c%"           }, # new horizontal pane with default shell
-  { key = "Return",   mods = "Command|Shift", chars = "\u001c|"           }, # new horizontal pane with commands menu
   { key = "T",        mods = "Command",       chars = "\u001cc"           }, # new tab with default shell
   { key = "T",        mods = "Command|Shift", chars = "\u001cC"           }, # new tab with commands menu
   { key = "N",        mods = "Command",       chars = "\u001cS"           }, # switch session in current window with local sessions menu
@@ -49,15 +48,15 @@ bindings = [
   { key = "G",        mods = "Command",       chars = "\u001cG"           }, # go to selected file and line
 
   # ----- misc shortcuts -----
-  { key = "A",        mods = "Command",       chars = "\u001cA"           }, # Useful commands menux for tmux
   { key = "R",        mods = "Command",       chars = "\u001cR"           }, # run command with commands menu in right vertical
   { key = "R",        mods = "Command|Shift", chars = "\u001cE"           }, # run command with commands selector in right vertical
-  { key = "P",        mods = "Command",       chars = "\u001cO"           }, # toggle popup window
+  { key = "P",        mods = "Command",       chars = "\u001cO"           }, # toggle popup pane
   { key = "P",        mods = "Command|Shift", chars = "\u001cP"           }, # go to the selected pane
-  { key = "Z",        mods = "Command",       chars = "\u001cz"           }, # zoom toggle of the current pane
-  { key = "Z",        mods = "Command|Shift", chars = "\u001cX"           }, # kill other panes
-  { key = "S",        mods = "Command",       chars = "\u001b:w\u000a"    }, # Type <escape>:w<enter> to save in vim or helix
-  { key = "S",        mods = "Command|Shift", chars = "\u001b:wa\u000a"   }, # Type <escape>:wa<enter> to save in vim or helix
+  { key = "X",        mods = "Command",       chars = "\u001cA"           }, # tmux commands menu for pane/tab
+  { key = "X",        mods = "Command|Shift", chars = "\u001cX"           }, # kill other panes in the tab
+  { key = "S",        mods = "Command",       chars = "\u001b:w\u000a"    }, # type <escape>:w<enter> to save in vim
+  { key = "S",        mods = "Command|Shift", chars = "\u001b:wa\u000a"   }, # type <escape>:wa<enter> to save in vim
+  { key = "Return",   mods = "Command|Shift", chars = "\u001cz"           }, # zoom toggle of the current pane
 
   # ----- navigate panes -----
   { key = "H",        mods = "Command",       chars = "\u001ch"           }, # go to the pane left
@@ -94,7 +93,7 @@ bindings = [
   { key = "Key9",     mods = "Command",       chars = "\u001c9"           },
 
   # ----- move panes -----
-  { key = "B",        mods = "Command|Shift", chars = "\u001c!"           }, # Break the current pane out of the window
+  { key = "B",        mods = "Command|Shift", chars = "\u001c!"           }, # break the current pane out of the tab
   { key = "Key1",     mods = "Command|Shift", chars = "\u001c\u001b1"     }, # move the current pane to tab 1..9
   { key = "Key2",     mods = "Command|Shift", chars = "\u001c\u001b2"     },
   { key = "Key3",     mods = "Command|Shift", chars = "\u001c\u001b3"     },
