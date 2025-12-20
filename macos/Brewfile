@@ -36,6 +36,7 @@ brew "rsync"
 brew "socat"
 brew "autossh"
 brew "wget"
+brew "pdsh"
 # editors
 brew "vim"
 # git
