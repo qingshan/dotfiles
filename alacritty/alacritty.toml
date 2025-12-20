@@ -30,9 +30,8 @@ bindings = [
   { key = "Minus",    mods = "Command",       action = "DecreaseFontSize" },
 
   # ----- new pane/tab/window -----
-  { key = "D",        mods = "Command",       chars = "\u001c\""          }, # new vertical pane with default shell
-  { key = "D",        mods = "Command|Shift", chars = "\u001c%"           }, # new vertical pane with commands menu
-  { key = "Return",   mods = "Command",       chars = "\u001c%"           }, # new horizontal pane with default shell
+  { key = "D",        mods = "Command",       chars = "\u001c%"           }, # new vertical pane with default shell
+  { key = "D",        mods = "Command|Shift", chars = "\u001c\""          }, # new horizontal pane with default shell
   { key = "T",        mods = "Command",       chars = "\u001cc"           }, # new tab with default shell
   { key = "T",        mods = "Command|Shift", chars = "\u001cC"           }, # new tab with commands menu
   { key = "N",        mods = "Command",       chars = "\u001cS"           }, # switch session in current window with local sessions menu
@@ -56,6 +55,7 @@ bindings = [
   { key = "X",        mods = "Command|Shift", chars = "\u001cX"           }, # kill other panes in the tab
   { key = "S",        mods = "Command",       chars = "\u001b:w\u000a"    }, # type <escape>:w<enter> to save in vim
   { key = "S",        mods = "Command|Shift", chars = "\u001b:wa\u000a"   }, # type <escape>:wa<enter> to save in vim
+  { key = "Return",   mods = "Command",       chars = "\u001cz"           }, # zoom toggle of the current pane
   { key = "Return",   mods = "Command|Shift", chars = "\u001cz"           }, # zoom toggle of the current pane
 
   # ----- navigate panes -----
@@ -77,6 +77,16 @@ bindings = [
   { key = "Down",     mods = "Command|Shift", chars = "\u001cJ"           },
   { key = "Up",       mods = "Command|Shift", chars = "\u001cK"           },
   { key = "Right",    mods = "Command|Shift", chars = "\u001cL"           },
+
+  # ----- swap panes -----
+  { key = "H",        mods = "Command|Alt", chars = "\u001c\u001bh"       }, # swap the current pane with left pane
+  { key = "J",        mods = "Command|Alt", chars = "\u001c\u001bj"       }, # swap the current pane with above pane
+  { key = "K",        mods = "Command|Alt", chars = "\u001c\u001bk"       }, # swap the current pane with below pane
+  { key = "L",        mods = "Command|Alt", chars = "\u001c\u001bl"       }, # swap the current pane with right pane
+  { key = "Left",     mods = "Command|Alt", chars = "\u001c\u001bh"       },
+  { key = "Down",     mods = "Command|Alt", chars = "\u001c\u001bj"       },
+  { key = "Up",       mods = "Command|Alt", chars = "\u001c\u001bk"       },
+  { key = "Right",    mods = "Command|Alt", chars = "\u001c\u001bl"       },
 
   # ----- navigate tabs -----
   { key = "B",        mods = "Command",       chars = "\u001c^"           }, # back to last tab
