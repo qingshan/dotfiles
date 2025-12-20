@@ -75,6 +75,7 @@ cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 # apps
 cask "alacritty"
+cask "ghostty"
 cask "brave-browser"
 cask "google-chrome"
 # desktop

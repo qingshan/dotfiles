@@ -23,16 +23,24 @@ setup-linux:
 .PHONY: desktop
 desktop: desktop-$(OS)
 
+.PHONY: terminal
+terminal: alacritty ghostty
+
 .PHONY: alacritty
 alacritty:
 	mkdir -p ${HOME}/.config/alacritty
 	ln -vsf ../../.dotfiles/alacritty/$(OS)_alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
 
+.PHONY: ghostty
+ghostty:
+	mkdir -p ${HOME}/.config/ghostty
+	ln -vsf ../../.dotfiles/ghostty/config ${HOME}/.config/ghostty/config
+
 .PHONY: desktop-darwin
-desktop-darwin: alacritty
+desktop-darwin: terminal
 
 .PHONY: desktop-linux
-desktop-linux: alacritty
+desktop-linux: terminal
 	@if [ -f /etc/debian_version ]; then sh ./debian/setup.sh; fi
 
 .PHONY: packages

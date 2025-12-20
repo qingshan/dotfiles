@@ -1,0 +1,95 @@
+# This is the configuration file for Ghostty.
+
+# auto update
+auto-update = off
+
+# fonts
+font-size = 16
+font-family = Jetbrains Mono
+font-thicken = true
+font-thicken-strength = 255
+font-feature = +zero,-liga,-calt
+
+# window
+initial-window = false
+quit-after-last-window-closed = false
+
+# macos
+macos-hidden = always
+macos-option-as-alt = true
+
+# quick terminal
+quick-terminal-animation-duration = 0
+quick-terminal-autohide = false
+quick-terminal-position = bottom
+
+# clipboard
+copy-on-select = true
+selection-clear-on-copy = true
+
+# shell
+command = /opt/homebrew/bin/fish --login --interactive
+
+# key bindings
+keybind = clear
+
+# key binding for quick terminal
+keybind = global:super+grave_accent=toggle_quick_terminal
+
+# key bindings for font size
+keybind = super+equal=increase_font_size:1
+keybind = super++=increase_font_size:1
+keybind = super+-=decrease_font_size:1
+keybind = super+0=reset_font_size
+
+# key bindings for new split
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+keybind = super+w=close_surface
+keybind = super+shift+w=close_tab
+keybind = super+q=close_window
+
+# key bindings for layouts
+keybind = super+ctrl+equal=equalize_splits
+keybind = super+ctrl+f=toggle_fullscreen
+keybind = super+enter=toggle_fullscreen
+keybind = super+shift+enter=toggle_split_zoom
+
+# key bindings for clipboard
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard
+keybind = super+shift+v=paste_from_selection
+keybind = copy=copy_to_clipboard
+keybind = paste=paste_from_clipboard
+
+# key bindings for goto splits
+keybind = super+h=goto_split:left
+keybind = super+j=goto_split:up
+keybind = super+k=goto_split:down
+keybind = super+l=goto_split:next
+
+# key bindings for resize splits
+keybind = super+shift+h=resize_split:left,10
+keybind = super+shift+j=resize_split:up,10
+keybind = super+shift+k=resize_split:down,10
+keybind = super+shift+l=resize_split:right,10
+
+# key bindings for scroll page
+keybind = super+shift+arrow_up=jump_to_prompt:-1
+keybind = super+arrow_up=jump_to_prompt:-1
+keybind = super+arrow_down=jump_to_prompt:1
+keybind = super+shift+arrow_down=jump_to_prompt:1
+keybind = super+page_up=scroll_page_up
+keybind = super+page_down=scroll_page_down
+keybind = super+home=scroll_to_top
+keybind = super+end=scroll_to_bottom
+
+# key bindings for text selection
+keybind = shift+arrow_right=adjust_selection:right
+keybind = shift+arrow_left=adjust_selection:left
+keybind = shift+arrow_up=adjust_selection:up
+keybind = shift+arrow_down=adjust_selection:down
+keybind = shift+page_up=adjust_selection:page_up
+keybind = shift+page_down=adjust_selection:page_down
+keybind = shift+home=adjust_selection:home
+keybind = shift+end=adjust_selection:end

@@ -24,8 +24,21 @@ hostname
 - Open on login
 - Hide menu bar icon
 
+## Ghostty
+
+Add in Login Items
+```
+sudo sfltool add --label "Ghostty" -a "/Applications/Ghostty.app"
+```
+
 ## Shortcuts
 
 - Launch daily apps using hyper key
 
 ## Keyboard
+
+## Tailscale
+
+```shell
+/Applications/Tailscale.app/Contents/MacOS/Tailscale set --hostname=qingshan-mba
+```
