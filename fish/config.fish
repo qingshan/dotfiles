@@ -96,12 +96,13 @@ if test (uname) = "Darwin"
 end
 
 # cd
-abbr cdc 'cd ~/code'
-abbr cdw 'cd ~/work'
-abbr cdd 'cd ~/Downloads'
-abbr cdf 'cd ~/.dotfiles'
-abbr cdh 'cd ~'
-abbr cdn 'cd ~/code/notes'
+abbr --add cdc 'cd ~/code'
+abbr --add cdw 'cd ~/work'
+abbr --add cdd 'cd ~/Downloads'
+abbr --add cdp 'cd ~/Public'
+abbr --add cdf 'cd ~/.dotfiles'
+abbr --add cdh 'cd ~'
+abbr --add cdn 'cd ~/code/notes'
 
 function mkcd
   mkdir -p -- "$argv[1]" && cd -P -- "$argv[1]"
@@ -133,6 +134,7 @@ abbr --add gf 'git pull'
 # pr
 abbr --add prl 'gh pr list'
 abbr --add prv 'gh pr view --web'
+abbr --add pra 'gh pr review --approve --body "LGTM"'
 
 # brew
 abbr --add bi 'brew install'
@@ -154,6 +156,7 @@ abbr --add v 'vim (fd --type f --hidden --follow --exclude .git | fzf-tmux -p --
 abbr --add va 'vim ~/.config/alacritty/alacritty.toml'
 abbr --add vb 'vim ~/.dotfiles/macos/Brewfile'
 abbr --add vf 'vim ~/.config/fish/config.fish'
+abbr --add vg 'vim ~/.config/ghostty/config'
 abbr --add vh 'vim ~/.dotfiles/helix/config.toml'
 abbr --add vs 'vim ~/.ssh/config'
 abbr --add vt 'vim ~/.dotfiles/.tmux.conf'
@@ -162,6 +165,9 @@ abbr --add vz 'vim ~/.dotfiles/zk/config.toml'
 abbr --add vpc 'vim +PlugClean'
 abbr --add vpi 'vim +PlugInstall'
 abbr --add vpu 'vim +PlugUpdate'
+
+# ssh
+abbr --add sci 'ssh-copy-id'
 
 # rsync
 abbr --add rcp 'rsync -vhra --include="**.gitignore" --exclude="/.git" --filter=":- .gitignore" --delete-after'
@@ -176,10 +182,6 @@ abbr --add tsa 'tmux-sessions algorithms'
 abbr --add tsd 'tmux-sessions dotfiles'
 abbr --add tsm 'tmux-sessions main'
 abbr --add tsn 'tmux-sessions notes'
-
-# ssh
-abbr --add lab 'ssh lab'
-abbr --add homelab 'ssh homelab'
 
 # make
 abbr --add mb 'make build'
@@ -214,40 +216,40 @@ abbr --add cw 'cargo watch -x "run"'
 abbr --add cdoc 'cargo doc'
 
 # Docker
-abbr dc 'docker container'
-abbr dce 'docker container exec -i -t'
-abbr dcr 'docker container run'
-abbr dcrn 'docker container run -i -t --name'
-abbr dcri 'docker container run -i -t --rm'
-abbr dcrm 'docker container rm -f'
-abbr dcpr 'docker container prune'
+abbr --add dc 'docker container'
+abbr --add dce 'docker container exec -i -t'
+abbr --add dcr 'docker container run'
+abbr --add dcrn 'docker container run -i -t --name'
+abbr --add dcri 'docker container run -i -t --rm'
+abbr --add dcrm 'docker container rm -f'
+abbr --add dcpr 'docker container prune'
 
-abbr di 'docker image'
-abbr dils 'docker image ls'
-abbr dipr 'docker image prune'
-abbr dcps 'docker container ps'
-abbr dirm 'docker image rm'
-abbr dit 'docker image tag'
+abbr --add di 'docker image'
+abbr --add dils 'docker image ls'
+abbr --add dipr 'docker image prune'
+abbr --add dcps 'docker container ps'
+abbr --add dirm 'docker image rm'
+abbr --add dit 'docker image tag'
 
-abbr -a dce 'docker exec'
-abbr -a deit 'docker exec -it'
-abbr -a dka 'docker kill (docker ps -q)'
-abbr -a dil 'docker image list'
-abbr -a dip 'docker image prune'
-abbr -a dipa 'docker image prune -a'
+abbr --add dce 'docker exec'
+abbr --add deit 'docker exec -it'
+abbr --add dka 'docker kill (docker ps -q)'
+abbr --add dil 'docker image list'
+abbr --add dip 'docker image prune'
+abbr --add dipa 'docker image prune -a'
 
 # Docker Compose
-abbr -a dcd 'docker compose down'
-abbr -a dck 'docker compose kill'
-abbr -a dcl 'docker compose logs'
-abbr -a dclf 'docker compose logs -f'
-abbr -a dclft 'docker compose logs -f --tail'
-abbr -a dclt 'docker compose logs --tail'
-abbr -a dcS 'docker compose stop'
-abbr -a dcs 'docker compose start'
-abbr -a dcu 'docker compose up'
-abbr -a dcud 'docker compose up -d'
-abbr -a dcuf 'docker compose up -f'
+abbr --add dcd 'docker compose down'
+abbr --add dck 'docker compose kill'
+abbr --add dcl 'docker compose logs'
+abbr --add dclf 'docker compose logs -f'
+abbr --add dclft 'docker compose logs -f --tail'
+abbr --add dclt 'docker compose logs --tail'
+abbr --add dcS 'docker compose stop'
+abbr --add dcs 'docker compose start'
+abbr --add dcu 'docker compose up'
+abbr --add dcud 'docker compose up -d'
+abbr --add dcuf 'docker compose up -f'
 
 # zk
 if command -q zk
@@ -257,31 +259,14 @@ if command -q zk
   abbr --add zn 'zk inbox'
 end
 
-# orb
-if test -d ~/.orbstack
-  source ~/.orbstack/shell/init2.fish
-end
-
-if command -q orb
-  orb completion fish | source
-end
-
 function devbox
   set action $argv[1]
   if test "$action" = "create"
-    if command -q orbctl
-      orbctl create -u qingshan -c ~/.dotfiles/linux/debian/cloud-init.yaml debian:trixie devbox
-    else
-      docker build -t devbox -f ~/.dotfiles/linux/debian/Dockerfile .
-    end
+    $DOCKER build -t devbox -f ~/.dotfiles/linux/debian/Dockerfile .
   else if test "$action" = "ssh"
     ssh devbox
   else
-    if command -q orbctl
-      orbctl $argv[1] devbox $argv[2..]
-    else
-      docker $argv[1] devbox $argv[2..]
-    end
+    $DOCKER $argv[1] devbox $argv[2..]
   end
 end
 
@@ -293,12 +278,6 @@ function ports
   else
     sudo lsof -iTCP -sTCP:LISTEN -n -P
   end
-end
-
-# gh
-if command -q gh
-  abbr --add ghce 'gh copilot explain'
-  abbr --add ghcs 'gh copilot suggest -t shell'
 end
 
 # aliases
