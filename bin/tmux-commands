@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 clusters() {
-    test -f ~/.csshrc && sed -n 's/^clusters[[:space:]]=[[:space:]]//p' ~/.csshrc | tr ' ' "\n"  | sort | uniq | awk '{print "tmux-cssh", $1 }'
+    test -d ~/.dsh/group && ls ~/.dsh/group | tr ' ' "\n"  | sort | uniq | awk '{print "tmux-cssh", $1 }'
 }
 
 servers() {
@@ -13,4 +13,4 @@ search() {
   servers
 }
 
-search | fzf --no-sort --prompt ' ' --pointer='➤ ' --marker='➤'
+search | fzf --no-sort --prompt '  ' --pointer='➤ ' --marker='➤'
