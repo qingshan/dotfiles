@@ -60,12 +60,13 @@ rust-packages:
 	rustup component add rust-analyzer
 
 .PHONY: shells
-tools: fish bash zsh
+shells: fish bash zsh
 
 .PHONY: fish
 fish:
 	mkdir -p ${HOME}/.config/fish
 	ln -vsf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
+	ln -vsf .dotfiles/.fish_profile ${HOME}/.fish_profile
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
 	fish -c "fisher install patrickf1/fzf.fish"
 	fish -c "fisher install jorgebucaran/autopair.fish"
