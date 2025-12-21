@@ -33,7 +33,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 cluster=${positional_args[0]}
-hosts=$(sed -n 's/^'$cluster'[[:space:]]=[[:space:]]//p' ~/.csshrc)
+hosts=$(cat ~/.dsh/group/$cluster)
 
 if [ -z "${hosts}" ]; then
   echo "no hosts in cluster $cluster"
