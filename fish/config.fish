@@ -1,12 +1,15 @@
 # env
 set -gx EDITOR vim
-set -gx GOPATH ~/.go
 set -gx TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
 set -gx LANG 'en_US.UTF-8'
 
-set -gx DOTFILES ~/.dotfiles
-set -gx NOTES ~/code/notes
-set -gx PROJECTS ~/code
+set -gx GOPATH ~/.go
+
+set -gx DOTFILES_PATH ~/.dotfiles
+set -gx NOTES_PATH ~/.notes
+set -gx PROJECTS_PATH ~/Projects
+set -gx BOOKS_PATH ~/Public/Books
+set -gx MOVIES_PATH ~/Public/Movies
 
 # homebrew shell environment (macOS only)
 if command -q brew
@@ -33,7 +36,7 @@ set -gx DOCKER (if command -q container; echo "container"; else; echo "docker"; 
 
 # starship
 if command -q starship
-  set -gx STARSHIP_CONFIG $DOTFILES/starship/starship.toml
+  set -gx STARSHIP_CONFIG ~/.dotfiles/starship/starship.toml
   starship init fish | source
 end
 
@@ -59,7 +62,7 @@ end
 
 # zk
 if command -q zk
-  set -gx ZK_NOTEBOOK_DIR $NOTES
+  set -gx ZK_NOTEBOOK_DIR $NOTES_PATH
 end
 
 # bat
@@ -292,7 +295,7 @@ end
 
 # fzf
 if command -v fzf &> /dev/null
-  set -gx FZF_DEFAULT_OPTS '--layout=reverse --inline-info --height "80%" --select-1 --exit-0'
+  set -gx FZF_DEFAULT_OPTS '--layout=reverse --info=inline-right --height "80%" --select-1 --exit-0'
   if command -v bat &> /dev/null
     set -gx FZF_PREVIEW_FILE '--ansi --preview-window "right:60%" --preview "bat --color=always --style=header,grid "'
   end
