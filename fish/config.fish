@@ -1,35 +1,12 @@
+# greeting
+set -U fish_greeting
+
 # env
-set -gx EDITOR vim
-set -gx TZ (readlink /etc/localtime | sed 's@/var/db/timezone/zoneinfo/@@')
-set -gx LANG 'en_US.UTF-8'
-
-set -gx GOPATH ~/.go
-
 set -gx DOTFILES_PATH ~/.dotfiles
 set -gx NOTES_PATH ~/.notes
 set -gx PROJECTS_PATH ~/Projects
 set -gx BOOKS_PATH ~/Public/Books
 set -gx MOVIES_PATH ~/Public/Movies
-
-# homebrew shell environment (macOS only)
-if command -q brew
-  brew shellenv | source
-  # version agnostic python links
-  fish_add_path -m (brew --prefix python)/libexec/bin
-end
-
-fish_add_path -m ~/.bin
-fish_add_path -m ~/.dotfiles/bin
-fish_add_path -m ~/.local/bin
-if test -d ~/.go/bin
-  fish_add_path -m ~/.go/bin
-end
-if test -d ~/.cargo/bin
-  fish_add_path -m ~/.cargo/bin
-end
-
-# greeting
-set -U fish_greeting
 
 # docker
 set -gx DOCKER (if command -q container; echo "container"; else; echo "docker"; end)
