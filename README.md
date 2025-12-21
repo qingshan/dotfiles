@@ -34,7 +34,8 @@ For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacrit
 
 ### Shells
 
-- fish
+- login shell: zsh on macOS, bash on Linux
+- interactive shell: fish
 
 ### Tools
 
