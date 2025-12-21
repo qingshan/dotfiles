@@ -69,14 +69,8 @@ end
 
 # lsd
 if command -q lsd
-  abbr --add l 'lsd --group-dirs first -A'
-  abbr --add ll 'lsd --group-dirs first -Al'
-  abbr --add lt 'lsd --group-dirs last -A --tree'
-end
-if command -q exa
-  abbr --add l 'exa --icons'
-  abbr --add ll 'exa -l -g --icons'
-  abbr --add lt 'exa -l -g --icons --tree'
+  alias ll='lsd --group-dirs first -Al'
+  alias lt='lsd --group-dirs last -A --tree'
 end
 
 # Use GNU find, grep, sed, sort, and xargs if on a Mac
@@ -95,6 +89,28 @@ if test (uname) = "Darwin"
     end
 end
 
+# pdsh
+if command -q pdsh
+  set -gx PDSH_RCMD_TYPE ssh
+end
+
+# aliases
+alias d="$DOCKER"
+alias e="$EDITOR"
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ql='qlmanage -p 2>/dev/null'
+alias sucs='sort | uniq -c | sort -n'
+
+# rsync
+alias rcp='rsync -vhra --include="**.gitignore" --exclude="/.git" --filter=":- .gitignore" --delete-after'
+alias rscp='rsync --archive --compress-level=3 --copy-links --partial --inplace --progress --rsh=ssh -r'
+alias rcpl='rsync --compress --verbose --human-readable --partial --progress'
+
+# yt-dlp
+alias ytdl='yt-dlp --write-auto-sub --sub-lang en --convert-subs=srt'
+
 # cd
 abbr --add cdc 'cd ~/code'
 abbr --add cdw 'cd ~/work'
@@ -103,10 +119,6 @@ abbr --add cdp 'cd ~/Public'
 abbr --add cdf 'cd ~/.dotfiles'
 abbr --add cdh 'cd ~'
 abbr --add cdn 'cd ~/code/notes'
-
-function mkcd
-  mkdir -p -- "$argv[1]" && cd -P -- "$argv[1]"
-end
 
 # directory
 abbr --add rmr 'rm -rf'
@@ -168,14 +180,6 @@ abbr --add vpu 'vim +PlugUpdate'
 
 # ssh
 abbr --add sci 'ssh-copy-id'
-
-# rsync
-abbr --add rcp 'rsync -vhra --include="**.gitignore" --exclude="/.git" --filter=":- .gitignore" --delete-after'
-abbr --add rscp 'rsync --archive --compress-level=3 --copy-links --partial --inplace --progress --rsh=ssh -r'
-abbr --add rcpl 'rsync --compress --verbose --human-readable --partial --progress'
-
-# yt-dlp
-abbr --add ytdl 'yt-dlp --write-auto-sub --sub-lang en --convert-subs=srt'
 
 # tmux sessions
 abbr --add tsa 'tmux-sessions algorithms'
@@ -259,6 +263,12 @@ if command -q zk
   abbr --add zn 'zk inbox'
 end
 
+# make directory and cd
+function mkcd
+  mkdir -p -- "$argv[1]" && cd -P -- "$argv[1]"
+end
+
+# devbox
 function devbox
   set action $argv[1]
   if test "$action" = "create"
@@ -279,15 +289,6 @@ function ports
     sudo lsof -iTCP -sTCP:LISTEN -n -P
   end
 end
-
-# aliases
-alias d="$DOCKER"
-alias e="$EDITOR"
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ql='qlmanage -p 2>/dev/null'
-alias sucs='sort | uniq -c | sort -n'
 
 # fzf
 if command -v fzf &> /dev/null
