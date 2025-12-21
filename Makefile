@@ -72,13 +72,14 @@ fish:
 
 .PHONY: bash
 bash:
-	ln -vsf .dotfiles/.bashrc ${HOME}/.bashrc
-	ln -vsf .dotfiles/.profile ${HOME}/.bash_profile
+	touch ${HOME}/.bashrc
+	ln -vsf .dotfiles/.bash_profile ${HOME}/.bash_profile
 
 .PHONY: zsh
-bash:
-	ln -vsf .dotfiles/.bashrc ${HOME}/.zshrc
-	ln -vsf .dotfiles/.profile ${HOME}/.zprofile
+zsh:
+	touch ${HOME}/.zshrc
+	ln -vsf .dotfiles/.zshenv ${HOME}/.zshenv
+	ln -vsf .dotfiles/.zprofile ${HOME}/.zprofile
 
 .PHONY: tools
 tools: vim tmux git dirs
