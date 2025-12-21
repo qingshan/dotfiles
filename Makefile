@@ -12,52 +12,12 @@ setup: setup-$(OS)
 
 .PHONY: setup-darwin
 setup-darwin:
-	@sh ./macos/setup.sh
 
 .PHONY: setup-linux
 setup-linux:
 	@if [ -f /etc/redhat-release ]; then sh ./linux/redhat/setup.sh; fi
 	@if [ -f /etc/arch-release ]; then sh ./linux/arch/setup.sh; fi
 	@if [ -f /etc/debian_version ]; then sh ./linux/debian/setup.sh; fi
-
-.PHONY: desktop
-desktop: desktop-$(OS)
-
-.PHONY: terminal
-terminal: alacritty ghostty
-
-.PHONY: alacritty
-alacritty:
-	mkdir -p ${HOME}/.config/alacritty
-	ln -vsf ../../.dotfiles/alacritty/$(OS)_alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
-
-.PHONY: ghostty
-ghostty:
-	mkdir -p ${HOME}/.config/ghostty
-	ln -vsf ../../.dotfiles/ghostty/config ${HOME}/.config/ghostty/config
-
-.PHONY: desktop-darwin
-desktop-darwin: terminal
-
-.PHONY: desktop-linux
-desktop-linux: terminal
-	@if [ -f /etc/debian_version ]; then sh ./debian/setup.sh; fi
-
-.PHONY: packages
-packages: python-packages node-packages rust-packages
-
-.PHONY: python-packages
-python-packages:
-
-.PHONY: node-packages
-node-packages:
-
-.PHONY: rust-packages
-rust-packages:
-	rustup toolchain install stable
-	rustup default stable
-	rustup component add rust-src
-	rustup component add rust-analyzer
 
 .PHONY: shells
 shells: fish bash zsh
@@ -104,6 +64,46 @@ git:
 .PHONY: dirs
 dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
+
+.PHONY: packages
+packages: python-packages node-packages rust-packages
+
+.PHONY: python-packages
+python-packages:
+
+.PHONY: node-packages
+node-packages:
+
+.PHONY: rust-packages
+rust-packages:
+	rustup toolchain install stable
+	rustup default stable
+	rustup component add rust-src
+	rustup component add rust-analyzer
+
+.PHONY: desktop
+desktop: desktop-$(OS)
+
+.PHONY: terminal
+terminal: alacritty ghostty
+
+.PHONY: alacritty
+alacritty:
+	mkdir -p ${HOME}/.config/alacritty
+	ln -vsf ../../.dotfiles/alacritty/$(OS)_alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
+
+.PHONY: ghostty
+ghostty:
+	mkdir -p ${HOME}/.config/ghostty
+	ln -vsf ../../.dotfiles/ghostty/config ${HOME}/.config/ghostty/config
+
+.PHONY: desktop-darwin
+desktop-darwin: terminal
+	@sh ./macos/setup.sh
+
+.PHONY: desktop-linux
+desktop-linux: terminal
+	@if [ -f /etc/debian_version ]; then sh ./debian/setup.sh; fi
 
 .PHONY: test
 test: server-test desktop-test
