@@ -1,4 +1,4 @@
-export PATH="$HOME/.local/bin:$HOME/.bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.bin:$HOME/.dotfiles/bin:$PATH"
 
 # Go
 if [ -d "/usr/local/go/bin" ]; then
@@ -13,3 +13,7 @@ fi
 if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
+
+export LANG="en_US.UTF-8"
+
+export EDITOR="vim"
