@@ -26,19 +26,17 @@ shells: fish bash zsh
 fish:
 	mkdir -p ${HOME}/.config/fish
 	ln -vsf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
-	ln -vsf .dotfiles/.fish_profile ${HOME}/.fish_profile
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
 	fish -c "fisher install patrickf1/fzf.fish"
 	fish -c "fisher install jorgebucaran/autopair.fish"
 
 .PHONY: bash
 bash:
-	touch ${HOME}/.bashrc
+	ln -vsf .dotfiles/.bashrc ${HOME}/.bashrc
 	ln -vsf .dotfiles/.bash_profile ${HOME}/.bash_profile
 
 .PHONY: zsh
 zsh:
-	touch ${HOME}/.zshrc
 	ln -vsf .dotfiles/.zshenv ${HOME}/.zshenv
 	ln -vsf .dotfiles/.zprofile ${HOME}/.zprofile
 
