@@ -60,9 +60,6 @@ xdg-settings set default-web-browser brave-browser.desktop
 # alacritty as default terminal
 sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/alacritty 70
 
-# user shell
-chsh -s $(which fish)
-
 # grub
 sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
 sudo update-grub
