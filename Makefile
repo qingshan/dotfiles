@@ -4,7 +4,7 @@ GIT_MAIL = qs@qingshan.dev
 OS := $(shell uname -s | tr A-Z a-z)
 
 .PHONY: install
-install: setup tools packages
+install: setup shells tools packages
 
 .PHONY: setup
 setup: setup-$(OS)
@@ -44,7 +44,7 @@ desktop-linux: terminal
 	@if [ -f /etc/debian_version ]; then sh ./debian/setup.sh; fi
 
 .PHONY: packages
-packages: python-packages node-packages rust-packages fish-packages
+packages: python-packages node-packages rust-packages
 
 .PHONY: python-packages
 python-packages:
@@ -59,27 +59,29 @@ rust-packages:
 	rustup component add rust-src
 	rustup component add rust-analyzer
 
-.PHONY: fish-packages
-fish-packages:
+.PHONY: shells
+tools: fish bash zsh
+
+.PHONY: fish
+fish:
+	mkdir -p ${HOME}/.config/fish
+	ln -vsf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
 	fish -c "fisher install patrickf1/fzf.fish"
 	fish -c "fisher install jorgebucaran/autopair.fish"
 
-.PHONY: tools
-tools: fish bash vim tmux git dirs
-
-.PHONY: profile
-profile:
-	ln -vsf .dotfiles/.profile ${HOME}/.profile
-
-.PHONY: fish
-fish: profile
-	mkdir -p ${HOME}/.config/fish
-	ln -vsf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
-
 .PHONY: bash
-bash: profile
+bash:
 	ln -vsf .dotfiles/.bashrc ${HOME}/.bashrc
+	ln -vsf .dotfiles/.profile ${HOME}/.bash_profile
+
+.PHONY: zsh
+bash:
+	ln -vsf .dotfiles/.bashrc ${HOME}/.zshrc
+	ln -vsf .dotfiles/.profile ${HOME}/.zprofile
+
+.PHONY: tools
+tools: vim tmux git dirs
 
 .PHONY: vim
 vim:
