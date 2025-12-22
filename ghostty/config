@@ -4,7 +4,7 @@
 auto-update = off
 
 # fonts
-font-size = 16
+font-size = 14
 font-family = Jetbrains Mono
 font-thicken = true
 font-thicken-strength = 255
