@@ -37,11 +37,6 @@ if command -q fzf
   fzf --fish | source
 end
 
-# zk
-if command -q zk
-  set -gx ZK_NOTEBOOK_DIR $NOTES_PATH
-end
-
 # bat
 if command -q bat
   alias cat 'bat --style=plain --paging=never'
@@ -153,7 +148,6 @@ abbr --add vh 'vim ~/.dotfiles/helix/config.toml'
 abbr --add vs 'vim ~/.ssh/config'
 abbr --add vt 'vim ~/.dotfiles/.tmux.conf'
 abbr --add vv 'vim ~/.dotfiles/.vimrc'
-abbr --add vz 'vim ~/.dotfiles/zk/config.toml'
 abbr --add vpc 'vim +PlugClean'
 abbr --add vpi 'vim +PlugInstall'
 abbr --add vpu 'vim +PlugUpdate'
@@ -234,14 +228,6 @@ abbr --add dcs 'docker compose start'
 abbr --add dcu 'docker compose up'
 abbr --add dcud 'docker compose up -d'
 abbr --add dcuf 'docker compose up -f'
-
-# zk
-if command -q zk
-  abbr --add zc 'zk snippet'
-  abbr --add zj 'zk journal'
-  abbr --add zs 'zk scratch'
-  abbr --add zn 'zk inbox'
-end
 
 # make directory and cd
 function mkcd

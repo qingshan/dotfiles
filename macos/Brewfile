@@ -58,7 +58,6 @@ brew "spotbugs"
 brew "python"
 brew "uv"
 # tools
-brew "zk"
 brew "just"
 brew "rargs"
 brew "fortune"

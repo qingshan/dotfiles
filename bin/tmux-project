@@ -47,8 +47,6 @@ function detect_project {
     echo "rust"
   elif [ -f $directory/go.mod ] ; then
     echo "go"
-  elif [ -d $directory/.zk ] ; then
-    echo "zk"
   elif [ -f $directory/justfile ] || [ -f $directory/Justfile ] ; then
     echo "just"
   elif [ -f $directory/Makefile ] ; then
@@ -113,7 +111,6 @@ function build_menu_items {
   menu_items+=('Lazygit' 'l' 'run-shell "tmux-run -t window lazygit"')
   menu_items+=('Htop' 'h' 'run-shell "tmux-run -t window htop"')
   menu_items+=('')
-  menu_items+=('Journal' 'j' 'run-shell "tmux-run -t popup journal -- zk journal"')
   menu_items+=('Yue' 'y' 'run-shell "tmux-run -t top yue -- tmux-fortune"')
   menu_items+=('')
   menu_items+=('Clock' 'c' 'clock-mode')
