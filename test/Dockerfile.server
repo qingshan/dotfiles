@@ -36,7 +36,7 @@ RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
   && /usr/sbin/update-locale LANG=en_US.UTF-8
 
 RUN groupadd --gid 1000 qingshan && \
-    useradd --create-home --shell=/usr/bin/fish --uid=1000 --gid=1000 qingshan && \
+    useradd --create-home --shell=/bin/bash --uid=1000 --gid=1000 qingshan && \
     echo "qingshan ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/qingshan && \
     chmod 0440 /etc/sudoers.d/qingshan
 
