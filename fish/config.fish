@@ -155,6 +155,10 @@ abbr --add vpu 'vim +PlugUpdate'
 # ssh
 abbr --add sci 'ssh-copy-id'
 
+function rssh -a server
+  echo "$argv[2..]" | ssh $server
+end
+
 # tmux sessions
 abbr --add tsa 'tmux-sessions algorithms'
 abbr --add tsd 'tmux-sessions dotfiles'
@@ -230,27 +234,25 @@ abbr --add dcud 'docker compose up -d'
 abbr --add dcuf 'docker compose up -f'
 
 # make directory and cd
-function mkcd
-  mkdir -p -- "$argv[1]" && cd -P -- "$argv[1]"
+function mkcd -a path
+  mkdir -p "$path" && cd "$path"
 end
 
 # devbox
-function devbox
-  set action $argv[1]
+function devbox -a action
   if test "$action" = "create"
     $DOCKER build -t devbox -f ~/.dotfiles/linux/debian/Dockerfile .
   else if test "$action" = "ssh"
     ssh devbox
   else
-    $DOCKER $argv[1] devbox $argv[2..]
+    $DOCKER $action devbox $argv[2..]
   end
 end
 
 # ports
-function ports
-  if set -q argv[1]
-    set PORT $argv[1]
-    sudo lsof -iTCP:$PORT -sTCP:LISTEN -n -P
+function ports -a port
+  if set -q port
+    sudo lsof -iTCP:$port -sTCP:LISTEN -n -P
   else
     sudo lsof -iTCP -sTCP:LISTEN -n -P
   end
