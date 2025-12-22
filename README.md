@@ -4,10 +4,18 @@ Dotfiles are for macOS and Linux to setup my development environment.
 
 ## Installation
 
+Install dotfiles, run:
+
 ```shell
 git clone https://github.com/qingshan/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 make
+```
+
+For macOS or Debian desktop, one more step:
+
+```shell
+make desktop
 ```
 
 ## Features
@@ -23,29 +31,34 @@ Both desktops use same key bindigs, go to [Desktop Cheatsheet](docs/desktop_chea
 
 - Debian, Ubuntu
 - Rocky Linux, CentOS, RedHat Enterprise Linux
-- Arch Linux, Manjaro
+- Arch Linux
 
 ### Shells
 
 zsh as default shell on macOS:
-- `.zshenv` is sourced on all invocations of the shell.
-- `.zprofile` is sourced in login shells.
-- `.zshrc` is sourced in interactive shells.
+- `~/.zprofile` and `~/.profile` is sourced in login shell.
+- `~/.zshrc` is sourced in interactive shell.
 
 bash as default shell on macOS:
-- `.bash_profile` is sourced in login shells.
-- `.bashrc` is sourced in interactive non-login shells.
+- `~/.bash_profile` and `~/.profile` is sourced in login shell.
+- `~/.bashrc` is sourced in interactive shell.
 
-`.profile` is sourced in login shells for both bash and zsh.
-
-fish as interactive shell in interactive mode of zsh or bash, without setting it as the default shell.
+fish as interactive shell in interactive mode of zsh or bash, without setting it as user's default shell.
 
 ### Terminals
 
-- alacritty will launch tmux.
-- ghostty, tmux, ssh and other terminals will launch login shell (`$SHELL`) and interactive shell (fish).
+- alacritty, ghostty, ssh runs user's default shell as interactive login shell.
+- tmux runs inside an existing shell session, runs fish as interactive non-login shell.
 
-For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacritty-integration-with-tmux/)
+alacritty as default terminal integrated with tmux, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacritty-integration-with-tmux/) for key bindings.
+
+ghosttty as quick terminal.
+
+### SSH
+
+- `ssh server` starts interactive login shell.
+- `ssh server command` non-interactive non-login shell.
+- `echo command | ssh server` starts non-interactive login shell. You can also start one with `ssh server bash -l -c command`.
 
 ### Tools
 
