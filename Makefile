@@ -33,7 +33,7 @@ bash: profile
 
 .PHONY: zsh
 zsh: profile
-	ln -vsf .dotfiles/.zshenv ${HOME}/.zshenv
+	ln -vsf .dotfiles/.zshrc ${HOME}/.zshrc
 	ln -vsf .dotfiles/.zprofile ${HOME}/.zprofile
 
 .PHONY: fish
