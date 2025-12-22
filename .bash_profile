@@ -1,5 +1,5 @@
 # common profile
-source $HOME/.dotfiles/.profile
+source $HOME/.profile
 
 # local bashrc
 if [ -f $HOME/.bashrc ]; then

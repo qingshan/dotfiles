@@ -20,7 +20,21 @@ setup-linux:
 	@if [ -f /etc/debian_version ]; then sh ./linux/debian/setup.sh; fi
 
 .PHONY: shells
-shells: fish bash zsh
+shells: bash zsh fish
+
+.PHONY: profile
+profile:
+	ln -vsf .dotfiles/.profile ${HOME}/.profile
+
+.PHONY: bash
+bash: profile
+	ln -vsf .dotfiles/.bashrc ${HOME}/.bashrc
+	ln -vsf .dotfiles/.bash_profile ${HOME}/.bash_profile
+
+.PHONY: zsh
+zsh: profile
+	ln -vsf .dotfiles/.zshenv ${HOME}/.zshenv
+	ln -vsf .dotfiles/.zprofile ${HOME}/.zprofile
 
 .PHONY: fish
 fish:
@@ -29,16 +43,6 @@ fish:
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
 	fish -c "fisher install patrickf1/fzf.fish"
 	fish -c "fisher install jorgebucaran/autopair.fish"
-
-.PHONY: bash
-bash:
-	ln -vsf .dotfiles/.bashrc ${HOME}/.bashrc
-	ln -vsf .dotfiles/.bash_profile ${HOME}/.bash_profile
-
-.PHONY: zsh
-zsh:
-	ln -vsf .dotfiles/.zshenv ${HOME}/.zshenv
-	ln -vsf .dotfiles/.zprofile ${HOME}/.zprofile
 
 .PHONY: tools
 tools: vim tmux git dirs

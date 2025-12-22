@@ -27,9 +27,6 @@ quick-terminal-position = bottom
 copy-on-select = true
 selection-clear-on-copy = true
 
-# shell
-command = /opt/homebrew/bin/fish --login --interactive
-
 # key bindings
 keybind = clear
 

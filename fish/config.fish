@@ -1,8 +1,6 @@
 # greeting
 set -U fish_greeting
 
-set -gx EDITOR "vim"
-
 # env
 set -gx DOTFILES_PATH ~/.dotfiles
 set -gx NOTES_PATH ~/.notes

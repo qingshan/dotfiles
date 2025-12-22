@@ -1,5 +1,5 @@
 # Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ ! -o interactive && ! -o login && -s "$HOME/.zprofile" ]]; then
+if [[ ! -o interactive && ! -o login && -s "$HOME/.profile" ]]; then
   export PATH="/usr/local/bin:$PATH"
 
   # homebrew
@@ -7,7 +7,7 @@ if [[ ! -o interactive && ! -o login && -s "$HOME/.zprofile" ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
   fi
 
-  source $HOME/.zprofile
+  source $HOME/.profile
 fi
 
 # /etc/zprofile is sourced after ~/.zshenv for interactive shells

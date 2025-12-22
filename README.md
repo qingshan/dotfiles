@@ -21,21 +21,31 @@ Both desktops use same key bindigs, go to [Desktop Cheatsheet](docs/desktop_chea
 
 ### Servers
 
-- Debian
-- Ubuntu
-- Rocky Linux
-
-### Terminals
-
-- alacritty
-- tmux
-
-For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacritty-integration-with-tmux/)
+- Debian, Ubuntu
+- Rocky Linux, CentOS, RedHat Enterprise Linux
+- Arch Linux, Manjaro
 
 ### Shells
 
-- login shell: zsh on macOS, bash on Linux
-- interactive shell: fish
+zsh as default shell on macOS:
+- `.zshenv` is sourced on all invocations of the shell.
+- `.zprofile` is sourced in login shells.
+- `.zshrc` is sourced in interactive shells.
+
+bash as default shell on macOS:
+- `.bash_profile` is sourced in login shells.
+- `.bashrc` is sourced in interactive non-login shells.
+
+`.profile` is sourced in login shells for both bash and zsh.
+
+fish as interactive shell in interactive mode of zsh or bash, without setting it as the default shell.
+
+### Terminals
+
+- alacritty will launch tmux.
+- ghostty, tmux, ssh and other terminals will launch login shell (`$SHELL`) and interactive shell (fish).
+
+For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacritty-integration-with-tmux/)
 
 ### Tools
 
@@ -54,11 +64,11 @@ For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacrit
 
 ### Notes
 
-- mdbook for publish notes
+- mdbook for publish notes: [qingshan/notes](https://github.com/qingshan/notes)
 
 ### Development Environments
 
-- Java: IntelliJ IDEA Community Edition with IdeaVim
+- Java: IntelliJ IDEA with IdeaVim
 - Rust: Zed
 
 ### Fonts
@@ -73,8 +83,14 @@ For key bindings, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacrit
 
 ## Test
 
-It uses Docker on Linux or Apple container to build `linux/debian/Dockkerfile` to test dotfiles on latest version of Debian.
+Use Docker on Linux or Apple container on macOS to build `linux/debian/Dockkerfile` to test dotfiles on latest version of Debian.
 
+run server test
 ```shell
-make test
+make server-test
+```
+
+or run desktop test
+```shell
+make deskop-test
 ```

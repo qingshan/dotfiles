@@ -7,10 +7,10 @@ startup_mode = "SimpleFullscreen"
 [terminal]
 
 [terminal.shell]
-args = ["--login", "--command", "tmux new-session -A -D -s main"]
-program = "/opt/homebrew/bin/fish"
+program = "/bin/zsh"
+args = ["--login", "-c", "tmux new-session -A -D -s main"]
 
 [keyboard]
 bindings = [
-  { key = "N",        mods = "Command|Shift", command = { program = "/opt/homebrew/bin/alacritty", args = ["msg", "create-window", "-e", "/opt/homebrew/bin/fish", "--login", "--command", "tmux-sessions --all"] } }, # open session in new window with all sessions menu across servers
+  { key = "N",        mods = "Command|Shift", command = { program = "/opt/homebrew/bin/alacritty", args = ["msg", "create-window", "-e", "/bin/zsh", "--login", "-c", "tmux-sessions --all"] } }, # open session in new window with all sessions menu across servers
 ]
