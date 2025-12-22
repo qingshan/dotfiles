@@ -48,6 +48,9 @@ defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
 
+# Quit printer app after print jobs complete.
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+
 # Crash reporter
 defaults write com.apple.CrashReporter DialogType -string none
 
