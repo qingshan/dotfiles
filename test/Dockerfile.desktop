@@ -40,9 +40,8 @@ RUN groupadd --gid 1000 qingshan && \
     echo "qingshan ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/qingshan && \
     chmod 0440 /etc/sudoers.d/qingshan
 
-RUN sudo -H -u qingshan git clone https://github.com/qingshan/dotfiles.git /home/qingshan/.dotfiles
-
-    sudo -H -u qingshan make -C /home/qingshan/.dotfiles setup desktop packages tools
+RUN sudo -H -u qingshan git clone https://github.com/qingshan/dotfiles.git /home/qingshan/.dotfiles && \
+    sudo -H -u qingshan make -C /home/qingshan/.dotfiles desktop install
 
 COPY id_rsa.pub /home/qingshan/.ssh/authorized_keys
 RUN chown -R qingshan:qingshan /home/qingshan/.ssh && \

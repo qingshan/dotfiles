@@ -5,10 +5,10 @@ test: server-test desktop-test
 
 server-test:
 	cd ~/.dotfiles/test
-	$(DOCKER) build -t testbox -f Dockerfile.server .
-	$(DOCKER) run --name testbox -h testbox -d --rm -p 8022:22 testbox
+	$(DOCKER) build --no-cache -t testbox -f Dockerfile.server .
+	$(DOCKER) run --name testbox -d --rm -p 8022:22 testbox
 	sleep 1
-	chmodd 600 id_rsa
+	chmod 600 id_rsa
 	ssh -q -i id_rsa -p 8022 qingshan@127.0.0.1 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" "rustup show"
 	$(DOCKER) stop testbox
 
@@ -18,7 +18,7 @@ desktop-test:
 	$(DOCKER) build -t testbox -f Dockerfile.desktop .
 	$(DOCKER) run --name testbox -h testbox -d --rm -p 8022:22 testbox
 	sleep 1
-	chmodd 600 id_rsa
+	chmod 600 id_rsa
 	ssh -q -i id_rsa -p 8022 qingshan@127.0.0.1 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" "rustup show"
 	$(DOCKER) stop testbox
 
