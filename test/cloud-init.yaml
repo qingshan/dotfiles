@@ -26,7 +26,7 @@ packages:
 
 users:
   - name: qingshan
-    shell: /usr/bin/fish
+    shell: /bin/bash
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups: sudo
     lock_passwd: false
