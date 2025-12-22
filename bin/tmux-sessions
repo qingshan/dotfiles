@@ -1,28 +1,14 @@
 #!/usr/bin/env bash
 
 sessions() {
-  tmux show-options -g -v @SESSIONS 2> /dev/null | tr ' ' '\n' || tmux list-sessions -F '#{session_name}' 2> /dev/null
+  (
+    tmux show-options -g -v @SESSIONS 2> /dev/null | tr ' ' '\n';
+    tmux list-sessions -F '#{session_name}' 2> /dev/null
+  ) | sort | uniq
 }
 
 servers() {
-  (tmux show-options -g -v @SERVERS 2> /dev/null | tr ' ' '\n' | awk '{print "@" $1}') || (test -f ~/.ssh/config && cat ~/.ssh/config | grep "^Host " | awk '{print $2}' | grep -v "*")
-}
-
-search() {
-  (sessions; [[ $ALL == true ]] && servers) | grep -v "^$" | nl -w 1 -s ": " | fzf --no-sort --prompt "  " --pointer='➤ ' --marker='➤' | awk '{print $2}'
-}
-
-ALL=false
-if [[ $# -eq 1 ]]; then
-  case "$1" in
-    --all)
-      ALL=true
-      ;;
-    *)
-      SESSION=$1
-      ;;
-  esac
-fi
+  tmux show-options -g -v @SERVERS 2> /dev/null | tr ' ' '\n' | awk '{print "@" $1}'
 
 if [[ -z $SESSION ]]; then
   tmux_running=$(pgrep tmux)
@@ -32,14 +18,10 @@ if [[ -z $SESSION ]]; then
   SESSION=$(search)
 fi
 
-if [[ -z $SESSION ]]; then
-  exit 0
-fi
-
 if [[ $SESSION  =~ "@" ]]; then
   SERVER=$(echo $SESSION | cut -d@ -f2)
   SESSION=$(echo $SESSION | cut -d@ -f1)
-  exec autossh -M0 -t $SERVER /usr/bin/fish --login --command "tmux-sessions $SESSION"
+  exec autossh -M0 -t $SERVER '/bin/bash --login -c "tmux-sessions '$SESSION'"'
 else
   # new session if session is not available
   tmux_running=$(pgrep tmux)
