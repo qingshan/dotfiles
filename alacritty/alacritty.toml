@@ -47,10 +47,9 @@ bindings = [
   { key = "G",        mods = "Command",       chars = "\u001cG"           }, # go to selected file and line
 
   # ----- misc shortcuts -----
-  { key = "R",        mods = "Command",       chars = "\u001cR"           }, # run command with commands menu in right vertical
-  { key = "R",        mods = "Command|Shift", chars = "\u001cE"           }, # run command with commands selector in right vertical
-  { key = "P",        mods = "Command",       chars = "\u001cO"           }, # toggle popup pane
-  { key = "P",        mods = "Command|Shift", chars = "\u001cP"           }, # go to the selected pane
+  { key = "R",        mods = "Command",       chars = "\u001cR"           }, # run selected command from project menu in right vertical
+  { key = "R",        mods = "Command|Shift", chars = "\u001c|"           }, # run selected command from general commands in right vertical
+  { key = "P",        mods = "Command|Shift", chars = "\u001cE"           }, # run selected command from project commands in right vertical
   { key = "X",        mods = "Command",       chars = "\u001cA"           }, # tmux commands menu for pane/tab
   { key = "X",        mods = "Command|Shift", chars = "\u001cX"           }, # kill other panes in the tab
   { key = "S",        mods = "Command",       chars = "\u001b:w\u000a"    }, # type <escape>:w<enter> to save in vim
@@ -67,6 +66,8 @@ bindings = [
   { key = "Down",     mods = "Command",       chars = "\u001cj"           },
   { key = "Up",       mods = "Command",       chars = "\u001ck"           },
   { key = "Right",    mods = "Command",       chars = "\u001cl"           },
+  { key = "G",        mods = "Command|Shift", chars = "\u001cP"           }, # go to the selected pane
+  { key = "P",        mods = "Command",       chars = "\u001cO"           }, # go to the popup pane
 
   # ----- resize panes -----
   { key = "H",        mods = "Command|Shift", chars = "\u001cH"           }, # resize the current pane left
