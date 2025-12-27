@@ -9,20 +9,37 @@ sessions() {
 
 servers() {
   tmux show-options -g -v @SERVERS 2> /dev/null | tr ' ' '\n' | awk '{print "@" $1}'
+}
 
-if [[ -z $SESSION ]]; then
+search_sessions() {
+  sessions | grep -v "^$" | nl -w 1 -s ": " | fzf --no-sort --prompt "  " --pointer='➤ ' --marker='➤' | awk '{print $2}'
+}
+
+search_servers() {
+  servers | grep -v "^$" | nl -w 1 -s ": " | fzf --no-sort --prompt "  " --pointer='➤ ' --marker='➤' | awk '{print $2}'
+}
+
+SESSION="$1"
+
+if [[ -z $SESSION || "$SESSION" == "sessions" ]]; then
   tmux_running=$(pgrep tmux)
   if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     tmux new-session -ds main
   fi
-  SESSION=$(search)
+  SESSION=$(search_sessions)
+elif [[ "$SESSION" == "servers" ]]; then
+  tmux_running=$(pgrep tmux)
+  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -ds main
+  fi
+  SESSION=$(search_servers)
 fi
 
 if [[ $SESSION  =~ "@" ]]; then
   SERVER=$(echo $SESSION | cut -d@ -f2)
   SESSION=$(echo $SESSION | cut -d@ -f1)
   exec autossh -M0 -t $SERVER '/bin/bash --login -c "tmux-sessions '$SESSION'"'
-else
+elif [[ -n $SESSION ]]; then
   # new session if session is not available
   tmux_running=$(pgrep tmux)
   if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then

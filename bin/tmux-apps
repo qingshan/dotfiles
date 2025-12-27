@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+directory="."
+declare -a menu_items
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d|--directory)
+      directory="$2"
+      shift 2
+      ;;
+    -h|--help)
+      # Print help
+      echo "Usage: tmux-apps -d [directory] [cmd] -- arguments".
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*|--*)
+      echo "${0}: invalid option -- '${1}'"
+      exit 1
+      ;;
+    *)
+      positional_args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+cmd=${positional_args[0]}
+
+function build_menu_items {
+  menu_items+=('Lazygit' 'l' 'run-shell "tmux-run -t center lazygit"')
+  menu_items+=('Htop' 'h' 'run-shell "tmux-run -t center htop"')
+  menu_items+=('')
+  menu_items+=('Popup' 'p' 'run-shell "tmux-run -t popup popup -- tmux-popup"')
+  menu_items+=('Yue' 'y' 'run-shell "tmux-run -t top yue -- tmux-fortune"')
+  menu_items+=('')
+  menu_items+=('Clock' 'c' 'clock-mode')
+  menu_items+=('Quit' 'q' '')
+}
+
+case $cmd in
+  menu)
+    build_menu_items
+    tmux display-menu -x C -y C -T "#[align=centre fg=orange] Apps " "${menu_items[@]}"
+    ;;
+  *)
+    echo "Unkown command: $cmd"
+    ;;
+esac

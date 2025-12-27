@@ -34,21 +34,23 @@ bindings = [
   { key = "D",        mods = "Command|Shift", chars = "\u001c\""          }, # new horizontal pane with default shell
   { key = "T",        mods = "Command",       chars = "\u001cc"           }, # new tab with default shell
   { key = "T",        mods = "Command|Shift", chars = "\u001cC"           }, # new tab with commands menu
-  { key = "N",        mods = "Command",       chars = "\u001cS"           }, # switch session in current window with local sessions menu
+  { key = "N",        mods = "Command",       chars = "\u001cN"           }, # switch session in current window with local sessions menu
 
   # ----- close pane/tab/window -----
   { key = "W",        mods = "Command",       chars = "\u001cx"           }, # close the pane
   { key = "W",        mods = "Command|Shift", chars = "\u001c&"           }, # close the tab
   { key = "Q",        mods = "Command",       chars = "\u001cd"           }, # close the window
 
-  # ----- copy mode -----
+  # ----- find text/panes -----
   { key = "F",        mods = "Command",       chars = "\u001c[/"          }, # enter vi copy mode, and search from up to down
   { key = "F",        mods = "Command|Shift", chars = "\u001c[?"          }, # enter vi copy mode, search from down to up
   { key = "G",        mods = "Command",       chars = "\u001cG"           }, # go to selected file and line
+  { key = "G",        mods = "Command|Shift", chars = "\u001cY"           }, # go to the selected pane
 
   # ----- misc shortcuts -----
   { key = "R",        mods = "Command",       chars = "\u001cR"           }, # run selected command from project menu in right vertical
   { key = "R",        mods = "Command|Shift", chars = "\u001c|"           }, # run selected command from general commands in right vertical
+  { key = "P",        mods = "Command",       chars = "\u001cP"           }, # run select command from project menu in popup pane
   { key = "P",        mods = "Command|Shift", chars = "\u001cE"           }, # run selected command from project commands in right vertical
   { key = "X",        mods = "Command",       chars = "\u001cA"           }, # tmux commands menu for pane/tab
   { key = "X",        mods = "Command|Shift", chars = "\u001cX"           }, # kill other panes in the tab
@@ -66,8 +68,6 @@ bindings = [
   { key = "Down",     mods = "Command",       chars = "\u001cj"           },
   { key = "Up",       mods = "Command",       chars = "\u001ck"           },
   { key = "Right",    mods = "Command",       chars = "\u001cl"           },
-  { key = "G",        mods = "Command|Shift", chars = "\u001cP"           }, # go to the selected pane
-  { key = "P",        mods = "Command",       chars = "\u001cO"           }, # go to the popup pane
 
   # ----- resize panes -----
   { key = "H",        mods = "Command|Shift", chars = "\u001cH"           }, # resize the current pane left

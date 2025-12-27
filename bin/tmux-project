@@ -108,12 +108,6 @@ function build_menu_items {
       menu_items+=('')
       ;;
   esac
-  menu_items+=('Lazygit' 'l' 'run-shell "tmux-run -t window lazygit"')
-  menu_items+=('Htop' 'h' 'run-shell "tmux-run -t window htop"')
-  menu_items+=('')
-  menu_items+=('Yue' 'y' 'run-shell "tmux-run -t top yue -- tmux-fortune"')
-  menu_items+=('')
-  menu_items+=('Clock' 'c' 'clock-mode')
   menu_items+=('Quit' 'q' '')
 }
 
@@ -123,7 +117,7 @@ case $cmd in
     ;;
   menu)
     build_menu_items
-    tmux display-menu -x R -y P -T "#[align=centre fg=orange] Commands " "${menu_items[@]}"
+    tmux display-menu -x C -y C -T "#[align=centre fg=orange] Commands " "${menu_items[@]}"
     ;;
   *)
     echo "Unkown command: $cmd"
