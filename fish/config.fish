@@ -98,6 +98,9 @@ abbr --add cdn 'cd ~/code/notes'
 # directory
 abbr --add rmr 'rm -rf'
 
+# find file
+abbr --add ff 'find . -name'
+
 # git
 abbr --add g 'git'
 abbr --add ga 'git add'
@@ -117,6 +120,13 @@ abbr --add gs 'git status'
 abbr --add gpu 'git push -u'
 abbr --add gpd 'git push -d origin'
 abbr --add gf 'git pull'
+
+# git worktree
+abbr --add gwt "git worktree"
+abbr --add gwta "git worktree add"
+abbr --add gwtls "git worktree list"
+abbr --add gwtmv "git worktree move"
+abbr --add gwtrm "git worktree remove"
 
 # pr
 abbr --add prl 'gh pr list'
