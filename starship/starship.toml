@@ -2,20 +2,21 @@
 format = """
 $username\
 $hostname\
+$directory\
 $golang\
 $java\
 $nodejs\
 $python\
 $rust\
-$directory\
 $cmd_duration\
 $line_break\
 $character"""
 
 [character]
+format = "$symbol\u00A0"
 success_symbol = "[](white)"
+error_symbol = "[](red)"
 vicmd_symbol = "[](white)"
-error_symbol = "[](red)"
 
 [directory]
 style = "blue bold"
