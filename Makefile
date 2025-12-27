@@ -24,22 +24,22 @@ shells: bash zsh fish
 
 .PHONY: profile
 profile:
-	ln -vsf .dotfiles/.profile ${HOME}/.profile
+	ln -snf .dotfiles/.profile ${HOME}/.profile
 
 .PHONY: bash
 bash: profile
-	ln -vsf .dotfiles/.bashrc ${HOME}/.bashrc
-	ln -vsf .dotfiles/.bash_profile ${HOME}/.bash_profile
+	ln -snf .dotfiles/.bashrc ${HOME}/.bashrc
+	ln -snf .dotfiles/.bash_profile ${HOME}/.bash_profile
 
 .PHONY: zsh
 zsh: profile
-	ln -vsf .dotfiles/.zshrc ${HOME}/.zshrc
-	ln -vsf .dotfiles/.zprofile ${HOME}/.zprofile
+	ln -snf .dotfiles/.zshrc ${HOME}/.zshrc
+	ln -snf .dotfiles/.zprofile ${HOME}/.zprofile
 
 .PHONY: fish
 fish:
 	mkdir -p ${HOME}/.config/fish
-	ln -vsf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
+	ln -snf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
 	fish -c "fisher install patrickf1/fzf.fish"
 	fish -c "fisher install jorgebucaran/autopair.fish"
@@ -49,13 +49,14 @@ tools: vim tmux git dirs
 
 .PHONY: vim
 vim:
-	ln -vsf .dotfiles/.vimrc ${HOME}/.vimrc
+	ln -snf .dotfiles/.vimrc ${HOME}/.vimrc
+	ln -snf .dotfiles/.ideavimrc ${HOME}/.ideavimrc
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	vim +PlugInstall +qall
 
 .PHONY: tmux
 tmux:
-	ln -vsf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
+	ln -snf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
 
 .PHONY: git
 git:
@@ -92,19 +93,22 @@ terminal: alacritty ghostty
 .PHONY: alacritty
 alacritty:
 	mkdir -p ${HOME}/.config/alacritty
-	ln -vsf ../../.dotfiles/alacritty/$(OS)_alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
+	ln -snf ../../.dotfiles/alacritty/$(OS)_alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
 
 .PHONY: ghostty
 ghostty:
 	mkdir -p ${HOME}/.config/ghostty
-	ln -vsf ../../.dotfiles/ghostty/config ${HOME}/.config/ghostty/config
+	ln -snf ../../.dotfiles/ghostty/config ${HOME}/.config/ghostty/config
+
+.PHONY: editor
+editor:
 
 .PHONY: desktop-darwin
-desktop-darwin: terminal
+desktop-darwin: terminal editor
 	@sh ./macos/setup.sh
 
 .PHONY: desktop-linux
-desktop-linux: terminal
+desktop-linux: terminal editor
 	@if [ -f /etc/debian_version ]; then sh ./debian/setup.sh; fi
 
 .PHONY: test
