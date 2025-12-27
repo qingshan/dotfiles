@@ -13,10 +13,16 @@ font-feature = +zero,-liga,-calt
 # window
 initial-window = false
 quit-after-last-window-closed = false
+window-save-state = never
+
+# shell
+shell-integration = none
+term = xterm-256color
 
 # macos
 macos-hidden = always
 macos-option-as-alt = true
+macos-titlebar-style = hidden
 
 # quick terminal
 quick-terminal-animation-duration = 0
