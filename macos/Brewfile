@@ -21,7 +21,7 @@ brew "rename"
 brew "watch"
 brew "tealdeer"
 brew "direnv"
-brew "htop"
+brew "btop"
 # data
 brew "jq"
 brew "htmlq"

@@ -32,8 +32,8 @@ done
 cmd=${positional_args[0]}
 
 function build_menu_items {
+  menu_items+=('Btop' 'b' 'run-shell "tmux-run -t center btop"')
   menu_items+=('Lazygit' 'l' 'run-shell "tmux-run -t center lazygit"')
-  menu_items+=('Htop' 'h' 'run-shell "tmux-run -t center htop"')
   menu_items+=('')
   menu_items+=('Popup' 'p' 'run-shell "tmux-run -t popup popup -- tmux-popup"')
   menu_items+=('Yue' 'y' 'run-shell "tmux-run -t top yue -- tmux-fortune"')
