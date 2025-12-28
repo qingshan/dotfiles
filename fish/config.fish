@@ -78,12 +78,12 @@ alias ql='qlmanage -p 2>/dev/null'
 alias sucs='sort | uniq -c | sort -n'
 
 # apps
-if not command -q tailscale; test -d /Applications/Tailscale.app
+if not command -q tailscale; and test -d /Applications/Tailscale.app
   alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
   tailscale completion fish | source
 end
 
-if not command -q ghostty; test -d /Applications/Ghostty.app
+if not command -q ghostty; and test -d /Applications/Ghostty.app
   alias ghostty="/Applications/Ghostty.app/Contents/MacOS/ghostty"
   alias launcher='open -na Ghostty --args --title=Launcher --class=Launcher --initial-window=true --quit-after-last-window-closed=true  --window-padding-x=10 --window-padding-y=10 --keybind=clear'
 end
