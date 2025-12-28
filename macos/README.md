@@ -29,6 +29,7 @@ hostname
 Add in Login Items
 ```
 sudo sfltool add --label "Ghostty" -a "/Applications/Ghostty.app"
+defaults write com.mitchellh.ghostty TerminalDefaultLevel -int 3
 ```
 
 ## Shortcuts
