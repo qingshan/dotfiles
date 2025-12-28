@@ -13,7 +13,6 @@ set -gx DOCKER (if command -q container; echo "container"; else; echo "docker"; 
 
 # starship
 if command -q starship
-  set -gx STARSHIP_CONFIG ~/.dotfiles/starship/starship.toml
   starship init fish | source
 end
 
@@ -77,6 +76,17 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ql='qlmanage -p 2>/dev/null'
 alias sucs='sort | uniq -c | sort -n'
+
+# apps
+if not command -q tailscale; test -d /Applications/Tailscale.app
+  alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+  tailscale completion fish | source
+end
+
+if not command -q ghostty; test -d /Applications/Ghostty.app
+  alias ghostty="/Applications/Ghostty.app/Contents/MacOS/ghostty"
+  alias launcher='open -na Ghostty --args --title=Launcher --class=Launcher --initial-window=true --quit-after-last-window-closed=true  --window-padding-x=10 --window-padding-y=10 --keybind=clear'
+end
 
 # rsync
 alias rcp='rsync -vhra --include="**.gitignore" --exclude="/.git" --filter=":- .gitignore" --delete-after'
