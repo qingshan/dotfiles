@@ -102,7 +102,12 @@ ghostty:
 	ln -snf ../../.dotfiles/ghostty/config ${HOME}/.config/ghostty/config
 
 .PHONY: editor
-editor:
+editor: ideavim
+
+.PHONY: ideavim
+ideavim:
+	mkdir -p ${HOME}/.config/ideavim
+	ln -snf ../.dotfiles/ideavim/ideavimrc ${HOME}/.config/ideavim/ideavimrc
 
 .PHONY: desktop-darwin
 desktop-darwin: terminal editor
