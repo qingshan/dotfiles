@@ -71,9 +71,12 @@ end
 # aliases
 alias d="$DOCKER"
 alias e="$EDITOR"
+alias chmox='chmod +x'
+
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+
 alias ql='qlmanage -p 2>/dev/null'
 alias sucs='sort | uniq -c | sort -n'
 
@@ -103,7 +106,7 @@ abbr --add cdd 'cd ~/Downloads'
 abbr --add cdp 'cd ~/Public'
 abbr --add cdf 'cd ~/.dotfiles'
 abbr --add cdh 'cd ~'
-abbr --add cdn 'cd ~/code/notes'
+abbr --add cdn 'cd ~/.notes'
 
 # directory
 abbr --add rmr 'rm -rf'
@@ -164,10 +167,10 @@ abbr --add va 'vim ~/.config/alacritty/alacritty.toml'
 abbr --add vb 'vim ~/.dotfiles/macos/Brewfile'
 abbr --add vf 'vim ~/.config/fish/config.fish'
 abbr --add vg 'vim ~/.config/ghostty/config'
-abbr --add vh 'vim ~/.dotfiles/helix/config.toml'
 abbr --add vs 'vim ~/.ssh/config'
-abbr --add vt 'vim ~/.dotfiles/.tmux.conf'
-abbr --add vv 'vim ~/.dotfiles/.vimrc'
+abbr --add vt 'vim ~/.tmux.conf'
+abbr --add vv 'vim ~/.vimrc'
+abbr --add vz 'vim ~/.config/zed/settings.json'
 abbr --add vpc 'vim +PlugClean'
 abbr --add vpi 'vim +PlugInstall'
 abbr --add vpu 'vim +PlugUpdate'
@@ -184,6 +187,23 @@ abbr --add tsa 'tmux-sessions algorithms'
 abbr --add tsd 'tmux-sessions dotfiles'
 abbr --add tsm 'tmux-sessions main'
 abbr --add tsn 'tmux-sessions notes'
+
+# zk
+if command -q zk
+  set -gx ZK_NOTEBOOK_DIR $NOTES_PATH
+  abbr --add zin 'zk inbox'
+  abbr --add zii 'zk send'
+  abbr --add zie 'zk edit inbox'
+  abbr --add zir 'zk recent inbox'
+  abbr --add znn 'zk note'
+  abbr --add zni 'zk write'
+  abbr --add zne 'zk edit notes'
+  abbr --add znr 'zk recent notes'
+  abbr --add zjn 'zk journal'
+  abbr --add zje 'zk edit journal'
+  abbr --add zjr 'zk recent journal'
+  abbr --add zl 'zk last'
+end
 
 # make
 abbr --add mb 'make build'

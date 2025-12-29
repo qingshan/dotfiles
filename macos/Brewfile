@@ -68,6 +68,8 @@ brew "asciinema"
 brew "agg"
 # container
 brew "container"
+# notes
+brew "zk"
 # ai
 brew "llm"
 brew "gemini-cli"
