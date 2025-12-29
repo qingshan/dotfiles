@@ -41,6 +41,7 @@ fish:
 	mkdir -p ${HOME}/.config/fish
 	ln -snf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 	ln -snf ../.dotfiles/starship/starship.toml ${HOME}/.config/starship.toml
+	ln -snf ../.dotfiles/lsd/config.yml ${HOME}/.config/lsd/config.yml
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
 	fish -c "fisher install patrickf1/fzf.fish"
 	fish -c "fisher install jorgebucaran/autopair.fish"
