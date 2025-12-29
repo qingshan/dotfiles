@@ -77,6 +77,9 @@ ghosttty as quick terminal.
 
 ### Notes
 
+- zk for cli notes: journal/inbox/notes
+- Obsidian for tech notes
+- Apple Notes for personal notes
 - mdbook for publish notes: [qingshan/notes](https://github.com/qingshan/notes)
 
 ### Development Environments
