@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
 sessions() {
-  (
-    tmux show-options -g -v @SESSIONS 2> /dev/null | tr ' ' '\n';
-    tmux list-sessions -F '#{session_name}' 2> /dev/null
-  ) | sort | uniq
+  (tmux show-options -g -v @SESSIONS 2> /dev/null | tr ' ' '\n') || (tmux list-sessions -F '#{session_name}' 2> /dev/null | sort | uniq)
 }
 
 servers() {
