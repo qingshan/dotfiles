@@ -2,6 +2,7 @@
 
 rg --color=always --line-number --no-heading --smart-case "${*:-}" \
   | fzf --ansi \
+     --layout=reverse
      --no-sort --prompt ' ' --pointer='➤ ' --marker='➤ ' \
      --border none \
      --color "hl+:$ORANGE:reverse,hl:$FOREGROUND:reverse" \

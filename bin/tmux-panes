@@ -3,6 +3,6 @@
 tmux list-windows -a -F '#{session_name}:#{window_index}|#{window_name}' \
 	| grep -v "^popup:" \
         | column -s '|' -t \
-        | fzf --reverse --cycle --preview-window right:75% --preview='echo {} | cut -d " " -f 1 | xargs tmux capture-pane -p -e -N -t' \
+        | fzf --layout=reverse --cycle --preview-window right:75% --preview='echo {} | cut -d " " -f 1 | xargs tmux capture-pane -p -e -N -t' \
         | cut -d ' ' -f 1 \
         | xargs -r tmux switch-client -t

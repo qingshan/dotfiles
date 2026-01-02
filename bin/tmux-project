@@ -113,7 +113,7 @@ function build_menu_items {
 
 case $cmd in
   commands)
-    build_commands | fzf --no-sort --prompt ' ' --pointer='➤ ' --marker='➤'
+    build_commands | fzf --layout=reverse --no-sort --prompt ' ' --pointer='➤ ' --marker='➤'
     ;;
   menu)
     build_menu_items

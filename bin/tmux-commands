@@ -13,4 +13,4 @@ search() {
   servers
 }
 
-search | fzf --no-sort --prompt '  ' --pointer='➤ ' --marker='➤'
+search | fzf --layout=reverse --no-sort --prompt '  ' --pointer='➤ ' --marker='➤'
