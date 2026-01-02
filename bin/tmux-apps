@@ -32,6 +32,9 @@ done
 cmd=${positional_args[0]}
 
 function build_menu_items {
+  menu_items+=('Copilot' 'c' 'run-shell "tmux-run -t center copilot"')
+  menu_items+=('Gemini' 'g' 'run-shell "tmux-run -t center gemini"')
+  menu_items+=('')
   menu_items+=('Btop' 'b' 'run-shell "tmux-run -t center btop"')
   menu_items+=('Lazygit' 'l' 'run-shell "tmux-run -t center lazygit"')
   menu_items+=('')
