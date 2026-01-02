@@ -1,0 +1,76 @@
+# zk configuration file
+
+# NOTE SETTINGS
+[note]
+language = "en"
+default-title = "Untitled"
+filename = "{{slug title}}"
+extension = "md"
+template = "default.md"
+id-charset = "alphanum"
+id-length = 4
+id-case = "lower"
+
+# EXTRA VARIABLES
+[extra]
+
+# GROUP OVERRIDES
+[group.notes]
+paths = ["notes"]
+
+[group.inbox]
+paths = ["inbox"]
+
+[group.inbox.note]
+filename = "{{id}}-{{slug title}}"
+template = "inbox.md"
+
+[group.journal]
+paths = ["journal"]
+
+[group.journal.note]
+filename = "{{format-date now '%Y-%m-%d'}}"
+template = "journal.md"
+
+# MARKDOWN SETTINGS
+[format.markdown]
+hashtags = true
+colon-tags = false
+multiword-tags = false
+
+# EXTERNAL TOOLS
+[tool]
+fzf-preview = "bat -p --color always {-1}"
+fzf-line = "{{style 'title' title-or-path}}                                                                                                                                     "
+
+# LSP
+[lsp]
+
+[lsp.diagnostics]
+wiki-title = "hint"
+dead-link = "error"
+
+[lsp.completion]
+note-label = "{{title-or-path}}"
+note-filter-text = "{{title}} {{path}}"
+note-detail = "{{filename-stem}}"
+
+# NAMED FILTERS
+[filter]
+recents = "--sort created- --created-after 'last two weeks'"
+
+# COMMAND ALIASES
+[alias]
+recent = "zk edit --sort created- --created-after 'last two weeks' --interactive $argv"
+last = "zk edit --limit 1 --sort modified- $argv"
+edit = 'zk edit --sort created- --interactive $argv'
+
+journal = "zk new --no-input journal $argv"
+note = 'zk new --no-input notes --title $argv'
+inbox = 'zk new --no-input inbox --title $argv'
+
+write = 'zk new --interactive notes --title $argv'
+send = 'zk new --interactive inbox --title $argv'
+
+paths = "zk list --format \"{{path}}\" --quiet --delimiter '\n' $argv"
+glow = "glow $(zk list --quiet --format path --interactive)"

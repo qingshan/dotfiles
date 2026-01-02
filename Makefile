@@ -47,14 +47,17 @@ fish:
 	fish -c "fisher install jorgebucaran/autopair.fish"
 
 .PHONY: tools
-tools: vim tmux git dirs
+tools: vim ideavim tmux git zk dirs
 
 .PHONY: vim
 vim:
 	ln -snf .dotfiles/.vimrc ${HOME}/.vimrc
-	ln -snf .dotfiles/.ideavimrc ${HOME}/.ideavimrc
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	vim +PlugInstall +qall
+
+.PHONY: ideavim
+ideavim:
+	ln -snf .dotfiles/ideavim ${HOME}/.config/ideavim
 
 .PHONY: tmux
 tmux:
@@ -65,6 +68,10 @@ git:
 	git config --global user.name $(GIT_NAME)
 	git config --global user.email $(GIT_MAIL)
 	git config --global push.default current
+
+.PHONY: zk
+zk:
+	ln -snf .dotfiles/zk ${HOME}/.config/zk
 
 .PHONY: dirs
 dirs:
