@@ -1,12 +1,19 @@
 # greeting
 set -U fish_greeting
 
+# Exit early for non-interactive shells
+if not status is-interactive
+    return
+end
+
 # env
 set -gx DOTFILES_PATH ~/.dotfiles
 set -gx NOTES_PATH ~/.notes
-set -gx PROJECTS_PATH ~/Projects
 set -gx BOOKS_PATH ~/Public/Books
 set -gx MOVIES_PATH ~/Public/Movies
+
+# quick jump projects
+set -gx CDPATH . ~/work ~/code
 
 # docker
 set -gx DOCKER (if command -q container; echo "container"; else; echo "docker"; end)
