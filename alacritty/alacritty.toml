@@ -52,7 +52,7 @@ bindings = [
   { key = "R",        mods = "Command|Shift", chars = "\u001c|"           }, # run selected command from general commands in right vertical
   { key = "P",        mods = "Command",       chars = "\u001cP"           }, # run select command from project menu in popup pane
   { key = "P",        mods = "Command|Shift", chars = "\u001cE"           }, # run selected command from project commands in right vertical
-  { key = "X",        mods = "Command",       chars = "\u001cA"           }, # tmux commands menu for pane/tab
+  { key = "X",        mods = "Command",       chars = "\u001cW"           }, # tmux commands menu for pane/tab
   { key = "X",        mods = "Command|Shift", chars = "\u001cX"           }, # kill other panes in the tab
   { key = "S",        mods = "Command",       chars = "\u001b:w\u000a"    }, # type <escape>:w<enter> to save in vim
   { key = "S",        mods = "Command|Shift", chars = "\u001b:wa\u000a"   }, # type <escape>:wa<enter> to save in vim
