@@ -86,6 +86,7 @@ cask "eqmac"
 cask "iina"
 cask "keycastr"
 cask "hyperkey"
+cask "maccy"
 # development
 cask "intellij-idea"
 cask "obsidian"
