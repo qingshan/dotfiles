@@ -1,5 +1,6 @@
 # Prompt format
 format = """
+${custom.prompt_start}\
 $username\
 $hostname\
 $directory\
@@ -10,7 +11,8 @@ $python\
 $rust\
 $cmd_duration\
 $line_break\
-$character"""
+$character\
+${custom.prompt_end}"""
 
 [character]
 format = "$symbol\u00A0"
@@ -41,3 +43,15 @@ symbol = " "
 [rust]
 format = "[${symbol}](white)"
 symbol = " "
+
+[custom.prompt_start]
+format = "\u001b\\]133;A\u0007"
+shell = "sh"
+when = true
+disabled = false
+
+[custom.prompt_end]
+format = "\u001b\\]133;B\u0007"
+shell = "sh"
+when = true
+disabled = false
