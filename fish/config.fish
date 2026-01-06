@@ -125,28 +125,40 @@ abbr --add ff 'find . -name'
 abbr --add g 'git'
 abbr --add ga 'git add'
 abbr --add gaa 'git add -A'
+abbr --add gc 'git commit'
+abbr --add gcm 'git commit -m'
+abbr --add gca 'git commit --amend -m'
 abbr --add gb 'git branch'
 abbr --add gbc 'git branch --show-current'
 abbr --add gbd 'git branch -d'
 abbr --add gbD 'git branch -D'
-abbr --add gc 'git commit'
-abbr --add gcm 'git commit -m'
-abbr --add gca 'git commit --amend -m'
-abbr --add gco 'git checkout'
-abbr --add gcb 'git checkout -b'
+abbr --add gs 'git status'
+abbr --add gl 'git log --oneline --graph --decorate'
+abbr --add gcl 'git clone'
 abbr --add gd 'git diff -w'
 abbr --add gds 'git diff -w --staged'
-abbr --add gs 'git status'
+abbr --add grm 'git rm'
+abbr --add grmc 'git rm --cached'
 abbr --add gpu 'git push -u'
 abbr --add gpd 'git push -d origin'
+abbr --add gpc 'git push origin $(git_current_branch)'
+abbr --add gpf 'git push --force-with-lease'
+abbr --add gpt 'git push --tags'
+abbr --add gpsu 'git push --set-upstream origin (git_current_branch)'
+abbr --add gsw 'git switch'
+abbr --add gsb 'git switch -c'
+abbr --add grs 'git restore --staged'
+abbr --add gwt 'git worktree'
 abbr --add gf 'git pull'
-
-# git worktree
-abbr --add gwt "git worktree"
-abbr --add gwta "git worktree add"
-abbr --add gwtls "git worktree list"
-abbr --add gwtmv "git worktree move"
-abbr --add gwtrm "git worktree remove"
+abbr --add gfa 'git fetch --all --prune'
+abbr --add gfo 'git fetch origin'
+abbr --add grb 'git rebase'
+abbr --add grba 'git rebase --abort'
+abbr --add grbc 'git rebase --continue'
+abbr --add grbd 'git rebase (git_develop_branch)'
+abbr --add grbi 'git rebase -i'
+abbr --add grbo 'git rebase --onto'
+abbr --add grbs 'git rebase --skip'
 
 # pr
 abbr --add prl 'gh pr list'
@@ -281,8 +293,25 @@ abbr --add dcud 'docker compose up -d'
 abbr --add dcuf 'docker compose up -f'
 
 # make directory and cd
-function mkcd -a path
-  mkdir -p "$path" && cd "$path"
+function mkcd
+  mkdir -p $argv; and cd $argv
+end
+
+# copy with auto make directory
+function mkcp
+  set -l target_dir (dirname $argv[-1])
+  if test ! -d $target_dir
+    mkdir -p $target_dir
+  end
+  cp -r $argv
+end
+
+# move with auto make directory
+function mkmv
+  if not test -d $argv[-1]
+    mkdir -p $argv[-1]
+  end
+  mv $argv[1..-2] $argv[-1]
 end
 
 # devbox
