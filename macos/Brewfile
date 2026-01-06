@@ -101,5 +101,7 @@ cask "send-to-kindle"
 # communication
 cask "slack"
 cask "zoom"
+cask "wechat"
+cask "telegram"
 # mas
 mas "Tailscale", id: 1475387142
