@@ -25,6 +25,7 @@ brew "btop"
 brew "jq"
 brew "htmlq"
 brew "mdq"
+brew "xmlstarlet"
 # markdown
 brew "mdbook"
 brew "glow"
@@ -65,6 +66,7 @@ brew "fortune"
 brew "yt-dlp"
 brew "asciinema"
 brew "agg"
+brew "papeer"
 # container
 brew "container"
 # notes
@@ -73,6 +75,7 @@ brew "zk"
 brew "llm"
 brew "gemini-cli"
 cask "copilot-cli"
+cask "claude-code"
 # fonts
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
