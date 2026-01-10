@@ -40,24 +40,20 @@ zsh: profile
 fish:
 	mkdir -p ${HOME}/.config/fish
 	ln -snf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
+	ln -snf ../../.dotfiles/lsd/config.yml ${HOME}/.config/lsd/config.yml
 	ln -snf ../.dotfiles/starship/starship.toml ${HOME}/.config/starship.toml
-	ln -snf ../.dotfiles/lsd/config.yml ${HOME}/.config/lsd/config.yml
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
 	fish -c "fisher install patrickf1/fzf.fish"
 	fish -c "fisher install jorgebucaran/autopair.fish"
 
 .PHONY: tools
-tools: vim ideavim tmux git zk dirs
+tools: vim tmux git zk dirs
 
 .PHONY: vim
 vim:
 	ln -snf .dotfiles/.vimrc ${HOME}/.vimrc
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	vim +PlugInstall +qall
-
-.PHONY: ideavim
-ideavim:
-	ln -snf .dotfiles/ideavim ${HOME}/.config/ideavim
 
 .PHONY: tmux
 tmux:
