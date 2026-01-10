@@ -18,6 +18,22 @@ For macOS or Debian desktop, one more step:
 make desktop
 ```
 
+## Demos
+
+Terminal:
+shortcuts
+
+Quick Terminal:
+shortcuts
+
+Fish
+abbrs
+
+Tmux
+menu/fzf
+
+AI
+
 ## Features
 
 ### Desktops
@@ -25,7 +41,7 @@ make desktop
 - [macOS](macos/README.md)
 - [Debian](debian/README.md): regolith-i3 & xremap & xmodmap
 
-Both desktops use same key bindigs, go to [Desktop Cheatsheet](docs/desktop_cheatsheet.md).
+Both desktops use same key bindings, go to [Desktop Cheatsheet](docs/desktop_cheatsheet.md).
 
 ### Servers
 
@@ -45,14 +61,40 @@ bash as default shell on macOS:
 
 fish as interactive shell in interactive mode of zsh or bash, without setting it as user's default shell.
 
+so update `~/.profile` for user environment which will be available for all shells.
+
+### Fish Shell and Tools
+
+Fish shell integration with:
+- starship
+- fzf
+- zoxide
+- direnv
+- lsd
+- bat
+- fd
+- ripgrip
+- jq
+- just
+- functions
+- aliases
+- abbreviations
+- bash scripts
+
 ### Terminals
 
 - alacritty, ghostty, ssh runs user's default shell as interactive login shell.
 - tmux runs inside an existing shell session, runs fish as interactive non-login shell.
 
-alacritty as default terminal integrated with tmux, go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacritty-integration-with-tmux/) for key bindings.
+alacritty as default terminal integrated with tmux, use iTerm2-like key bindings. go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacritty-integration-with-tmux/) for key bindings.
 
 ghosttty as quick terminal.
+
+Tmux supercharges development workflow:
+- key bindings
+- menu
+- launcher
+- popup
 
 ### SSH
 
@@ -60,20 +102,35 @@ ghosttty as quick terminal.
 - `ssh server command` non-interactive non-login shell.
 - `echo command | ssh server` starts non-interactive login shell. You can also start one with `ssh server bash -l -c command`.
 
-### Tools
+### Development Environments
 
-- bat
-- fd
-- lsd
-- fzf
-- direnv
-- ripgrip
-- starship
-- gh
-- lazygit
-- zoxide
-- jq
-- just
+Languages:
+- Java: ant, maven
+- Python: uv
+- Node.js
+
+IDE:
+- IntelliJ IDEA with IdeaVim for Java
+- Zed for Rust and Python
+
+Containers:
+- Apple Container
+- Docker
+
+Version Control:
+- Git
+- LazyGit
+- Github CLI
+
+### AI
+
+- Google Gemini CLI
+- Github Copilot CLI
+- Claude Code
+
+### Fonts
+
+- JetBrains Mono Nerd Font
 
 ### Notes
 
@@ -82,17 +139,15 @@ ghosttty as quick terminal.
 - Apple Notes for personal notes
 - mdbook for publish notes: [qingshan/notes](https://github.com/qingshan/notes)
 
-### Development Environments
+### Folders
 
-- Java: IntelliJ IDEA with IdeaVim
-- Rust: Zed
-
-### Fonts
-
-- JetBrains Mono Font
-- Nerd Font
+- `~/work` for work projects.
+- `~/code` for personal projects.
+- `~/Documents` for cloud sync documents.
+- `~/Public` for local grouped resources.
 
 ### Vim
+
 - [Vim Cheatsheet](docs/vim_cheatsheet.md)
 - [Vim Plugins](docs/vim_plugins.md)
 - [IdeaVim](docs/ideavim.md)
