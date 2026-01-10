@@ -39,6 +39,7 @@ zsh: profile
 .PHONY: fish
 fish:
 	mkdir -p ${HOME}/.config/fish
+	mkdir -p ${HOME}/.config/lsd
 	ln -snf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 	ln -snf ../../.dotfiles/lsd/config.yml ${HOME}/.config/lsd/config.yml
 	ln -snf ../.dotfiles/starship/starship.toml ${HOME}/.config/starship.toml
