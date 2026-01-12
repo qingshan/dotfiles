@@ -35,7 +35,10 @@ fi
 if [[ $SESSION  =~ "@" ]]; then
   SERVER=$(echo $SESSION | cut -d@ -f2)
   SESSION=$(echo $SESSION | cut -d@ -f1)
-  exec autossh -M0 -t $SERVER '/bin/bash --login -c "tmux-sessions '$SESSION'"'
+  if [[ -z $SESSION ]]; then
+    SESSION="sessions"
+  fi
+  exec autossh -M0 -t $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
 elif [[ -n $SESSION ]]; then
   # new session if session is not available
   tmux_running=$(pgrep tmux)
