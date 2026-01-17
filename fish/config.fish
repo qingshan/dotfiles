@@ -118,8 +118,23 @@ abbr --add cdn 'cd ~/.notes'
 # directory
 abbr --add rmr 'rm -rf'
 
+# ripgrep
+abbr --add rgi 'rg -i'
+abbr --add rgf 'rg --files'
+abbr --add rgh 'rg --hidden'
+abbr --add rgn 'rg --no-ignore'
+abbr --add rgc 'rg --count'
+abbr --add rgl 'rg -l'
+abbr --add rgp 'rg --pretty'
+
 # find file
 abbr --add ff 'find . -name'
+abbr --add fdf 'fd -t f'
+abbr --add fdd 'fd -t d'
+abbr --add fdh 'fd -H'
+abbr --add fdi 'fd -I'
+abbr --add fde 'fd -e'
+abbr --add fdx 'fd -t x'
 
 # git
 abbr --add g 'git'
@@ -147,6 +162,7 @@ abbr --add gpt 'git push --tags'
 abbr --add gpsu 'git push --set-upstream origin (git_current_branch)'
 abbr --add gsw 'git switch'
 abbr --add gsb 'git switch -c'
+abbr --add gr 'git restore'
 abbr --add grs 'git restore --staged'
 abbr --add gwt 'git worktree'
 abbr --add gf 'git pull'
@@ -164,6 +180,9 @@ abbr --add grbs 'git rebase --skip'
 abbr --add prl 'gh pr list'
 abbr --add prv 'gh pr view --web'
 abbr --add pra 'gh pr review --approve --body "LGTM"'
+
+# gh
+abbr --add ghl 'BROWSER=none gh auth login'
 
 # brew
 abbr --add bi 'brew install'
@@ -197,6 +216,10 @@ abbr --add vpu 'vim +PlugUpdate'
 # ssh
 abbr --add sci 'ssh-copy-id'
 
+function keygen -a name
+  ssh-keygen -t ed25519 -C (whoami)@(hostname) -N "" -f ~/.ssh/{$name}_ed25519
+end
+
 function rssh -a server
   echo "$argv[2..]" | ssh $server
 end
@@ -222,6 +245,13 @@ if command -q zk
   abbr --add zje 'zk edit journal'
   abbr --add zjr 'zk recent journal'
   abbr --add zl 'zk last'
+end
+
+if command -q tailscale
+  # Tailscale
+  abbr --add tsu 'sudo tailscale up'
+  abbr --add tsd 'sudo tailscale down'
+  abbr --add tss 'tailscale status'
 end
 
 # make
@@ -332,6 +362,11 @@ function ports -a port
   else
     sudo lsof -iTCP -sTCP:LISTEN -n -P
   end
+end
+
+# fd
+if command -v fd &> /dev/null
+  set -gx FD_OPTIONS "--hidden --follow --exclude .git --exclude node_modules --exclude .cache"
 end
 
 # fzf
