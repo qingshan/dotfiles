@@ -20,19 +20,8 @@ make desktop
 
 ## Demos
 
-Terminal:
-shortcuts
-
-Quick Terminal:
-shortcuts
-
-Fish
-abbrs
-
-Tmux
-menu/fzf
-
-AI
+Terminal shortcuts:
+![demo alacritty shortcuts](https://qingshan.dev/images/demo_alacritty_shortcuts.gif)
 
 ## Features
 
