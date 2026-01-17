@@ -21,6 +21,7 @@ brew "watch"
 brew "tealdeer"
 brew "direnv"
 brew "btop"
+brew "nnn"
 # data
 brew "jq"
 brew "htmlq"
