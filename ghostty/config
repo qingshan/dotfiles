@@ -37,7 +37,7 @@ selection-clear-on-copy = true
 keybind = clear
 
 # key binding for quick terminal
-keybind = global:super+grave_accent=toggle_quick_terminal
+keybind = global:super+escape=toggle_quick_terminal
 
 # key bindings for font size
 keybind = super+equal=increase_font_size:1
