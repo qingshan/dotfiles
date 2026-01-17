@@ -25,6 +25,12 @@ Terminal shortcuts:
 
 ## Features
 
+Suitable for all kinds of purpose:
+- Desktops
+- Development Environments
+- Servers/VMs
+- Containers
+
 ### Desktops
 
 - [macOS](macos/README.md)
@@ -32,13 +38,42 @@ Terminal shortcuts:
 
 Both desktops use same key bindings, go to [Desktop Cheatsheet](docs/desktop_cheatsheet.md).
 
+### Development Environments
+
+IDEs:
+- IntelliJ IDEA with IdeaVim for Java
+- Zed for Rust and Python
+
+Languages:
+- Rust: cargo
+- Python: uv
+- Java: ant, maven
+- Nodejs
+
+Containers:
+- Apple Container
+- Docker
+
+Version Control:
+- Git
+- LazyGit
+- Github CLI
+
+AI:
+- Google Gemini CLI
+- Github Copilot CLI
+- OpenCode
+
 ### Servers
 
-- Debian, Ubuntu
-- Rocky Linux, CentOS, RedHat Enterprise Linux
-- Arch Linux
+- Debian 13, Ubuntu 24.04
+- Rocky Linux 8+, CentOS 8+
 
 ### Shells
+
+- bash
+- zsh
+- fish
 
 zsh as default shell on macOS:
 - `~/.zprofile` and `~/.profile` is sourced in login shell.
@@ -65,10 +100,6 @@ Fish shell integration with:
 - ripgrip
 - jq
 - just
-- functions
-- aliases
-- abbreviations
-- bash scripts
 
 ### Terminals
 
@@ -90,32 +121,6 @@ Tmux supercharges development workflow:
 - `ssh server` starts interactive login shell.
 - `ssh server command` non-interactive non-login shell.
 - `echo command | ssh server` starts non-interactive login shell. You can also start one with `ssh server bash -l -c command`.
-
-### Development Environments
-
-Languages:
-- Java: ant, maven
-- Python: uv
-- Node.js
-
-IDE:
-- IntelliJ IDEA with IdeaVim for Java
-- Zed for Rust and Python
-
-Containers:
-- Apple Container
-- Docker
-
-Version Control:
-- Git
-- LazyGit
-- Github CLI
-
-### AI
-
-- Google Gemini CLI
-- Github Copilot CLI
-- Claude Code
 
 ### Fonts
 
