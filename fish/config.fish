@@ -344,17 +344,6 @@ function mkmv
   mv $argv[1..-2] $argv[-1]
 end
 
-# devbox
-function devbox -a action
-  if test "$action" = "create"
-    $DOCKER build -t devbox -f ~/.dotfiles/linux/debian/Dockerfile .
-  else if test "$action" = "ssh"
-    ssh devbox
-  else
-    $DOCKER $action devbox $argv[2..]
-  end
-end
-
 # ports
 function ports -a port
   if set -q port
