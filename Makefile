@@ -127,10 +127,10 @@ test: server-test desktop-test
 
 .PHONY: server-test
 server-test:
-	make -C ./test server-test
+	make -C ./deploy/devpod server-test
 
 .PHONY: desktop-test
 desktop-test:
-	make -C ./test desktop-test
+	make -C ./deploy/devpod desktop-test
 
 .DEFAULT_GOAL := install
