@@ -8,12 +8,20 @@ servers() {
   tmux show-options -g -v @SERVERS 2> /dev/null | tr ' ' '\n' | awk '{print "@" $1}'
 }
 
+search() {
+  grep -v "^$" | nl -w 1 -s ": " | fzf --no-sort --prompt "  " --pointer='➤ ' --marker='➤' | awk '{print $2}'
+}
+
 search_sessions() {
-  sessions | grep -v "^$" | nl -w 1 -s ": " | fzf --no-sort --prompt "  " --pointer='➤ ' --marker='➤' | awk '{print $2}'
+  sessions | search
 }
 
 search_servers() {
-  servers | grep -v "^$" | nl -w 1 -s ": " | fzf --no-sort --prompt "  " --pointer='➤ ' --marker='➤' | awk '{print $2}'
+  servers | search
+}
+
+search_all() {
+  (sessions; servers) | search
 }
 
 SESSION="$1"
@@ -30,6 +38,12 @@ elif [[ "$SESSION" == "servers" ]]; then
     tmux new-session -ds main
   fi
   SESSION=$(search_servers)
+elif [[ "$SESSION" == "all" ]]; then
+  tmux_running=$(pgrep tmux)
+  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -ds main
+  fi
+  SESSION=$(search_all)
 fi
 
 if [[ $SESSION  =~ "@" ]]; then
