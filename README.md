@@ -18,6 +18,12 @@ For macOS or Debian desktop, one more step:
 make desktop
 ```
 
+For AI CLI tools, run:
+
+```shell
+make ai
+```
+
 ## Demos
 
 Terminal shortcuts:
@@ -115,6 +121,11 @@ Tmux supercharges development workflow:
 - menu
 - launcher
 - popup
+
+### AI Tools
+
+- Google Gemini CLI
+- Github Copilot CLI
 
 ### SSH
 

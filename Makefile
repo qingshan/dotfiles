@@ -90,6 +90,18 @@ rust-packages:
 	rustup component add rust-src
 	rustup component add rust-analyzer
 
+.PHONY: ai
+ai: ai-$(OS)
+
+.PHONY: ai-darwin
+ai-darwin:
+
+.PHONY: ai-linux
+ai-linux:
+	sudo npm install -g @github/copilot
+	sudo npm install -g @google/gemini-cli
+	sudo npm install -g opencode-ai@latest
+
 .PHONY: desktop
 desktop: desktop-$(OS)
 
