@@ -3,6 +3,7 @@ import = ["~/.dotfiles/alacritty/alacritty.toml"]
 
 [window]
 startup_mode = "SimpleFullscreen"
+dynamic_padding = true
 
 [terminal]
 
