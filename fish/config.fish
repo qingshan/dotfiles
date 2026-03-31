@@ -99,6 +99,7 @@ if not command -q ghostty; and test -d /Applications/Ghostty.app
 end
 
 # rsync
+alias ash="autossh -M 0 -q"
 alias rcp='rsync -vhra --include="**.gitignore" --exclude="/.git" --filter=":- .gitignore" --delete-after'
 alias rscp='rsync --archive --compress-level=3 --copy-links --partial --inplace --progress --rsh=ssh -r'
 alias rcpl='rsync --compress --verbose --human-readable --partial --progress'
@@ -159,7 +160,7 @@ abbr --add gpd 'git push -d origin'
 abbr --add gpc 'git push origin $(git_current_branch)'
 abbr --add gpf 'git push --force-with-lease'
 abbr --add gpt 'git push --tags'
-abbr --add gpsu 'git push --set-upstream origin (git_current_branch)'
+abbr --add gpsu 'git push --set-upstream origin (git branch --show-current)'
 abbr --add gsw 'git switch'
 abbr --add gsb 'git switch -c'
 abbr --add gr 'git restore'
