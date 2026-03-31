@@ -50,9 +50,9 @@ if [[ $SESSION  =~ "@" ]]; then
   SERVER=$(echo $SESSION | cut -d@ -f2)
   SESSION=$(echo $SESSION | cut -d@ -f1)
   if [[ -z $SESSION ]]; then
-    SESSION="sessions"
+    SESSION="main"
   fi
-  exec autossh -M0 -t $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
+  exec autossh -M0 -t -o ServerAliveCountMax=2 -o ServerAliveInterval=5 -o ConnectTimeout=5 -o BatchMode=yes $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
 elif [[ -n $SESSION ]]; then
   # new session if session is not available
   tmux_running=$(pgrep tmux)
