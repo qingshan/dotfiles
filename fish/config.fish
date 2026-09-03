@@ -76,8 +76,6 @@ if command -q pdsh
 end
 
 # aliases
-alias d="$DOCKER"
-alias e="$EDITOR"
 alias chmox='chmod +x'
 
 alias ...='cd ../..'
@@ -190,7 +188,7 @@ abbr --add bi 'brew install'
 abbr --add bic 'brew install --cask'
 abbr --add bo 'brew outdated'
 abbr --add bog 'brew outdated --greedy --verbose'
-abbr --add bu 'brew upgrade'
+abbr --add bu 'brew upgrade --no-ask'
 
 # rustup
 abbr --add ru 'rustup update'
