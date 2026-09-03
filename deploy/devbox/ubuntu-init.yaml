@@ -1,0 +1,67 @@
+#cloud-config
+locale: en_US.UTF-8
+timezone: America/Los_Angeles
+
+# packages
+package_update: true
+package_upgrade: true
+
+apt:
+  sources:
+    docker.list:
+      source: deb [arch=amd64] https://download.docker.com/linux/ubuntu $RELEASE stable
+      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
+write_files:
+  - path: /etc/netplan/50-cloud-init.yaml
+    owner: "root:root"
+    permissions: "0600"
+    append: false
+    content: |
+      network:
+        version: 2
+        ethernets:
+          id0:
+            match:
+              name: en*
+            dhcp6: false
+            dhcp4: false
+            addresses: [ 192.168.122.100/24 ]
+            routes:
+            - to: default
+              via: 192.168.122.1
+            nameservers:
+              addresses: [ 1.1.1.1 ]
+
+bootcmd:
+  - groupadd --system --gid 988 docker
+
+runcmd:
+  - netplan apply
+
+# users
+users:
+  - name: qingshan
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups:
+      - sudo
+      - users
+      - adm
+      - docker
+    lock_passwd: true
+    ssh_authorized_keys:
+      - __SSH_PUBKEY__
+
+# done
+final_message: "The system is finally configured, after $UPTIME seconds"
