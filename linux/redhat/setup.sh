@@ -10,6 +10,7 @@ sudo dnf install -y make \
   git \
   vim \
   ripgrep \
+  fd-find \
   zoxide \
   tmux
 
@@ -44,3 +45,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 # just
 echo "Install just"
 curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
+
+# nodejs
+sudo dnf module enable nodejs:24
+sudo dnf install nodejs
+
+# uv
+pip install uv

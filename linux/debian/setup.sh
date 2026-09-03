@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
-sudo add-apt-repository ppa:fish-shell/release-4
 sudo apt update
 sudo apt install -y \
   curl \
@@ -22,7 +21,7 @@ sudo apt install -y \
   jq \
   rustup
 
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
+curl -fsSL https://deb.nodesource.com/setup_24.x | sudo bash -
 sudo apt-get install -y nodejs
 
 if [ -f /etc/os-release ]; then
