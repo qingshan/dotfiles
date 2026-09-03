@@ -98,9 +98,7 @@ ai-darwin:
 
 .PHONY: ai-linux
 ai-linux:
-	sudo npm install -g @github/copilot
-	sudo npm install -g @google/gemini-cli
-	sudo npm install -g opencode-ai@latest
+	curl -fsSL https://x.ai/cli/install.sh | bash
 
 .PHONY: desktop
 desktop: desktop-$(OS)
