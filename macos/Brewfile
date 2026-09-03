@@ -90,7 +90,7 @@ cask "eqmac"
 cask "iina"
 cask "keycastr"
 cask "hyperkey"
-cask "maccy"
+cask "socsieng/tap/sendkeys"
 # development
 cask "intellij-idea"
 cask "obsidian"
