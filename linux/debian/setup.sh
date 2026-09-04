@@ -1,15 +1,20 @@
-#!/bin/bash
+#!/bin/sh
+
+set -e
 
 if [ -f /etc/os-release ]; then
-  source /etc/os-release
+  . /etc/os-release
 fi
 
-if [[ "$ID" == "ubuntu" ]]; then
-  sudo apt-add-repository ppa:fish-shell/release-4
+if [ "$ID" = "ubuntu" ]; then
+  sudo apt-get update
+  sudo apt-get install -y software-properties-common
+  sudo apt-add-repository -y ppa:fish-shell/release-4
 fi
 
 sudo apt update
 sudo apt install -y \
+  ca-certificates \
   curl \
   wget \
   make \
@@ -32,9 +37,9 @@ sudo apt install -y \
 curl -fsSL https://deb.nodesource.com/setup_24.x | sudo bash -
 sudo apt-get install -y nodejs
 
-if [[ "$ID" == "debian" ]]; then
+if [ "$ID" = "debian" ]; then
   sudo apt install -y starship fzf
-elif [[ "$ID" == "ubuntu" ]]; then
+elif [ "$ID" = "ubuntu" ]; then
   curl -sS https://starship.rs/install.sh | sudo sh -s -- --yes
   FZF_VERSION=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
   curl -sL "https://github.com/junegunn/fzf/releases/latest/download/fzf-$FZF_VERSION-linux_amd64.tar.gz" | sudo tar -xz -C /usr/local/bin

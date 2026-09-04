@@ -15,7 +15,9 @@ apt:
 packages:
   - apt-transport-https
   - ca-certificates
-  - software-properties-common
+  - sudo
+  - git
+  - make
   - docker-ce
   - docker-ce-cli
   - containerd.io
@@ -48,6 +50,8 @@ bootcmd:
 
 runcmd:
   - netplan apply
+  - sudo -H -u qingshan git clone https://github.com/qingshan/dotfiles.git /home/qingshan/.dotfiles
+  - sudo -H -u qingshan make -C /home/qingshan/.dotfiles
 
 # users
 users:
