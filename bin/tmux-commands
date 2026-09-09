@@ -8,9 +8,14 @@ servers() {
   test -f ~/.ssh/config && cat ~/.ssh/config | grep "^Host " | awk '{print $2}' | grep -v "*" | awk '{print "ssh", $1}'
 }
 
+commands() {
+  tmux show-options -g -v @COMMANDS 2> /dev/null | tr ' ' '\n' | awk '{print $1}'
+}
+
 search() {
   clusters
   servers
+  commands
 }
 
 search | fzf --layout=reverse --no-sort --prompt '  ' --pointer='➤ ' --marker='➤'

@@ -63,7 +63,7 @@ function build_commands {
 
 function build_menu_items {
   local project=$(detect_project)
-  local file_name=$(tmux-vim file)
+  local file_name=$(tmux-helix file)
   local file_type=$(detect_file_type $file_name)
   if [ "$file_type" = "markdown" ]; then
     menu_items+=('Preview File' 'p' 'run-shell "tmux-run -t right preview -- glow '$(echo $file_name | awk -F ':' '{print $1}')'"')
