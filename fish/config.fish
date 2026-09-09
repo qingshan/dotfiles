@@ -203,6 +203,7 @@ abbr --add v 'vim (fd --type f --hidden --follow --exclude .git | fzf-tmux -p --
 abbr --add va 'vim ~/.config/alacritty/alacritty.toml'
 abbr --add vb 'vim ~/.dotfiles/macos/Brewfile'
 abbr --add vf 'vim ~/.config/fish/config.fish'
+abbr --add vh 'vim ~/.config/herdr/config.toml'
 abbr --add vg 'vim ~/.config/ghostty/config'
 abbr --add vs 'vim ~/.ssh/config'
 abbr --add vt 'vim ~/.tmux.conf'
@@ -228,6 +229,9 @@ abbr --add tsa 'tmux-sessions algorithms'
 abbr --add tsd 'tmux-sessions dotfiles'
 abbr --add tsm 'tmux-sessions main'
 abbr --add tsn 'tmux-sessions notes'
+
+# herdr
+abbr --add hmux 'caffeinate herdr'
 
 # zk
 if command -q zk

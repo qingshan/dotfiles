@@ -1,0 +1,87 @@
+onboarding = false
+
+[update]
+version_check = false
+manifest_check = false
+
+[remote]
+manage_ssh_config = true
+
+[terminal]
+shell_mode = "login"
+
+[ui]
+agent_panel_sort = "spaces"
+pane_borders = true
+pane_gaps = false
+hide_tab_bar_when_single_tab = true
+prompt_new_tab_name = false
+confirm_close = false
+
+status_indicators = "symbols"
+
+[ui.toast]
+delivery = "terminal"
+
+[ui.sidebar.spaces]
+rows = [["state_icon", "workspace"]]
+
+[ui.sidebar.agents]
+row_gap = 0
+rows = [
+  ["state_icon", "workspace"],
+  ["agent"],
+]
+
+[session]
+resume_agents_on_restore = true
+
+[experimental]
+allow_nested = false
+kitty_graphics = false
+pane_history = false
+
+[keys]
+goto = "alt+shift+g"
+focus_agent = "alt+shift+1..9"
+detach = "alt+shift+q"
+
+new_workspace = "alt+n"
+rename_workspace = "alt+shift+n"
+previous_workspace = "alt+k"
+next_workspace = "alt+j"
+close_workspace = "alt+q"
+
+switch_tab = "alt+1..9"
+previous_tab = "alt+h"
+next_tab = "alt+l"
+new_tab = "alt+t"
+rename_tab = "alt+shift+t"
+close_tab = "alt+shift+w"
+move_tab_previous = "alt+shift+h"
+move_tab_next = "alt+shift+l"
+
+close_pane = ["prefix+x", "alt+w"]
+
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
+
+swap_pane_left = "prefix+ctrl+h"
+swap_pane_down = "prefix+ctrl+j"
+swap_pane_up = "prefix+ctrl+k"
+swap_pane_right = "prefix+ctrl+l"
+
+[[keys.command]]
+key = "alt+z"
+type = "popup"
+command = "lazygit"
+description = "run lazygit"
+width = "80%"
+height = "80%"

@@ -1,0 +1,522 @@
+2026-08-07T17:32:38.663316Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=6860
+2026-08-07T17:32:38.663361Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-08-07T17:32:38.765688Z  INFO herdr::client: handshake succeeded version=19 encoding=SemanticFrame
+2026-08-07T17:34:00.513554Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-08-07T17:34:00.514598Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-08-07T17:34:14.607826Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-08-07T17:34:14.608000Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-08-07T17:39:25.301911Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=11302
+2026-08-07T17:39:25.302142Z  INFO herdr::client: connecting to server path=/var/folders/kd/bhgmtk397g7_d6wl807tppkr0000gn/T/herdr-remote-9906-ailab-default.sock
+2026-08-07T17:39:26.337976Z  INFO herdr::client: handshake succeeded version=19 encoding=TerminalAnsi
+2026-08-07T17:42:34.808097Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-08-07T17:42:34.808588Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-08-07T18:45:44.418393Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=51425
+2026-08-07T18:45:44.418653Z  INFO herdr::client: connecting to server path=/var/folders/kd/bhgmtk397g7_d6wl807tppkr0000gn/T/herdr-remote-51285-ailab-default.sock
+2026-08-07T18:45:45.449457Z  INFO herdr::client: handshake succeeded version=19 encoding=TerminalAnsi
+2026-08-07T20:26:35.873788Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-08-07T20:26:35.874409Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-08-07T20:26:35.874452Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T02:39:52.240306Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=42729
+2026-09-08T02:39:52.241373Z  INFO herdr::client: connecting to server path=/var/folders/kd/bhgmtk397g7_d6wl807tppkr0000gn/T/herdr-remote-42687-devbox-default.sock
+2026-09-08T02:39:52.453745Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T02:42:53.450081Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=44640
+2026-09-08T02:42:53.450178Z  INFO herdr::client: connecting to server path=/var/folders/kd/bhgmtk397g7_d6wl807tppkr0000gn/T/herdr-remote-44598-ailab-default.sock
+2026-09-08T02:42:53.635038Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T02:43:17.191348Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T02:43:17.191533Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T02:43:17.191585Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T02:50:32.094118Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=44640
+2026-09-08T02:53:06.470546Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T02:53:06.470733Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T03:01:30.297057Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=55791
+2026-09-08T03:01:30.297990Z  INFO herdr::client: connecting to server path=/var/folders/kd/bhgmtk397g7_d6wl807tppkr0000gn/T/herdr-remote-55755-devbox-default.sock
+2026-09-08T03:01:30.549987Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T03:01:34.967545Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=42729
+2026-09-08T03:02:39.365166Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=55791
+2026-09-08T03:03:08.604835Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=57087
+2026-09-08T03:03:08.604881Z  INFO herdr::client: connecting to server path=/var/folders/kd/bhgmtk397g7_d6wl807tppkr0000gn/T/herdr-remote-57036-devbox-default.sock
+2026-09-08T03:03:08.763708Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T03:03:24.082169Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=57087
+2026-09-08T04:03:47.838159Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=60323
+2026-09-08T04:03:47.838409Z  INFO herdr::client: connecting to server path=/var/folders/kd/bhgmtk397g7_d6wl807tppkr0000gn/T/herdr-remote-60272-devbox-default.sock
+2026-09-08T04:03:48.089126Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T04:03:56.801421Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=60323
+2026-09-08T04:06:49.460176Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=62262
+2026-09-08T04:06:49.461193Z  INFO herdr::client: connecting to server path=/var/folders/kd/bhgmtk397g7_d6wl807tppkr0000gn/T/herdr-remote-62219-devbox-default.sock
+2026-09-08T04:06:49.603356Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T04:45:53.401591Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=79307
+2026-09-08T04:45:53.401794Z  INFO herdr::client: connecting to server path=/var/folders/kd/bhgmtk397g7_d6wl807tppkr0000gn/T/herdr-remote-79253-ailab-default.sock
+2026-09-08T04:45:53.710671Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T05:26:10.608117Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=79307
+2026-09-08T05:26:11.098299Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=62262
+2026-09-08T05:31:50.885148Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=6075
+2026-09-08T05:31:50.885249Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T05:31:50.934716Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T05:31:53.666050Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T05:31:53.838999Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T05:38:18.400471Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T05:38:19.417293Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T05:38:22.776413Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T05:38:23.058481Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T05:56:31.644130Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T05:56:31.645190Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T05:56:34.192662Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=6075
+2026-09-08T05:56:43.189403Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=20283
+2026-09-08T05:56:43.189497Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T05:56:43.259728Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T05:56:46.000808Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T05:56:46.197121Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T05:58:55.749680Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=20283
+2026-09-08T06:01:09.620734Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=23057
+2026-09-08T06:01:09.620759Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T06:01:09.752490Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T06:01:13.005637Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T06:01:13.073316Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T06:03:32.670310Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T06:03:32.670487Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T06:04:40.320294Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T06:04:40.321123Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T06:14:07.989844Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T06:14:07.994053Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T06:14:12.046878Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T06:14:12.319828Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T07:20:00.809438Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=connection was lost
+2026-09-08T07:20:00.812660Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=connection was lost
+2026-09-08T07:35:21.119546Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T07:35:21.645416Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T08:06:19.050648Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=connection was lost
+2026-09-08T08:06:19.051236Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=connection was lost
+2026-09-08T08:06:26.692306Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T08:06:26.970917Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T08:41:00.086529Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T08:41:00.295553Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T08:41:07.935868Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T08:41:08.483748Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T08:45:16.322495Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T08:45:16.634894Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T08:45:29.044486Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T08:45:29.433927Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T08:51:25.564373Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T08:51:25.977693Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T08:51:37.045606Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T08:51:37.133098Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T09:55:47.518087Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=connection was lost
+2026-09-08T09:55:47.521324Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=connection was lost
+2026-09-08T09:55:55.634152Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T09:55:55.812606Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T10:57:57.105179Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T10:57:57.106648Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T10:58:00.900444Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T10:58:01.387860Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T12:00:02.942674Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=connection was lost
+2026-09-08T12:00:02.944257Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=connection was lost
+2026-09-08T12:00:13.448117Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T12:00:13.730818Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T12:38:08.100937Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T12:38:08.306441Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T12:38:12.523218Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T12:38:12.651391Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T12:54:11.875937Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T12:54:12.490956Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T12:54:18.217190Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T12:54:18.494033Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T13:30:09.860076Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T13:30:09.963065Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T14:05:49.266982Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T14:11:27.370429Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T14:11:32.817578Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T14:11:37.590945Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T14:43:04.315859Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-08T14:43:09.332972Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-08T14:43:23.487770Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T14:43:23.794545Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:13:51.757478Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=23057
+2026-09-08T16:13:57.845855Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=93688
+2026-09-08T16:13:57.845936Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:13:58.027965Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:14:00.805332Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:14:00.837749Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:14:49.643168Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=93688
+2026-09-08T16:15:43.533799Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=94932
+2026-09-08T16:15:43.533947Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:15:43.542325Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:15:45.912958Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:15:46.099838Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:22:19.932750Z  WARN herdr::remote::attach: saved SSH endpoint bridge failed error=ssh bridge exited with exit status: 255
+2026-09-08T16:22:19.941266Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=94932
+2026-09-08T16:22:22.702823Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=99169
+2026-09-08T16:22:22.702950Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:22:22.939899Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:22:25.442664Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:22:25.547311Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:22:41.412756Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=99169
+2026-09-08T16:23:16.493269Z  WARN herdr::config::io: config parse error, using defaults err=TOML parse error at line 10, column 1
+   |
+10 | show_agent_labels_on_pane_borders = false
+   | ^
+duplicate key `show_agent_labels_on_pane_borders` in table `ui`
+
+2026-09-08T16:23:16.493477Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=99905
+2026-09-08T16:23:16.493497Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:23:16.667105Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:23:18.876800Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:23:19.260855Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:23:32.176496Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T16:23:32.176676Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T16:23:49.923527Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=99905
+2026-09-08T16:24:14.302870Z  WARN herdr::config::io: config parse error, using defaults err=TOML parse error at line 10, column 1
+   |
+10 | show_agent_labels_on_pane_borders = false
+   | ^
+duplicate key `show_agent_labels_on_pane_borders` in table `ui`
+
+2026-09-08T16:24:14.303118Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=805
+2026-09-08T16:24:14.303139Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:24:14.346040Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:24:16.898642Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:24:17.116948Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:24:25.211614Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T16:24:25.211746Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T16:24:25.485776Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T16:24:25.485965Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T16:24:27.085515Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=805
+2026-09-08T16:26:36.221256Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=2680
+2026-09-08T16:26:36.221535Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:26:36.310616Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:26:38.754934Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:26:38.963218Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:27:06.883101Z  WARN herdr::remote::attach: saved SSH endpoint bridge failed error=ssh bridge exited with exit status: 255
+2026-09-08T16:27:06.926960Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=2680
+2026-09-08T16:27:08.259078Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=3132
+2026-09-08T16:27:08.259180Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:27:08.395601Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:27:12.968284Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:27:13.266249Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:27:14.165155Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=3132
+2026-09-08T16:30:24.665982Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=5221
+2026-09-08T16:30:24.666146Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:30:24.801913Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:30:27.259433Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:30:27.269765Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:31:38.487159Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=5221
+2026-09-08T16:31:40.031671Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=6193
+2026-09-08T16:31:40.031771Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:31:40.226873Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:31:42.496641Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:31:42.618504Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:32:21.540852Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=6193
+2026-09-08T16:32:23.349339Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=6743
+2026-09-08T16:32:23.349370Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:32:23.519339Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:32:25.830746Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:32:25.987411Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:35:31.688117Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=6743
+2026-09-08T16:35:34.090196Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=8864
+2026-09-08T16:35:34.090223Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:35:34.173790Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:35:37.255900Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:35:37.535409Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:51:58.104429Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=8864
+2026-09-08T16:52:00.652433Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=18622
+2026-09-08T16:52:00.652525Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T16:52:00.827270Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:52:03.869951Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T16:52:04.046958Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T17:15:15.482496Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T17:15:15.483617Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T17:54:37.518208Z  WARN herdr::remote::attach: saved SSH endpoint bridge failed error=ssh bridge exited with exit status: 255
+2026-09-08T17:54:37.570650Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=18622
+2026-09-08T17:56:14.373615Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=62336
+2026-09-08T17:56:14.373728Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T17:56:14.518780Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T17:56:17.009270Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T17:56:17.131007Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T18:41:30.102746Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=62336
+2026-09-08T18:41:32.555105Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=96439
+2026-09-08T18:41:32.555194Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T18:41:32.613266Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T18:41:38.070851Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T18:41:38.369228Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:28:57.081156Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=96439
+2026-09-08T19:29:04.082871Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=31706
+2026-09-08T19:29:04.083005Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T19:29:04.083525Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:29:06.592242Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:29:06.679546Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:34:56.793588Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:34:56.794760Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:34:56.794797Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:34:59.503760Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:34:59.503839Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:34:59.503857Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:35:08.092609Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:35:08.092773Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:35:08.092822Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:35:35.726368Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:35:35.726537Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:35:35.726587Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-08T19:38:34.816729Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=38833
+2026-09-08T19:38:34.816764Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T19:38:34.925723Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:38:37.676447Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:38:37.694159Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:38:39.404015Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=38833
+2026-09-08T19:38:41.810927Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=39012
+2026-09-08T19:38:41.811008Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T19:38:41.872223Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:38:44.395189Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:38:44.568147Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T19:38:46.238093Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=39012
+2026-09-08T22:07:27.479834Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=31706
+2026-09-08T22:07:28.779255Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=31798
+2026-09-08T22:07:28.779308Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T22:07:28.992598Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T22:07:31.516451Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T22:07:31.692793Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:42:09.897296Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=31798
+2026-09-08T23:42:13.642159Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=89817
+2026-09-08T23:42:13.642212Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T23:42:13.880218Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:42:16.398251Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:42:16.400921Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:43:12.296540Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=90528
+2026-09-08T23:43:12.296773Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T23:43:12.336031Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:43:12.580033Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=89817
+2026-09-08T23:43:14.339125Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:43:14.853619Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:43:54.864546Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=90528
+2026-09-08T23:43:57.377672Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=91084
+2026-09-08T23:43:57.377728Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T23:43:57.383322Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:43:59.658035Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:43:59.882208Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:44:04.012731Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=91084
+2026-09-08T23:44:05.680905Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=91267
+2026-09-08T23:44:05.681338Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T23:44:05.775935Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:44:08.053960Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:44:08.297012Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:45:02.605532Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=91267
+2026-09-08T23:46:09.221406Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=92816
+2026-09-08T23:46:09.221496Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-08T23:46:09.377450Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:46:11.932357Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-08T23:46:11.964447Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:12:01.998072Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=12604
+2026-09-09T00:12:01.998491Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:12:02.067057Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:12:04.534373Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:12:04.703648Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:13:50.462789Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=12604
+2026-09-09T00:13:53.086677Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=13898
+2026-09-09T00:13:53.086803Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:13:53.226469Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:13:55.805952Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:13:56.055686Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:32:29.874366Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=13898
+2026-09-09T00:32:34.144137Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=26073
+2026-09-09T00:32:34.144205Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:32:34.379141Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:32:37.039837Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:32:37.041927Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:41:11.937930Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=26073
+2026-09-09T00:41:38.709658Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=31742
+2026-09-09T00:41:38.709897Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:41:38.843604Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:41:41.131126Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:41:41.492368Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:44:31.377210Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T00:44:31.377577Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T00:45:01.065246Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=31742
+2026-09-09T00:45:02.700443Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=34109
+2026-09-09T00:45:02.700523Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:45:02.781211Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:45:05.364379Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:45:05.368258Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:45:10.311179Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=34109
+2026-09-09T00:45:20.091876Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=34385
+2026-09-09T00:45:20.091970Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:45:20.134949Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:45:22.382805Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:45:22.603496Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:45:24.031719Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=34385
+2026-09-09T00:48:22.482518Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=36899
+2026-09-09T00:48:22.482552Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:48:22.543478Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:48:25.066108Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:48:25.085366Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:48:45.836335Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=36899
+2026-09-09T00:49:34.662411Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=37786
+2026-09-09T00:49:34.662597Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:49:34.734537Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:49:37.131553Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:49:37.200971Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:49:51.264740Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=37786
+2026-09-09T00:49:56.365176Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=38184
+2026-09-09T00:49:56.365207Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:49:56.553305Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:49:58.909243Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:49:59.031427Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:55:56.690344Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=42272
+2026-09-09T00:55:56.690553Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:55:56.868852Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:55:59.276833Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:55:59.332344Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:56:03.241215Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=42272
+2026-09-09T00:58:07.696914Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=43741
+2026-09-09T00:58:07.697113Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:58:07.808078Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:58:10.216045Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:58:10.309989Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:58:17.897407Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=43741
+2026-09-09T00:58:27.173129Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=38184
+2026-09-09T00:58:46.306705Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=44240
+2026-09-09T00:58:46.306778Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T00:58:46.317523Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:58:48.504007Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T00:58:48.906547Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T01:08:37.316043Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T01:08:37.317115Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T01:09:15.967800Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T01:09:15.967967Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T02:43:50.850275Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-09T02:43:57.882681Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T04:14:52.471994Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:14:52.473458Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:15:05.463933Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:16:16.799703Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=44240
+2026-09-09T04:16:20.751112Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=66307
+2026-09-09T04:16:20.751155Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T04:16:20.835229Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T04:16:23.606417Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T04:16:23.657038Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T04:19:15.231637Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:19:15.232729Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:24:04.674440Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:24:04.675439Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:28:29.875447Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:28:29.875619Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:29:09.815656Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:29:09.815820Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:33:36.468113Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:33:36.468265Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:35:50.217195Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=66307
+2026-09-09T04:35:56.749610Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=78729
+2026-09-09T04:35:56.749698Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T04:35:56.763589Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T04:35:59.622010Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T04:35:59.703133Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T04:42:26.729802Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:44:48.783899Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:44:48.784091Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:55:41.206682Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:55:41.206846Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:57:30.414360Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:57:30.414534Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:59:56.849233Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T04:59:56.849407Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T06:33:59.052651Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=connection was lost
+2026-09-09T06:33:59.056182Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=connection was lost
+2026-09-09T06:33:59.058683Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=connection was lost
+2026-09-09T06:33:59.062056Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=connection was lost
+2026-09-09T08:02:27.292813Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T08:50:32.778614Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-09T14:03:18.124122Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T14:03:18.124113Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T14:03:18.520605Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T14:03:18.520650Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:42:16.481588Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=78729
+2026-09-09T15:42:19.114652Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=88413
+2026-09-09T15:42:19.114723Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T15:42:19.251579Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:42:21.731110Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:42:21.879145Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:45:02.212551Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=88413
+2026-09-09T15:45:09.299646Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=90286
+2026-09-09T15:45:09.299690Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T15:45:09.484512Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:45:12.146977Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:45:12.159244Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:48:48.845827Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:48:48.846909Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:48:49.074783Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:48:49.074953Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:52:15.265077Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=90286
+2026-09-09T15:52:42.474674Z  WARN herdr::client: endpoint transport failed endpoint=local error=server is shutting down
+2026-09-09T15:53:12.656195Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=95540
+2026-09-09T15:53:12.656211Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T15:53:12.752067Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:53:14.433555Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:53:15.276015Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:53:15.454886Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:53:41.499711Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=95540
+2026-09-09T15:53:44.870329Z  WARN herdr::client: endpoint transport failed endpoint=local error=server is shutting down
+2026-09-09T15:53:48.028772Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=96064
+2026-09-09T15:53:48.028795Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T15:53:48.111457Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:53:48.540596Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:53:50.562954Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:53:50.901135Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:54:43.388632Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:54:43.388740Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:54:43.758420Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:54:43.758593Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:54:48.840051Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:54:48.840237Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T15:57:01.303878Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=98349
+2026-09-09T15:57:01.303911Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T15:57:01.456340Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:57:04.062294Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:57:04.170474Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T15:57:05.635545Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=98349
+2026-09-09T16:09:18.470171Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=96064
+2026-09-09T16:09:38.028251Z  WARN herdr::client: endpoint transport failed endpoint=local error=server is shutting down
+2026-09-09T16:12:02.115486Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=server is shutting down
+2026-09-09T16:12:04.934352Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T16:12:54.259680Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=server is shutting down
+2026-09-09T16:12:57.027675Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T16:14:48.965421Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=10064
+2026-09-09T16:14:48.965442Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T16:14:49.067221Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T16:15:02.893351Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=10064
+2026-09-09T16:15:10.386850Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T16:15:11.125191Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T16:15:22.106572Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T16:15:29.255127Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=10677
+2026-09-09T16:15:29.255162Z  INFO herdr::client: connecting to server path=/Users/qingshan/.config/herdr/herdr-client.sock
+2026-09-09T16:15:29.343486Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T16:15:31.777203Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T16:15:32.535223Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T16:51:43.365910Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T16:51:43.366251Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T16:51:43.366259Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T16:55:34.419209Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T16:55:34.420256Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T16:55:34.420312Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T17:26:53.543642Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T17:26:53.545114Z  WARN herdr::raw_input: flushing lone escape after input timeout; if this follows an alt chord or focus switch it may reach the pane as plain esc bytes=[27]
+2026-09-09T19:20:26.118045Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-09T19:20:26.220093Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-09T19:20:29.190168Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-09T19:20:30.121977Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-09T19:35:07.048909Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:35:07.049011Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:35:07.937044Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:35:07.937078Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:42:42.273542Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-09T19:42:42.274164Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-09T19:42:42.276523Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-09T19:42:42.276580Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-09T19:43:44.934652Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:43:44.934686Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:43:45.350370Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:43:45.350378Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:49:24.571674Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-09T19:49:24.582277Z  WARN herdr::client: endpoint transport failed endpoint=ssh:3b22c4a35a9367ca5fbaa4209914327e error=endpoint health check timed out
+2026-09-09T19:49:24.891037Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-09T19:49:24.984900Z  WARN herdr::client: endpoint transport failed endpoint=ssh:a7ff281e511927159800d0f784a09dde error=endpoint health check timed out
+2026-09-09T19:50:25.752030Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:50:25.752067Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:50:26.081929Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0
+2026-09-09T19:50:26.081993Z  INFO herdr::client::handshake: endpoint handshake succeeded generation=1 server_version=0.9.0

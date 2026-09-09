@@ -80,14 +80,14 @@ bindings = [
   { key = "Right",    mods = "Command|Shift", chars = "\u001cL"           },
 
   # ----- swap panes -----
-  { key = "H",        mods = "Command|Alt", chars = "\u001c\u001bh"       }, # swap the current pane with left pane
-  { key = "J",        mods = "Command|Alt", chars = "\u001c\u001bj"       }, # swap the current pane with above pane
-  { key = "K",        mods = "Command|Alt", chars = "\u001c\u001bk"       }, # swap the current pane with below pane
-  { key = "L",        mods = "Command|Alt", chars = "\u001c\u001bl"       }, # swap the current pane with right pane
-  { key = "Left",     mods = "Command|Alt", chars = "\u001c\u001bh"       },
-  { key = "Down",     mods = "Command|Alt", chars = "\u001c\u001bj"       },
-  { key = "Up",       mods = "Command|Alt", chars = "\u001c\u001bk"       },
-  { key = "Right",    mods = "Command|Alt", chars = "\u001c\u001bl"       },
+  { key = "H",        mods = "Command|Alt", chars = "\u001c\u0008"       }, # swap the current pane with left pane
+  { key = "J",        mods = "Command|Alt", chars = "\u001c\u000a"       }, # swap the current pane with above pane
+  { key = "K",        mods = "Command|Alt", chars = "\u001c\u000b"       }, # swap the current pane with below pane
+  { key = "L",        mods = "Command|Alt", chars = "\u001c\u000c"       }, # swap the current pane with right pane
+  { key = "Left",     mods = "Command|Alt", chars = "\u001c\u0008"       },
+  { key = "Down",     mods = "Command|Alt", chars = "\u001c\u000a"       },
+  { key = "Up",       mods = "Command|Alt", chars = "\u001c\u000b"       },
+  { key = "Right",    mods = "Command|Alt", chars = "\u001c\u000c"       },
 
   # ----- navigate tabs -----
   { key = "B",        mods = "Command",       chars = "\u001c^"           }, # back to last tab

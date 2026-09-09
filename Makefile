@@ -48,7 +48,7 @@ fish:
 	fish -c "fisher install jorgebucaran/autopair.fish"
 
 .PHONY: tools
-tools: vim tmux git zk dirs
+tools: vim tmux herdr git zk dirs
 
 .PHONY: vim
 vim:
@@ -58,7 +58,13 @@ vim:
 
 .PHONY: tmux
 tmux:
-	ln -snf .dotfiles/.tmux.conf ${HOME}/.tmux.conf
+	mkdir -p ${HOME}/.config/tmux
+	ln -snf ../../.dotfiles/tmux/tmux.conf ${HOME}/.config/tmux/tmux.conf
+
+.PHONY: herdr
+herdr:
+	mkdir -p ${HOME}/.config/herdr
+	ln -snf ../../.dotfiles/herdr-config/config.toml ${HOME}/.config/herdr/config.toml
 
 .PHONY: git
 git:
