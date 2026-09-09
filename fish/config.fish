@@ -43,6 +43,11 @@ if command -q fzf
   fzf --fish | source
 end
 
+# Grok Build
+if type -q grok
+  grok completions fish | source
+end
+
 # bat
 if command -q bat
   alias cat 'bat --style=plain --paging=never'

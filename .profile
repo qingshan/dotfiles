@@ -12,6 +12,11 @@ if [ -d "$HOME/.cargo/bin" ]; then
     export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+# set PATH for AI
+if [ -d "$HOME/.grok/bin" ]; then
+    export PATH="$HOME/.grok/bin:$PATH"
+fi
+
 # set PATH for user's private bin
 if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
