@@ -52,7 +52,11 @@ if [[ $SESSION  =~ "@" ]]; then
   if [[ -z $SESSION ]]; then
     SESSION="main"
   fi
-  AUTOSSH_GATETIME=0 exec autossh -M0 -t -o ServerAliveCountMax=2 -o ServerAliveInterval=5 -o ConnectTimeout=5 -o BatchMode=yes $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
+  if command -v caffeinate &>/dev/null; then
+    AUTOSSH_GATETIME=0 exec caffeinate autossh -M0 -t -o ServerAliveCountMax=2 -o ServerAliveInterval=5 -o ConnectTimeout=5 -o BatchMode=yes $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
+  else
+    AUTOSSH_GATETIME=0 exec autossh -M0 -t -o ServerAliveCountMax=2 -o ServerAliveInterval=5 -o ConnectTimeout=5 -o BatchMode=yes $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
+  fi
 elif [[ -n $SESSION ]]; then
   # new session if session is not available
   tmux_running=$(pgrep tmux)
