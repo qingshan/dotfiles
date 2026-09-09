@@ -98,6 +98,7 @@ ai-darwin:
 
 .PHONY: ai-linux
 ai-linux:
+	url -fsSL https://chatgpt.com/codex/install.sh | sh
 	curl -fsSL https://x.ai/cli/install.sh | bash
 
 .PHONY: desktop
