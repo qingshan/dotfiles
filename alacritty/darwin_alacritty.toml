@@ -14,4 +14,5 @@ args = ["--login", "-c", "tmux new-session -A -D -s main"]
 [keyboard]
 bindings = [
   { key = "N",        mods = "Command|Shift", command = { program = "/opt/homebrew/bin/alacritty", args = ["msg", "create-window", "-e", "/bin/zsh", "--login", "-c", "tmux-sessions all"] } }, # open session in new window with all sessions menu across servers
+  { key = "B",        mods = "Command|Shift", command = { program = "/usr/bin/open", args = ["-a", "Ghostty"] } },
 ]

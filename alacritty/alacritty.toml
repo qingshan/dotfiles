@@ -60,6 +60,7 @@ bindings = [
   { key = "Return",   mods = "Command|Shift", chars = "\u001cz"           }, # zoom toggle of the current pane
 
   # ----- navigate panes -----
+  { key = "B",        mods = "Command",       chars = "\u001c;"           }, # back to last pane
   { key = "H",        mods = "Command",       chars = "\u001ch"           }, # go to the pane left
   { key = "J",        mods = "Command",       chars = "\u001cj"           }, # go to the pane above
   { key = "K",        mods = "Command",       chars = "\u001ck"           }, # go to the pane below
@@ -80,17 +81,16 @@ bindings = [
   { key = "Right",    mods = "Command|Shift", chars = "\u001cL"           },
 
   # ----- swap panes -----
-  { key = "H",        mods = "Command|Alt", chars = "\u001c\u0008"       }, # swap the current pane with left pane
-  { key = "J",        mods = "Command|Alt", chars = "\u001c\u000a"       }, # swap the current pane with above pane
-  { key = "K",        mods = "Command|Alt", chars = "\u001c\u000b"       }, # swap the current pane with below pane
-  { key = "L",        mods = "Command|Alt", chars = "\u001c\u000c"       }, # swap the current pane with right pane
-  { key = "Left",     mods = "Command|Alt", chars = "\u001c\u0008"       },
-  { key = "Down",     mods = "Command|Alt", chars = "\u001c\u000a"       },
-  { key = "Up",       mods = "Command|Alt", chars = "\u001c\u000b"       },
-  { key = "Right",    mods = "Command|Alt", chars = "\u001c\u000c"       },
+  { key = "H",        mods = "Command|Alt", chars = "\u001c\u0008"        }, # swap the current pane with left pane
+  { key = "J",        mods = "Command|Alt", chars = "\u001c\u000a"        }, # swap the current pane with above pane
+  { key = "K",        mods = "Command|Alt", chars = "\u001c\u000b"        }, # swap the current pane with below pane
+  { key = "L",        mods = "Command|Alt", chars = "\u001c\u000c"        }, # swap the current pane with right pane
+  { key = "Left",     mods = "Command|Alt", chars = "\u001c\u0008"        },
+  { key = "Down",     mods = "Command|Alt", chars = "\u001c\u000a"        },
+  { key = "Up",       mods = "Command|Alt", chars = "\u001c\u000b"        },
+  { key = "Right",    mods = "Command|Alt", chars = "\u001c\u000c"        },
 
   # ----- navigate tabs -----
-  { key = "B",        mods = "Command",       chars = "\u001c^"           }, # back to last tab
   { key = "LBracket", mods = "Command",       chars = "\u001cp"           }, # go to previous tab
   { key = "RBracket", mods = "Command",       chars = "\u001cn"           }, # go to next tab
   { key = "Key1",     mods = "Command",       chars = "\u001c1"           }, # go to tab 1..9
@@ -104,7 +104,6 @@ bindings = [
   { key = "Key9",     mods = "Command",       chars = "\u001c9"           },
 
   # ----- move panes -----
-  { key = "B",        mods = "Command|Shift", chars = "\u001c!"           }, # break the current pane out of the tab
   { key = "Key1",     mods = "Command|Shift", chars = "\u001c\u001b1"     }, # move the current pane to tab 1..9
   { key = "Key2",     mods = "Command|Shift", chars = "\u001c\u001b2"     },
   { key = "Key3",     mods = "Command|Shift", chars = "\u001c\u001b3"     },

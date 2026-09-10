@@ -11,18 +11,21 @@ font-thicken-strength = 255
 font-feature = +zero,-liga,-calt
 
 # window
-initial-window = false
-quit-after-last-window-closed = false
+fullscreen = non-native
+initial-window = true
+quit-after-last-window-closed = true
 window-save-state = never
+confirm-close-surface = false
 
 # shell
 shell-integration = none
 term = xterm-256color
+initial-command = /bin/zsh -lc 'exec herdr'
 
 # macos
-macos-hidden = always
+# macos-hidden = always
 macos-option-as-alt = true
-macos-titlebar-style = hidden
+# macos-titlebar-style = hidden
 
 # quick terminal
 quick-terminal-animation-duration = 0
@@ -45,18 +48,60 @@ keybind = super++=increase_font_size:1
 keybind = super+-=decrease_font_size:1
 keybind = super+0=reset_font_size
 
-# key bindings for new split
-keybind = super+d=new_split:right
-keybind = super+shift+d=new_split:down
-keybind = super+w=close_surface
-keybind = super+shift+w=close_tab
-keybind = super+q=close_window
+# key bindings for new workspace
+keybind = super+q=text:\x1cd
+keybind = super+shift+t=text:\x1cC
+keybind = super+shift+n=text:\x1cC
+keybind = super+shift+[=text:\x1cP
+keybind = super+shift+]=text:\x1cN
+keybind = super+shift+digit_1=text:\x1c!
+keybind = super+shift+digit_2=text:\x1c@
+keybind = super+shift+digit_3=text:\x1c#
+keybind = super+shift+digit_4=text:\x1c$
+keybind = super+shift+digit_5=text:\x1c%
+keybind = super+shift+digit_6=text:\x1c^
+keybind = super+shift+digit_7=text:\x1c&
+keybind = super+shift+digit_8=text:\x1c*
+keybind = super+shift+digit_9=text:\x1c(
 
-# key bindings for layouts
-keybind = super+ctrl+equal=equalize_splits
-keybind = super+ctrl+f=toggle_fullscreen
-keybind = super+enter=toggle_fullscreen
-keybind = super+shift+enter=toggle_split_zoom
+# key bindings for tabs
+keybind = super+[=text:\x1cp
+keybind = super+]=text:\x1cn
+keybind = super+digit_1=text:\x1c1
+keybind = super+digit_2=text:\x1c2
+keybind = super+digit_3=text:\x1c3
+keybind = super+digit_4=text:\x1c4
+keybind = super+digit_5=text:\x1c5
+keybind = super+digit_6=text:\x1c6
+keybind = super+digit_7=text:\x1c7
+keybind = super+digit_8=text:\x1c8
+keybind = super+digit_9=text:\x1c9
+
+# key bindings for new split
+keybind = super+t=text:\x1cc
+keybind = super+d=text:\x1c"
+keybind = super+shift+d=text:\x1c%
+keybind = super+w=text:\x1cx
+keybind = super+shift+w=text:\x1c&
+
+# key bindings for goto splits
+keybind = super+b=text:\x1c;
+keybind = super+h=text:\x1ch
+keybind = super+j=text:\x1cj
+keybind = super+k=text:\x1ck
+keybind = super+l=text:\x1cl
+
+# key bindings for resize splits
+keybind = super+shift+h=text:\x1cH
+keybind = super+shift+j=text:\x1cJ
+keybind = super+shift+k=text:\x1cK
+keybind = super+shift+l=text:\x1cL
+
+# key bindings for swap splits
+keybind = super+alt+h=text:\x1c\x08
+keybind = super+alt+j=text:\x1c\x0a
+keybind = super+alt+k=text:\x1c\x0b
+keybind = super+alt+l=text:\x1c\x0c
 
 # key bindings for clipboard
 keybind = super+c=copy_to_clipboard
@@ -64,18 +109,6 @@ keybind = super+v=paste_from_clipboard
 keybind = super+shift+v=paste_from_selection
 keybind = copy=copy_to_clipboard
 keybind = paste=paste_from_clipboard
-
-# key bindings for goto splits
-keybind = super+h=goto_split:left
-keybind = super+j=goto_split:up
-keybind = super+k=goto_split:down
-keybind = super+l=goto_split:next
-
-# key bindings for resize splits
-keybind = super+shift+h=resize_split:left,10
-keybind = super+shift+j=resize_split:up,10
-keybind = super+shift+k=resize_split:down,10
-keybind = super+shift+l=resize_split:right,10
 
 # key bindings for scroll page
 keybind = super+shift+arrow_up=jump_to_prompt:-1
@@ -96,3 +129,8 @@ keybind = shift+page_up=adjust_selection:page_up
 keybind = shift+page_down=adjust_selection:page_down
 keybind = shift+home=adjust_selection:home
 keybind = shift+end=adjust_selection:end
+
+# plugins and popups
+keybind = super+g=text:\x1cG
+keybind = super+shift+g=text:\x1cY
+keybind = super+shift+b=text:\x1cB

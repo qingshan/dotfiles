@@ -7,9 +7,6 @@ manifest_check = false
 [remote]
 manage_ssh_config = true
 
-[terminal]
-shell_mode = "login"
-
 [ui]
 agent_panel_sort = "spaces"
 pane_borders = true
@@ -18,6 +15,7 @@ hide_tab_bar_when_single_tab = true
 prompt_new_tab_name = false
 confirm_close = false
 
+window_title = "{hostname}: {workspace}"
 status_indicators = "symbols"
 
 [ui.toast]
@@ -42,26 +40,28 @@ kitty_graphics = false
 pane_history = false
 
 [keys]
-goto = "alt+shift+g"
-focus_agent = "alt+shift+1..9"
-detach = "alt+shift+q"
+prefix = "ctrl+\\"
+detach = "prefix+d"
 
-new_workspace = "alt+n"
-rename_workspace = "alt+shift+n"
-previous_workspace = "alt+k"
-next_workspace = "alt+j"
-close_workspace = "alt+q"
+# workspace
+new_workspace = "prefix+shift+c"
+previous_workspace = "prefix+shift+p"
+next_workspace = "prefix+shift+n"
+close_workspace = "prefix+shift+d"
+focus_agent = "prefix+shift+1..9"
 
-switch_tab = "alt+1..9"
-previous_tab = "alt+h"
-next_tab = "alt+l"
-new_tab = "alt+t"
-rename_tab = "alt+shift+t"
-close_tab = "alt+shift+w"
-move_tab_previous = "alt+shift+h"
-move_tab_next = "alt+shift+l"
+# tab
+switch_tab = "prefix+1..9"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
+new_tab = "prefix+c"
+close_tab = "prefix+&"
 
-close_pane = ["prefix+x", "alt+w"]
+# pane
+split_horizontal = "prefix+%"
+split_vertical = "prefix+\""
+close_pane = "prefix+x"
+last_pane = "prefix+;"
 
 focus_pane_left = "prefix+h"
 focus_pane_down = "prefix+j"
@@ -78,10 +78,19 @@ swap_pane_down = "prefix+ctrl+j"
 swap_pane_up = "prefix+ctrl+k"
 swap_pane_right = "prefix+ctrl+l"
 
+# popups
+goto = "prefix+shift+y"
+
 [[keys.command]]
-key = "alt+z"
+key = "prefix+shift+b"
+type = "shell"
+command = "/usr/bin/open -a Alacritty"
+description = "run alacritty"
+
+[[keys.command]]
+key = "prefix+shift+g"
 type = "popup"
-command = "lazygit"
-description = "run lazygit"
+command = "tmux-grep | xargs -r tmux-vim"
+description = "run grep"
 width = "80%"
 height = "80%"
