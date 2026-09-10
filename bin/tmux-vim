@@ -1,8 +1,44 @@
 #!/usr/bin/env bash
 
-file=$1
-line=$2
+file_and_line=$1
+file=$(echo "$file_and_line" | awk -F ':' '{print $1}')
+line=$(echo "$file_and_line" | awk -F ':' '{print $2}')
 
-tmux if-shell "tmux select-window -t :vim" "" "new-window -c '#{pane_current_path}' -n vim vim"
-tmux send-keys -t :vim ":open $file" C-m
-tmux send-keys -t :vim ":$line" C-m
+function open_in_tmux {
+  tmux if-shell "tmux select-window -t :vim" "" "new-window -c '#{pane_current_path}' -n vim vim"
+  tmux send-keys -t :vim ":e $file" C-m
+  tmux send-keys -t :vim ":$line" C-m
+}
+
+function open_in_herdr {
+  # popup/pane/shell custom commands only receive HERDR_ACTIVE_* vars, not HERDR_WORKSPACE_ID
+  local workspace="${HERDR_WORKSPACE_ID:-$HERDR_ACTIVE_WORKSPACE_ID}"
+  local tab_id
+  tab_id=$(herdr tab list --workspace "$workspace" \
+    | jq -r '.result.tabs[] | select(.label == "vim") | .tab_id' | head -1)
+
+  local pane_id
+  if [ -n "$tab_id" ]; then
+    pane_id=$(herdr pane list --workspace "$workspace" \
+      | jq -r --arg tab "$tab_id" '.result.panes[] | select(.tab_id == $tab) | .pane_id' | head -1)
+    herdr tab focus "$tab_id" > /dev/null
+  else
+    local created
+    created=$(herdr tab create --workspace "$workspace" --cwd "$PWD" --label vim --focus)
+    tab_id=$(echo "$created" | jq -r '.result.tab.tab_id')
+    pane_id=$(echo "$created" | jq -r '.result.root_pane.pane_id')
+    herdr pane run "$pane_id" "vim" > /dev/null
+    sleep 0.3
+  fi
+
+  herdr pane send-text "$pane_id" ":e $file" > /dev/null
+  herdr pane send-keys "$pane_id" enter > /dev/null
+  herdr pane send-text "$pane_id" ":$line" > /dev/null
+  herdr pane send-keys "$pane_id" enter > /dev/null
+}
+
+if [ "$HERDR_ENV" = "1" ]; then
+  open_in_herdr
+elif [ -n "$TMUX" ]; then
+  open_in_tmux
+fi
