@@ -32,6 +32,7 @@ brew "mdbook"
 brew "glow"
 # terminal
 brew "tmux"
+brew "herdr"
 # network
 brew "rsync"
 brew "autossh"
