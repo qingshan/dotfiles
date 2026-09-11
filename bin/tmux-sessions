@@ -1,11 +1,40 @@
 #!/usr/bin/env bash
 
 sessions() {
-  (tmux show-options -g -v @SESSIONS 2> /dev/null | tr ' ' '\n') || (tmux list-sessions -F '#{session_name}' 2> /dev/null | sort | uniq)
+  if [ "$HERDR_ENV" = "1" ]; then
+    # herdr workspaces are live/dynamic, unlike tmux's static @SESSIONS list; list the
+    # currently open workspaces instead
+    herdr workspace list 2> /dev/null | jq -r '.result.workspaces[].label'
+    return
+  fi
+  local list
+  list=$(tmux show-options -g -v @SESSIONS 2> /dev/null)
+  if [ -z "$list" ] && [ -f ~/.tmux.conf.local ]; then
+    # no tmux server (e.g. running inside herdr): read @SESSIONS from the static config instead
+    list=$(grep -E '^\s*set-option\s+-g\s+@SESSIONS\s' ~/.tmux.conf.local \
+      | sed -E 's/^\s*set-option\s+-g\s+@SESSIONS\s+"([^"]*)".*/\1/')
+  fi
+  if [ -n "$list" ]; then
+    echo "$list" | tr ' ' '\n'
+  else
+    tmux list-sessions -F '#{session_name}' 2> /dev/null | sort | uniq
+  fi
 }
 
 servers() {
-  tmux show-options -g -v @SERVERS 2> /dev/null | tr ' ' '\n' | awk '{print "@" $1}'
+  if [ "$HERDR_ENV" = "1" ]; then
+    # herdr has its own saved-machine catalog for multi-machine access; use it instead of
+    # the tmux-only @SERVERS static list
+    herdr machine list --json 2> /dev/null | jq -r '.[].target' | awk '{print "@" $1}'
+    return
+  fi
+  local list
+  list=$(tmux show-options -g -v @SERVERS 2> /dev/null)
+  if [ -z "$list" ] && [ -f ~/.tmux.conf.local ]; then
+    list=$(grep -E '^\s*set-option\s+-g\s+@SERVERS\s' ~/.tmux.conf.local \
+      | sed -E 's/^\s*set-option\s+-g\s+@SERVERS\s+"([^"]*)".*/\1/')
+  fi
+  echo "$list" | tr ' ' '\n' | awk '{print "@" $1}'
 }
 
 search() {
@@ -24,24 +53,82 @@ search_all() {
   (sessions; servers) | search
 }
 
+# find or create a workspace labeled $SESSION (the herdr equivalent of a tmux session),
+# then focus it
+function herdr_switch_session {
+  local workspace_id working_directory
+  workspace_id=$(herdr workspace list \
+    | jq -r --arg n "$SESSION" '.result.workspaces[] | select(.label == $n) | .workspace_id' | head -1)
+  if [ -n "$workspace_id" ]; then
+    herdr workspace focus "$workspace_id" > /dev/null
+  else
+    working_directory="$PROJECTS/$SESSION"
+    if [ ! -d "$working_directory" ]; then
+      working_directory="$HOME"
+    fi
+    herdr workspace create --cwd "$working_directory" --label "$SESSION" --focus > /dev/null
+  fi
+}
+
+# find or create a workspace labeled $SESSION on $SERVER, running the herdr CLI over SSH
+# against that machine's own socket (workspace IDs are scoped to a single server, so this
+# can't be done from the local socket), then attach to it via herdr's own SSH remote support
+function herdr_remote_switch_session {
+  local remote_session workspace_id
+  remote_session=$(herdr machine list --json 2> /dev/null \
+    | jq -r --arg t "$SERVER" '.[] | select(.target == $t) | .session' | head -1)
+
+  workspace_id=$(ssh -o BatchMode=yes -o ConnectTimeout=5 "$SERVER" bash -lc "'herdr workspace list'" 2> /dev/null \
+    | jq -r --arg n "$SESSION" '.result.workspaces[] | select(.label == $n) | .workspace_id' | head -1)
+  if [ -n "$workspace_id" ]; then
+    ssh -o BatchMode=yes "$SERVER" bash -lc "'herdr workspace focus $workspace_id'" > /dev/null 2>&1
+  else
+    ssh -o BatchMode=yes "$SERVER" bash -lc "'herdr workspace create --label $SESSION --focus'" > /dev/null 2>&1
+  fi
+
+  if [ -n "$remote_session" ] && [ "$remote_session" != "default" ]; then
+    exec herdr --remote "$SERVER" --session "$remote_session"
+  else
+    exec herdr --remote "$SERVER"
+  fi
+}
+
 SESSION="$1"
 
-if [[ -z $SESSION || "$SESSION" == "sessions" ]]; then
-  tmux_running=$(pgrep tmux)
-  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -ds main
+if [[ -z $SESSION ]]; then
+  # herdr unifies "sessions" and "servers" into one workspace picker; tmux keeps them
+  # separate (bare tmux-sessions defaults to local sessions only, use "all" for both)
+  if [ "$HERDR_ENV" = "1" ]; then
+    SESSION=$(search_all)
+  else
+    tmux_running=$(pgrep tmux)
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+      tmux new-session -ds main
+    fi
+    SESSION=$(search_sessions)
+  fi
+elif [[ "$SESSION" == "sessions" ]]; then
+  if [ "$HERDR_ENV" != "1" ]; then
+    tmux_running=$(pgrep tmux)
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+      tmux new-session -ds main
+    fi
   fi
   SESSION=$(search_sessions)
 elif [[ "$SESSION" == "servers" ]]; then
-  tmux_running=$(pgrep tmux)
-  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -ds main
+  if [ "$HERDR_ENV" != "1" ]; then
+    tmux_running=$(pgrep tmux)
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+      tmux new-session -ds main
+    fi
   fi
   SESSION=$(search_servers)
 elif [[ "$SESSION" == "all" ]]; then
-  tmux_running=$(pgrep tmux)
-  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -ds main
+  if [ "$HERDR_ENV" != "1" ]; then
+    tmux_running=$(pgrep tmux)
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+      tmux new-session -ds main
+    fi
   fi
   SESSION=$(search_all)
 fi
@@ -52,32 +139,38 @@ if [[ $SESSION  =~ "@" ]]; then
   if [[ -z $SESSION ]]; then
     SESSION="main"
   fi
-  if command -v caffeinate &>/dev/null; then
+  if [ "$HERDR_ENV" = "1" ]; then
+    herdr_remote_switch_session
+  elif command -v caffeinate &>/dev/null; then
     AUTOSSH_GATETIME=0 exec caffeinate autossh -M0 -t -o ServerAliveCountMax=2 -o ServerAliveInterval=5 -o ConnectTimeout=5 -o BatchMode=yes $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
   else
     AUTOSSH_GATETIME=0 exec autossh -M0 -t -o ServerAliveCountMax=2 -o ServerAliveInterval=5 -o ConnectTimeout=5 -o BatchMode=yes $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
   fi
 elif [[ -n $SESSION ]]; then
-  # new session if session is not available
-  tmux_running=$(pgrep tmux)
-  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -A -D -s $SESSION
+  if [ "$HERDR_ENV" = "1" ]; then
+    herdr_switch_session
   else
-    if ! tmux has-session -t $SESSION 2> /dev/null; then
-      WORKING_DIRECTORY=$PROJECTS/$SESSION
-      INITIAL_FILE="~/.dotfiles/tmux/sessions/$SESSION.tmux.conf"
-      if [[ -f "$INITIAL_FILE" ]]; then
-        INITIAL_COMMAND="tmux source-file $INTIALL_FILE"
-      fi
-      if [[ ! -d "$WORKING_DIRECTORY" ]]; then
-        WORKING_DIRECTORY="~"
-      fi
-      tmux new-session -ds $SESSION -c $WORKING_DIRECTORY $INTIAL_COMMAND
-    fi
-    if [[ -z $TMUX ]]; then
+    # new session if session is not available
+    tmux_running=$(pgrep tmux)
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
       tmux new-session -A -D -s $SESSION
     else
-      tmux switch-client -t $SESSION
+      if ! tmux has-session -t $SESSION 2> /dev/null; then
+        WORKING_DIRECTORY=$PROJECTS/$SESSION
+        INITIAL_FILE="~/.dotfiles/tmux/sessions/$SESSION.tmux.conf"
+        if [[ -f "$INITIAL_FILE" ]]; then
+          INITIAL_COMMAND="tmux source-file $INTIALL_FILE"
+        fi
+        if [[ ! -d "$WORKING_DIRECTORY" ]]; then
+          WORKING_DIRECTORY="~"
+        fi
+        tmux new-session -ds $SESSION -c $WORKING_DIRECTORY $INTIAL_COMMAND
+      fi
+      if [[ -z $TMUX ]]; then
+        tmux new-session -A -D -s $SESSION
+      else
+        tmux switch-client -t $SESSION
+      fi
     fi
   fi
 fi

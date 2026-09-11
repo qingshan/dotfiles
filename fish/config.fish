@@ -201,7 +201,7 @@ abbr --add rc 'rustup check'
 
 # config
 abbr --add sf 'source ~/.config/fish/config.fish'
-abbr --add st 'tmux source ~/.tmux.conf'
+abbr --add st 'tmux source ~/.config/tmux/tmux.conf'
 
 # vim
 abbr --add v 'vim (fd --type f --hidden --follow --exclude .git | fzf-tmux -p --reverse)'
@@ -211,7 +211,7 @@ abbr --add vf 'vim ~/.config/fish/config.fish'
 abbr --add vh 'vim ~/.config/herdr/config.toml'
 abbr --add vg 'vim ~/.config/ghostty/config'
 abbr --add vs 'vim ~/.ssh/config'
-abbr --add vt 'vim ~/.tmux.conf'
+abbr --add vt 'vim ~/.config/tmux/tmux.conf'
 abbr --add vv 'vim ~/.vimrc'
 abbr --add vz 'vim ~/.config/zed/settings.json'
 abbr --add vpc 'vim +PlugClean'

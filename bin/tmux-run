@@ -36,6 +36,103 @@ else
   cmd="$name"
 fi
 
+function herdr_workspace {
+  # popup/pane/shell custom commands only receive HERDR_ACTIVE_* vars, not HERDR_WORKSPACE_ID
+  echo "${HERDR_WORKSPACE_ID:-$HERDR_ACTIVE_WORKSPACE_ID}"
+}
+
+function herdr_current_pane {
+  echo "${HERDR_PANE_ID:-$HERDR_ACTIVE_PANE_ID}"
+}
+
+# find or create a tab labeled $name in the current workspace; only run $cmd on creation,
+# reuse assumes the existing tab is already running the intended long-lived command. when no
+# name is given, always create a fresh tab and label it with its own tab number instead of
+# leaving the label blank
+function herdr_run_window {
+  local workspace tab_id pane_id created number
+  workspace=$(herdr_workspace)
+  if [ -n "$name" ]; then
+    tab_id=$(herdr tab list --workspace "$workspace" \
+      | jq -r --arg n "$name" '.result.tabs[] | select(.label == $n) | .tab_id' | head -1)
+  fi
+  if [ -n "$tab_id" ]; then
+    pane_id=$(herdr pane list --workspace "$workspace" \
+      | jq -r --arg t "$tab_id" '.result.panes[] | select(.tab_id == $t) | .pane_id' | head -1)
+    herdr tab focus "$tab_id" > /dev/null
+  else
+    created=$(herdr tab create --workspace "$workspace" --cwd "$PWD" --label "$name" --focus)
+    tab_id=$(echo "$created" | jq -r '.result.tab.tab_id')
+    pane_id=$(echo "$created" | jq -r '.result.root_pane.pane_id')
+    if [ -z "$name" ]; then
+      # tab.number is a persistent, ever-incrementing counter (never reused across the
+      # workspace's lifetime), unlike the small positional number shown by native new-tab
+      # actions (+/cmd+t); use the current tab count instead so it matches that convention
+      number=$(herdr tab list --workspace "$workspace" | jq '.result.tabs | length')
+      herdr tab rename "$tab_id" "$number" > /dev/null
+    fi
+    herdr pane run "$pane_id" "$cmd" > /dev/null
+  fi
+}
+
+# recreate the neighboring split pane in $direction (closest equivalent to respawn-pane -k)
+# and run $cmd in it, keeping focus on the invoking pane
+function herdr_run_split {
+  local direction=$1 ratio=$2
+  local current neighbor pane_id
+  current=$(herdr_current_pane)
+  neighbor=$(herdr pane neighbor --pane "$current" --direction "$direction" 2> /dev/null \
+    | jq -r '.result.neighbor.neighbor_pane_id // empty')
+  if [ -n "$neighbor" ]; then
+    herdr pane close "$neighbor" > /dev/null
+  fi
+  pane_id=$(herdr pane split --pane "$current" --direction "$direction" --ratio "$ratio" \
+    --cwd "$PWD" --no-focus | jq -r '.result.pane.pane_id')
+  herdr pane run "$pane_id" "$cmd" > /dev/null
+}
+
+# run $cmd in a fresh zoomed (fullscreen) pane, the closest herdr equivalent to a tmux popup
+# opened from outside an existing popup (e.g. a menu action in a regular tiled pane)
+function herdr_run_modal {
+  local current pane_id
+  current=$(herdr_current_pane)
+  pane_id=$(herdr pane split --pane "$current" --direction right --ratio 0.05 \
+    --cwd "$PWD" | jq -r '.result.pane.pane_id')
+  herdr pane zoom --pane "$pane_id" --on > /dev/null
+  herdr pane run "$pane_id" "$cmd" > /dev/null
+}
+
+# a custom command with type = "popup" already runs this whole script inside an ad-hoc herdr
+# popup terminal, so just take over that terminal directly instead of opening a new pane;
+# the popup closes automatically once $cmd exits, matching tmux's popup -E behavior
+function herdr_run_popup {
+  exec bash -c "$cmd"
+}
+
+if [ "$HERDR_ENV" = "1" ]; then
+  case $target in
+    window)
+      herdr_run_window
+      ;;
+    right)
+      herdr_run_split right 0.6
+      ;;
+    bottom)
+      herdr_run_split down 0.75
+      ;;
+    popup)
+      herdr_run_popup
+      ;;
+    center|top)
+      herdr_run_modal
+      ;;
+    *)
+      echo "Unkown target: $target"
+      ;;
+  esac
+  exit 0
+fi
+
 case $target in
   popup)
     tmux if-shell -F "#{e|==:#{N/s:popup},0}" "new-session -d -s popup 'tmux source-file ~/.dotfiles/tmux/sessions/popup.tmux.conf'"
@@ -43,7 +140,14 @@ case $target in
     tmux display-popup -b rounded -h 90% -w 85% -E "tmux attach-session -t popup"
     ;;
   window)
-    tmux if-shell "tmux select-window -t $name" "" "new-window -c '#{pane_current_path}' -n $name $cmd"
+    if [ -n "$name" ]; then
+      tmux if-shell "tmux select-window -t $name" "" "new-window -c '#{pane_current_path}' -n $name $cmd"
+    else
+      # no explicit name: always create a fresh window and label it with its own index
+      # instead of leaving the name blank
+      win_id=$(tmux new-window -c "#{pane_current_path}" -P -F '#{window_id}' "$cmd")
+      tmux rename-window -t "$win_id" "$(tmux display-message -t "$win_id" -p '#I')"
+    fi
     ;;
   center)
     tmux display-popup -b rounded -h 90% -w 85% -x C -y C -d "#{pane_current_path}" -E "$cmd"

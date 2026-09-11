@@ -45,6 +45,68 @@ function build_menu_items {
   menu_items+=('Quit' 'q' '')
 }
 
+# same items as build_menu_items, but with plain shell commands instead of tmux commands
+# (no run-shell wrapper, no clock-mode: there's no herdr equivalent)
+function build_herdr_menu_items {
+  menu_items+=('Copilot' 'c' 'tmux-run -t center copilot')
+  menu_items+=('Gemini' 'g' 'tmux-run -t center gemini')
+  menu_items+=('Btop' 'b' 'tmux-run -t center btop')
+  menu_items+=('Lazygit' 'l' 'tmux-run -t center lazygit')
+  menu_items+=('Popup' 'p' 'tmux-run -t popup popup -- tmux-popup')
+  menu_items+=('Yue' 'y' 'tmux-run -t top yue -- tmux-fortune')
+  menu_items+=('Quit' 'q' '')
+}
+
+# render (label key command) triples as an fzf list with single-keystroke shortcuts, the
+# herdr equivalent of tmux's display-menu: each key is bound to execute-silent its command
+# and immediately close, instead of fuzzy-searching/typing to select. enter also works: it
+# runs whichever item is currently highlighted (navigated to via arrow keys)
+function fzf_hotkey_menu {
+  local i label key command labels=() binds=() commands_by_row=()
+  for ((i = 0; i < ${#menu_items[@]}; i += 3)); do
+    label=${menu_items[i]}
+    if [ -z "$label" ]; then
+      continue
+    fi
+    key=${menu_items[i + 1]}
+    command=${menu_items[i + 2]}
+    labels+=("($key) $label")
+    commands_by_row+=("$command")
+    if [ -n "$command" ]; then
+      binds+=(--bind "${key}:execute-silent[${command}]+abort")
+    else
+      binds+=(--bind "${key}:abort")
+    fi
+  done
+  local tmpfile
+  tmpfile=$(mktemp)
+  # {n} is the zero-based ordinal index of the highlighted item, safe to embed unquoted
+  binds+=(--bind "enter:execute-silent(echo {n} > $tmpfile)+abort")
+  printf '%s\n' "${labels[@]}" \
+    | fzf --layout=reverse --no-sort --prompt '  ' --pointer='➤ ' --marker='➤' "${binds[@]}"
+  if [ -s "$tmpfile" ]; then
+    local row=$(cat "$tmpfile")
+    local selected=${commands_by_row[row]}
+    if [ -n "$selected" ]; then
+      eval "$selected"
+    fi
+  fi
+  rm -f "$tmpfile"
+}
+
+if [ "$HERDR_ENV" = "1" ]; then
+  case $cmd in
+    menu)
+      build_herdr_menu_items
+      fzf_hotkey_menu
+      ;;
+    *)
+      echo "Unkown command: $cmd"
+      ;;
+  esac
+  exit 0
+fi
+
 case $cmd in
   menu)
     build_menu_items

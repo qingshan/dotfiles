@@ -44,9 +44,9 @@ prefix = "ctrl+\\"
 detach = "prefix+d"
 
 # workspace
-new_workspace = "prefix+shift+c"
-previous_workspace = "prefix+shift+p"
-next_workspace = "prefix+shift+n"
+new_workspace = "prefix+shift+w"
+previous_workspace = "prefix+shift+["
+next_workspace = "prefix+shift+]"
 close_workspace = "prefix+shift+d"
 focus_agent = "prefix+shift+1..9"
 
@@ -91,6 +91,46 @@ description = "run alacritty"
 key = "prefix+shift+g"
 type = "popup"
 command = "tmux-grep | xargs -r tmux-vim"
-description = "run grep"
+description = "grep files"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+shift+c"
+type = "popup"
+command = "tmux-commands | xargs -o -r tmux-run -t window --"
+description = "commands"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+r"
+type = "popup"
+command = "tmux-project menu"
+description = "project menu"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+shift+r"
+type = "popup"
+command = "tmux-project commands | xargs -o -r tmux-run -t right --"
+description = "commands"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+shift+e"
+type = "popup"
+command = "tmux-apps menu"
+description = "apps menu"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+shift+p"
+type = "popup"
+command = "tmux-apps menu"
+description = "apps menu"
 width = "80%"
 height = "80%"

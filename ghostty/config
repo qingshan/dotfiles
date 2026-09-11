@@ -50,10 +50,11 @@ keybind = super+0=reset_font_size
 
 # key bindings for new workspace
 keybind = super+q=text:\x1cd
-keybind = super+shift+t=text:\x1cC
-keybind = super+shift+n=text:\x1cC
-keybind = super+shift+[=text:\x1cP
-keybind = super+shift+]=text:\x1cN
+keybind = super+shift+t=text:\x1cc
+keybind = super+n=text:\x1cW
+keybind = super+shift+n=text:\x1cW
+keybind = super+shift+[=text:\x1c{
+keybind = super+shift+]=text:\x1c}
 keybind = super+shift+digit_1=text:\x1c!
 keybind = super+shift+digit_2=text:\x1c@
 keybind = super+shift+digit_3=text:\x1c#
@@ -79,6 +80,7 @@ keybind = super+digit_9=text:\x1c9
 
 # key bindings for new split
 keybind = super+t=text:\x1cc
+keybind = super+shift+t=text:\x1cC
 keybind = super+d=text:\x1c"
 keybind = super+shift+d=text:\x1c%
 keybind = super+w=text:\x1cx
@@ -130,7 +132,19 @@ keybind = shift+page_down=adjust_selection:page_down
 keybind = shift+home=adjust_selection:home
 keybind = shift+end=adjust_selection:end
 
-# plugins and popups
+# find text and panes
+keybind = super+f=text:\x1c[/
+keybind = super+shift+f=text:\x1c[?
 keybind = super+g=text:\x1cG
 keybind = super+shift+g=text:\x1cY
+
+# plugins and popups
+keybind = super+r=text:\x1cr
+keybind = super+shift+r=text:\x1cR
+keybind = super+p=text:\x1cP
+keybind = super+shift+p=text:\x1cP
+keybind = super+s=text:\x1b:w\x0a
+keybind = super+shift+s=text:\x1b:wa\x0a
+keybind = super+enter=text:\x1cz
+keybind = super+shift+enter=text:\x1cz
 keybind = super+shift+b=text:\x1cB

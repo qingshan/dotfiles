@@ -9,7 +9,14 @@ servers() {
 }
 
 commands() {
-  tmux show-options -g -v @COMMANDS 2> /dev/null | tr ' ' '\n' | awk '{print $1}'
+  local list
+  list=$(tmux show-options -g -v @COMMANDS 2> /dev/null)
+  if [ -z "$list" ] && [ -f ~/.tmux.conf.local ]; then
+    # no tmux server (e.g. running inside herdr): read @COMMANDS from the static config instead
+    list=$(grep -E '^\s*set-option\s+-g\s+@COMMANDS\s' ~/.tmux.conf.local \
+      | sed -E 's/^\s*set-option\s+-g\s+@COMMANDS\s+"([^"]*)".*/\1/')
+  fi
+  echo "$list" | tr ' ' '\n' | awk '{print $1}'
 }
 
 search() {
