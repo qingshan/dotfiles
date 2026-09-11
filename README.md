@@ -110,28 +110,25 @@ Fish shell integration with:
 ### Terminals
 
 - alacritty, ghostty, ssh runs user's default shell as interactive login shell.
-- tmux runs inside an existing shell session, runs fish as interactive non-login shell.
+- tmux, herdr runs inside an existing shell session, runs fish as interactive non-login shell.
+- tmux integrated in alacritty works as default terminal.
+- herdr integrated in ghostty works as AI agent terminal.
+- ghosttty works as quick terminal.
 
-alacritty as default terminal integrated with tmux, use iTerm2-like key bindings. go to [Terminal Cheatsheet](https://qingshan.dev/posts/alacritty-integration-with-tmux/) for key bindings.
-
-ghosttty as quick terminal.
-
-Tmux supercharges development workflow:
-- key bindings
-- menu
-- launcher
-- popup
-
-### AI Tools
-
-- Google Gemini CLI
-- Github Copilot CLI
+Both alacritty and ghostty use iTerm2-like key bindings, go to [Terminal Cheatsheet](docs/terminal_cheatsheet.md).
 
 ### SSH
 
 - `ssh server` starts interactive login shell.
 - `ssh server command` non-interactive non-login shell.
 - `echo command | ssh server` starts non-interactive login shell. You can also start one with `ssh server bash -l -c command`.
+
+### AI Tools
+
+- Claude Code
+- Github Copilot
+- OpenAI Codex
+- Grok Build
 
 ### Fonts
 
