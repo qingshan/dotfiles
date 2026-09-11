@@ -7,6 +7,9 @@ manifest_check = false
 [remote]
 manage_ssh_config = true
 
+[terminal]
+shell_mode = "login"
+
 [ui]
 agent_panel_sort = "spaces"
 pane_borders = true
