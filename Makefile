@@ -64,7 +64,7 @@ tmux:
 .PHONY: herdr
 herdr:
 	mkdir -p ${HOME}/.config/herdr
-	ln -snf ../../.dotfiles/herdr-config/config.toml ${HOME}/.config/herdr/config.toml
+	ln -snf ../../.dotfiles/herdr/config.toml ${HOME}/.config/herdr/config.toml
 
 .PHONY: git
 git:
