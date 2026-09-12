@@ -50,7 +50,6 @@ keybind = super+0=reset_font_size
 
 # key bindings for new workspace
 keybind = super+q=text:\x1cd
-keybind = super+shift+t=text:\x1cc
 keybind = super+n=text:\x1cW
 keybind = super+shift+n=text:\x1cW
 keybind = super+shift+[=text:\x1c{
