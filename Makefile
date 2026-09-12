@@ -6,6 +6,10 @@ OS := $(shell uname -s | tr A-Z a-z)
 .PHONY: install
 install: setup shells tools packages
 
+.PHONY: doctor
+doctor:
+	@./bin/dotfiles-doctor
+
 .PHONY: setup
 setup: setup-$(OS)
 	touch ~/.hushlogin
@@ -74,7 +78,7 @@ git:
 
 .PHONY: zk
 zk:
-	ln -snf .dotfiles/zk ${HOME}/.config/zk
+	ln -snf ../.dotfiles/zk ${HOME}/.config/zk
 
 .PHONY: dirs
 dirs:
@@ -129,7 +133,7 @@ editor: ideavim
 .PHONY: ideavim
 ideavim:
 	mkdir -p ${HOME}/.config/ideavim
-	ln -snf ../.dotfiles/ideavim/ideavimrc ${HOME}/.config/ideavim/ideavimrc
+	ln -snf ../../.dotfiles/ideavim/ideavimrc ${HOME}/.config/ideavim/ideavimrc
 
 .PHONY: desktop-darwin
 desktop-darwin: terminal editor

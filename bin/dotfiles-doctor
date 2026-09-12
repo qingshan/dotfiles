@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+# Verify every `ln -s...f SOURCE TARGET` recipe declared in this repo's
+# Makefiles actually matches what's on disk: the target exists, is a
+# symlink, points at the exact SOURCE the Makefile declares, and that
+# SOURCE resolves to a real file. Catches drift between the Makefile and
+# reality (e.g. a symlink fixed by hand without updating the recipe) and
+# broken/missing links after a fresh checkout or manual edits.
+
+set -uo pipefail
+
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+OS=$(uname -s | tr 'A-Z' 'a-z')
+
+ok=0
+fail=0
+warn=0
+
+# Makefiles to scan, relative to $DOTFILES_DIR. local/Makefile is optional
+# (private dotfiles-local repo may not be checked out on every machine).
+makefiles=("Makefile")
+[ -f "$DOTFILES_DIR/local/Makefile" ] && makefiles+=("local/Makefile")
+
+status() {
+  local mark=$1 color=$2 msg=$3
+  printf '%b%s%b %s\n' "$color" "$mark" '\033[0m' "$msg"
+}
+
+check_link() {
+  local source=$1 target=$2
+
+  if [ ! -e "$target" ] && [ ! -L "$target" ]; then
+    status "✗" '\033[31m' "missing: $target (expected -> $source)"
+    fail=$((fail + 1))
+    return
+  fi
+
+  if [ ! -L "$target" ]; then
+    status "!" '\033[33m' "not a symlink: $target (expected -> $source)"
+    warn=$((warn + 1))
+    return
+  fi
+
+  local actual
+  actual=$(readlink "$target")
+  if [ "$actual" != "$source" ]; then
+    status "✗" '\033[31m' "wrong target: $target -> $actual (Makefile expects -> $source)"
+    fail=$((fail + 1))
+    return
+  fi
+
+  # Resolve SOURCE relative to the symlink's own directory, same as the
+  # kernel does, to confirm it isn't dangling.
+  local target_dir resolved
+  target_dir=$(dirname "$target")
+  resolved="$target_dir/$source"
+  if [ ! -e "$resolved" ]; then
+    status "✗" '\033[31m' "dangling: $target -> $source (no such file: $resolved)"
+    fail=$((fail + 1))
+    return
+  fi
+
+  status "✓" '\033[32m' "$target -> $source"
+  ok=$((ok + 1))
+}
+
+for makefile in "${makefiles[@]}"; do
+  echo "== $makefile =="
+  while IFS= read -r line; do
+    # Match recipe lines like: ln -snf SOURCE TARGET / ln -vsf SOURCE TARGET
+    [[ "$line" =~ ^[[:space:]]*ln[[:space:]]+-[a-zA-Z]*s[a-zA-Z]*f[[:space:]]+([^[:space:]]+)[[:space:]]+([^[:space:]]+)[[:space:]]*$ ]] || continue
+    source=${BASH_REMATCH[1]}
+    target=${BASH_REMATCH[2]}
+
+    # Expand the handful of Makefile variables/functions these recipes use.
+    source=${source//\$(OS)/$OS}
+    target=${target//\$\{HOME\}/$HOME}
+    target=${target//\$(HOME)/$HOME}
+
+    check_link "$source" "$target"
+  done < "$DOTFILES_DIR/$makefile"
+  echo
+done
+
+echo "== summary =="
+printf '%d ok, %d broken, %d warnings\n' "$ok" "$fail" "$warn"
+
+[ "$fail" -eq 0 ]
