@@ -1,5 +1,5 @@
 # greeting
-set -U fish_greeting
+set -g fish_greeting
 
 # Exit early for non-interactive shells
 if not status is-interactive
@@ -36,16 +36,6 @@ end
 # lazygit
 if command -q lazygit
   abbr --add lg 'lazygit'
-end
-
-# fzf
-if command -q fzf
-  fzf --fish | source
-end
-
-# Grok Build
-if type -q grok
-  grok completions fish | source
 end
 
 # bat
@@ -154,13 +144,15 @@ abbr --add gbD 'git branch -D'
 abbr --add gs 'git status'
 abbr --add gl 'git log --oneline --graph --decorate'
 abbr --add gcl 'git clone'
-abbr --add gd 'git diff -w'
-abbr --add gds 'git diff -w --staged'
+abbr --add gd 'git diff'
+abbr --add gds 'git diff --staged'
+abbr --add gdw 'git diff -w'
+abbr --add gdsw 'git diff -w --staged'
 abbr --add grm 'git rm'
 abbr --add grmc 'git rm --cached'
 abbr --add gpu 'git push -u'
 abbr --add gpd 'git push -d origin'
-abbr --add gpc 'git push origin $(git_current_branch)'
+abbr --add gpc 'git push origin (git branch --show-current)'
 abbr --add gpf 'git push --force-with-lease'
 abbr --add gpt 'git push --tags'
 abbr --add gpsu 'git push --set-upstream origin (git branch --show-current)'
@@ -175,7 +167,7 @@ abbr --add gfo 'git fetch origin'
 abbr --add grb 'git rebase'
 abbr --add grba 'git rebase --abort'
 abbr --add grbc 'git rebase --continue'
-abbr --add grbd 'git rebase (git_develop_branch)'
+abbr --add grbd 'git rebase develop'
 abbr --add grbi 'git rebase -i'
 abbr --add grbo 'git rebase --onto'
 abbr --add grbs 'git rebase --skip'
@@ -234,9 +226,7 @@ abbr --add tsa 'tmux-sessions algorithms'
 abbr --add tsd 'tmux-sessions dotfiles'
 abbr --add tsm 'tmux-sessions main'
 abbr --add tsn 'tmux-sessions notes'
-
-# herdr
-abbr --add hmux 'caffeinate herdr'
+abbr --add tsp 'tmux-sessions projects'
 
 # zk
 if command -q zk
@@ -257,9 +247,9 @@ end
 
 if command -q tailscale
   # Tailscale
-  abbr --add tsu 'sudo tailscale up'
-  abbr --add tsd 'sudo tailscale down'
-  abbr --add tss 'tailscale status'
+  abbr --add tsup 'sudo tailscale up'
+  abbr --add tsdown 'sudo tailscale down'
+  abbr --add tsst 'tailscale status'
 end
 
 # make
@@ -310,7 +300,6 @@ abbr --add dcps 'docker container ps'
 abbr --add dirm 'docker image rm'
 abbr --add dit 'docker image tag'
 
-abbr --add dce 'docker exec'
 abbr --add deit 'docker exec -it'
 abbr --add dka 'docker kill (docker ps -q)'
 abbr --add dil 'docker image list'
@@ -375,6 +364,7 @@ if command -v fzf &> /dev/null
   if command -v fd &> /dev/null
     set -gx  FZF_DEFAULT_COMMAND 'fd --hidden --follow --exclude .git --type f'
   end
+  fzf --fish | source
 end
 
 # local config.
