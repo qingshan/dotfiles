@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# Transfer files to/from a node via a bastion/jump host, converted from the
+# fish function scp-via-bastion (formerly in local/.config.fish.local,
+# aliased there as `bcp`).
+#
+# The bastion is only used as a relay: nothing lands on it permanently, a
+# temp file is copied through it and removed afterwards. Requires an SSH
+# host alias named "bastion" (override with --via/-v or $PCP_VIA) that can
+# reach the target node.
+
+set -uo pipefail
+
+via="${PCP_VIA:-bastion}"
+
+usage() {
+  cat <<'EOF'
+Usage: pcp [-v|--via host] <source> <destination>
+
+One of <source> or <destination> must be remote (host:path); the other is
+local. Files are relayed through the bastion host (default: "bastion", or
+$PCP_VIA, or -v/--via).
+
+Examples:
+  pcp localfile node1:/path/to/dest
+  pcp node1:/path/to/file ./localpath
+  pcp --via jump1 node1:/path/to/file ./localpath
+EOF
+}
+
+positional=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -v|--via)
+      via="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      positional+=("$1")
+      shift
+      ;;
+  esac
+done
+set -- ${positional[@]+"${positional[@]}"}
+
+if [[ $# -lt 2 ]]; then
+  usage
+  exit 1
+fi
+
+source=$1
+dest=$2
+
+if [[ "$source" == *:* ]]; then
+  # Download from remote.
+  host=${source%%:*}
+  remote_path=${source#*:}
+  tmp_file="/tmp/$(basename "$remote_path")"
+
+  echo "Downloading $source via $via..."
+  ssh "$via" scp "$host:$remote_path" "$tmp_file" \
+    && scp "$via:$tmp_file" "$dest" \
+    && ssh "$via" rm "$tmp_file"
+elif [[ "$dest" == *:* ]]; then
+  # Upload to remote.
+  host=${dest%%:*}
+  remote_path=${dest#*:}
+  tmp_file="/tmp/$(basename "$source")"
+
+  echo "Uploading $source to $dest via $via..."
+  scp "$source" "$via:$tmp_file" \
+    && ssh "$via" scp "$tmp_file" "$host:$remote_path" \
+    && ssh "$via" rm "$tmp_file"
+else
+  echo "Error: either source or destination must be remote (host:path)" >&2
+  usage >&2
+  exit 1
+fi
