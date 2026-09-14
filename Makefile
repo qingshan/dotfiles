@@ -83,6 +83,8 @@ zk:
 .PHONY: dirs
 dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
+	@test -d ~/code || mkdir -v ~/code
+	@test -d ~/work || mkdir -v ~/work
 
 .PHONY: packages
 packages: python-packages node-packages rust-packages
@@ -122,8 +124,9 @@ ai-darwin:
 
 .PHONY: ai-linux
 ai-linux:
-	url -fsSL https://chatgpt.com/codex/install.sh | sh
+	curl -fsSL https://chatgpt.com/codex/install.sh | sh
 	curl -fsSL https://x.ai/cli/install.sh | bash
+	curl -fsSL https://dev.meta.ai/install.sh | bash
 
 .PHONY: desktop
 desktop: desktop-$(OS)
