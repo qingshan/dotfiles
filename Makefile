@@ -20,8 +20,8 @@ setup-darwin:
 .PHONY: setup-linux
 setup-linux:
 	@if [ -f /etc/redhat-release ]; then sh ./linux/redhat/setup.sh; fi
-	@if [ -f /etc/arch-release ]; then sh ./linux/arch/setup.sh; fi
 	@if [ -f /etc/debian_version ]; then sh ./linux/debian/setup.sh; fi
+	@if command -v omarchy >/dev/null 2>&1; then sh ./linux/omarchy/setup.sh; fi
 
 .PHONY: shells
 shells: bash zsh fish
@@ -141,7 +141,7 @@ desktop-darwin: terminal editor
 
 .PHONY: desktop-linux
 desktop-linux: terminal editor
-	@if [ -f /etc/debian_version ]; then sh ./debian/setup.sh; fi
+	@if command -v omarchy >/dev/null 2>&1; then sh ./omarchy/setup.sh; fi
 
 .PHONY: test
 test: server-test desktop-test

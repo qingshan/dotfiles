@@ -1,9 +1,0 @@
-[Unit]
-Description=xremap
-
-[Service]
-ExecStart=/usr/bin/xremap /home/qingshan/.dotfiles/debian/xremap/config.yml
-Restart=always
-
-[Install]
-WantedBy=default.target

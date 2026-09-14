@@ -40,7 +40,7 @@ Suitable for all kinds of purpose:
 ### Desktops
 
 - [macOS](macos/README.md)
-- [Debian](debian/README.md): regolith-i3 & xremap & xmodmap
+- [Omarchy](omarchy/README.md): Hyprland-based Arch Linux desktop
 
 Both desktops use same key bindings, go to [Desktop Cheatsheet](docs/desktop_cheatsheet.md).
 

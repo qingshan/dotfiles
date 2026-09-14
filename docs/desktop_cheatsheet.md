@@ -1,5 +1,10 @@
 # Desktop Cheatsheet
 
+Cross-platform shortcuts bound to the Hyper key (CapsLock) on both
+[macOS](../macos/README.md) (HyperKey) and [Omarchy](../omarchy/README.md)
+(`caps:hyper` in `hypr/input.lua`, bindings in `hypr/bindings.lua`).
+Physical Super/Cmd is left for apps (browser, Ghostty, Alacritty).
+
 ## Focus Window
 
 - `<Hyper>+h` - focus left
@@ -29,16 +34,18 @@
 ## Management
 
 - `<Hyper>+Tab` - window switcher
-- `<Hyper>+Shift+i` - hide/show bar
 - `<Hyper>+Shift+q` - kill current application
-- `<Hyper>+Shift+r` - reload config
-- `<Hyper>+Shift+e` - exit / logout
-- `<Hyper>+Shift+b` - reboot
-- `<Hyper>+Shift+p` - power off
+
+- `<Hyper>+Space` - Omarchy menu
+- `<Hyper>+Shift+Space` - hide/show bar
+- `<Hyper>+Escape` - system menu (logout/reboot/power)
+- `<Hyper>+Ctrl+L` - lock
+- reload config -> automatic on save
 
 ## Launch
 
 - `<Hyper>+Return` - exec terminal
 - `<Hyper>+Shift+Return` - exec browser
-- `<Hyper>+Print` - screenshot
-- `<Hyper>+Shift+Print` - screenshot with selected region
+
+Screenshots use bare `Print Screen` under Omarchy (no modifier needed) —
+see `docs/terminal_cheatsheet.md`.
