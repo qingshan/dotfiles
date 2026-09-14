@@ -100,6 +100,20 @@ rust-packages:
 	rustup component add rust-src
 	rustup component add rust-analyzer
 
+.PHONY: tailscale
+tailscale: tailscale-$(OS)
+	sudo tailscale up
+
+.PHONY: tailscale-darwin
+tailscale-darwin:
+	brew install tailscale
+	sudo brew services start tailscale
+
+.PHONY: tailscale-linux
+tailscale-linux:
+	curl -fsSL https://tailscale.com/install.sh | sh
+	sudo systemctl enable --now tailscaled
+
 .PHONY: ai
 ai: ai-$(OS)
 
