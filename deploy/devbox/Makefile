@@ -23,7 +23,7 @@ $(IMAGE):
 	cd $(IMAGES_DIR) && wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
 	cd $(IMAGES_DIR) && qemu-img convert -p -f qcow2 -O qcow2 noble-server-cloudimg-amd64.img devbox.qcow2
 	cd $(IMAGES_DIR) && qemu-img resize devbox.qcow2 20G
-	cat ~/.dotfiles/deploy/devbox/ubuntu-init.yaml | sed "s/__SSH_PUBKEY__/$(SSH_PUBKEY)/g" > user-data.yaml
+	cat ~/.dotfiles/deploy/devbox/ubuntu-init.yaml | sed "s|__SSH_PUBKEY__|$(SSH_PUBKEY)|g" > user-data.yaml
 
 .PHONY: ubuntu
 ubuntu: $(IMAGE)
