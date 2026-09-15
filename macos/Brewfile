@@ -91,6 +91,7 @@ cask "eqmac"
 cask "iina"
 cask "keycastr"
 cask "hyperkey"
+brew "asmvik/formulae/skhd"
 cask "socsieng/tap/sendkeys"
 # development
 cask "intellij-idea"

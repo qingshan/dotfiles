@@ -46,6 +46,21 @@ Physical Super/Cmd is left for apps (browser, Ghostty, Alacritty).
 
 - `<Hyper>+Return` - exec terminal
 - `<Hyper>+Shift+Return` - exec browser
+- `<Hyper>+T` - Alacritty
+- `<Hyper>+G` - Ghostty
+- `<Hyper>+E` - Zed
+- `<Hyper>+I` (Omarchy) / `<Hyper>+J` (macOS) - IntelliJ IDEA
+- `<Hyper>+W` - Chrome
+- `<Hyper>+B` - Brave
+- `<Hyper>+O` - Obsidian
+- `<Hyper>+S` - Slack
+- `<Hyper>+Z` - Zoom
+- `<Hyper>+V` - mpv (Omarchy) / IINA (macOS)
+
+macOS-only (no Linux app installed): `<Hyper>+D` Dictionary, `+N` Notes,
+`+M` Mail, `+R` Reminders, `+C` Calendar, `+P` Podcasts. See
+[macos/skhdrc](../macos/skhdrc) and
+[omarchy/hypr/bindings.lua](../omarchy/hypr/bindings.lua).
 
 Screenshots use bare `Print Screen` under Omarchy (no modifier needed) —
 see `docs/terminal_cheatsheet.md`.

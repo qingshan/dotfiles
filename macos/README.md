@@ -34,7 +34,12 @@ defaults write com.mitchellh.ghostty TerminalDefaultLevel -int 3
 
 ## Shortcuts
 
-- Launch daily apps using hyper key
+- Hyperkey only remaps CapsLock to the ⌃⌥⌘⇧ combo; it does not bind actions.
+- App-launch shortcuts are bound with `skhd` (`~/.config/skhd/skhdrc`,
+  symlinked from `macos/skhdrc`; installed/started via `make skhd`).
+- Grant skhd Accessibility permission once in System Settings > Privacy &
+  Security > Accessibility, then restart it: `skhd --restart-service`.
+- e.g. `<Hyper>+d` - launch Dictionary
 
 ## Keyboard
 

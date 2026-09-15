@@ -48,6 +48,21 @@ o.bind("XF86PowerOff", "Power menu", "omarchy-menu toggle system", { locked = tr
 o.bind_toggle("MOD3 + SHIFT + SPACE", "Toggle top bar", "bar")
 o.bind("MOD3 + CTRL + L", "Lock system", "omarchy-system-lock")
 
+-- Launch apps (parity with macos/skhdrc; letters kept identical except
+-- IntelliJ, which uses I here since MOD3+J is already "Focus down" above.
+-- Dictionary, Notes, Mail, Reminders, Calendar, and Podcasts are skipped —
+-- no equivalent app/package is installed on Omarchy for those).
+o.bind("MOD3 + T", "Terminal: Alacritty", "alacritty")
+o.bind("MOD3 + G", "Terminal: Ghostty", "ghostty")
+o.bind("MOD3 + E", "Editor: Zed", "zed")
+o.bind("MOD3 + I", "Editor: IntelliJ IDEA", "idea")
+o.bind("MOD3 + W", "Browser: Chrome", "google-chrome-stable")
+o.bind("MOD3 + B", "Browser: Brave", "brave")
+o.bind("MOD3 + O", "Notes: Obsidian", "obsidian")
+o.bind("MOD3 + S", "Slack", "slack")
+o.bind("MOD3 + Z", "Zoom", "zoom")
+o.bind("MOD3 + V", "Video: mpv", "mpv")
+
 -- Click-drag move / resize (macOS HyperKey "Click Drag Move")
 o.bind("MOD3 + mouse:272", "Move window", hl.dsp.window.drag(), { mouse = true })
 o.bind("MOD3 + mouse:273", "Resize window", hl.dsp.window.resize(), { mouse = true })

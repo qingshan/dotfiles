@@ -1,0 +1,28 @@
+# Hyper key = Caps Lock, remapped by Hyperkey.app to ctrl+alt+cmd+shift.
+# Bind daily-app launches here; skhd hotloads this file on save.
+
+# Development
+cmd + alt + ctrl + shift - t : open -a "Alacritty"
+cmd + alt + ctrl + shift - g : open -a "Ghostty"
+cmd + alt + ctrl + shift - e : open -a "Zed"
+cmd + alt + ctrl + shift - j : open -a "IntelliJ IDEA"
+
+# Information
+cmd + alt + ctrl + shift - w : open -a "Google Chrome"
+cmd + alt + ctrl + shift - b : open -a "Brave Browser"
+cmd + alt + ctrl + shift - o : open -a "Obsidian"
+cmd + alt + ctrl + shift - n : open -a "Notes"
+cmd + alt + ctrl + shift - d : open -a "Dictionary"
+
+# Communication
+cmd + alt + ctrl + shift - s : open -a "Slack"
+cmd + alt + ctrl + shift - m : open -a "Mail"
+cmd + alt + ctrl + shift - z : open -a "Zoom.us"
+
+# Productivity
+cmd + alt + ctrl + shift - r : open -a "Reminders"
+cmd + alt + ctrl + shift - c : open -a "Calendar"
+
+# Entertainment & Personal
+cmd + alt + ctrl + shift - v : open -a "IINA"
+cmd + alt + ctrl + shift - p : open -a "Podcasts"

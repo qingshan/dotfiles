@@ -152,8 +152,16 @@ ideavim:
 	mkdir -p ${HOME}/.config/ideavim
 	ln -snf ../../.dotfiles/ideavim/ideavimrc ${HOME}/.config/ideavim/ideavimrc
 
+.PHONY: skhd
+skhd:
+       mkdir -p ${HOME}/.config/skhd
+       ln -snf ../../.dotfiles/macos/skhdrc ${HOME}/.config/skhd/skhdrc
+       brew install asmvik/formulae/skhd
+       skhd --start-service
+
+ .PHONY: desktop-darwin
 .PHONY: desktop-darwin
-desktop-darwin: terminal editor
+desktop-darwin: terminal editor skhd
 	@sh ./macos/setup.sh
 
 .PHONY: desktop-linux
