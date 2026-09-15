@@ -65,11 +65,6 @@ Version Control:
 - LazyGit
 - Github CLI
 
-AI:
-- Google Gemini CLI
-- Github Copilot CLI
-- OpenCode
-
 ### Servers
 
 - Debian 13, Ubuntu 24.04
@@ -129,6 +124,7 @@ Both alacritty and ghostty use iTerm2-like key bindings, go to [Terminal Cheatsh
 - Github Copilot
 - OpenAI Codex
 - Grok Build
+- Muse Code
 
 ### Fonts
 
