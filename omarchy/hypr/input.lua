@@ -13,5 +13,13 @@
 hl.config({
   input = {
     kb_options = "caps:hyper",
+
+    -- macOS-style two-finger scrolling: fingers move the content, not a
+    -- scrollbar. Omarchy's default is traditional (natural_scroll = false).
+    touchpad = {
+      natural_scroll = true,
+      clickfinger_behavior = true,
+      scroll_factor = 0.4,
+    },
   },
 })

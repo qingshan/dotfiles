@@ -40,7 +40,7 @@ o.bind("CTRL + ALT + DELETE", "Close all windows", "omarchy-hyprland-window-clos
 
 -- Launch
 o.bind("MOD3 + RETURN", "Terminal", { omarchy = "terminal" })
-o.bind("MOD3 + SHIFT + RETURN", "Browser", { omarchy = "browser" })
+o.bind("MOD3 + SHIFT + RETURN", "Browser: Brave", { launch = "brave" })
 o.bind("MOD3 + SPACE", "Omarchy menu", "omarchy-menu toggle")
 o.bind("MOD3 + ALT + SPACE", "Apps menu", "omarchy-menu toggle apps")
 o.bind("MOD3 + ESCAPE", "System menu", "omarchy-menu toggle system")
