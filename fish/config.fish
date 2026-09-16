@@ -319,6 +319,12 @@ abbr --add dcu 'docker compose up'
 abbr --add dcud 'docker compose up -d'
 abbr --add dcuf 'docker compose up -f'
 
+# AI
+abbr --add ycc 'claude --dangerously-skip-permissions'
+abbr --add ycx 'codex --yolo'
+abbr --add ycp 'copilot --yolo'
+abbr --add ygb 'grok --yolo'
+
 # make directory and cd
 function mkcd
   mkdir -p $argv; and cd $argv
