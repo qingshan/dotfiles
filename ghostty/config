@@ -18,9 +18,9 @@ window-save-state = never
 confirm-close-surface = false
 
 # shell
-shell-integration = none
+shell-integration = detect
 term = xterm-256color
-initial-command = /bin/zsh -lc 'exec herdr'
+initial-command = /bin/bash -lc 'exec herdr'
 
 # macos
 # macos-hidden = always
