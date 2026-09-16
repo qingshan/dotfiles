@@ -14,7 +14,7 @@ shell_mode = "login"
 agent_panel_sort = "spaces"
 pane_borders = true
 pane_gaps = false
-hide_tab_bar_when_single_tab = true
+hide_tab_bar_when_single_tab = false
 prompt_new_tab_name = false
 confirm_close = false
 
