@@ -97,6 +97,22 @@ alias rcp='rsync -vhra --include="**.gitignore" --exclude="/.git" --filter=":- .
 alias rscp='rsync --archive --compress-level=3 --copy-links --partial --inplace --progress --rsh=ssh -r'
 alias rcpl='rsync --compress --verbose --human-readable --partial --progress'
 
+# rsync files changed in the current git repo (working tree + untracked) to a remote destination
+function rsg -a dest
+  set -l root (git rev-parse --show-toplevel)
+  if test -z "$root"
+    echo "rsg: not inside a git repository" >&2
+    return 1
+  end
+  if test -z "$dest"
+    echo "usage: rsg user@host:/path/to/repo" >&2
+    return 1
+  end
+  pushd $root
+  git status --porcelain | awk '{print $2}' | rsync -avR --files-from=- ./ $dest
+  popd
+end
+
 # yt-dlp
 alias ytdl='yt-dlp --write-auto-sub --sub-lang en --convert-subs=srt'
 
