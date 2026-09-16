@@ -72,11 +72,8 @@ brew "container"
 # notes
 brew "zk"
 # ai
-brew "llm"
-brew "opencode"
 cask "copilot-cli"
 cask "claude-code"
-brew "gemini-cli"
 cask "codex"
 # fonts
 cask "font-jetbrains-mono"
