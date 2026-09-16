@@ -127,6 +127,7 @@ ai-linux:
 	curl -fsSL https://chatgpt.com/codex/install.sh | sh
 	curl -fsSL https://x.ai/cli/install.sh | bash
 	curl -fsSL https://dev.meta.ai/install.sh | bash
+	curl -fsSL https://pi.dev/install.sh | sh
 
 .PHONY: desktop
 desktop: desktop-$(OS)
@@ -154,10 +155,10 @@ ideavim:
 
 .PHONY: skhd
 skhd:
-       mkdir -p ${HOME}/.config/skhd
-       ln -snf ../../.dotfiles/macos/skhdrc ${HOME}/.config/skhd/skhdrc
-       brew install asmvik/formulae/skhd
-       skhd --start-service
+	mkdir -p ${HOME}/.config/skhd
+	ln -snf ../../.dotfiles/macos/skhdrc ${HOME}/.config/skhd/skhdrc
+	brew install asmvik/formulae/skhd
+	skhd --start-service
 
  .PHONY: desktop-darwin
 .PHONY: desktop-darwin
