@@ -28,9 +28,9 @@ if command -q zoxide
   zoxide init fish | source
 end
 
-# direnv
-if command -q direnv
-  direnv hook fish | source
+# mise (manages node, python, go)
+if command -q mise
+  mise activate fish | source
 end
 
 # lazygit

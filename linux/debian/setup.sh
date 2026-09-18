@@ -24,7 +24,6 @@ sudo apt install -y \
   ripgrep \
   fd-find \
   bat \
-  direnv \
   zoxide \
   htop \
   rsync \
@@ -34,8 +33,8 @@ sudo apt install -y \
   jq \
   rustup
 
-curl -fsSL https://deb.nodesource.com/setup_24.x | sudo bash -
-sudo apt-get install -y nodejs
+# mise (manages node, python, go)
+curl -fsSL https://mise.run | sh
 
 if [ "$ID" = "debian" ]; then
   sudo apt install -y starship fzf

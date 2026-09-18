@@ -4,7 +4,7 @@ GIT_MAIL = qs@qingshan.dev
 OS := $(shell uname -s | tr A-Z a-z)
 
 .PHONY: install
-install: setup shells tools packages
+install: setup shells tools packages ai
 
 .PHONY: doctor
 doctor:
@@ -52,7 +52,7 @@ fish:
 	fish -c "fisher install jorgebucaran/autopair.fish"
 
 .PHONY: tools
-tools: vim tmux herdr git zk dirs
+tools: vim tmux herdr git zk dirs mise
 
 .PHONY: vim
 vim:
@@ -85,6 +85,12 @@ dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
 	@test -d ~/code || mkdir -v ~/code
 	@test -d ~/work || mkdir -v ~/work
+
+.PHONY: mise
+mise:
+	mkdir -p ${HOME}/.config/mise
+	ln -snf ../../.dotfiles/mise/config.toml ${HOME}/.config/mise/config.toml
+	mise install
 
 .PHONY: packages
 packages: python-packages node-packages rust-packages
@@ -124,10 +130,8 @@ ai-darwin:
 
 .PHONY: ai-linux
 ai-linux:
-	curl -fsSL https://chatgpt.com/codex/install.sh | sh
-	curl -fsSL https://x.ai/cli/install.sh | bash
-	curl -fsSL https://dev.meta.ai/install.sh | bash
-	curl -fsSL https://pi.dev/install.sh | sh
+	curl -fsSL https://chatgpt.com/codex/install.sh | bash
+	curl -fsSL https://x.ai/cli/install.sh | bash -s -- --no-modify-path
 
 .PHONY: desktop
 desktop: desktop-$(OS)

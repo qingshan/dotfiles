@@ -19,7 +19,6 @@ brew "zoxide"
 brew "rename"
 brew "watch"
 brew "tealdeer"
-brew "direnv"
 brew "btop"
 brew "nnn"
 # data
@@ -47,8 +46,6 @@ brew "git-lfs"
 brew "git-delta"
 brew "lazygit"
 brew "gh"
-# nodejs
-brew "node"
 # rust
 brew "rustup"
 # java
@@ -57,8 +54,9 @@ brew "ant"
 brew "maven"
 brew "spotbugs"
 # python
-brew "python"
 brew "uv"
+# runtime version manager (node, python, go)
+brew "mise"
 # tools
 brew "just"
 brew "rargs"

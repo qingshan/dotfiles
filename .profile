@@ -1,10 +1,6 @@
-# set PATH for Go
-if [ -d "/usr/local/go/bin" ]; then
-    export PATH="$PATH:/usr/local/go/bin"
-fi
-if [ -d "$HOME/.go" ]; then
-    export GOPATH="$HOME/.go"
-    export PATH="$GOPATH/bin:$PATH"
+# set PATH for mise (manages node, python, go)
+if [ -d "$HOME/.local/share/mise/shims" ]; then
+    export PATH="$HOME/.local/share/mise/shims:$PATH"
 fi
 
 # set PATH for Rust

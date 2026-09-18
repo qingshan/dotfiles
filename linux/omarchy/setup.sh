@@ -9,7 +9,6 @@ sudo pacman -S --noconfirm --needed \
   fish \
   zsh \
   vim \
-  direnv \
   lsd \
   git-delta \
   just \

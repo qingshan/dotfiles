@@ -52,9 +52,10 @@ IDEs:
 
 Languages:
 - Rust: cargo
-- Python: uv
+- Python: mise, uv
 - Java: ant, maven
-- Nodejs
+- Nodejs: mise
+- Go: mise
 
 Containers:
 - Apple Container
@@ -94,7 +95,6 @@ Fish shell integration with:
 - starship
 - fzf
 - zoxide
-- direnv
 - lsd
 - bat
 - fd
