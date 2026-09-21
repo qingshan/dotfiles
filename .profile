@@ -3,9 +3,16 @@ if [ -d "$HOME/.local/share/mise/shims" ]; then
     export PATH="$HOME/.local/share/mise/shims:$PATH"
 fi
 
-# set PATH for Rust
-if [ -d "$HOME/.cargo/bin" ]; then
+# set PATH for Rust (rustup-init install)
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+elif [ -d "$HOME/.cargo/bin" ]; then
     export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# set PATH for Rust (Homebrew rustup)
+if [ -d "/opt/homebrew/opt/rustup/bin" ]; then
+    export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 fi
 
 # set PATH for AI
