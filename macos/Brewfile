@@ -72,7 +72,6 @@ brew "zk"
 # ai
 cask "copilot-cli"
 cask "claude-code"
-cask "codex"
 # fonts
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
