@@ -90,10 +90,17 @@ type = "shell"
 command = "/usr/bin/open -a Alacritty"
 description = "run alacritty"
 
+# type = "popup"/"pane" custom commands always run via a non-login `/bin/sh
+# -c`, which never sources ~/.profile; that PATH only has ~/.dotfiles/bin
+# (where these tmux-* helper scripts live) when the herdr server process
+# itself happened to inherit it (e.g. started from a login shell in
+# ghostty). Remote servers auto-started over SSH get a bare system PATH
+# instead, so wrap each command in `bash -lc` to force a login shell and
+# reliably pick up PATH regardless of how the server was launched.
 [[keys.command]]
 key = "prefix+shift+g"
 type = "popup"
-command = "tmux-grep | xargs -r tmux-vim"
+command = "bash -lc 'tmux-grep | xargs -r tmux-vim'"
 description = "grep files"
 width = "80%"
 height = "80%"
@@ -101,7 +108,7 @@ height = "80%"
 [[keys.command]]
 key = "prefix+shift+c"
 type = "popup"
-command = "tmux-commands | xargs -o -r tmux-run -t window --"
+command = "bash -lc 'tmux-commands | xargs -o -r tmux-run -t window --'"
 description = "commands"
 width = "80%"
 height = "80%"
@@ -109,7 +116,7 @@ height = "80%"
 [[keys.command]]
 key = "prefix+r"
 type = "popup"
-command = "tmux-project menu"
+command = "bash -lc 'tmux-project menu'"
 description = "project menu"
 width = "80%"
 height = "80%"
@@ -117,7 +124,7 @@ height = "80%"
 [[keys.command]]
 key = "prefix+shift+r"
 type = "popup"
-command = "tmux-project commands | xargs -o -r tmux-run -t right --"
+command = "bash -lc 'tmux-project commands | xargs -o -r tmux-run -t right --'"
 description = "commands"
 width = "80%"
 height = "80%"
@@ -125,7 +132,7 @@ height = "80%"
 [[keys.command]]
 key = "prefix+shift+e"
 type = "popup"
-command = "tmux-apps menu"
+command = "bash -lc 'tmux-apps menu'"
 description = "apps menu"
 width = "80%"
 height = "80%"
@@ -133,7 +140,7 @@ height = "80%"
 [[keys.command]]
 key = "prefix+shift+p"
 type = "popup"
-command = "tmux-apps menu"
+command = "bash -lc 'tmux-apps menu'"
 description = "apps menu"
 width = "80%"
 height = "80%"
