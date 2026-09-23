@@ -7,14 +7,6 @@ set -euo pipefail
 # the official Arch repos, no AUR helper required.
 sudo pacman -S --noconfirm --needed \
   fish \
-  zsh \
-  vim \
-  lsd \
-  git-delta \
-  just \
   wget \
-  rustup \
-  uv \
-  nnn \
   autossh \
-  zk
+  vim

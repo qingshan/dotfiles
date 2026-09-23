@@ -4,9 +4,38 @@ rust = "stable"
 node = "lts"
 python = "latest"
 go = "latest"
+
 # agents
 claude = "latest"
 codex = "latest"
 copilot = "latest"
 grok = "latest"
 pi = "latest"
+
+# terminals
+tmux = "latest"
+herdr = "latest"
+
+# development
+gh = "latest"
+hk = "latest"
+uv = "latest"
+lazygit = "latest"
+just = "latest"
+
+# diff
+hunk = "latest"
+delta = "latest"
+
+# tools
+bat = "latest"
+lsd = "latest"
+fd = "latest"
+sd = "latest"
+fzf = "latest"
+glow = "latest"
+jq = "latest"
+ripgrep = "latest"
+starship = "latest"
+yq = "latest"
+zoxide = "latest"
