@@ -1,32 +1,19 @@
-# set PATH for mise (manages node, python, go)
+# set PATH for user's local bin
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# set PATH for mise (manages rust, node, python, go)
 if [ -d "$HOME/.local/share/mise/shims" ]; then
     export PATH="$HOME/.local/share/mise/shims:$PATH"
 fi
 
-# set PATH for Rust (rustup-init install)
-if [ -f "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
-elif [ -d "$HOME/.cargo/bin" ]; then
-    export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-# set PATH for Rust (Homebrew rustup)
-if [ -d "/opt/homebrew/opt/rustup/bin" ]; then
-    export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
-fi
-
-# set PATH for AI
-if [ -d "$HOME/.grok/bin" ]; then
-    export PATH="$HOME/.grok/bin:$PATH"
-fi
-
-# set PATH for user's private bin
-if [ -d "$HOME/.local/bin" ]; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
+# set PATH for user's dotfiles bin
 if [ -d "$HOME/.dotfiles/bin" ]; then
     export PATH="$HOME/.dotfiles/bin:$PATH"
 fi
+
+# set PATH for user's private bin
 if [ -d "$HOME/.bin" ]; then
     export PATH="$HOME/.bin:$PATH"
 fi
