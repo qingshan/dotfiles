@@ -4,7 +4,7 @@ GIT_MAIL = qs@qingshan.dev
 OS := $(shell uname -s | tr A-Z a-z)
 
 .PHONY: install
-install: setup shells tools packages ai
+install: setup shells tools
 
 .PHONY: doctor
 doctor:
@@ -47,9 +47,6 @@ fish:
 	ln -snf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
 	ln -snf ../../.dotfiles/lsd/config.yml ${HOME}/.config/lsd/config.yml
 	ln -snf ../.dotfiles/starship/starship.toml ${HOME}/.config/starship.toml
-	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
-	fish -c "fisher install patrickf1/fzf.fish"
-	fish -c "fisher install jorgebucaran/autopair.fish"
 
 .PHONY: tools
 tools: vim tmux herdr git zk dirs mise
@@ -92,22 +89,6 @@ mise:
 	ln -snf ../../.dotfiles/mise/config.toml ${HOME}/.config/mise/config.toml
 	mise install
 
-.PHONY: packages
-packages: python-packages node-packages rust-packages
-
-.PHONY: python-packages
-python-packages:
-
-.PHONY: node-packages
-node-packages:
-
-.PHONY: rust-packages
-rust-packages:
-	rustup toolchain install stable
-	rustup default stable
-	rustup component add rust-src
-	rustup component add rust-analyzer
-
 .PHONY: tailscale
 tailscale: tailscale-$(OS)
 	sudo tailscale up
@@ -121,17 +102,6 @@ tailscale-darwin:
 tailscale-linux:
 	curl -fsSL https://tailscale.com/install.sh | sh
 	sudo systemctl enable --now tailscaled
-
-.PHONY: ai
-ai: ai-$(OS)
-
-.PHONY: ai-darwin
-ai-darwin:
-
-.PHONY: ai-linux
-ai-linux:
-	curl -fsSL https://chatgpt.com/codex/install.sh | bash
-	curl -fsSL https://x.ai/cli/install.sh | bash -s -- --no-modify-path
 
 .PHONY: desktop
 desktop: desktop-$(OS)

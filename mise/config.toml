@@ -1,4 +1,12 @@
 [tools]
+# languages
+rust = "stable"
 node = "lts"
 python = "latest"
 go = "latest"
+# agents
+claude = "latest"
+codex = "latest"
+copilot = "latest"
+grok = "latest"
+pi = "latest"
