@@ -20,7 +20,6 @@ brew "mdbook"
 brew "rsync"
 brew "autossh"
 brew "wget"
-brew "pssh"
 brew "pdsh"
 # editors
 brew "vim"
