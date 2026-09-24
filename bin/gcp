@@ -1,0 +1,256 @@
+#!/usr/bin/env bash
+# Copy a git working tree with rsync, converted from the fish function
+# `rsg` (formerly in fish/config.fish).
+#
+# By default this only transfers files `git status` considers modified
+# (tracked changes, renames, untracked-but-not-ignored files) plus removes
+# files git considers deleted/renamed-away at the destination -- i.e. it
+# assumes both sides already share a common base checkout and just
+# propagates the *working tree diff*, the same semantics `rsg` had. Use
+# --full to instead mirror the whole tree (honoring .gitignore via rsync's
+# own per-directory filter, so it works even without git on either side).
+#
+# Either side may be remote (user@host:/path); git-diff mode runs `git`
+# over ssh on a remote source, so git must be installed there too. Full
+# mode never needs git on either side. Transfers are always compressed.
+
+set -uo pipefail
+
+compress_level=3
+delete=1
+full_mode=0
+dry_run=()
+
+usage() {
+  cat <<'EOF'
+Usage: gcp [options] <destination>
+       gcp [options] <source> <destination>
+
+Copies a git working tree with rsync. Either <source> or <destination>
+may be remote (user@host:/path); transfers always use rsync's
+compression.
+
+With a single argument, <source> defaults to the current git
+repository's root (errors if not run inside one).
+
+Default mode ("diff"): only transfers files `git status` reports as
+modified/renamed/untracked (not ignored), and removes files git reports
+as deleted/renamed-away at the destination. This assumes <destination>
+is already a checkout of the same base commit(s) -- it propagates the
+working tree diff, it does not provision a fresh clone.
+
+--full mode instead mirrors the entire tree (minus anything matched by
+.gitignore, via rsync's own filter -- no git required on either side).
+
+Options:
+      --full                mirror the whole tree instead of just the
+                            git diff (see above)
+  -z, --compress-level N   rsync compression level, 1-9 (default: 3)
+      --no-delete          don't delete extraneous (--full) or
+                            deleted/renamed-away (diff mode) files at
+                            the destination
+  -n, --dry-run            show what would be transferred without doing it
+  -h, --help                show this help
+
+Examples:
+  gcp user@host:/path/to/repo              # push local repo's diff to remote
+  gcp user@host:/path/to/repo ./local-dir  # pull remote repo's diff to local
+  gcp --full user@host:/path/to/repo       # push a full mirror instead
+EOF
+}
+
+positional=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --full)
+      full_mode=1
+      shift
+      ;;
+    -z|--compress-level)
+      compress_level=$2
+      shift 2
+      ;;
+    --no-delete)
+      delete=0
+      shift
+      ;;
+    -n|--dry-run)
+      dry_run=(--dry-run)
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      positional+=("$@")
+      break
+      ;;
+    -*)
+      echo "gcp: unknown option: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+    *)
+      positional+=("$1")
+      shift
+      ;;
+  esac
+done
+set -- ${positional[@]+"${positional[@]}"}
+
+if [[ $# -lt 1 || $# -gt 2 ]]; then
+  usage >&2
+  exit 1
+fi
+
+if [[ $# -eq 1 ]]; then
+  root=$(git rev-parse --show-toplevel 2>/dev/null)
+  if [[ -z "$root" ]]; then
+    echo "gcp: not inside a git repository; pass <source> <destination> explicitly" >&2
+    exit 1
+  fi
+  source=$root
+  dest=$1
+else
+  source=$1
+  dest=$2
+fi
+
+is_remote() { [[ "$1" == *:* ]]; }
+
+# POSIX-shell-safe single-quoting, for building commands run via ssh.
+shquote() { printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"; }
+
+# Like shquote, but for a remote path that may start with a `~` (or
+# `~user`) needing tilde expansion on the far end -- single-quoting the
+# whole path (as shquote does) would make `~` literal and break `git -C`.
+# Leaves a leading `~[user]/` unquoted and quotes the remainder.
+quote_remote_path() {
+  local p=$1
+  if [[ "$p" == "~" ]]; then
+    printf '~'
+  elif [[ "${p:0:1}" == "~" ]]; then
+    local rest=${p#\~}
+    if [[ "$rest" == */* ]]; then
+      printf '~%s/%s' "${rest%%/*}" "$(shquote "${rest#*/}")"
+    else
+      printf '~%s' "$rest"
+    fi
+  else
+    shquote "$p"
+  fi
+}
+
+resolve_root() {
+  local loc=$1 host path top
+  if is_remote "$loc"; then
+    host=${loc%%:*}
+    path=${loc#*:}
+    top=$(ssh "$host" "git -C $(quote_remote_path "$path") rev-parse --show-toplevel" 2>/dev/null)
+    [[ -n "$top" ]] || { echo "gcp: $loc is not inside a git repository" >&2; exit 1; }
+    echo "$host:$top"
+  else
+    top=$(git -C "$loc" rev-parse --show-toplevel 2>/dev/null)
+    [[ -n "$top" ]] || { echo "gcp: $loc is not inside a git repository" >&2; exit 1; }
+    echo "$top"
+  fi
+}
+
+if (( full_mode )); then
+  # A remote source (user@host:path) can't be checked with a local `git`
+  # call, so only resolve local sources to their repo root; trust remote
+  # ones as given.
+  if ! is_remote "$source"; then
+    source=$(resolve_root "$source") || exit 1
+  fi
+
+  # Copy the contents of source into dest, not source itself.
+  [[ "$source" == */ ]] || source="$source/"
+
+  delete_flag=()
+  [[ $delete -eq 1 ]] && delete_flag=(--delete-after)
+
+  rsync -vhra \
+    --compress --compress-level="$compress_level" \
+    --include="**.gitignore" \
+    --exclude="/.git" \
+    --filter=":- .gitignore" \
+    ${delete_flag[@]+"${delete_flag[@]}"} \
+    ${dry_run[@]+"${dry_run[@]}"} \
+    "$source" "$dest"
+  exit $?
+fi
+
+# --- Default: git-diff mode ---
+
+source=$(resolve_root "$source") || exit 1
+
+synclist=$(mktemp)
+dellist=$(mktemp)
+trap 'rm -f "$synclist" "$dellist"' EXIT
+
+# Bash variables can't hold embedded NUL bytes, so the -z-delimited git
+# status output must be streamed straight into the read loop below, never
+# captured into a variable first (that would silently truncate at the
+# first NUL).
+if is_remote "$source"; then
+  host=${source%%:*}
+  path=${source#*:}
+  status_cmd=(ssh "$host" "git -C $(quote_remote_path "$path") status --porcelain=v1 -z --untracked-files=all")
+else
+  status_cmd=(git -C "$source" status --porcelain=v1 -z --untracked-files=all)
+fi
+
+while IFS= read -r -d '' entry; do
+  status=${entry:0:2}
+  path=${entry:3}
+  if [[ "$status" == *R* || "$status" == *C* ]]; then
+    IFS= read -r -d '' orig || true
+    printf '%s\0' "$path" >> "$synclist"
+    [[ "$status" == *R* ]] && printf '%s\0' "$orig" >> "$dellist"
+  elif [[ "$status" == *D* ]]; then
+    printf '%s\0' "$path" >> "$dellist"
+  else
+    printf '%s\0' "$path" >> "$synclist"
+  fi
+done < <("${status_cmd[@]}")
+
+if [[ ! -s "$synclist" && ! -s "$dellist" ]]; then
+  echo "gcp: no changes to sync (source matches its last commit)" >&2
+  exit 0
+fi
+
+path_only=${source#*:}
+[[ "$path_only" == */ ]] || path_only="$path_only/"
+if is_remote "$source"; then
+  rsync_source="${source%%:*}:$path_only"
+else
+  rsync_source="$path_only"
+fi
+
+if [[ -s "$synclist" ]]; then
+  rsync -vhr \
+    --compress --compress-level="$compress_level" \
+    --filter=":- .gitignore" \
+    --from0 --files-from="$synclist" \
+    ${dry_run[@]+"${dry_run[@]}"} \
+    "$rsync_source" "$dest"
+fi
+
+if [[ $delete -eq 1 && -s "$dellist" ]]; then
+  if (( ${#dry_run[@]} )); then
+    echo "Would remove from destination:"
+    xargs -0 -n1 < "$dellist"
+  elif is_remote "$dest"; then
+    host=${dest%%:*}
+    path=${dest#*:}
+    xargs -0 -I{} echo {} < "$dellist" \
+      | ssh "$host" "cd $(quote_remote_path "$path") && xargs -I{} rm -rf -- {}"
+  else
+    while IFS= read -r -d '' f; do
+      rm -rf -- "$dest/$f"
+    done < "$dellist"
+  fi
+fi
