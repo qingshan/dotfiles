@@ -4,14 +4,24 @@ GIT_MAIL = qs@qingshan.dev
 OS := $(shell uname -s | tr A-Z a-z)
 
 .PHONY: install
-install: setup shells tools
+install: setup tools
 
 .PHONY: doctor
 doctor:
 	@./bin/dotfiles-doctor
 
+.PHONY: dotfiles-bootstrap
+dotfiles-bootstrap:
+	@mkdir -p ${HOME}/.config/mise
+	@ln -snf ${HOME}/.dotfiles/mise/config.toml ${HOME}/.config/mise/config.toml
+
+.PHONY: bootstrap
+bootstrap: dotfiles-bootstrap
+	mise dotfiles apply --yes ${HOME}/.config/mise/config.toml
+	mise install
+
 .PHONY: setup
-setup: setup-$(OS)
+setup: setup-$(OS) bootstrap
 	touch ~/.hushlogin
 
 .PHONY: setup-darwin
@@ -23,49 +33,24 @@ setup-linux:
 	@if [ -f /etc/debian_version ]; then sh ./linux/debian/setup.sh; fi
 	@if command -v omarchy >/dev/null 2>&1; then sh ./linux/omarchy/setup.sh; fi
 
-.PHONY: shells
-shells: bash zsh fish
-
-.PHONY: profile
-profile:
-	ln -snf .dotfiles/.profile ${HOME}/.profile
-
-.PHONY: bash
-bash: profile
-	ln -snf .dotfiles/.bashrc ${HOME}/.bashrc
-	ln -snf .dotfiles/.bash_profile ${HOME}/.bash_profile
-
-.PHONY: zsh
-zsh: profile
-	ln -snf .dotfiles/.zshrc ${HOME}/.zshrc
-	ln -snf .dotfiles/.zprofile ${HOME}/.zprofile
-
-.PHONY: fish
-fish:
-	mkdir -p ${HOME}/.config/fish
-	mkdir -p ${HOME}/.config/lsd
-	ln -snf ../../.dotfiles/fish/config.fish ${HOME}/.config/fish/config.fish
-	ln -snf ../../.dotfiles/lsd/config.yml ${HOME}/.config/lsd/config.yml
-	ln -snf ../.dotfiles/starship/starship.toml ${HOME}/.config/starship.toml
-
 .PHONY: tools
-tools: vim tmux herdr git zk dirs mise
+tools: shells tmux herdr git vim zk dirs
 
-.PHONY: vim
-vim:
-	ln -snf .dotfiles/.vimrc ${HOME}/.vimrc
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	vim +PlugInstall +qall
+.PHONY: shells
+shells: dotfiles-bootstrap
+	mise dotfiles apply --yes \
+		${HOME}/.profile \
+		${HOME}/.bashrc ${HOME}/.bash_profile \
+		${HOME}/.zshrc ${HOME}/.zprofile \
+		${HOME}/.config/fish/config.fish ${HOME}/.config/lsd/config.yml ${HOME}/.config/starship.toml
 
 .PHONY: tmux
-tmux:
-	mkdir -p ${HOME}/.config/tmux
-	ln -snf ../../.dotfiles/tmux/tmux.conf ${HOME}/.config/tmux/tmux.conf
+tmux: dotfiles-bootstrap
+	mise dotfiles apply --yes ${HOME}/.config/tmux/tmux.conf
 
 .PHONY: herdr
-herdr:
-	mkdir -p ${HOME}/.config/herdr
-	ln -snf ../../.dotfiles/herdr/config.toml ${HOME}/.config/herdr/config.toml
+herdr: dotfiles-bootstrap
+	mise dotfiles apply --yes ${HOME}/.config/herdr/config.toml
 
 .PHONY: git
 git:
@@ -73,21 +58,22 @@ git:
 	git config --global user.email $(GIT_MAIL)
 	git config --global push.default current
 
+.PHONY: vim
+vim: dotfiles-bootstrap
+	mise dotfiles apply --yes ${HOME}/.vimrc
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	vim +PlugInstall +qall
+	nvim --headless "+Lazy! update" +qa
+
 .PHONY: zk
-zk:
-	ln -snf ../.dotfiles/zk ${HOME}/.config/zk
+zk: dotfiles-bootstrap
+	mise dotfiles apply --yes ${HOME}/.config/zk
 
 .PHONY: dirs
 dirs:
 	@test -d ~/.bin || mkdir -v ~/.bin
 	@test -d ~/code || mkdir -v ~/code
 	@test -d ~/work || mkdir -v ~/work
-
-.PHONY: mise
-mise:
-	mkdir -p ${HOME}/.config/mise
-	ln -snf ../../.dotfiles/mise/config.toml ${HOME}/.config/mise/config.toml
-	mise install
 
 .PHONY: tailscale
 tailscale: tailscale-$(OS)
@@ -110,31 +96,26 @@ desktop: desktop-$(OS)
 terminal: alacritty ghostty
 
 .PHONY: alacritty
-alacritty:
-	mkdir -p ${HOME}/.config/alacritty
-	ln -snf ../../.dotfiles/alacritty/$(OS)_alacritty.toml ${HOME}/.config/alacritty/alacritty.toml
+alacritty: dotfiles-bootstrap
+	mise dotfiles apply --yes ${HOME}/.config/alacritty/alacritty.toml
 
 .PHONY: ghostty
-ghostty:
-	mkdir -p ${HOME}/.config/ghostty
-	ln -snf ../../.dotfiles/ghostty/config ${HOME}/.config/ghostty/config
+ghostty: dotfiles-bootstrap
+	mise dotfiles apply --yes ${HOME}/.config/ghostty/config
 
 .PHONY: editor
 editor: ideavim
 
 .PHONY: ideavim
-ideavim:
-	mkdir -p ${HOME}/.config/ideavim
-	ln -snf ../../.dotfiles/ideavim/ideavimrc ${HOME}/.config/ideavim/ideavimrc
+ideavim: dotfiles-bootstrap
+	mise dotfiles apply --yes ${HOME}/.config/ideavim/ideavimrc
 
 .PHONY: skhd
-skhd:
-	mkdir -p ${HOME}/.config/skhd
-	ln -snf ../../.dotfiles/macos/skhdrc ${HOME}/.config/skhd/skhdrc
+skhd: dotfiles-bootstrap
+	mise dotfiles apply --yes ${HOME}/.config/skhd/skhdrc
 	brew install asmvik/formulae/skhd
 	skhd --start-service
 
- .PHONY: desktop-darwin
 .PHONY: desktop-darwin
 desktop-darwin: terminal editor skhd
 	@sh ./macos/setup.sh

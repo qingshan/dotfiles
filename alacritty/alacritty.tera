@@ -1,0 +1,6 @@
+{#- Selects the OS-specific config; both variants import ../alacritty/alacritty.toml themselves. #}
+{%- if os() == "macos" -%}
+{{ read_file(path="../alacritty/darwin_alacritty.toml") }}
+{%- elif os() == "linux" -%}
+{{ read_file(path="../alacritty/linux_alacritty.toml") }}
+{%- endif -%}

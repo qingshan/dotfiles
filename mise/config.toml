@@ -1,3 +1,7 @@
+[settings]
+auto_install = false
+prefer_offline = true
+
 [tools]
 # languages
 rust = "stable"
@@ -18,9 +22,6 @@ herdr = "latest"
 starship = "latest"
 zoxide = "latest"
 fzf = "latest"
-
-# editor
-neovim = "latest"
 
 # development
 just = "latest"
@@ -44,3 +45,32 @@ yq = "latest"
 
 # markdown
 glow = "latest"
+
+[dotfiles]
+# shells
+"~/.profile" = "~/.dotfiles/.profile"
+"~/.bashrc" = "~/.dotfiles/.bashrc"
+"~/.bash_profile" = "~/.dotfiles/.bash_profile"
+"~/.zshrc" = "~/.dotfiles/.zshrc"
+"~/.zprofile" = "~/.dotfiles/.zprofile"
+"~/.config/fish/config.fish" = "~/.dotfiles/fish/config.fish"
+"~/.config/lsd/config.yml" = "~/.dotfiles/lsd/config.yml"
+"~/.config/starship.toml" = "~/.dotfiles/starship/starship.toml"
+
+# tools
+"~/.vimrc" = "~/.dotfiles/.vimrc"
+"~/.config/tmux/tmux.conf" = "~/.dotfiles/tmux/tmux.conf"
+"~/.config/herdr/config.toml" = "~/.dotfiles/herdr/config.toml"
+"~/.config/zk" = "~/.dotfiles/zk"
+"~/.config/mise/config.toml" = "~/.dotfiles/mise/config.toml"
+
+# terminal and editor
+"~/.config/ghostty/config" = "~/.dotfiles/ghostty/config"
+"~/.config/ideavim/ideavimrc" = "~/.dotfiles/ideavim/ideavimrc"
+# alacritty reads one path on every OS; the template picks the right
+# per-OS source (see alacritty/alacritty.tera) since dotfiles sources
+# can't vary by OS for a single target.
+"~/.config/alacritty/alacritty.toml" = { source = "~/.dotfiles/alacritty/alacritty.tera", mode = "template" }
+
+# macOS desktop
+"~/.config/skhd/skhdrc" = "~/.dotfiles/macos/skhdrc"
