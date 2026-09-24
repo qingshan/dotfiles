@@ -12,30 +12,35 @@ copilot = "latest"
 grok = "latest"
 pi = "latest"
 
-# terminals
+# shell and prompt
 tmux = "latest"
 herdr = "latest"
+starship = "latest"
+zoxide = "latest"
+fzf = "latest"
+
+# editor
+neovim = "latest"
 
 # development
+just = "latest"
+uv = "latest"
+
+# git and diff
 gh = "latest"
 hk = "latest"
-uv = "latest"
-lazygit = "latest"
-just = "latest"
-
-# diff
 hunk = "latest"
 delta = "latest"
+lazygit = "latest"
 
-# tools
+# file and text tools
 bat = "latest"
 lsd = "latest"
 fd = "latest"
 sd = "latest"
-fzf = "latest"
-glow = "latest"
-jq = "latest"
 ripgrep = "latest"
-starship = "latest"
+jq = "latest"
 yq = "latest"
-zoxide = "latest"
+
+# markdown
+glow = "latest"
