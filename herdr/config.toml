@@ -9,6 +9,7 @@ manage_ssh_config = true
 
 [terminal]
 shell_mode = "login"
+kitty_graphics = true
 
 [ui]
 agent_panel_sort = "spaces"
