@@ -38,7 +38,7 @@ write_files:
               name: en*
             dhcp6: false
             dhcp4: false
-            addresses: [ 192.168.122.100/24 ]
+            addresses: [ __IP__/24 ]
             routes:
             - to: default
               via: 192.168.122.1

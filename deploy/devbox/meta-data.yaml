@@ -1,2 +1,2 @@
-instance-id: devbox
-local-hostname: devbox
+instance-id: __NAME__
+local-hostname: __NAME__
