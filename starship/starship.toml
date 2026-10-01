@@ -33,7 +33,7 @@ format = "[${symbol}](white)"
 symbol = " "
 
 [nodejs]
-format = "[$symbol}](white)"
+format = "[${symbol}](white)"
 symbol = "󰎙 "
 
 [python]
