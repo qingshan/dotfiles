@@ -253,11 +253,11 @@ if command -q tailscale
   abbr --add tsst 'tailscale status'
 end
 
-# make
-abbr --add mb 'make build'
-abbr --add mr 'make run'
-abbr --add mt 'make test'
-abbr --add mc 'make clean'
+# mise
+abbr --add mr 'mise run'
+abbr --add mrb 'mise run build'
+abbr --add mrt 'mise run test'
+abbr --add mrc 'mise run clean'
 
 # just
 if command -q just
