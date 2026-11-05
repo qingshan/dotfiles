@@ -1,7 +1,7 @@
 # common profile
-source $HOME/.profile
+source "$HOME/.profile"
 
 # local bashrc
-if [ -f $HOME/.bashrc ]; then
-  . $HOME/.bashrc
+if [ -f "$HOME/.bashrc" ]; then
+  . "$HOME/.bashrc"
 fi

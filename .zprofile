@@ -1,2 +1,2 @@
 # common profile
-source $HOME/.profile
+source "$HOME/.profile"
