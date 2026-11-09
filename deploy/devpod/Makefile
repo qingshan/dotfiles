@@ -1,27 +1,21 @@
-DOCKER := $(shell if command -v container >/dev/null 2>&1; then echo "container"; else echo "docker"; fi)
+DOCKER ?= $(shell if command -v container >/dev/null 2>&1; then echo "container"; else echo "docker"; fi)
+REPO_ROOT := $(abspath ../..)
 
-.PHONY: test
+.PHONY: test server-image desktop-image server-test desktop-test
+# Share image preparation and run SSH tests sequentially.
+.NOTPARALLEL:
 test: server-test desktop-test
 
-.PHONY: prepare
-prepare:
-	cd ~/.dotfiles/test
-	ssh-keygen -t ed25519 -C test@dotfiles -N "" -f ./id_ed25519
-	chmod 600 ./id_ed25519
+server-image:
+	$(DOCKER) build -t dotfiles-server -f "$(CURDIR)/Dockerfile.server" "$(REPO_ROOT)"
 
-server-test: prepare
-	$(DOCKER) build -t dotfiles-server -f Dockerfile.server .
-	$(DOCKER) run --name dotfiles-server -d --rm -p 8022:22 dotfiles-server
-	sleep 1
-	ssh -q -i id_ed25519 -p 8022 qingshan@127.0.0.1 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" "rustup show"
-	$(DOCKER) stop dotfiles-server
+desktop-image: server-image
+	$(DOCKER) build -t dotfiles-desktop -f "$(CURDIR)/Dockerfile.desktop" "$(REPO_ROOT)"
 
-.PHONY: desktop-test
-desktop-test: prepare
-	$(DOCKER) build -t dotfiles-desktop -f Dockerfile.desktop .
-	$(DOCKER) run --name dotfiles-desktop -d --rm -p 8022:22 dotfiles-desktop
-	sleep 1
-	ssh -q -i id_ed25519 -p 8022 qingshan@127.0.0.1 -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" "rustup show"
-	$(DOCKER) stop dotfiles-desktop
+server-test: server-image
+	DOCKER="$(DOCKER)" bash ./test.sh dotfiles-server server
 
-.DEFAULT_GOAL := install
+desktop-test: desktop-image
+	DOCKER="$(DOCKER)" bash ./test.sh dotfiles-desktop desktop
+
+.DEFAULT_GOAL := test

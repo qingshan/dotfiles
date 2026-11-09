@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:13
 
 RUN apt-get update && \
     apt install -y \
@@ -23,13 +23,18 @@ RUN groupadd --gid 1000 qingshan && \
     echo "qingshan ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/qingshan && \
     chmod 0440 /etc/sudoers.d/qingshan
 
-RUN sudo -H -u qingshan git clone https://github.com/qingshan/dotfiles.git /home/qingshan/.dotfiles && \
-    sudo -H -u qingshan make -C /home/qingshan/.dotfiles
+# Cache tool installation separately from frequently edited shell helpers.
+COPY --chown=qingshan:qingshan Makefile /home/qingshan/.dotfiles/Makefile
+COPY --chown=qingshan:qingshan mise /home/qingshan/.dotfiles/mise
+COPY --chown=qingshan:qingshan linux /home/qingshan/.dotfiles/linux
+RUN sudo -H -u qingshan make -C /home/qingshan/.dotfiles bootstrap
 
-COPY id_ed25519.pub /home/qingshan/.ssh/authorized_keys
-RUN chown -R qingshan:qingshan /home/qingshan/.ssh && \
-    chmod 0700 /home/qingshan/.ssh && \
-    chmod 0600 /home/qingshan/.ssh/authorized_keys
+COPY --chown=qingshan:qingshan . /home/qingshan/.dotfiles
+RUN sudo -H -u qingshan make -C /home/qingshan/.dotfiles
+
+# The test runner supplies temporary SSH keys at runtime.
+RUN install -d -m 0700 -o qingshan -g qingshan /home/qingshan/.ssh && \
+    mkdir -p /run/sshd
 
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D", "-e"]
+CMD ["/bin/sh", "-c", "ssh-keygen -A && exec /usr/sbin/sshd -D -e"]
