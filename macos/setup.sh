@@ -1,42 +1,23 @@
 #!/usr/bin/env bash
-set -euxo pipefail # -e=-o errexit, -u=-o nounset
+set -euo pipefail
 
-# Ask for the administrator password upfront
-sudo -n true 2>/dev/null || sudo -v
-# Keep-alive: update existing `sudo` time stamp until `init.sh` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-# Prevent sleeping during script execution, as long as the machine is on AC power
-caffeinate -s -w $$ &
-
-# Install xcode commandline tools
-if [[ ! $(xcode-select -p 1>/dev/null; echo $?) ]]; then
-  echo "Install xcode commandline tools"
-  xcode-select --install
+script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+bash "$script_dir/bootstrap.sh"
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# Install Rosetta 2
-if ! (arch -arch x86_64 uname -m > /dev/null) ; then
-  echo "Install Rosetta 2"
+# Keep the machine awake for the lifetime of this setup process.
+caffeinate -s -w "$$" &
+caffeinate_pid=$!
+trap 'kill "$caffeinate_pid" 2>/dev/null || true' EXIT
+
+if [[ $(uname -m) == arm64 ]] && ! arch -arch x86_64 uname -m >/dev/null 2>&1; then
   softwareupdate --install-rosetta --agree-to-license
 fi
 
-# Install homebrew
-if [[ $(command -v brew) == "" ]]; then
-  echo "Install homebrew"
-  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
-fi
-
-case `uname -m` in
-arm64)
-    eval "$(/opt/homebrew/bin/brew shellenv)" ;;
-x86_64)
-    eval "$(/usr/local/bin/brew shellenv)" ;;
-esac
-
-# Install all dependencies from the Brewfile
-echo "Install brew bundle"
-brew bundle -v --no-lock --file ~/.dotfiles/macos/Brewfile || true
-
-# Apply macOS system settings
-. ~/.dotfiles/macos/defaults.sh"
+# Installing dotfiles does not implicitly upgrade existing Homebrew packages.
+HOMEBREW_BUNDLE_NO_UPGRADE=1 brew bundle --file "$script_dir/Brewfile"
+bash "$script_dir/defaults.sh"
