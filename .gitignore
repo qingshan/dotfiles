@@ -2,3 +2,12 @@
 /zed
 /TODO*
 id_ed25519*
+
+# Machine-local Herdr runtime state
+/herdr/*.log
+/herdr/session.json
+/herdr/.plugins.lock
+
+# Python check/test caches
+__pycache__/
+*.pyc
