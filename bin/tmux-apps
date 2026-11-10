@@ -6,6 +6,7 @@ declare -a menu_items
 while [[ $# -gt 0 ]]; do
   case $1 in
     -d|--directory)
+      [[ $# -ge 2 ]] || { echo "Missing directory" >&2; exit 2; }
       directory="$2"
       shift 2
       ;;
@@ -18,7 +19,7 @@ while [[ $# -gt 0 ]]; do
       shift
       break
       ;;
-    -*|--*)
+    -*)
       echo "${0}: invalid option -- '${1}'"
       exit 1
       ;;
@@ -30,6 +31,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 cmd=${positional_args[0]}
+cd "$directory" || exit $?
 
 function build_menu_items {
   menu_items+=('Copilot' 'c' 'run-shell "tmux-run -t center copilot"')
@@ -85,7 +87,8 @@ function fzf_hotkey_menu {
   printf '%s\n' "${labels[@]}" \
     | fzf --layout=reverse --no-sort --prompt '  ' --pointer='➤ ' --marker='➤' "${binds[@]}"
   if [ -s "$tmpfile" ]; then
-    local row=$(cat "$tmpfile")
+    local row
+    row=$(cat "$tmpfile")
     local selected=${commands_by_row[row]}
     if [ -n "$selected" ]; then
       eval "$selected"

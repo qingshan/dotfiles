@@ -62,7 +62,7 @@ function herdr_switch_session {
   if [ -n "$workspace_id" ]; then
     herdr workspace focus "$workspace_id" > /dev/null
   else
-    working_directory="$PROJECTS/$SESSION"
+    working_directory="${PROJECTS:-$HOME/code}/$SESSION"
     if [ ! -d "$working_directory" ]; then
       working_directory="$HOME"
     fi
@@ -93,7 +93,7 @@ function herdr_remote_switch_session {
   fi
 }
 
-SESSION="$1"
+SESSION="${1:-}"
 
 if [[ -z $SESSION ]]; then
   # herdr unifies "sessions" and "servers" into one workspace picker; tmux keeps them
@@ -134,43 +134,45 @@ elif [[ "$SESSION" == "all" ]]; then
 fi
 
 if [[ $SESSION  =~ "@" ]]; then
-  SERVER=$(echo $SESSION | cut -d@ -f2)
-  SESSION=$(echo $SESSION | cut -d@ -f1)
+  SERVER=${SESSION#*@}
+  SESSION=${SESSION%%@*}
   if [[ -z $SESSION ]]; then
     SESSION="main"
   fi
   if [ "$HERDR_ENV" = "1" ]; then
     herdr_remote_switch_session
-  elif command -v caffeinate &>/dev/null; then
-    AUTOSSH_GATETIME=0 exec caffeinate autossh -M0 -t -o ServerAliveCountMax=2 -o ServerAliveInterval=5 -o ConnectTimeout=5 -o BatchMode=yes $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
   else
-    AUTOSSH_GATETIME=0 exec autossh -M0 -t -o ServerAliveCountMax=2 -o ServerAliveInterval=5 -o ConnectTimeout=5 -o BatchMode=yes $SERVER '/bin/bash --login -ic "tmux-sessions '$SESSION'"'
+    printf -v remote_command 'tmux-sessions %q' "$SESSION"
+    # SSH joins its command arguments and executes them using the remote shell.
+    remote_command=${remote_command//\'/\'\\\'\'}
+    ssh_command=(autossh -M0 -t -o ServerAliveCountMax=2 -o ServerAliveInterval=5 -o ConnectTimeout=5 -o BatchMode=yes "$SERVER" "/bin/bash --login -c '$remote_command'")
+    if command -v caffeinate &>/dev/null; then
+      AUTOSSH_GATETIME=0 exec caffeinate "${ssh_command[@]}"
+    else
+      AUTOSSH_GATETIME=0 exec "${ssh_command[@]}"
+    fi
   fi
 elif [[ -n $SESSION ]]; then
   if [ "$HERDR_ENV" = "1" ]; then
     herdr_switch_session
   else
-    # new session if session is not available
-    tmux_running=$(pgrep tmux)
-    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-      tmux new-session -A -D -s $SESSION
+    # Create detached first so both the first session and later sessions get
+    # the same working directory and initialization file before attachment.
+    if ! tmux has-session -t "=$SESSION" 2>/dev/null; then
+      working_directory="${PROJECTS:-$HOME/code}/$SESSION"
+      if [[ ! -d "$working_directory" ]]; then
+        working_directory="$HOME"
+      fi
+      initial_file="$HOME/.dotfiles/tmux/sessions/$SESSION.tmux.conf"
+      tmux new-session -ds "$SESSION" -c "$working_directory" || exit $?
+      if [[ -f "$initial_file" ]]; then
+        tmux source-file -t "$SESSION:" "$initial_file" || exit $?
+      fi
+    fi
+    if [[ -z $TMUX ]]; then
+      tmux attach-session -d -t "=$SESSION"
     else
-      if ! tmux has-session -t $SESSION 2> /dev/null; then
-        WORKING_DIRECTORY=$PROJECTS/$SESSION
-        INITIAL_FILE="~/.dotfiles/tmux/sessions/$SESSION.tmux.conf"
-        if [[ -f "$INITIAL_FILE" ]]; then
-          INITIAL_COMMAND="tmux source-file $INTIALL_FILE"
-        fi
-        if [[ ! -d "$WORKING_DIRECTORY" ]]; then
-          WORKING_DIRECTORY="~"
-        fi
-        tmux new-session -ds $SESSION -c $WORKING_DIRECTORY $INTIAL_COMMAND
-      fi
-      if [[ -z $TMUX ]]; then
-        tmux new-session -A -D -s $SESSION
-      else
-        tmux switch-client -t $SESSION
-      fi
+      tmux switch-client -t "=$SESSION"
     fi
   fi
 fi

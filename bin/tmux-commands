@@ -5,7 +5,7 @@ clusters() {
 }
 
 servers() {
-  test -f ~/.ssh/config && cat ~/.ssh/config | grep "^Host " | awk '{print $2}' | grep -v "*" | awk '{print "ssh", $1}'
+  test -f ~/.ssh/config && awk '/^[[:space:]]*Host[[:space:]]/ { for (i = 2; i <= NF; i++) if ($i !~ /[*?!]/) print "ssh", $i }' ~/.ssh/config
 }
 
 commands() {
