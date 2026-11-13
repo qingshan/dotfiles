@@ -145,3 +145,11 @@ command = "bash -lc 'tmux-apps menu'"
 description = "apps menu"
 width = "80%"
 height = "80%"
+
+[[keys.command]]
+key = "prefix+shift+n"
+type = "popup"
+command = "tmux-sessions all"
+description = "sessions menu"
+width = "80%"
+height = "80%"

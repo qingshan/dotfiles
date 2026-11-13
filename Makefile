@@ -50,7 +50,7 @@ tmux: dotfiles-bootstrap
 
 .PHONY: herdr
 herdr: dotfiles-bootstrap
-	mise dotfiles apply --yes ${HOME}/.config/herdr/config.toml
+	mise dotfiles apply --yes ${HOME}/.config/herdr/config.toml ${HOME}/.config/herdr/workspaces.conf
 
 .PHONY: git
 git:

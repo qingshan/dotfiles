@@ -61,6 +61,7 @@ glow = "latest"
 "~/.vimrc" = "~/.dotfiles/.vimrc"
 "~/.config/tmux/tmux.conf" = "~/.dotfiles/tmux/tmux.conf"
 "~/.config/herdr/config.toml" = "~/.dotfiles/herdr/config.toml"
+"~/.config/herdr/workspaces.conf" = "~/.dotfiles/herdr/workspaces.conf"
 "~/.config/zk" = "~/.dotfiles/zk"
 "~/.config/mise/config.toml" = "~/.dotfiles/mise/config.toml"
 
